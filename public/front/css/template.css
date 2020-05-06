@@ -1,0 +1,1264 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  max-width: 100%;
+  margin: 0;
+  font-weight: 600;
+  font-family: "Roboto", sans-serif;
+  color: #115063;
+  background: url(/front/images/bcg.jpg) no-repeat top center fixed;
+  background-size: cover;
+  overflow: hidden;
+}
+
+body {
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/*kacinec back to top button*/
+
+#toTop {
+  width: 45px;
+  height: 45px;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  /* this is the magic */
+  bottom: 20px;
+  right: 10px;
+  cursor: pointer;
+  transition: color 300ms, background-color 300ms, opacity 300ms;
+  -moz-transition: color 300ms, background-color 300ms, opacity 300ms;
+  -o-transition: color 300ms, background-color 300ms, opacity 300ms;
+  -webkit-transition: color 300ms, background-color 300ms, opacity 300ms;
+  z-index: 9;
+  border-radius: 25px;
+  background: #1EC6B6;
+  color: #fff;
+  display: block;
+}
+
+#toTop i {
+  font-size: 1.5em;
+  line-height: 24px;
+}
+
+#toTop:hover {
+  transform: translate(0px, -5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.1s;
+}
+
+/*endkacinec*/
+
+/* fixes */
+
+a[href^="tel:"],
+a[href^="mailto:"] {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Type */
+
+h1 {
+  font-size: 35px;
+  text-align: left;
+  font-weight: 900;
+  margin-bottom: 0px;
+}
+
+h2 {
+  font-size: 25px;
+  text-align: left;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: 300;
+  text-align: left;
+  margin-top: 0px;
+}
+
+h4 {
+  font-size: 15px;
+  font-weight: 900;
+  text-align: left;
+}
+
+h5 {
+  font-size: 15px;
+  font-weight: 400;
+  text-align: left;
+  padding-bottom: 5px;
+  margin-bottom: 0px;
+  margin-top: 5px;
+}
+
+q {
+  font-size: 15px;
+  text-align: left;
+  font-weight: 300;
+  font-style: oblique;
+}
+
+p {
+  text-align: left;
+  font-weight: 300;
+}
+
+/* links & buttons */
+
+a {
+  outline: 0;
+  color: darkorange;
+  text-decoration: none;
+}
+
+a:hover {
+  color: orange;
+}
+
+.box_footer a {
+  color: #fff;
+}
+
+.box_footer a:hover {
+  text-decoration: underline;
+}
+
+.big_btn {
+  color: #fff;
+  background-color: darkorange;
+  font-size: 18px;
+  font-weight: 900;
+  text-decoration: none;
+  padding: 10px 15px;
+  margin: 10px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  transition: 1s;
+  border-radius: 25px;
+}
+
+.big_btn:hover {
+  color: #fff;
+  background-color: orange;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.small_btn {
+  color: #fff;
+  background-color: #115063;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 5px 10px;
+  margin: 10px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  transition: 1s;
+  border-radius: 15px;
+}
+
+.small_btn:hover {
+  color: #fff;
+  background-color: #115063;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* containters */
+
+.headline {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+}
+
+.headline_logo {
+  width: 250px;
+  max-width: 80%;
+  display: flex;
+}
+
+.mainbox {
+  display: flex;
+  width: 100%;
+  padding: 100px 0;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.mainbox.mainbox_white {
+  color: #115063;
+  background-color: #fff;
+}
+
+.mainbox.mainbox_blue {
+  color: #fff;
+  background-color: #115063;
+}
+
+/* content boxes */
+
+.box_left {
+  max-width: 400px;
+  align-items: flex-start;
+  padding: 20px;
+  /*!*box-sizing: border-box;*!*/
+}
+
+.box_right {
+  max-width: 700px;
+  overflow: hidden;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  /*!*box-sizing: border-box;*!*/
+}
+
+.box_grey,
+.box_transparent {
+  width: 300px;
+  align-items: center;
+  display: flex;
+  margin: 10px;
+  padding: 20px;
+  /*!*box-sizing: border-box;*!*/
+  border-radius: 50px;
+}
+
+.box_grey {
+  background-color: ghostwhite;
+}
+
+.box_icon {
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+  /*	display: flex; */
+  /*box-sizing: border-box;*/
+}
+
+.box_center {
+  width: 300px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  /*box-sizing: border-box;*/
+}
+
+.box_center p {
+  text-align: center;
+}
+
+.box_footer {
+  width: 300px;
+  max-width: 80%;
+  align-items: flex-start;
+  padding: 30px;
+  /*box-sizing: border-box;*/
+}
+
+.box_mini {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.box_mini .box_mini_title {
+  margin: 15px 0;
+  font-weight: lighter;
+}
+
+.box_mini .small_btn {
+  margin: 0;
+}
+
+.form_box {
+  width: 400px;
+  /*max-width: 100%;*/
+  /*height: auto;*/
+  /*align-items: flex-start;*/
+  /*margin: 10px;*/
+  padding: 20px;
+  /*box-sizing: border-box;*/
+}
+
+.infoblock_bl {
+  max-width: 600px;
+  align-items: flex-start;
+  padding: 30px;
+  /*box-sizing: border-box;*/
+}
+
+/* media corrections */
+
+@media screen and (max-height: 450px) {
+  .mobile-menu {
+    padding-top: 15px;
+  }
+
+  .mobile-menu a {
+    font-size: 18px;
+  }
+
+  .box_grey {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-basis: auto;
+    /*box-sizing: border-box;*/
+    margin: 10px 0;
+    padding: 20px;
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*box-sizing: border-box;*/
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0 20px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.pohladavka {
+  display: flex;
+  justify-content: center;
+  /*box-sizing: border-box;*/
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 10px;
+  background-color: ghostwhite;
+  border: 1px solid Gainsboro;
+  /*rgb(37, 116, 169)*/
+  margin: 10px;
+}
+
+.pohladavka .pohladavka_item {
+  width: 100%;
+  max-width: 200px;
+  align-items: flex-start;
+  margin: 10px;
+  padding: 10px;
+  background-color: white;
+  border-top: 1px solid #2574a9;
+}
+
+.pohladavka .pohladavka_item.orange {
+  border-top: 3px solid darkorange;
+}
+
+/* END css V2 */
+
+article {
+  /*box-sizing: border-box;*/
+  max-width: 800px;
+  width: auto;
+  padding: 20px;
+}
+
+article p {
+  text-align: justify;
+}
+
+form {
+  margin: 0;
+  padding: 0;
+}
+
+.messages {
+  padding-top: 70px;
+  padding-bottom: 20px;
+  display: block;
+  width: 100%;
+  background-color: white;
+}
+
+.message {
+  background-color: firebrick;
+  color: white;
+  padding: 10px;
+}
+
+.msg-error {
+  background-color: firebrick;
+}
+
+.msg-ok {
+  background-color: ForestGreen;
+}
+
+.msg-info {
+  background-color: Gainsboro;
+  color: #2574a9;
+}
+
+.infoblock_admin {
+  max-width: 160px;
+  align-items: flex-start;
+  margin: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-bottom: 1px #115063 solid;
+}
+
+table th {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+
+table td {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 30px;
+}
+
+table td span {
+  max-width: 160px;
+  align-items: flex-start;
+  margin: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px #115063 solid;
+}
+
+.row_un {
+  width: 80%;
+  border-bottom: 1px #115063 solid;
+}
+
+.container_flex_row {
+  color: #115063;
+  display: inline-flex;
+  width: auto;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #fff;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  border-bottom: 1px #c8c8c8 solid;
+}
+
+/* containers  */
+
+.main-menu {
+  width: 100%;
+  height: 70px;
+  /*padding-top: 10px;*/
+  /*padding-bottom: 10px;*/
+  padding: 10px;
+  background-color: #115063;
+  position: fixed;
+  z-index: 8;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container_flex_home {
+  color: black;
+  display: inline-flex;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #fff;
+  /* padding-bottom: 30px;
+  padding-top: 30px;    */
+  padding-bottom: 150px;
+  padding-top: 50px;
+}
+
+.container_flex_blue_home {
+  color: #fff;
+  display: inline-flex;
+  width: 100%;
+  min-height: 100%;
+  justify-content: center;
+  /* align-items: center; */
+  flex-wrap: wrap;
+  /*background-color: $primary; */
+  background-color: transparent;
+  /* padding-bottom: 30px;
+  padding-top: 30px;    */
+  padding-bottom: 50px;
+  padding-top: 100px;
+}
+
+.container_flex_blue {
+  color: #fff;
+  display: inline-flex;
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #115063;
+  /* padding-bottom: 30px;
+  padding-top: 30px;    */
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
+
+.container_flex_white {
+  color: #115063;
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #fff;
+  padding-bottom: 50px;
+  padding-top: 50px;
+  /*box-sizing: border-box;*/
+  overflow: hidden;
+}
+
+.container_flex_pohladavka {
+  color: #115063;
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #dedede;
+  /* padding-bottom: 30px;
+  padding-top: 30px;    */
+  margin-bottom: 10px;
+  padding-top: 60px;
+}
+
+.green {
+  background-color: #a6da95;
+}
+
+.red {
+  background-color: #dbc6bb;
+}
+
+/* blocks  */
+
+.logo_block {
+  display: flex;
+  /*box-sizing: border-box;*/
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+}
+
+.logo_svg {
+  width: 100%;
+  display: flex;
+  /*box-sizing: border-box;*/
+  padding: 20px;
+}
+
+.block {
+  max-width: 800px;
+  align-items: flex-start;
+  margin: 10px;
+  padding: 0px;
+  /* background-color: rgb(0, 0, 0); */
+}
+
+.infoblock {
+  /*max-width: 300px;*/
+  width: 300px;
+  /* max-width: 80%; */
+  /*justify-content: flex-start; */
+  align-items: center;
+  display: flex;
+  flex-basis: auto;
+  /*box-sizing: border-box;*/
+  margin: 10px;
+  padding: 20px;
+  background-color: ghostwhite;
+}
+
+.block_right {
+  max-width: 700px;
+  overflow: hidden;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: center;
+  display: flex;
+  /*box-sizing: border-box;*/
+  flex-wrap: wrap;
+  margin: 10px;
+  padding: 10px;
+}
+
+.infoblock_footer {
+  max-width: 200px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  display: flex;
+  /*box-sizing: border-box;*/
+  flex-flow: column;
+  text-align: left;
+  margin: 10px;
+  padding: 20px;
+}
+
+.infoblock_footer p {
+  text-align: left;
+}
+
+.infoblock_b {
+  max-width: 400px;
+  align-items: flex-start;
+  margin: 10px;
+  padding: 5px;
+}
+
+.headerblock {
+  width: 100%;
+  align-items: flex-start;
+  margin: 0px;
+  padding: 0px;
+}
+
+.row_black {
+  width: 30%;
+  height: 3px;
+  margin-left: 35%;
+  margin-right: 35%;
+  /* background-color: rgb(140, 198, 63); */
+  background-color: black;
+}
+
+.rowf {
+  width: 80%;
+}
+
+/* media  */
+
+.big_img {
+  width: 100%;
+}
+
+.icon {
+  /*
+  max-width: 150px;
+  width: 100%; */
+  /* width: 8em; */
+  /*width: 100px;*/
+  /*height: 100px;*/
+  padding: 10px;
+  /*box-sizing: border-box;*/
+  display: flex;
+}
+
+.logo {
+  align: right;
+  height: 50px;
+  width: auto;
+}
+
+.right-menu {
+  float: right;
+  font-weight: 300;
+  text-align: right;
+  height: 70px;
+  width: auto;
+  color: white;
+  padding-right: 10px;
+  line-height: 50px;
+}
+
+/* Buttons
+*/
+
+a .button {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+  color: initial;
+}
+
+button,
+a.button {
+  font-size: 15px;
+  font-weight: 900;
+  text-decoration: none;
+  padding: 15px 25px;
+  min-width: 140px;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  transition: all 2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  border: none;
+  background-color: darkorange;
+  color: #fff;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+button:hover,
+a.button:hover {
+  border: none;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+  background-color: orange;
+}
+
+button:focus {
+  outline: 0;
+  border: none;
+}
+
+.add-files button {
+  padding: 10px 0px 5px 5px;
+  min-width: 75px;
+  margin: 5px 0 0;
+  display: inline;
+  border-radius: 25px;
+}
+
+.add-files div {
+  /*margin-bottom: 5px;*/
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
+
+.add-files input {
+  margin-bottom: 5px;
+}
+
+/* INPUT   */
+
+input[type=text],
+input[type=email],
+input[type=number] {
+  display: block;
+  margin: 0;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 18px;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+input[type=text]:focus {
+  outline: none;
+}
+
+/* MATERIAL INPUT */
+
+/* form starting stylings ------------------------------- */
+
+.group {
+  /*position:relative;*/
+  /*margin-bottom:45px;*/
+  margin-bottom: 20px;
+  /*width: 100%;*/
+  /*box-sizing: border-box;*/
+}
+
+input,
+textarea {
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 100%;
+  /*width:300px;*/
+  /*max-width: 100%;*/
+  border: none;
+  border-bottom: 1px solid #115063;
+  /*-webkit-box-sizing: border-box;*/
+  /*-moz-box-sizing: border-box;*/
+  /*box-sizing: border-box;*/
+}
+
+input:focus {
+  outline: none;
+}
+
+input[type=file] {
+  border: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+/* select */
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #115063;
+  padding: 10px 30px 10px 5px;
+  display: block;
+  font-size: 18px;
+  width: 100%;
+  color: #115063;
+}
+
+select ~ .arrow {
+  position: absolute;
+  right: 6px;
+  top: 11px;
+}
+
+select::-ms-expand {
+  display: none;
+  /* hide the default arrow in ie10 and ie11 */
+}
+
+/* target Internet Explorer 9 to undo the custom arrow */
+
+@media screen and (min-width: 0\0 ) {
+  select {
+    background-image: none\9;
+    padding: 5px\9;
+  }
+}
+
+/*  Checkbox  */
+
+input[type=checkbox] {
+  display: inline;
+  margin-right: 5px;
+  height: 15px;
+  width: 15px;
+}
+
+input[type=checkbox]:focus {
+  outline: none;
+}
+
+/* LABEL ======================================= */
+
+label {
+  color: #115063;
+  font-size: 14px;
+  /*font-size: 18px;*/
+  font-weight: normal;
+  /*position:absolute;*/
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+/* active state */
+
+input:focus ~ label,
+input:valid ~ label,
+input:invalid ~ label,
+select ~ label,
+input[type=date] ~ label {
+  top: -20px;
+  font-size: 14px;
+  color: #115063;
+}
+
+/* BOTTOM BARS ================================= */
+
+.bar {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.bar:before,
+.bar:after {
+  content: "";
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #115063;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+.bar:before {
+  left: 50%;
+}
+
+.bar:after {
+  right: 50%;
+}
+
+/* active state */
+
+input:focus ~ .bar:before,
+input:focus ~ .bar:after {
+  width: 50%;
+}
+
+input:invalid ~ .bar:before,
+input:invalid ~ .bar:after {
+  background-color: red;
+}
+
+/* HIGHLIGHTER ================================== */
+
+.highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* active state */
+
+input:focus ~ .highlight {
+  -webkit-animation: inputHighlighter 0.3s ease;
+  animation: inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+
+@-webkit-keyframes inputHighlighter {
+  from {
+    background: #115063;
+  }
+
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+@keyframes inputHighlighter {
+  from {
+    background: #115063;
+  }
+
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+/* MENU */
+
+.alogin {
+  font-weight: 300;
+  text-align: right;
+  color: white;
+  /*padding-right:10px;
+  padding-top: 16px;*/
+  text-decoration: none;
+  /*cursor: pointer;*/
+}
+
+a.alogin:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.menu {
+  font-family: "Material Icons";
+  color: #fff;
+  background-color: transparent;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 25px;
+  /* Preferred icon size */
+  margin-left: 10px;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  border-radius: 25px;
+  padding: 5px;
+  /*  position: fixed; */
+  /* z-index: 9;  */
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  font-feature-settings: "liga";
+}
+
+.menu:hover {
+  color: #115063;
+  background-color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 25px;
+}
+
+/* The side navigation menu */
+
+.mobile-menu {
+  color: #115063;
+  height: 100%;
+  /* 100% Full-height */
+  width: 250px;
+  /* 0 width - change this with JavaScript */
+  position: fixed;
+  /* Stay in place */
+  margin-left: -250px;
+  top: 0;
+  left: 0;
+  background-color: white;
+  overflow-x: hidden;
+  /* Disable horizontal scroll */
+  padding-top: 60px;
+  /* Place content 60px from the top */
+  transition: 0.5s;
+  /* 0.5 second transition effect to slide in the mobile-menu */
+  z-index: 10;
+}
+
+/* The navigation menu links */
+
+.mobile-menu a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #115063;
+  display: block;
+  transition: 0.5s;
+}
+
+/* When you mouse over the navigation links, change their color */
+
+.mobile-menu a:hover,
+.offcanvas a:focus {
+  color: #fff;
+  background-color: #115063;
+}
+
+/* Position and style the close button (top right corner) */
+
+.mobile-menu .closebtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 30px;
+  margin-left: 50px;
+  border-radius: 25px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+
+#main {
+  transition: margin-left 0.5s;
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the mobile-menu (less padding and a smaller font size) */
+
+@media screen and (max-height: 450px) {
+  .mobile-menu {
+    padding-top: 15px;
+  }
+
+  .mobile-menu a {
+    font-size: 18px;
+  }
+
+  .infoblock {
+    /*max-width: 300px;*/
+    width: 100%;
+    /* max-width: 80%; */
+    /*justify-content: flex-start; */
+    align-items: center;
+    display: flex;
+    flex-basis: auto;
+    /*box-sizing: border-box;*/
+    margin: 10px 0;
+    padding: 20px;
+  }
+}
+
+/* FULL MENU */
+
+/* Remove margins and padding from the list, and add a black background color */
+
+/* Float the left-menu items side by side */
+
+ul.left-menu {
+  float: left;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 70px;
+}
+
+ul.left-menu li {
+  float: left;
+}
+
+/* Style the links inside the list items */
+
+ul.left-menu li a {
+  display: inline-block;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  margin: 5px;
+  text-decoration: none;
+  transition: 0.3s;
+  font-size: 17px;
+  border-radius: 25px;
+}
+
+/* Change background color of links on hover */
+
+ul.left-menu li a:hover {
+  color: #115063;
+  background-color: #fff;
+  border-radius: 25px;
+}
+
+/* Hide the list item that contains the link that should open and close the left-menu on small screens */
+
+ul.left-menu li.icon {
+  display: none;
+}
+
+/* When the screen is less than 680 pixels wide, hide all list items, except for the first one ("Home"). Show the list item that contains the link to open and close the left-menu (li.icon) */
+
+@media screen and (max-width: 1200px) {
+  ul.left-menu li {
+    display: none;
+  }
+
+  ul.left-menu li.icon {
+    float: left;
+    display: inline-block;
+  }
+}
+
+/* The "responsive" class is added to the left-menu with JavaScript when the user clicks on the icon. This class makes the left-menu look good on small screens */
+
+@media screen and (max-width: 940px) {
+  ul.left-menu.responsive {
+    position: relative;
+  }
+
+  ul.left-menu.responsive li.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  ul.left-menu.responsive li {
+    float: none;
+    display: inline;
+  }
+
+  ul.left-menu.responsive li a {
+    display: block;
+    text-align: left;
+  }
+}
+
+form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
+  display: none;
+}
+
+.zoznam-pohladavok .pohladavka {
+  width: auto;
+}
+
+.zoznam-pohladavok form {
+  max-width: 90%;
+}
+
+.zoznam-pohladavok .files b {
+  max-width: 100%;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.label {
+  font-size: 14px;
+  color: #115063;
+  font-weight: normal;
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
+
+.datepicker-container {
+  font-weight: normal;
+}
+
+.datepicker-container .custom-highlight {
+  background-color: #115063;
+  color: #fff;
+}
+
+.datepicker-panel > ul > li:hover {
+  background-color: #166983 !important;
+  color: #fff;
+}
+
+#pridanie-pohladavky .datepicker-here {
+  border: 1px dashed #eee;
+  display: inline-block;
+}
+
+.autocomplete-suggestions {
+  text-align: left;
+  cursor: default;
+  border: 1px solid #ccc;
+  border-top: 0;
+  background: #fff;
+  box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.1);
+  /* core styles should not be changed */
+  /*position: absolute; display: none; z-index: 9999; max-height: 254px; overflow: hidden; overflow-y: auto; box-sizing: border-box;*/
+}
+
+.autocomplete-suggestion {
+  position: relative;
+  padding: 0 0.6em;
+  line-height: 23px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.02em;
+  color: #333;
+}
+
+.autocomplete-suggestion b {
+  font-weight: normal;
+  color: #1f8dd6;
+}
+
+.autocomplete-suggestion.selected {
+  background: #f0f0f0;
+}
+

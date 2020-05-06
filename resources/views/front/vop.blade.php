@@ -1,3 +1,6 @@
+@extends('front.layout')
+
+@section('content')
 <div class="container_flex_white">
     <article>
         <h2>VŠEOBECNÉ OBCHODNÉ PODMIENKY</h2>
@@ -120,3 +123,4 @@
         </p>
     </article>
 </div>
+@endsection

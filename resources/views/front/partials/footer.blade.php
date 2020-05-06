@@ -1,5 +1,5 @@
-<div id="footer" class="mainbox_blue">
-    <img class="headline_logo" src="{{ asset('template_default/images/logo.svg') }}"/>
+<div id="footer" class="mainbox mainbox_blue">
+    <img class="headline_logo" src="{{ asset('front/images/logo.svg') }}"/>
     <div class="row"></div>
 
     <div class="box_footer">
@@ -25,13 +25,13 @@
                 <a href="/" class="alogin">moje konto</a><br>
                 <a href="/" class="alogin">odhlásiť</a><br><br>
             @else
-                <a href="/" class="alogin">vytvoriť konto</a><br>
-                <a href="/" class="alogin">prihlásenie</a><br>
-                <a href="/" class="alogin">strata hesla</a><br><br>
+                <a href="{{ url('/register') }}" class="alogin">vytvoriť konto</a><br>
+                <a href="{{ url('/login') }}" class="alogin">prihlásenie</a><br>
+                <a href="{{ url('/password/reset') }}" class="alogin">strata hesla</a><br><br>
             @endauth
 
-            <a href="/">Ochrana osobných údajov</a><br/>
-            <a href="/">VOP</a>
+            <a href="{{ url('/vop') }}">Ochrana osobných údajov</a><br/>
+            <a href="{{ url('/vop') }}">VOP</a>
         </p>
     </div>
     <div class="row"><p>vymozete.sk &copy; 2017 - {{ @now()->year }}</p></div>

@@ -13,7 +13,7 @@
         <title>vymozete.sk - jednoduché online riešenie pohľadávok</title>
 
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
-        <link rel="stylesheet" href="{{ asset('template_default/css/public.css') }}">
+        <link rel="stylesheet" href="{{ asset('front/css/template.css') }}">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900&amp;subset=latin-ext" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -26,19 +26,19 @@
         </noscript>
         <div class="content">
             <div class="main-menu">
-                @include('template_default.navigation.mobile_nav')
-                @include('template_default.navigation.main')
+                @include('front.partials.navigation.mobile_nav')
+                @include('front.partials.navigation.main')
             </div>
 
         {{--    <div class="topspace">&nbsp;</div>--}}
 
 
-            @include('template_default.main')
-{{--            @yield('content')--}}
-            @include('template_default.footer')
+{{--            @include('template_default.main')--}}
+            @yield('content')
+            @include('front.partials.footer')
         </div>
     </body>
     @push ('scripts')
-        <script src="{{ asset('template_default/js/custom.js') }}"></script>
+        <script src="{{ asset('front/js/custom.js') }}"></script>
     @endpush
 </html>

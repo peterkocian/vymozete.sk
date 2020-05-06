@@ -1,13 +1,6 @@
-/* CSS Document */
+$primary: #115063;
+$white: #fff;
 
-/* COLORS
-original: rgb(17, 80, 99);
-*/
-
-
-/* css V2 */
-
-/* Main body & html */
 * {
     box-sizing: border-box;
 }
@@ -17,31 +10,25 @@ body, html {
     margin: 0;
     font-weight: 600;
     font-family: 'Roboto', sans-serif;
-    color: rgb(17, 80, 99);
-    background: url(../images/bcg.jpg) no-repeat top center fixed;
+    color: $primary;
+    background: url(/front/images/bcg.jpg) no-repeat top center fixed;
     background-size: cover;
     overflow: hidden;
 }
 
 body {
-    height:100%;
-    max-width: 100%;
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
 }
 
-/* typography */
-
-/*kacinec*/
-#toTop
-{
+/*kacinec back to top button*/
+#toTop {
     width:45px;
     height: 45px;
     box-sizing: border-box;
-    /*opacity: 0;*/
     text-align:center;
-    padding:10px 10px 10px 10px;
+    padding: 10px;
     position:fixed; /* this is the magic */
     bottom: 20px;
     right: 10px;
@@ -53,18 +40,16 @@ body {
     z-index: 9;
     border-radius: 25px;
     background: #1EC6B6;
-    color: #fff;
+    color: $white;
     display: block;
 }
 
-#toTop i
-{
+#toTop i {
     font-size: 1.5em;
     line-height: 24px;
 }
 
-#toTop:hover
-{
+#toTop:hover {
     -webkit-transform: translate(0px,-5px);
     -moz-transform: translate(0px,-5px);
     transform: translate(0px,-5px);
@@ -128,8 +113,6 @@ p  {
     font-weight: 300;
 }
 
-
-
 /* links & buttons */
 a {
     outline: 0;
@@ -142,15 +125,14 @@ a:hover {
 }
 
 .box_footer a {
-    color: white;
-}
-
-.box_footer a:hover {
-    text-decoration: underline;
+    color: $white;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 .big_btn {
-    color: white;
+    color: $white;
     background-color: darkorange;
     font-size: 18px;
     font-weight: 900;
@@ -160,18 +142,16 @@ a:hover {
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
     transition: 1s;
     border-radius: 25px;
+    &:hover {
+        color: $white;
+        background-color: orange;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    }
 }
-
-.big_btn:hover {
-    color: white;
-    background-color: orange;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
-}
-
 
 .small_btn {
-    color: white;
-    background-color: rgb(17, 80, 99);
+    color: $white;
+    background-color: $primary;
     font-size: 12px;
     font-weight: 600;
     text-decoration: none;
@@ -180,72 +160,54 @@ a:hover {
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
     transition: 1s;
     border-radius: 15px;
-}
-
-.small_btn:hover {
-    color: white;
-    background-color: rgb(17, 80, 99);
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    &:hover {
+        color: $white;
+        background-color: $primary;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    }
 }
 
 /* containters */
 .headline {
     display: flex;
     flex-direction: column;
-    /*width: 100%;*/
-    /*height: auto;*/
     min-height: 100vh;
-    color: white;
+    color: $white;
     justify-content: center;
     align-items: center;
-    /*!*box-sizing: border-box;*!*/
-    /*padding-bottom: 50px;*/
-    /*padding-top: 70px;*/
 }
 
 .headline_logo {
     width: 250px;
     max-width: 80%;
-    height: auto;
+    //height: auto;
     display: flex;
-    /*!*box-sizing: border-box;*!*/
 }
 
-.mainbox_white  {
-    color: rgb(17, 80, 99);
+.mainbox {
     display: flex;
     width: 100%;
-    height: auto;
+    padding: 100px 0;
+    //height: auto;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: rgb(255, 255, 255);
-    padding-bottom: 100px;
-    padding-top: 100px;
-    /*!*box-sizing: border-box;*!*/
     overflow: hidden;
-}
-
-.mainbox_blue  {
-    color: rgb(255, 255, 255);
-    display: flex;
-    text-align: center;
-    width: 100%;
-    height: auto;
-    justify-content: center;
-    flex-wrap: wrap;
-    background-color: rgb(17, 80, 99);
-    padding-bottom: 100px;
-    padding-top: 100px;
-    /*!*box-sizing: border-box;*!*/
-    overflow: hidden;
+    &.mainbox_white {
+        color: $primary;
+        background-color: $white;
+    }
+    &.mainbox_blue {
+        color: $white;
+        background-color: $primary;
+    }
 }
 
 /* content boxes */
 .box_left {
     max-width: 400px;
-    height: auto;
+    //height: auto;
     align-items: flex-start;
-    margin:10px;
+    //margin:10px;
     padding: 20px;
     /*!*box-sizing: border-box;*!*/
 }
@@ -253,43 +215,34 @@ a:hover {
 .box_right {
     max-width: 700px;
     overflow: hidden;
-    height: auto;
+    //height: auto;
     align-items: flex-start;
     justify-content: center;
     align-self: center;
     display: flex;
-    flex-flow: row;
+    //flex-flow: row;
     flex-wrap: wrap;
-    margin:10px;
-    padding: 10px;
+    //margin:10px;
+    padding: 20px;
     /*!*box-sizing: border-box;*!*/
+}
+
+.box_grey, .box_transparent {
+    width: 300px;
+    //height: auto;
+    align-items: center;
+    display: flex;
+    //flex-basis: auto;
+    //flex-flow: row;
+    margin:10px;
+    padding: 20px;
+    //background-color: ghostwhite;
+    /*!*box-sizing: border-box;*!*/
+    border-radius: 50px;
 }
 
 .box_grey {
-    width: 300px;
-    height: auto;
-    align-items: center;
-    display: flex;
-    flex-basis: auto;
-    flex-flow: row;
-    margin:10px;
-    padding: 20px;
     background-color: ghostwhite;
-    /*!*box-sizing: border-box;*!*/
-    border-radius: 50px;
-}
-
-.box_transparent {
-    width: 300px;
-    height: auto;
-    align-items: center;
-    display: flex;
-    flex-basis: auto;
-    flex-flow: row;
-    margin:10px;
-    padding: 20px;
-    /*box-sizing: border-box;*/
-    border-radius: 50px;
 }
 
 .box_icon {
@@ -302,14 +255,14 @@ a:hover {
 
 .box_center {
     width: 300px;
-    height: auto;
+    //height: auto;
     align-items: center;
-    text-align: center;
+    //text-align: center;
     display: flex;
     flex-direction: column;
-    flex-basis: auto;
-    margin:10px;
-    padding: 20px;
+    //flex-basis: auto;
+    //margin:10px;
+    padding: 30px;
     /*box-sizing: border-box;*/
 }
 
@@ -320,10 +273,10 @@ a:hover {
 .box_footer {
     width: 300px;
     max-width: 80%;
-    height: auto;
+    //height: auto;
     align-items: flex-start;
-    margin:10px;
-    padding: 20px;
+    //margin:10px;
+    padding: 30px;
     /*box-sizing: border-box;*/
 }
 
@@ -331,30 +284,31 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    .box_mini_title {
+        margin: 15px 0;
+        font-weight: lighter;
+    }
+    .small_btn {
+        margin: 0;
+    }
 }
-
-.box_mini .small_btn {
-    margin: 0;
-}
-
 
 .form_box {
     width: 400px;
-    max-width: 100%;
-    height: auto;
-    align-items: flex-start;
-    margin: 10px;
+    /*max-width: 100%;*/
+    /*height: auto;*/
+    /*align-items: flex-start;*/
+    /*margin: 10px;*/
     padding: 20px;
     /*box-sizing: border-box;*/
 }
 
-
 .infoblock_bl {
     max-width: 600px;
-    height: auto;
+    //height: auto;
     align-items: flex-start;
-    margin: 10px;
-    padding: 20px;
+    //margin: 10px;
+    padding: 30px;
     /*box-sizing: border-box;*/
 }
 
@@ -364,13 +318,13 @@ a:hover {
     .mobile-menu a {font-size: 18px;}
     .box_grey {
         width: 100%;
-        height: auto;
-        align-items: left;
+        //height: auto;
+        //align-items: left;
         align-items: center;
         display: flex;
         flex-basis: auto;
         /*box-sizing: border-box;*/
-        flex-flow: row;
+        //flex-flow: row;
         margin: 10px 0;
         padding: 20px;
     }
@@ -383,8 +337,9 @@ a:hover {
     /*box-sizing: border-box;*/
     flex-wrap: wrap;
     width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 0 20px;
+    //padding-left: 20px;
+    //padding-right: 20px;
     margin: auto;
     overflow: hidden;
 }
@@ -404,7 +359,7 @@ a:hover {
 .pohladavka .pohladavka_item {
     width: 100%;
     max-width: 200px;
-    height: auto;
+    //height: auto;
     align-items: flex-start;
     margin: 10px;
     padding: 10px;
@@ -438,7 +393,7 @@ form {
     padding-bottom: 20px;
     display: block;
     width: 100%;
-    height: auto;
+    //height: auto;
     background-color: white;
 }
 .message {
@@ -462,12 +417,12 @@ form {
 
 .infoblock_admin {
     max-width: 160px;
-    height: auto;
+    //height: auto;
     align-items: flex-start;
     margin:10px;
     padding-left: 20px;
     padding-right: 20px;
-    border-bottom: 1px rgb(17, 80, 99) solid;
+    border-bottom: 1px $primary solid;
 }
 table th {
     padding-left: 20px;
@@ -481,28 +436,28 @@ table td {
 }
 table td span {
     max-width: 160px;
-    height: auto;
+    //height: auto;
     align-items: flex-start;
     margin:10px;
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 10px;
-    border-bottom: 1px rgb(17, 80, 99) solid;
+    border-bottom: 1px $primary solid;
 }
 
 .row_un {
     width: 80%;
-    border-bottom: 1px rgb(17, 80, 99) solid;
+    border-bottom: 1px $primary solid;
 }
 
 .container_flex_row  {
-    color: rgb(17, 80, 99);
+    color: $primary;
     display: inline-flex;
     width: auto;
-    height: auto;
+    //height: auto;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: rgb(255, 255, 255);
+    background-color: $white;
     padding-bottom: 5px;
     padding-top: 5px;
     border-bottom: 1px rgb(200, 200, 200) solid;
@@ -513,8 +468,9 @@ table td span {
 .main-menu{
     width: 100%;
     height: 70px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    /*padding-top: 10px;*/
+    /*padding-bottom: 10px;*/
+    padding: 10px;
     background-color: rgba(17, 80, 99, 1);
     position: fixed;
     z-index: 8;
@@ -527,10 +483,10 @@ table td span {
     width: 90%;
     margin-left: 5%;
     margin-right: 5%;
-    height: auto;
+    //height: auto;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: rgb(255, 255, 255);
+    background-color: $white;
     /* padding-bottom: 30px;
     padding-top: 30px;    */
     padding-bottom: 150px;
@@ -538,15 +494,15 @@ table td span {
 }
 
 .container_flex_blue_home  {
-    color: rgb(255, 255, 255);
+    color: $white;
     display: inline-flex;
     width: 100%;
-    height: auto;
+    //height: auto;
     min-height: 100%;
     justify-content: center;
     /* align-items: center; */
     flex-wrap: wrap;
-    /*background-color: rgb(17, 80, 99); */
+    /*background-color: $primary; */
     background-color: transparent;
     /* padding-bottom: 30px;
     padding-top: 30px;    */
@@ -555,14 +511,14 @@ table td span {
 }
 
 .container_flex_blue  {
-    color: rgb(255, 255, 255);
+    color: $white;
     display: inline-flex;
     text-align: center;
     width: 100%;
-    height: auto;
+    //height: auto;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: rgb(17, 80, 99);
+    background-color: $primary;
     /* padding-bottom: 30px;
     padding-top: 30px;    */
     padding-bottom: 50px;
@@ -570,13 +526,13 @@ table td span {
 }
 
 .container_flex_white  {
-    color: rgb(17, 80, 99);
+    color: $primary;
     display: inline-flex;
     width: 100%;
-    height: auto;
+    //height: auto;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: rgb(255, 255, 255);
+    background-color: $white;
     padding-bottom: 50px;
     padding-top: 50px;
     /*box-sizing: border-box;*/
@@ -584,10 +540,10 @@ table td span {
 }
 
 .container_flex_pohladavka  {
-    color: rgb(17, 80, 99);
+    color: $primary;
     display: inline-flex;
     width: 100%;
-    height: auto;
+    //height: auto;
     justify-content: center;
     flex-wrap: wrap;
     background-color: rgb(222, 222, 222);
@@ -613,12 +569,12 @@ table td span {
     justify-content: center;
     align-items: center;
     max-width: 600px;
-    height: auto;
+    //height: auto;
 }
 
 .logo_svg {
     width: 100%;
-    height: auto;
+    //height: auto;
     display: flex;
     /*box-sizing: border-box;*/
     padding: 20px;
@@ -626,7 +582,7 @@ table td span {
 
 .block {
     max-width: 800px;
-    height: auto;
+    //height: auto;
     align-items: flex-start;
     margin:10px;
     padding: 0px;
@@ -637,13 +593,13 @@ table td span {
     /*max-width: 300px;*/
     width: 300px;
     /* max-width: 80%; */
-    height: auto;
+    //height: auto;
     /*justify-content: flex-start; */
     align-items: center;
     display: flex;
     flex-basis: auto;
     /*box-sizing: border-box;*/
-    flex-flow: row;
+    //flex-flow: row;
     margin:10px;
     padding: 20px;
     background-color: ghostwhite;
@@ -652,13 +608,13 @@ table td span {
 .block_right {
     max-width: 700px;
     overflow: hidden;
-    height: auto;
+    //height: auto;
     align-items: flex-start;
     justify-content: center;
     align-self: center;
     display: flex;
     /*box-sizing: border-box;*/
-    flex-flow: row;
+    //flex-flow: row;
     flex-wrap: wrap;
     margin:10px;
     padding: 10px;
@@ -666,7 +622,7 @@ table td span {
 
 .infoblock_footer {
     max-width: 200px;
-    height: auto;
+    //height: auto;
     align-items: flex-start;
     justify-content: flex-start;
     display: flex;
@@ -683,24 +639,19 @@ table td span {
 
 .infoblock_b {
     max-width: 400px;
-    height: auto;
+    //height: auto;
     align-items: flex-start;
     margin:10px;
     padding: 5px;
 }
 
-
-
-
 .headerblock {
     width: 100%;
-    height: auto;
+    //height: auto;
     align-items: flex-start;
     margin:0px;
     padding: 0px;
 }
-
-
 
 @media screen and (max-width:450px) {
 }
@@ -718,15 +669,11 @@ table td span {
     width: 80%;
 }
 
-
-
-
 /* media  */
 .big_img{
     width: 100%;
-    height: auto;
+    //height: auto;
 }
-
 
 .icon{
     /*
@@ -772,7 +719,7 @@ button, a.button {
     font-weight: 900;
     text-decoration: none;
     padding: 15px 25px;
-    height: auto;
+    //height: auto;
     min-width: 140px;
     display: block;
     margin: 20px auto;
@@ -781,7 +728,7 @@ button, a.button {
     cursor: pointer;
     border: none;
     background-color: darkorange;
-    color: white;
+    color: $white;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -805,7 +752,7 @@ button:focus {
 }
 
 .add-files div {
-    margin-bottom: 5px;
+    /*margin-bottom: 5px;*/
     font-size: 14px;
     font-weight: 400;
     margin-left: 5px;
@@ -830,74 +777,76 @@ input[type="text"]:focus {
     outline: none;
 }
 
-.style-1 input[type="text"] {
-    padding: 10px;
-    border: solid 1px #dcdcdc;
-    transition: box-shadow 0.3s, border 0.3s;
-}
-.style-1 input[type="text"]:focus,
-.style-1 input[type="text"].focus {
-    border: solid 1px #707070;
-    box-shadow: 0 0 5px 1px #969696;
-}
-
-.style-2 input[type="text"] {
-    padding: 10px;
-    border: solid 5px #c9c9c9;
-    transition: border 0.3s;
-}
-.style-2 input[type="text"]:focus,
-.style-2 input[type="text"].focus {
-    border: solid 5px #969696;
-}
-
-.style-3 input[type="text"] {
-    padding: 10px;
-    border: solid 5px #c9c9c9;
-    box-shadow: inset 0 0 0 1px #707070;
-    transition: box-shadow 0.3s, border 0.3s;
-}
-.style-3 input[type="text"]:focus,
-.style-3 input[type="text"].focus {
-    border: solid 5px #969696;
-}
-
-.style-4 input[type="text"] {
-    padding: 10px;
-    border: none;
-    border-bottom: solid 2px #c9c9c9;
-    transition: border 0.3s;
-}
-.style-4 input[type="text"]:focus,
-.style-4 input[type="text"].focus {
-    border-bottom: solid 2px #969696;
-}
-
-.style-5 input[type="text"] {
-    padding: 10px;
-    border: solid 1px #fff;
-    box-shadow: inset 1px 1px 2px 0 #707070;
-    transition: box-shadow 0.3s;
-}
-.style-5 input[type="text"]:focus,
-.style-5 input[type="text"].focus {
-    box-shadow: inset 1px 1px 2px 0 #c9c9c9;
-}
+//.style-1 input[type="text"] {
+//    padding: 10px;
+//    border: solid 1px #dcdcdc;
+//    transition: box-shadow 0.3s, border 0.3s;
+//}
+//.style-1 input[type="text"]:focus,
+//.style-1 input[type="text"].focus {
+//    border: solid 1px #707070;
+//    box-shadow: 0 0 5px 1px #969696;
+//}
+//
+//.style-2 input[type="text"] {
+//    padding: 10px;
+//    border: solid 5px #c9c9c9;
+//    transition: border 0.3s;
+//}
+//.style-2 input[type="text"]:focus,
+//.style-2 input[type="text"].focus {
+//    border: solid 5px #969696;
+//}
+//
+//.style-3 input[type="text"] {
+//    padding: 10px;
+//    border: solid 5px #c9c9c9;
+//    box-shadow: inset 0 0 0 1px #707070;
+//    transition: box-shadow 0.3s, border 0.3s;
+//}
+//.style-3 input[type="text"]:focus,
+//.style-3 input[type="text"].focus {
+//    border: solid 5px #969696;
+//}
+//
+//.style-4 input[type="text"] {
+//    padding: 10px;
+//    border: none;
+//    border-bottom: solid 2px #c9c9c9;
+//    transition: border 0.3s;
+//}
+//.style-4 input[type="text"]:focus,
+//.style-4 input[type="text"].focus {
+//    border-bottom: solid 2px #969696;
+//}
+//
+//.style-5 input[type="text"] {
+//    padding: 10px;
+//    border: solid 1px #fff;
+//    box-shadow: inset 1px 1px 2px 0 #707070;
+//    transition: box-shadow 0.3s;
+//}
+//.style-5 input[type="text"]:focus,
+//.style-5 input[type="text"].focus {
+//    box-shadow: inset 1px 1px 2px 0 #c9c9c9;
+//}
 
 /* MATERIAL INPUT */
 /* form starting stylings ------------------------------- */
 .group 			  {
-    position:relative;
-    margin-bottom:45px;
-    width: 100%;
+    /*position:relative;*/
+    /*margin-bottom:45px;*/
+    margin-bottom:20px;
+    /*width: 100%;*/
     /*box-sizing: border-box;*/
 }
 input, textarea	{
     font-size:18px;
     padding:10px 10px 10px 5px;
     display:block;
-    width:300px;
-    max-width: 100%;
+    width: 100%;
+    /*width:300px;*/
+    /*max-width: 100%;*/
     border:none;
     border-bottom: 1px solid #115063;
     /*-webkit-box-sizing: border-box;*/
@@ -961,9 +910,10 @@ input[type=checkbox]:focus 		{
 /* LABEL ======================================= */
 label 				 {
     color:#115063;
-    font-size:18px;
+    font-size: 14px;
+    /*font-size: 18px;*/
     font-weight:normal;
-    position:absolute;
+    /*position:absolute;*/
     pointer-events:none;
     left:5px;
     top:10px;
@@ -1058,7 +1008,7 @@ a.alogin:hover  {
 
 .menu {
     font-family: 'Material Icons';
-    color: rgb(255, 255, 255);
+    color: $white;
     background-color: transparent;
     font-weight: normal;
     font-style: normal;
@@ -1091,7 +1041,7 @@ a.alogin:hover  {
 
 .menu:hover {
     color: rgba(17, 80, 99, 1);
-    background-color: rgb(255, 255, 255);
+    background-color: $white;
     cursor: pointer;
     transition: 0.3s;
     border-radius: 25px;
@@ -1099,7 +1049,7 @@ a.alogin:hover  {
 
 /* The side navigation menu */
 .mobile-menu {
-    color: rgb(17, 80, 99);
+    color: $primary;
     height: 100%; /* 100% Full-height */
     width: 250px; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
@@ -1118,15 +1068,15 @@ a.alogin:hover  {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 20px;
-    color: rgb(17, 80, 99);
+    color: $primary;
     display: block;
     transition: 0.5s;
 }
 
 /* When you mouse over the navigation links, change their color */
 .mobile-menu a:hover, .offcanvas a:focus{
-    color: rgb(255, 255, 255);
-    background-color: rgb(17, 80, 99);
+    color: $white;
+    background-color: $primary;
 }
 
 /* Position and style the close button (top right corner) */
@@ -1155,13 +1105,13 @@ a.alogin:hover  {
         /*max-width: 300px;*/
         width: 100%;
         /* max-width: 80%; */
-        height: auto;
+        //height: auto;
         /*justify-content: flex-start; */
         align-items: center;
         display: flex;
         flex-basis: auto;
         /*box-sizing: border-box;*/
-        flex-flow: row;
+        //flex-flow: row;
         margin: 10px 0;
         padding: 20px;
     }
@@ -1184,7 +1134,7 @@ ul.left-menu li {float: left;}
 /* Style the links inside the list items */
 ul.left-menu li a {
     display: inline-block;
-    color: white;
+    color: $white;
     text-align: center;
     padding: 10px;
     margin: 5px;
@@ -1196,8 +1146,8 @@ ul.left-menu li a {
 
 /* Change background color of links on hover */
 ul.left-menu li a:hover {
-    color: rgb(17, 80, 99);
-    background-color: white;
+    color: $primary;
+    background-color: $white;
     border-radius: 25px;
 }
 
@@ -1266,11 +1216,11 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
 
 .datepicker-container .custom-highlight {
     background-color: #115063;
-    color: white;
+    color: $white;
 }
 .datepicker-panel > ul > li:hover {
     background-color: #166983 !important;
-    color: white;
+    color: $white;
 }
 
 #pridanie-pohladavky .datepicker-here {
@@ -1279,7 +1229,7 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
 }
 
 .autocomplete-suggestions {
-    text-align: left; cursor: default; border: 1px solid #ccc; border-top: 0; background: #fff; box-shadow: -1px 1px 3px rgba(0,0,0,.1);
+    text-align: left; cursor: default; border: 1px solid #ccc; border-top: 0; background: $white; box-shadow: -1px 1px 3px rgba(0,0,0,.1);
     /* core styles should not be changed */
     /*position: absolute; display: none; z-index: 9999; max-height: 254px; overflow: hidden; overflow-y: auto; box-sizing: border-box;*/
 }

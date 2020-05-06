@@ -1,8 +1,8 @@
-{{--@extends('template_default.layout')--}}
+@extends('front.layout')
 
-{{--@section('content')--}}
+@section('content')
     <div class="headline">
-        <img class="headline_logo" src="{{ asset('template_default/images/logo_vymozete.svg') }}"/>
+        <img class="headline_logo" src="{{ asset('front/images/logo_vymozete.svg') }}"/>
         <h1>Vy môžete viac.</h1>
         <p>Pohľadávky vymôžete online.</p>
         <a class="big_btn" href="/">vymôcť pohľadávku</a>
@@ -10,7 +10,7 @@
     </div>
 
     <!--  section about us -->
-    <div class="mainbox_white" id="o_sluzbe">
+    <div class="mainbox mainbox_white" id="o_sluzbe">
         <div class="box_left">
             <h1>Prečo si vybrať vymozete.sk?</h1>
             <p>Máme za sebou viac ako 20 rokov skúsenosti s vymáhaním pohľadávok. Prinášame Vám online službu, ktorá Vám
@@ -26,25 +26,25 @@
 
         <div class="box_right">
             <div class="box_grey">
-                <img class="box_icon" src="{{ asset('template_default/images/magnifier.svg') }}"/>
+                <img class="box_icon" src="{{ asset('front/images/magnifier.svg') }}"/>
                 <p><b>Aktuálny prehľad</b><br/>
                     o každej Vašej pohľadávke</p>
             </div>
 
             <div class="box_grey">
-                <img class="box_icon" src="{{ asset('template_default/images/notify.svg') }}"/>
+                <img class="box_icon" src="{{ asset('front/images/notify.svg') }}"/>
                 <p><b>Notifikácie</b><br/>
                     o každom kroku cez SMS a email</p>
             </div>
 
             <div class="box_grey">
-                <img class="box_icon" src="{{ asset('template_default/images/online.svg') }}"/>
+                <img class="box_icon" src="{{ asset('front/images/online.svg') }}"/>
                 <p><b>E-služby</b><br/>
                     Všetko vyriešite jednoducho a rýchlo online</p>
             </div>
 
             <div class="box_grey">
-                <img class="box_icon" src="{{ asset('template_default/images/lamp.svg') }}"/>
+                <img class="box_icon" src="{{ asset('front/images/lamp.svg') }}"/>
                 <p><b>Bez rizika</b><br/>
                     Platíte nám až po úspešnom vymožení pohľadávky</p>
             </div>
@@ -53,7 +53,7 @@
     </div>
 
     <!--  section Q&A -->
-    <div class="mainbox_blue" id="Q">
+    <div class="mainbox mainbox_blue" id="Q">
         <div class="row"><h1>5 dobrých dôvodov začať u nás:</h1></div>
 
         <div class="box_center">
@@ -85,84 +85,84 @@
     </div>
 
     <!--  section portfolio -->
-    <div class="mainbox_white" id="nasa_ponuka">
+    <div class="mainbox mainbox_white" id="nasa_ponuka">
         <div class="row"><h1>Je to skutočne jednoduché.</h1></div>
         <div class="row"><p>Pozrite sa, čo všetko môžeme vyriešiť online za Vás:</p></div>
 
         <div class="box_grey">
-            <img class="box_icon" src="{{ asset('template_default/images/icon.svg') }}">
+            <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
-                <p><b>Nezaplatená faktúra</b></p>
+                <div class="box_mini_title">Nezaplatená faktúra</div>
                 <a class="small_btn" href="/nova?typp=fa">+ pridať</a>
             </div>
         </div>
 
         <div class="box_grey">
-            <img class="box_icon" src="{{ asset('template_default/images/icon.svg') }}">
+            <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
-                <p><b>Nezaplatené výživné</b></p>
+                <div class="box_mini_title">Nezaplatené výživné</div>
                 <a class="small_btn" href="/nova?typp=vy">+ pridať</a>
             </div>
         </div>
 
         <div class="box_grey">
-            <img class="box_icon" src="{{ asset('template_default/images/icon.svg') }}">
+            <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
-                <p><b>Nevrátená pôžička</b></p>
+                <div class="box_mini_title">Nevrátená pôžička</div>
                 <a class="small_btn" href="/nova?typp=po">+ pridať</a>
             </div>
         </div>
 
         <div class="box_grey">
-            <img class="box_icon" src="{{ asset('template_default/images/icon.svg') }}">
+            <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
-                <p><b>Nevyplatená zmenka</b></p>
+                <div class="box_mini_title">Nevyplatená zmenka</div>
                 <a class="small_btn" href="/nova?typp=zm">+ pridať</a>
             </div>
         </div>
 
         <div class="box_grey">
-            <img class="box_icon" src="{{ asset('template_default/images/icon.svg') }}">
+            <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
-                <p><b>Nevyplatené nájomné</b></p>
+                <div class="box_mini_title">Nevyplatené nájomné</div>
                 <a class="small_btn" href="/nova?typp=na">+ pridať</a>
             </div>
         </div>
 
         <div class="box_grey">
-            <img class="box_icon" src="{{ asset('template_default/images/icon.svg') }}">
+            <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
-                <p><b>Nevyplatená mzda</b></p>
+                <div class="box_mini_title">Nevyplatená mzda</div>
                 <a class="small_btn" href="/nova?typp=mz">+ pridať</a>
             </div>
         </div>
 
         <div class="box_grey">
-            <img class="box_icon" src="{{ asset('template_default/images/icon.svg') }}">
+            <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
-                <p><b>Nevyplatené poistné plnenie</b></p>
+                <div class="box_mini_title">Nevyplatené poistné plnenie</div>
                 <a class="small_btn" href="/nova?typp=pp">+ pridať</a>
             </div>
         </div>
     </div>
 
     <!-- section contact us -->
-    <div class="mainbox_blue">
+    <div class="mainbox mainbox_blue">
         <div class="row"><h1>Máte toho oveľa viac?</h1></div>
         <div class="row"><p>Kontaktujte nás a my Vám vytvoríme riešenie na mieru.</p></div>
 
         <div class="box_transparent">
-            <img class="box_icon" src="{{ asset('template_default/images/icon_white.svg') }}">
+            <img class="box_icon" src="{{ asset('front/images/icon_white.svg') }}">
             <p><b>Hromadné podania</b></p>
         </div>
 
         <div class="box_transparent">
-            <img class="box_icon" src="{{ asset('template_default/images/icon_white.svg') }}">
+            <img class="box_icon" src="{{ asset('front/images/icon_white.svg') }}">
             <p><b>Komplexná správa pohľadávok</b></p>
         </div>
 
         <div class="box_transparent">
-            <img class="box_icon" src="{{ asset('template_default/images/icon_white.svg') }}">
+            <img class="box_icon" src="{{ asset('front/images/icon_white.svg') }}">
             <p><b>Exekúcie online</b></p>
         </div>
 
@@ -180,7 +180,7 @@
     </div>
 
     <!--  section how it works -->
-    <div class="mainbox_white" id="postup">
+    <div class="mainbox mainbox_white" id="postup">
         <div class="row"><h1>Ako to funguje?</h1></div>
         <div class="row">
             <p>Takto prebieha celý proces po zadaní novej pohľadávky.
@@ -195,9 +195,9 @@
         </div>
 
         <div class="box_right">
-            <div class="box_grey"><img class="box_icon" src="{{ asset('template_default/images/icon.svg') }}">
+            <div class="box_grey"><img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
                 <p><b>Zverenie do správy na vymáhanie</b></p></div>
-            <div class="box_grey"><img class="box_icon" src="{{ asset('template_default/images/icon.svg') }}">
+            <div class="box_grey"><img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
                 <p><b>Predaj pohľadávky (vyplatenie)</b></p></div>
         </div>
 
@@ -213,9 +213,9 @@
         </div>
 
         <div class="box_right">
-            <div class="box_grey"><img class="box_icon" src="{{ asset('template_default/images/icon.svg') }}">
+            <div class="box_grey"><img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
                 <p><b>Služby advokátskej kancelárie</b></p></div>
-            <div class="box_grey"><img class="box_icon" src="{{ asset('template_default/images/icon.svg') }}">
+            <div class="box_grey"><img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
                 <p><b>Predžalobná výzva</b></p></div>
         </div>
 
@@ -228,9 +228,9 @@
         </div>
 
         <div class="box_right">
-            <div class="box_grey"><img class="box_icon" src="{{ asset('template_default/images/icon.svg') }}">
+            <div class="box_grey"><img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
                 <p><b>Súdu zaplatíte súdny poplatok</b></p></div>
-            <div class="box_grey"><img class="box_icon" src="{{ asset('template_default/images/icon.svg') }}">
+            <div class="box_grey"><img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
                 <p><b>Súd vydá rozhodnutie</b></p></div>
         </div>
 
@@ -243,9 +243,9 @@
         </div>
 
         <div class="box_right">
-            <div class="box_grey"><img class="box_icon" src="{{ asset('template_default/images/icon.svg') }}">
+            <div class="box_grey"><img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
                 <p><b>Súdu zaplatíte súdny poplatok</b></p></div>
-            <div class="box_grey"><img class="box_icon" src="{{ asset('template_default/images/icon.svg') }}">
+            <div class="box_grey"><img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
                 <p><b>Súdny exekútor začne výkon exekúcie.</b></p></div>
         </div>
 
@@ -261,16 +261,16 @@
         </div>
 
         <div class="box_right">
-            <div class="box_grey"><img class="box_icon" src="{{ asset('template_default/images/cena.svg') }}">
+            <div class="box_grey"><img class="box_icon" src="{{ asset('front/images/cena.svg') }}">
                 <p><b>Naše služby neplatíte vopred</b></p></div>
-            <div class="box_grey"><img class="box_icon" src="{{ asset('template_default/images/cena.svg') }}">
+            <div class="box_grey"><img class="box_icon" src="{{ asset('front/images/cena.svg') }}">
                 <p><b>Ak neuspejeme, našu odmenu a náklady nám neplatíte</b></p></div>
         </div>
         <div class="row"><a class="big_btn" href="/nova">vymôcť pohľadávku</a></div>
     </div>
 
     <!-- section stats -->
-    <div class="mainbox_blue">
+    <div class="mainbox mainbox_blue">
         <div class="row"><h1>Čo môžete čakať?</h1></div>
         <div class="row">
             <p>Takto vyzerá splácanie pohľadávok počas celého procesu.
@@ -298,4 +298,4 @@
         </div>
         <div class="row"><a class="big_btn" href="/nova">vymôcť pohľadávku</a></div>
     </div>
-{{--@endsection--}}
+@endsection
