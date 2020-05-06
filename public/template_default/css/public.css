@@ -8,7 +8,9 @@ original: rgb(17, 80, 99);
 /* css V2 */
 
 /* Main body & html */
-
+* {
+    box-sizing: border-box;
+}
 body, html {
     height: 100%;
     max-width: 100%;
@@ -16,7 +18,7 @@ body, html {
     font-weight: 600;
     font-family: 'Roboto', sans-serif;
     color: rgb(17, 80, 99);
-    background: url(./images/bcg.jpg) no-repeat top center fixed;
+    background: url(../images/bcg.jpg) no-repeat top center fixed;
     background-size: cover;
     overflow: hidden;
 }
@@ -31,16 +33,55 @@ body {
 
 /* typography */
 
+/*kacinec*/
+#toTop
+{
+    width:45px;
+    height: 45px;
+    box-sizing: border-box;
+    /*opacity: 0;*/
+    text-align:center;
+    padding:10px 10px 10px 10px;
+    position:fixed; /* this is the magic */
+    bottom: 20px;
+    right: 10px;
+    cursor:pointer;
+    transition: color 300ms, background-color 300ms, opacity 300ms;
+    -moz-transition: color 300ms, background-color 300ms, opacity 300ms;
+    -o-transition: color 300ms, background-color 300ms, opacity 300ms;
+    -webkit-transition: color 300ms, background-color 300ms, opacity 300ms;
+    z-index: 9;
+    border-radius: 25px;
+    background: #1EC6B6;
+    color: #fff;
+    display: block;
+}
+
+#toTop i
+{
+    font-size: 1.5em;
+    line-height: 24px;
+}
+
+#toTop:hover
+{
+    -webkit-transform: translate(0px,-5px);
+    -moz-transform: translate(0px,-5px);
+    transform: translate(0px,-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    transition: all 0.1s;
+}
+/*endkacinec*/
+
 /* fixes */
-a[href^=tel] {
+a[href^="tel:"], a[href^="mailto:"] {
     color: inherit;
     text-decoration: none;
 }
 
-
-
 /* Type */
-
 h1  {
     font-size: 35px;
     text-align: left;
@@ -148,7 +189,7 @@ a:hover {
 }
 
 /* containters */
-.homebox {
+.headline {
     display: flex;
     flex-direction: column;
     /*width: 100%;*/
@@ -157,22 +198,22 @@ a:hover {
     color: white;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
+    /*!*box-sizing: border-box;*!*/
     /*padding-bottom: 50px;*/
     /*padding-top: 70px;*/
 }
 
-.homebox_logo {
+.headline_logo {
     width: 250px;
     max-width: 80%;
     height: auto;
     display: flex;
-    box-sizing: border-box;
+    /*!*box-sizing: border-box;*!*/
 }
 
 .mainbox_white  {
     color: rgb(17, 80, 99);
-    display: inline-flex;
+    display: flex;
     width: 100%;
     height: auto;
     justify-content: center;
@@ -180,13 +221,13 @@ a:hover {
     background-color: rgb(255, 255, 255);
     padding-bottom: 100px;
     padding-top: 100px;
-    box-sizing: border-box;
+    /*!*box-sizing: border-box;*!*/
     overflow: hidden;
 }
 
 .mainbox_blue  {
     color: rgb(255, 255, 255);
-    display: inline-flex;
+    display: flex;
     text-align: center;
     width: 100%;
     height: auto;
@@ -195,7 +236,7 @@ a:hover {
     background-color: rgb(17, 80, 99);
     padding-bottom: 100px;
     padding-top: 100px;
-    box-sizing: border-box;
+    /*!*box-sizing: border-box;*!*/
     overflow: hidden;
 }
 
@@ -206,7 +247,7 @@ a:hover {
     align-items: flex-start;
     margin:10px;
     padding: 20px;
-    box-sizing: border-box;
+    /*!*box-sizing: border-box;*!*/
 }
 
 .box_right {
@@ -221,7 +262,7 @@ a:hover {
     flex-wrap: wrap;
     margin:10px;
     padding: 10px;
-    box-sizing: border-box;
+    /*!*box-sizing: border-box;*!*/
 }
 
 .box_grey {
@@ -234,7 +275,7 @@ a:hover {
     margin:10px;
     padding: 20px;
     background-color: ghostwhite;
-    box-sizing: border-box;
+    /*!*box-sizing: border-box;*!*/
     border-radius: 50px;
 }
 
@@ -247,7 +288,7 @@ a:hover {
     flex-flow: row;
     margin:10px;
     padding: 20px;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
     border-radius: 50px;
 }
 
@@ -256,7 +297,7 @@ a:hover {
     height: 100px;
     padding: 10px;
     /*	display: flex; */
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 .box_center {
@@ -269,7 +310,7 @@ a:hover {
     flex-basis: auto;
     margin:10px;
     padding: 20px;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 .box_center p {
@@ -283,7 +324,7 @@ a:hover {
     align-items: flex-start;
     margin:10px;
     padding: 20px;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 .box_mini {
@@ -304,7 +345,7 @@ a:hover {
     align-items: flex-start;
     margin: 10px;
     padding: 20px;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 
@@ -314,13 +355,13 @@ a:hover {
     align-items: flex-start;
     margin: 10px;
     padding: 20px;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 /* media corrections */
 @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
+    .mobile-menu {padding-top: 15px;}
+    .mobile-menu a {font-size: 18px;}
     .box_grey {
         width: 100%;
         height: auto;
@@ -328,25 +369,18 @@ a:hover {
         align-items: center;
         display: flex;
         flex-basis: auto;
-        box-sizing: border-box;
+        /*box-sizing: border-box;*/
         flex-flow: row;
         margin: 10px 0;
         padding: 20px;
     }
 }
 
-/*  TOTO SKONTROLOVAT
---
---
---
---
- */
-
 .row {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
     flex-wrap: wrap;
     width: 100%;
     padding-left: 20px;
@@ -358,8 +392,7 @@ a:hover {
 .pohladavka {
     display: flex;
     justify-content: center;
-
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
     flex-wrap: wrap;
     width: 100%;
     padding: 10px;
@@ -382,12 +415,10 @@ a:hover {
 .pohladavka .pohladavka_item.orange {
     border-top: 3px solid darkorange;
 }
-
-
 /* END css V2 */
 
 article {
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
     max-width: 800px;
     width: auto;
     padding: 20px;
@@ -459,9 +490,6 @@ table td span {
     border-bottom: 1px rgb(17, 80, 99) solid;
 }
 
-
-
-
 .row_un {
     width: 80%;
     border-bottom: 1px rgb(17, 80, 99) solid;
@@ -480,14 +508,11 @@ table td span {
     border-bottom: 1px rgb(200, 200, 200) solid;
 }
 
-
-
-
 /* containers  */
 
-.menuline{
+.main-menu{
     width: 100%;
-    height: 50px;
+    height: 70px;
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: rgba(17, 80, 99, 1);
@@ -554,7 +579,7 @@ table td span {
     background-color: rgb(255, 255, 255);
     padding-bottom: 50px;
     padding-top: 50px;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
     overflow: hidden;
 }
 
@@ -584,7 +609,7 @@ table td span {
 
 .logo_block {
     display: flex;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
     justify-content: center;
     align-items: center;
     max-width: 600px;
@@ -595,7 +620,7 @@ table td span {
     width: 100%;
     height: auto;
     display: flex;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
     padding: 20px;
 }
 
@@ -617,7 +642,7 @@ table td span {
     align-items: center;
     display: flex;
     flex-basis: auto;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
     flex-flow: row;
     margin:10px;
     padding: 20px;
@@ -632,7 +657,7 @@ table td span {
     justify-content: center;
     align-self: center;
     display: flex;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
     flex-flow: row;
     flex-wrap: wrap;
     margin:10px;
@@ -645,7 +670,7 @@ table td span {
     align-items: flex-start;
     justify-content: flex-start;
     display: flex;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
     flex-flow: column;
     text-align: left;
     margin:10px;
@@ -711,22 +736,9 @@ width: 100%; */
     /*width: 100px;*/
     /*height: 100px;*/
     padding: 10px;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
     display: flex;
 }
-
-
-/*
-.icon:hover{
-fill: white;
-background-color: rgb(17, 80, 99);
-}
-
-svg:hover  {
-color: white;
-}
-
-*/
 
 .logo  {
     align: right;
@@ -734,43 +746,19 @@ color: white;
     width: auto;
 }
 
-.login  {
+.right-menu  {
     float: right;
     font-weight: 300;
     text-align: right;
-    height: 50px;
+    height: 70px;
     width: auto;
     color:white;
     padding-right:10px;
-    padding-top: 16px;
+    line-height: 50px;
 }
-
-
-/*
-.login a {
-}
-
-.login:hover {
-color: rgba(17, 80, 99, 1);
-background-color: rgb(255, 255, 255);
-padding:10px;
-cursor: pointer;
-transition: 0.3s
-}         */
-
-/* .menuline a {
-color: rgba(17, 80, 99, 1);
-background-color: rgb(255, 255, 255);
-cursor: pointer;
-transition: 0.3s
-}
- */
-
-
 
 /* Buttons
 */
-
 a .button {
     -webkit-appearance: button;
     -moz-appearance: button;
@@ -828,28 +816,7 @@ button:focus {
     margin-bottom: 5px;
 }
 
-/*
- box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
- box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
-   transition: all 2s cubic-bezier(.25,.8,.25,1);
-*/
-
-
-
-
-
-
-
-/* LET ALL AFTER THIS BE
---
---
---
---
-*/
-
-
 /* INPUT   */
-
 input[type="text"], input[type="email"], input[type="number"] {
     display: block;
     margin: 0;
@@ -923,7 +890,7 @@ input[type="text"]:focus {
     position:relative;
     margin-bottom:45px;
     width: 100%;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 input, textarea	{
     font-size:18px;
@@ -933,9 +900,9 @@ input, textarea	{
     max-width: 100%;
     border:none;
     border-bottom: 1px solid #115063;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    /*-webkit-box-sizing: border-box;*/
+    /*-moz-box-sizing: border-box;*/
+    /*box-sizing: border-box;*/
 }
 input:focus 		{ outline:none; }
 
@@ -1072,8 +1039,6 @@ input:focus ~ .highlight {
     from { background:#115063; }
     to 	{ width:0; background:transparent; }
 }
-
-
 /* MENU */
 
 .alogin  {
@@ -1090,20 +1055,6 @@ a.alogin:hover  {
     color: white;
     text-decoration: underline;
 }
-
-
-ul.topnav {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    /*position: absolute;
-    width: 100%;*/
-    height: 70px;
-    /*  z-index: 8;    */
-
-}
-
 
 .menu {
     font-family: 'Material Icons';
@@ -1146,12 +1097,8 @@ ul.topnav {
     border-radius: 25px;
 }
 
-
-
-
-
 /* The side navigation menu */
-.sidenav {
+.mobile-menu {
     color: rgb(17, 80, 99);
     height: 100%; /* 100% Full-height */
     width: 250px; /* 0 width - change this with JavaScript */
@@ -1162,14 +1109,12 @@ ul.topnav {
     background-color: rgba(255, 255, 255, 1);
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the mobile-menu */
     z-index: 10;
 }
 
-
-
 /* The navigation menu links */
-.sidenav a {
+.mobile-menu a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 20px;
@@ -1179,13 +1124,13 @@ ul.topnav {
 }
 
 /* When you mouse over the navigation links, change their color */
-.sidenav a:hover, .offcanvas a:focus{
+.mobile-menu a:hover, .offcanvas a:focus{
     color: rgb(255, 255, 255);
     background-color: rgb(17, 80, 99);
 }
 
 /* Position and style the close button (top right corner) */
-.sidenav .closebtn {
+.mobile-menu .closebtn {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -1202,10 +1147,10 @@ ul.topnav {
     padding: 20px;
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+/* On smaller screens, where height is less than 450px, change the style of the mobile-menu (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
+    .mobile-menu {padding-top: 15px;}
+    .mobile-menu a {font-size: 18px;}
     .infoblock {
         /*max-width: 300px;*/
         width: 100%;
@@ -1215,22 +1160,29 @@ ul.topnav {
         align-items: center;
         display: flex;
         flex-basis: auto;
-        box-sizing: border-box;
+        /*box-sizing: border-box;*/
         flex-flow: row;
         margin: 10px 0;
         padding: 20px;
     }
 }
-
 /* FULL MENU */
 /* Remove margins and padding from the list, and add a black background color */
 
 
-/* Float the list items side by side */
-ul.topnav li {float: left;}
+/* Float the left-menu items side by side */
+ul.left-menu {
+    float: left;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 70px;
+}
+ul.left-menu li {float: left;}
 
 /* Style the links inside the list items */
-ul.topnav li a {
+ul.left-menu li a {
     display: inline-block;
     color: white;
     text-align: center;
@@ -1243,38 +1195,38 @@ ul.topnav li a {
 }
 
 /* Change background color of links on hover */
-ul.topnav li a:hover {
+ul.left-menu li a:hover {
     color: rgb(17, 80, 99);
     background-color: white;
     border-radius: 25px;
 }
 
 
-/* Hide the list item that contains the link that should open and close the topnav on small screens */
-ul.topnav li.icon {display: none;}
+/* Hide the list item that contains the link that should open and close the left-menu on small screens */
+ul.left-menu li.icon {display: none;}
 
-/* When the screen is less than 680 pixels wide, hide all list items, except for the first one ("Home"). Show the list item that contains the link to open and close the topnav (li.icon) */
+/* When the screen is less than 680 pixels wide, hide all list items, except for the first one ("Home"). Show the list item that contains the link to open and close the left-menu (li.icon) */
 @media screen and (max-width:1200px) {
-    ul.topnav li {display: none;}
-    ul.topnav li.icon {
+    ul.left-menu li {display: none;}
+    ul.left-menu li.icon {
         float: left;
         display: inline-block;
     }
 }
 
-/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens */
+/* The "responsive" class is added to the left-menu with JavaScript when the user clicks on the icon. This class makes the left-menu look good on small screens */
 @media screen and (max-width:940px) {
-    ul.topnav.responsive {position: relative;}
-    ul.topnav.responsive li.icon {
+    ul.left-menu.responsive {position: relative;}
+    ul.left-menu.responsive li.icon {
         position: absolute;
         right: 0;
         top: 0;
     }
-    ul.topnav.responsive li {
+    ul.left-menu.responsive li {
         float: none;
         display: inline;
     }
-    ul.topnav.responsive li a {
+    ul.left-menu.responsive li a {
         display: block;
         text-align: left;
     }
@@ -1329,7 +1281,7 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
 .autocomplete-suggestions {
     text-align: left; cursor: default; border: 1px solid #ccc; border-top: 0; background: #fff; box-shadow: -1px 1px 3px rgba(0,0,0,.1);
     /* core styles should not be changed */
-    position: absolute; display: none; z-index: 9999; max-height: 254px; overflow: hidden; overflow-y: auto; box-sizing: border-box;
+    /*position: absolute; display: none; z-index: 9999; max-height: 254px; overflow: hidden; overflow-y: auto; box-sizing: border-box;*/
 }
 .autocomplete-suggestion { position: relative; padding: 0 .6em; line-height: 23px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.02em; color: #333; }
 .autocomplete-suggestion b { font-weight: normal; color: #1f8dd6; }
