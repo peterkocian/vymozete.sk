@@ -10,14 +10,14 @@ html {
   font-weight: 600;
   font-family: "Roboto", sans-serif;
   color: #115063;
-  background: url(/front/images/bcg.jpg) no-repeat top center fixed;
-  background-size: cover;
 }
 
 body {
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  background: url(/front/images/bcg.jpg) no-repeat center center fixed;
+  background-size: cover;
 }
 
 /*back to top button*/

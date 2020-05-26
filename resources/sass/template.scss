@@ -11,14 +11,18 @@ body, html {
     font-weight: 600;
     font-family: 'Roboto', sans-serif;
     color: $primary;
-    background: url(/front/images/bcg.jpg) no-repeat top center fixed;
-    background-size: cover;
 }
 
 body {
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
+
+    background: url(/front/images/bcg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 /*back to top button*/
