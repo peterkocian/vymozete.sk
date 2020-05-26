@@ -13,7 +13,6 @@ body, html {
     color: $primary;
     background: url(/front/images/bcg.jpg) no-repeat top center fixed;
     background-size: cover;
-    overflow: hidden;
 }
 
 body {
@@ -22,7 +21,7 @@ body {
     scroll-behavior: smooth;
 }
 
-/*kacinec back to top button*/
+/*back to top button*/
 #toTop {
     width:45px;
     height: 45px;
@@ -58,7 +57,7 @@ body {
     -moz-transition: all 0.1s;
     transition: all 0.1s;
 }
-/*endkacinec*/
+/*end back to top button*/
 
 /* fixes */
 a[href^="tel:"], a[href^="mailto:"] {

@@ -27,7 +27,7 @@
             @else
                 <a href="{{ url('/register') }}" class="alogin">vytvoriť konto</a><br>
                 <a href="{{ url('/login') }}" class="alogin">prihlásenie</a><br>
-                <a href="{{ url('/password/reset') }}" class="alogin">strata hesla</a><br><br>
+                <a href="{{ url('/password/reset') }}" class="alogin">zabudnuté heslo</a><br><br>
             @endauth
 
             <a href="{{ url('/vop') }}">Ochrana osobných údajov</a><br/>
@@ -35,5 +35,5 @@
         </p>
     </div>
     <div class="row"><p>vymozete.sk &copy; 2017 - {{ @now()->year }}</p></div>
-    <a id="toTop" href="javascript:void(0);" style="/*display: none;">&#x21ea;</a>
+    <a id="toTop" href="javascript:void(0);" style="display: none;">&#x21ea;</a>
 </div>

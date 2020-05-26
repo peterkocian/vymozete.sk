@@ -7,17 +7,26 @@ $(document).ready(function() {
         $('#mySidenav').animate({'margin-left': -250}, 100);
     });
 
-    //Add to top button when scrolling
+    //Add back to top button when scrolling
     $(window).scroll(function(){
-        if($(this).scrollTop() > 100){
+        if ($(this).scrollTop() > 200){
             $('#toTop').fadeIn();
-            console.log('in');
-        }else{
+        } else {
             $('#toTop').fadeOut();
-            console.log('out');
         }
     });
     $('#toTop').on( 'click', function() {
         $('html, body').animate({scrollTop:0});
+    });
+
+    //anchor smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
     });
 });

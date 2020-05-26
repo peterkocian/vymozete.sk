@@ -54,11 +54,11 @@
                     <div class="row">
                         <p>
                             <input type="checkbox" value="1" name="vop" required="required">
-                                Súhlasím so <a href="{{ url('/vop') }}"><b>Všeobecnými podmienkami používania služby (VOP)</b></a> *
+                                Súhlasím so <a target="_blank" href="{{ url('/vop') }}"><b>Všeobecnými podmienkami používania služby (VOP)</b></a> *
                         </p>
                     </div>
                     <div class="row"><button class="big_btn" type="submit" value="REGISTROVAŤ">registrovať</button></div>
-                    <div class="row"><p><a href="{{ url('/login') }}"><b>Prihlásenie</b></a> / <a href="{{ url('/password/reset') }}"><b>Strata hesla</b></a></p></div>
+                    <div class="row"><p><a href="{{ url('/login') }}"><b>Prihlásenie</b></a> / <a href="{{ url('/password/reset') }}"><b>Zabudnuté heslo</b></a></p></div>
                 </div>
 
                 <div class="group">

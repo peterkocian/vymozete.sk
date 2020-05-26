@@ -30,15 +30,9 @@
                 @include('front.partials.navigation.main')
             </div>
 
-        {{--    <div class="topspace">&nbsp;</div>--}}
-
-
-{{--            @include('template_default.main')--}}
             @yield('content')
             @include('front.partials.footer')
         </div>
     </body>
-    @push ('scripts')
-        <script src="{{ asset('front/js/custom.js') }}"></script>
-    @endpush
+    <script src="{{ asset('front/js/custom.js') }}"></script>
 </html>

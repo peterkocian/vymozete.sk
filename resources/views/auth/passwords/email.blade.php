@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="mainbox mainbox_white">
-        <div class="row"><h1>Strata hesla</h1></div>
+        <div class="row"><h1>Zabudnuté heslo</h1></div>
 
         <div class="form_box">
             @if (session('status'))

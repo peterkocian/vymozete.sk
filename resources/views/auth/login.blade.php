@@ -36,7 +36,7 @@
 
                 <div class="group">
                     <div class="row"><button class="big_btn" type="submit" value="PRIHLÁSIŤ">prihlásiť</button></div>
-                    <div class="row"><p><a href="{{ url('/register') }}"><b>Registrácia</b></a> / <a href="{{ url('/password/reset') }}"><b>Strata hesla</b></a></p></div>
+                    <div class="row"><p><a href="{{ url('/register') }}"><b>Registrácia</b></a> / <a href="{{ url('/password/reset') }}"><b>Zabudnuté heslo</b></a></p></div>
                 </div>
             </form>
         </div>
