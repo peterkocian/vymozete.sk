@@ -1,7 +1,11 @@
 $primary: #115063;
 $white: #fff;
+$bckgBttnPrimary: orange;
+$bckgBttnSecondary: darkorange;
 
 * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 body, html {
@@ -17,8 +21,7 @@ body {
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
-
-    background: url(/front/images/bcg.jpg) no-repeat center center fixed;
+    background: url('/front/images/bcg.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -29,21 +32,18 @@ body {
 #toTop {
     width:45px;
     height: 45px;
-    box-sizing: border-box;
     text-align:center;
-    padding: 10px;
-    position:fixed; /* this is the magic */
+    padding: 15px;
+    position:fixed;
     bottom: 20px;
     right: 10px;
-    cursor:pointer;
     transition: color 300ms, background-color 300ms, opacity 300ms;
     -moz-transition: color 300ms, background-color 300ms, opacity 300ms;
     -o-transition: color 300ms, background-color 300ms, opacity 300ms;
     -webkit-transition: color 300ms, background-color 300ms, opacity 300ms;
     z-index: 9;
     border-radius: 25px;
-    background: #1EC6B6;
-    color: $white;
+    background: $bckgBttnSecondary;
     display: block;
 }
 
@@ -119,12 +119,12 @@ p  {
 /* links & buttons */
 a {
     outline: 0;
-    color: darkorange;
+    color: $bckgBttnSecondary;
     text-decoration: none;
 }
 
 a:hover {
-    color: orange;
+    color: $bckgBttnPrimary;
 }
 
 .box_footer a {
@@ -136,7 +136,7 @@ a:hover {
 
 .big_btn {
     color: $white;
-    background-color: darkorange;
+    background-color: $bckgBttnSecondary;
     font-size: 18px;
     font-weight: 900;
     text-decoration: none;
@@ -147,7 +147,7 @@ a:hover {
     border-radius: 25px;
     &:hover {
         color: $white;
-        background-color: orange;
+        background-color: $bckgBttnPrimary;
         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
     }
 }
@@ -366,12 +366,12 @@ a:hover {
     align-items: flex-start;
     margin: 10px;
     padding: 10px;
-    background-color: white;
+    background-color: $white;
     border-top: 1px solid rgb(37, 116, 169);
 }
 
 .pohladavka .pohladavka_item.orange {
-    border-top: 3px solid darkorange;
+    border-top: 3px solid $bckgBttnSecondary;
 }
 /* END css V2 */
 
@@ -397,11 +397,11 @@ form {
     display: block;
     width: 100%;
     //height: auto;
-    background-color: white;
+    background-color: $white;
 }
 .message {
     background-color: firebrick;
-    color: white;
+    color: $white;
     padding: 10px;
 }
 
@@ -702,7 +702,7 @@ width: 100%; */
     text-align: right;
     height: 70px;
     width: auto;
-    color:white;
+    color:$white;
     padding-right:10px;
     line-height: 50px;
 }
@@ -730,7 +730,7 @@ button, a.button {
     transition: all 2s cubic-bezier(.25,.8,.25,1);
     cursor: pointer;
     border: none;
-    background-color: darkorange;
+    background-color: $bckgBttnSecondary;
     color: $white;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
 }
@@ -738,7 +738,7 @@ button, a.button {
 button:hover, a.button:hover {
     border: none;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
-    background-color: orange;
+    background-color: $bckgBttnPrimary;
 }
 
 button:focus {
@@ -851,12 +851,12 @@ input, textarea	{
     /*width:300px;*/
     /*max-width: 100%;*/
     border:none;
-    border-bottom: 1px solid #115063;
+    border-bottom: 1px solid $primary;
     /*-webkit-box-sizing: border-box;*/
     /*-moz-box-sizing: border-box;*/
     /*box-sizing: border-box;*/
 }
-input:focus 		{ outline:none; }
+input:focus { outline:none; }
 
 input[type=file] {
     border: 0;
@@ -870,12 +870,12 @@ select {
     -moz-appearance: none;
     background-color: transparent;
     border: none;
-    border-bottom:   1px solid #115063;
+    border-bottom: 1px solid $primary;
     padding:10px 30px 10px 5px;
     display:block;
     font-size:18px;
     width: 100%;
-    color:#115063;
+    color:$primary;
 }
 
 select ~ .arrow {
@@ -912,7 +912,7 @@ input[type=checkbox]:focus 		{
 
 /* LABEL ======================================= */
 label 				 {
-    color:#115063;
+    color:$primary;
     font-size: 14px;
     /*font-size: 18px;*/
     font-weight:normal;
@@ -929,7 +929,7 @@ label 				 {
 input:focus ~ label, input:valid ~ label, input:invalid ~ label, select ~ label, input[type=date] ~ label {
     top:-20px;
     font-size:14px;
-    color:#115063;
+    color:$primary;
 }
 
 /* BOTTOM BARS ================================= */
@@ -940,7 +940,7 @@ input:focus ~ label, input:valid ~ label, input:invalid ~ label, select ~ label,
     width:0;
     bottom:1px;
     position:absolute;
-    background:#115063;
+    background:$primary;
     transition:0.2s ease all;
     -moz-transition:0.2s ease all;
     -webkit-transition:0.2s ease all;
@@ -981,15 +981,15 @@ input:focus ~ .highlight {
 
 /* ANIMATIONS ================ */
 @-webkit-keyframes inputHighlighter {
-    from { background:#115063; }
+    from { background:$primary; }
     to 	{ width:0; background:transparent; }
 }
 @-moz-keyframes inputHighlighter {
-    from { background:#115063; }
+    from { background:$primary; }
     to 	{ width:0; background:transparent; }
 }
 @keyframes inputHighlighter {
-    from { background:#115063; }
+    from { background:$primary; }
     to 	{ width:0; background:transparent; }
 }
 /* MENU */
@@ -997,7 +997,7 @@ input:focus ~ .highlight {
 .alogin  {
     font-weight: 300;
     text-align: right;
-    color:white;
+    color:$white;
     /*padding-right:10px;
     padding-top: 16px;*/
     text-decoration: none;
@@ -1005,7 +1005,7 @@ input:focus ~ .highlight {
 }
 
 a.alogin:hover  {
-    color: white;
+    color: $white;
     text-decoration: underline;
 }
 
@@ -1207,7 +1207,7 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
 
 .label {
     font-size: 14px;
-    color: #115063;
+    color: $primary;
     font-weight: normal;
     margin-left: 5px;
     margin-bottom: 10px;
@@ -1218,7 +1218,7 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
 }
 
 .datepicker-container .custom-highlight {
-    background-color: #115063;
+    background-color: $primary;
     color: $white;
 }
 .datepicker-panel > ul > li:hover {

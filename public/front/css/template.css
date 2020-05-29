@@ -16,7 +16,7 @@ body {
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
-  background: url(/front/images/bcg.jpg) no-repeat center center fixed;
+  background: url("/front/images/bcg.jpg") no-repeat center center fixed;
   background-size: cover;
 }
 
@@ -25,22 +25,18 @@ body {
 #toTop {
   width: 45px;
   height: 45px;
-  box-sizing: border-box;
   text-align: center;
-  padding: 10px;
+  padding: 15px;
   position: fixed;
-  /* this is the magic */
   bottom: 20px;
   right: 10px;
-  cursor: pointer;
   transition: color 300ms, background-color 300ms, opacity 300ms;
   -moz-transition: color 300ms, background-color 300ms, opacity 300ms;
   -o-transition: color 300ms, background-color 300ms, opacity 300ms;
   -webkit-transition: color 300ms, background-color 300ms, opacity 300ms;
   z-index: 9;
   border-radius: 25px;
-  background: #1EC6B6;
-  color: #fff;
+  background: darkorange;
   display: block;
 }
 
@@ -357,7 +353,7 @@ a:hover {
   align-items: flex-start;
   margin: 10px;
   padding: 10px;
-  background-color: white;
+  background-color: #fff;
   border-top: 1px solid #2574a9;
 }
 
@@ -388,12 +384,12 @@ form {
   padding-bottom: 20px;
   display: block;
   width: 100%;
-  background-color: white;
+  background-color: #fff;
 }
 
 .message {
   background-color: firebrick;
-  color: white;
+  color: #fff;
   padding: 10px;
 }
 
@@ -676,7 +672,7 @@ table td span {
   text-align: right;
   height: 70px;
   width: auto;
-  color: white;
+  color: #fff;
   padding-right: 10px;
   line-height: 50px;
 }
@@ -962,7 +958,7 @@ input:focus ~ .highlight {
 .alogin {
   font-weight: 300;
   text-align: right;
-  color: white;
+  color: #fff;
   /*padding-right:10px;
   padding-top: 16px;*/
   text-decoration: none;
@@ -970,7 +966,7 @@ input:focus ~ .highlight {
 }
 
 a.alogin:hover {
-  color: white;
+  color: #fff;
   text-decoration: underline;
 }
 

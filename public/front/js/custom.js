@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     //Add back to top button when scrolling
     $(window).scroll(function(){
-        if ($(this).scrollTop() > 200){
+        if ($(this).scrollTop() > 1000){
             $('#toTop').fadeIn();
         } else {
             $('#toTop').fadeOut();

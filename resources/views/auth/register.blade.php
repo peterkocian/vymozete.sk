@@ -32,7 +32,7 @@
 
                 <div class="group">
                     <label for="phone">Telefónne číslo pre SMS notifikácie</label>
-                    <input id="phone" name="phone" type="text" pattern="\+\d{12}" placeholder="Vo formáte +421 911 222 333" value="{{ old('phone') }}">
+                    <input id="phone" name="phone" type="text" pattern="\+\d{12}" placeholder="Vo formáte +421911222333" value="{{ old('phone') }}">
                     <span class="bar"></span>
                 </div>
 
