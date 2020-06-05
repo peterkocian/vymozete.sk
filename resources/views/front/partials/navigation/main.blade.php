@@ -4,18 +4,19 @@
     <li><a href="{{ Request::is('/') ? '#nasa_ponuka' : url('/#nasa_ponuka') }}">naša ponuka</a></li>
     <li><a href="{{ Request::is('/') ? '#postup' : url('/#postup') }}">ako to funguje</a></li>
     <li><a href="{{ Request::is('/') ? '#footer' : url('/#footer') }}">kontakt</a></li>
-    <li><a href="/">vymôcť pohľadávku</a></li>
+    <li><a href="#">vymôcť pohľadávku</a></li>
     <li class="icon">
         <span><i class="menu">menu</i></span>
     </li>
 </ul>
 
 <div class="right-menu">
-    <a href="{{ url('/login') }}" class="alogin">prihlásenie</a> /&nbsp;
-    <a href="{{ url('/register') }}" class="alogin">registrácia</a>
     @auth()
-        <a href="/" class="alogin">moje konto</a> |&nbsp;
-        <a href="/" class="alogin">odhlásiť</a>&nbsp;|
-        <a href="/admin" class="alogin">admin</a>
+        <a href="{{ route('front.home') }}" class="alogin">moje konto</a> |&nbsp;
+        <a href="{{ route('logout') }}" class="alogin">odhlásiť</a>&nbsp;|
+        <a href="{{ route('admin.home') }}" class="alogin">admin</a>
+    @else
+        <a href="{{ url('/login') }}" class="alogin">prihlásenie</a> /&nbsp;
+        <a href="{{ url('/register') }}" class="alogin">registrácia</a>
     @endauth
 </div>

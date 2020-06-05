@@ -72,4 +72,9 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
         ]);
     }
+
+    protected function guard()
+    {
+        return Auth::guard('web');
+    }
 }
