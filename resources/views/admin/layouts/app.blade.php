@@ -24,7 +24,11 @@
         @include('admin.navigation.nav')
 
         <main class="py-4">
-            @yield('content')
+            <div class="container">
+                @include('admin.flash-message')
+
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>

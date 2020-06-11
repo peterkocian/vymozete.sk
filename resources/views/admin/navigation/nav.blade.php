@@ -10,7 +10,20 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.users.index') }}">{{ __('menu-item.Users') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.roles.index') }}">{{ __('menu-item.Roles') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.permissions.index') }}">{{ __('menu-item.Permissions') }}</a>
+                    </li>
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link" href="{{ route('admin.claims.index') }}">{{ __('menu-item.Claims') }}</a>--}}
+{{--                    </li>--}}
+                @endauth
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -23,10 +36,13 @@
                 @else
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
+                            {{ Auth::user()->email }} <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('admin.users.editProfile', Auth::id()) }}">
+                                {{ __('menu-item.Profile') }}
+                            </a>
                             <a class="dropdown-item" href="{{ route('admin.logout') }}">{{ __('Logout') }}</a>
                         </div>
                     </li>

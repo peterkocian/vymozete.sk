@@ -52,23 +52,20 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->performLogin($request);
-        return redirect(route('admin.home'))
-            ->with('status','User has been logged in!');
+        return redirect()
+            ->route('admin.home')
+            ->with('success','User has been logged in!');
     }
 
     /**
-     * Log the backoffice user out.
+     * Log the user out from backoffice.
      *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function logout(Request $request){
         $this->performLogout($request);
-        return redirect(route('admin.login'))
+        return redirect()
+            ->route('admin.login')
             ->with('status','User has been logged out!');
-    }
-
-    protected function guard()
-    {
-        return Auth::guard('admin');
     }
 }

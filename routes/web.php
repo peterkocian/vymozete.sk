@@ -17,17 +17,26 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('Admin')->prefix('admin')->name('admin.')
 //    ->middleware('authAdmin')
     ->group(function() {
-        Route::get('/', 'HomeController@index')->name('home')->middleware('auth:admin');
-        Route::get('/login', 'LoginController@showLoginForm')->name('loginForm')->middleware('guest:admin');
-        Route::post('/login', 'LoginController@login')->name('login')->middleware('guest:admin');
+        Route::get('/', 'HomeController@index')->name('home')->middleware('auth','role:super-admin');
+        Route::get('/login', 'LoginController@showLoginForm')->name('loginForm')->middleware('guest');
+        Route::post('/login', 'LoginController@login')->name('login')->middleware('guest');
         Route::get('/logout', 'LoginController@logout')->name('logout');
         Route::get('/password/reset', 'LoginController@passwordReset')->name('password.reset');
 
+        Route::middleware('auth')->group(function() {
+            Route::resources([
+                'users'         => 'UserController',
+                'roles'         => 'RoleController',
+                'permissions'   => 'PermissionController'
+            ]);
+            Route::get('/users/{user}/editProfile', 'UserController@editProfile')->name('users.editProfile');
+            Route::put('/users/{user}/updateProfile', 'UserController@updateProfile')->name('users.updateProfile');
+        });
 });
 
 
 /* Front routes */
-Route::namespace('Front')->name('front.')->middleware('auth:web')->group(function() {
+Route::namespace('Front')->name('front.')->middleware('auth')->group(function() {
     Route::get('/home', 'HomeController@index')->name('home');
 });
 
