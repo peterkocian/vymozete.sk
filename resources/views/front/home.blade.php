@@ -5,8 +5,8 @@
 
         <div class="row"><h1>Moje pohľadávky</h1></div>
         <div class="row"><p>
-                <a href="/"><b>Pridať novú pohľadávku</b></a>
-                &nbsp;/ <a href="/"><b>Upraviť moje údaje</b></a></p>
+            <a href="{{ route('front.claim') }}"><b>Pridať novú pohľadávku</b></a>
+            &nbsp;/ <a href="{{ route('front.users.editProfile', Auth::id()) }}"><b>Upraviť moje údaje</b></a></p>
         </div>
 
         <div class="row"><h4>Všetky Vaše pohľadávky</h4></div>
@@ -27,14 +27,16 @@
                 </tr>
                 </thead>
                 <tbody>
+                @foreach($claims as $claim)
                 <tr>
                     <th scope="row">1</th>
-                    <td>Mark</td>
+                    <td>{{ $claim->created_at }}</td>
                     <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
+                    <td>Miso</td>
+                    <td>{{ $claim->amount }}</td>
                     <td>@mdo</td>
                 </tr>
+                @endforeach
                 </tbody>
             </table>
 {{--            <div class="pohladavka_item">--}}

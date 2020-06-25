@@ -22,6 +22,7 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('simple-table-component', require('./components/SimpleTableComponent.vue').default);
 Vue.component('modal-component', require('./components/ModalComponent.vue').default);
+Vue.component('participant-component', require('./components/ParticipantComponent').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

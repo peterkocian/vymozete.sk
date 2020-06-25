@@ -12,7 +12,7 @@ class ClaimTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('claim_type')->insert(
+        DB::table('claim_type')->insert([
             [
                 'key' => 'invoice',
                 'name' => 'nezaplatená faktúra',
@@ -54,6 +54,6 @@ class ClaimTypeSeeder extends Seeder
                 'created_at'    => \Carbon\Carbon::now(),
                 'updated_at'    => \Carbon\Carbon::now(),
             ]
-        );
+        ]);
     }
 }

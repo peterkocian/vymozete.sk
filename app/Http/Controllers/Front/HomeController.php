@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Front;
 
-use Illuminate\Http\Request;
+use App\Models\Front\Claim;
+use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -14,6 +16,14 @@ class HomeController extends Controller
      */
 
     public function index() {
-        return view('front/home');
+        return view('front/home', ['claims' => Claim::all()]);
+    }
+
+    public function editProfile(User $user)
+    {
+        if(Auth::id() == $user->id) {
+            return view('front.user-profile', ['user' => $user]);
+        }
+        return abort(403, __('general.Unauthorized'));
     }
 }

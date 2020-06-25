@@ -1977,6 +1977,170 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ParticipantComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ParticipantComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['config'],
+  mounted: function mounted() {
+    this.mapStepDataToBuffer();
+  },
+  data: function data() {
+    var stepData = _objectSpread({}, this.config.stepData);
+
+    var personType = [{
+      id: 0,
+      value: 'fyzická osoba (nepodnikateľ)'
+    }, {
+      id: 1,
+      value: 'podnikateľ (živnostník, s.r.o., ...)'
+    }];
+    return {
+      buffer: {},
+      stepData: stepData,
+      selected: stepData.personType || 0,
+      personType: personType
+    };
+  },
+  methods: {
+    mapStepDataToBuffer: function mapStepDataToBuffer() {
+      this.buffer = _objectSpread({}, this.stepData);
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SimpleTableComponent.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SimpleTableComponent.vue?vue&type=script&lang=js& ***!
@@ -37820,6 +37984,514 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ParticipantComponent.vue?vue&type=template&id=2c64da16&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ParticipantComponent.vue?vue&type=template&id=2c64da16& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", {}, [
+    _c("div", { staticClass: "form_box" }, [
+      _c("p", [_vm._v(_vm._s(_vm.config.subtitle))]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "group" }, [
+        _c("label", [_vm._v("druh")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.selected,
+                expression: "selected"
+              }
+            ],
+            attrs: { name: "personType" },
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.selected = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
+          },
+          _vm._l(_vm.personType, function(type) {
+            return _c("option", { domProps: { value: type.id } }, [
+              _vm._v(
+                "\n                        " +
+                  _vm._s(type.value) +
+                  "\n                    "
+              )
+            ])
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c("span", { staticClass: "bar" })
+      ]),
+      _vm._v(" "),
+      _vm.selected == 0
+        ? _c("div", { staticClass: "group" }, [
+            _c("label", [_vm._v("meno *")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.buffer.name,
+                  expression: "buffer.name"
+                }
+              ],
+              attrs: { name: "name", type: "text", required: "required" },
+              domProps: { value: _vm.buffer.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.buffer, "name", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "bar" })
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.selected == 0
+        ? _c("div", { staticClass: "group" }, [
+            _c("label", [_vm._v("priezvisko *")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.buffer.surname,
+                  expression: "buffer.surname"
+                }
+              ],
+              attrs: { name: "surname", type: "text", required: "required" },
+              domProps: { value: _vm.buffer.surname },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.buffer, "surname", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "bar" })
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.selected == 0
+        ? _c("div", { staticClass: "group" }, [
+            _c("label", [_vm._v("dátum narodenia *")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.buffer.birthday,
+                  expression: "buffer.birthday"
+                }
+              ],
+              attrs: {
+                name: "birthday",
+                type: "date",
+                required: "required",
+                pattern: "^\\d{2}\\.\\d{2}\\.\\d{4}$",
+                oninvalid:
+                  "this.setCustomValidity('Zadajte dátum vo formáte DD.MM.YYYY')",
+                oninput: "this.setCustomValidity('')"
+              },
+              domProps: { value: _vm.buffer.birthday },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.buffer, "birthday", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "bar" })
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.selected == 0
+        ? _c("div", { staticClass: "group" }, [
+            _c("label", [_vm._v("rodné číslo")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.buffer.id_number,
+                  expression: "buffer.id_number"
+                }
+              ],
+              attrs: {
+                name: "id_number",
+                type: "text",
+                pattern: "^\\d{6}\\/\\d{3,4}$",
+                placeholder: "rodné číslo zadajte aj s /",
+                oninvalid:
+                  "this.setCustomValidity('Zadajte RČ vo formáte 123456/1234')"
+              },
+              domProps: { value: _vm.buffer.id_number },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.buffer, "id_number", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "bar" })
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.selected == 0
+        ? _c("div", { staticClass: "group" }, [
+            _c("label", [_vm._v("občianstvo")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.buffer.citizenship,
+                  expression: "buffer.citizenship"
+                }
+              ],
+              attrs: { name: "citizenship", type: "text" },
+              domProps: { value: _vm.buffer.citizenship },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.buffer, "citizenship", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "bar" })
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.selected == 1
+        ? _c("div", { staticClass: "group" }, [
+            _c("label", [_vm._v("názov *")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.buffer.name,
+                  expression: "buffer.name"
+                }
+              ],
+              staticClass: "cname",
+              attrs: { name: "name", type: "text", required: "required" },
+              domProps: { value: _vm.buffer.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.buffer, "name", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "bar" })
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.selected == 1
+        ? _c("div", { staticClass: "group" }, [
+            _c("label", [_vm._v("IČO *")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.buffer.ico,
+                  expression: "buffer.ico"
+                }
+              ],
+              staticClass: "ico",
+              attrs: {
+                name: "ico",
+                type: "text",
+                pattern: "^\\d{8}$",
+                required: "required",
+                oninvalid:
+                  "this.setCustomValidity('Zadajte IČO vo formáte 12345678')"
+              },
+              domProps: { value: _vm.buffer.ico },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.buffer, "ico", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "bar" })
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "group" }, [
+        _c("label", [_vm._v("ulica *")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.buffer.street,
+              expression: "buffer.street"
+            }
+          ],
+          staticClass: "street",
+          attrs: { name: "street", type: "text", required: "required" },
+          domProps: { value: _vm.buffer.street },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.buffer, "street", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "bar" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "group" }, [
+        _c("label", [_vm._v("číslo *")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.buffer.house_number,
+              expression: "buffer.house_number"
+            }
+          ],
+          staticClass: "number",
+          attrs: { name: "house_number", type: "text", required: "required" },
+          domProps: { value: _vm.buffer.house_number },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.buffer, "house_number", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "bar" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "group" }, [
+        _c("label", [_vm._v("obec *")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.buffer.town,
+              expression: "buffer.town"
+            }
+          ],
+          staticClass: "city",
+          attrs: { name: "town", type: "text", required: "required" },
+          domProps: { value: _vm.buffer.town },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.buffer, "town", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "bar" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "group" }, [
+        _c("label", [_vm._v("PSČ *")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.buffer.zip,
+              expression: "buffer.zip"
+            }
+          ],
+          staticClass: "psc",
+          attrs: {
+            name: "zip",
+            type: "text",
+            pattern: "^\\d{5}$",
+            required: "required",
+            oninvalid: "this.setCustomValidity('Zadajte PSČ vo formáte 12345')"
+          },
+          domProps: { value: _vm.buffer.zip },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.buffer, "zip", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "bar" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "group" }, [
+        _c("label", [_vm._v("štát *")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.buffer.country,
+              expression: "buffer.country"
+            }
+          ],
+          staticClass: "country",
+          attrs: { name: "country", type: "text", required: "required" },
+          domProps: { value: _vm.buffer.country },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.buffer, "country", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "bar" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "group" }, [
+        _c("label", [_vm._v("telefón")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.buffer.phone,
+              expression: "buffer.phone"
+            }
+          ],
+          attrs: { name: "phone", type: "text" },
+          domProps: { value: _vm.buffer.phone },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.buffer, "phone", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "bar" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "group" }, [
+        _c("label", [_vm._v("e-mail")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.buffer.email,
+              expression: "buffer.email"
+            }
+          ],
+          attrs: {
+            name: "email",
+            type: "email",
+            pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",
+            oninvalid: "this.setCustomValidity('Nesprávna mailová adresa')"
+          },
+          domProps: { value: _vm.buffer.email },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.buffer, "email", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "bar" })
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SimpleTableComponent.vue?vue&type=template&id=72ed00e8&":
 /*!***********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SimpleTableComponent.vue?vue&type=template&id=72ed00e8& ***!
@@ -50120,6 +50792,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('simple-table-component', __webpack_require__(/*! ./components/SimpleTableComponent.vue */ "./resources/js/components/SimpleTableComponent.vue")["default"]);
 Vue.component('modal-component', __webpack_require__(/*! ./components/ModalComponent.vue */ "./resources/js/components/ModalComponent.vue")["default"]);
+Vue.component('participant-component', __webpack_require__(/*! ./components/ParticipantComponent */ "./resources/js/components/ParticipantComponent.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -50310,6 +50983,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalComponent_vue_vue_type_template_id_4b2d100a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalComponent_vue_vue_type_template_id_4b2d100a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ParticipantComponent.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/ParticipantComponent.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ParticipantComponent_vue_vue_type_template_id_2c64da16___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ParticipantComponent.vue?vue&type=template&id=2c64da16& */ "./resources/js/components/ParticipantComponent.vue?vue&type=template&id=2c64da16&");
+/* harmony import */ var _ParticipantComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ParticipantComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/ParticipantComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ParticipantComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ParticipantComponent_vue_vue_type_template_id_2c64da16___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ParticipantComponent_vue_vue_type_template_id_2c64da16___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ParticipantComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ParticipantComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/ParticipantComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParticipantComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ParticipantComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ParticipantComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParticipantComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ParticipantComponent.vue?vue&type=template&id=2c64da16&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/ParticipantComponent.vue?vue&type=template&id=2c64da16& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ParticipantComponent_vue_vue_type_template_id_2c64da16___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ParticipantComponent.vue?vue&type=template&id=2c64da16& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ParticipantComponent.vue?vue&type=template&id=2c64da16&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ParticipantComponent_vue_vue_type_template_id_2c64da16___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ParticipantComponent_vue_vue_type_template_id_2c64da16___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -17,7 +17,7 @@ class CreateClaimTypeTable extends Migration
             $table->id();
             $table->string('key');
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });

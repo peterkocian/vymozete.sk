@@ -16,7 +16,7 @@ class CreateClaimTable extends Migration
         Schema::create('claim', function (Blueprint $table) {
             $table->id();
             $table->float('amount', 10, 2);
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->dateTime('paymentDueDate');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));

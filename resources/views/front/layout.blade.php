@@ -12,10 +12,15 @@
 
         <title>vymozete.sk - jednoduché online riešenie pohľadávok</title>
 
+
+
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('front/css/template.css') }}">
+        <link rel="stylesheet" href="{{ asset('front/css/bootstrap-steps.css') }}">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900&amp;subset=latin-ext" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     {{--    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>--}}
     </head>
@@ -24,7 +29,7 @@
             <h2 style="text-align: center; color: black;">Pre zobrazenie stránky je nutné mať povolený JavaScript.</h2>
             <style>.content { display:none; }</style>
         </noscript>
-        <div class="content">
+        <div id="app" class="content">
             <div class="main-menu">
                 @include('front.partials.navigation.mobile_nav')
                 @include('front.partials.navigation.main')

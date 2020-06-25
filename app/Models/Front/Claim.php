@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Claim extends Model
 {
-    private $table = 'claim';
+    protected $table = 'claim';
 
-    protected $fillable = ['amount, description, paymentDueDate'];
+    protected $fillable = ['amount', 'description', 'paymentDueDate'];
 }
