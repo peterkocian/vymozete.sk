@@ -12,24 +12,27 @@
                 </div>
 
                 <div class="group">
-                    <input id="name" name="data[name]" type="text" value="">
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
                     <label for="name">Meno</label>
+                    <input id="name" name="name" type="text" value="{{ $user->name }}">
+                    <span class="bar"></span>
                 </div>
 
                 <div class="group">
-                    <input id="email" name="data[email]" required="required" type="email" value="">
-                    <span class="highlight"></span>
+                    <label for="name">Priezvisko</label>
+                    <input id="name" name="surname" type="text" value="{{ $user->surname }}">
                     <span class="bar"></span>
+                </div>
+
+                <div class="group">
                     <label for="email">E-mail</label>
+                    <input id="email" name="email" type="email" value="{{ $user->email }}" required="required">
+                    <span class="bar"></span>
                 </div>
 
                 <div class="group">
-                    <input id="telefon" name="data[phone]" type="text" value="" pattern="\+[0-9]{12}">
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
                     <label for="telefon">Mobil (v tvare +4219xxyyyyyy)</label>
+                    <input id="telefon" name="phone" type="text" value="{{ $user->phone }}" pattern="\+[0-9]{12}">
+                    <span class="bar"></span>
                 </div>
 
                 <div class="group">

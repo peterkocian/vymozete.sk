@@ -1,5 +1,6 @@
 {
-    "/js/app.js": "/js/app.js",
+    "/js/admin_app.js": "/js/admin_app.js",
     "/css/app.css": "/css/app.css",
-    "/front/css/template.css": "/front/css/template.css"
+    "/front/css/template.css": "/front/css/template.css",
+    "/js/front_app.js": "/js/front_app.js"
 }

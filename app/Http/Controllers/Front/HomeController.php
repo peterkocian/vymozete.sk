@@ -26,4 +26,33 @@ class HomeController extends Controller
         }
         return abort(403, __('general.Unauthorized'));
     }
+
+    public function updateProfile(User $user)
+    {
+        $validator = $this->validator(request()->all());
+        if (!$validator->fails())
+        {
+            $user->name     = request('name');
+            $user->surname  = request('surname');
+
+            if ($user->update()) {
+                return redirect()
+                    ->route('admin.users.editProfile', $user->id)
+                    ->withSuccess(__('general.Updated successfully'));
+            }
+        }
+        return back()
+            ->withFail(__('general.Update failed'))
+            ->withErrors($validator)
+            ->withInput();
+    }
+
+    private function validator(array $all, $id = null)
+    {
+        return \Validator::make($all, [
+            'name'      => 'required|max:191',
+            'surname'   => 'required|max:191',
+            'email'     => 'nullable|email|unique:users,email,'.$id
+        ]);
+    }
 }

@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="sk">
     <head>
+        <title>vymozete.sk - jednoduché online riešenie pohľadávok</title>
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="Content-Style-Type" content="text/css" />
         <meta http-equiv="Content-Script-Type" content="application/javascript" />
 
         <meta name="description" content="vymozete.sk - jednoduché online riešenie pohľadávok" />
         <meta name="keywords" content="vymozete, vymozete.sk, pohladavky, pohľadávky, pohladavky online, riesenie pohladavok, riešenie pohľadávok, online riesenie pohladavok, online riešenie pohľadávok, riešenie pohľadávky, online riešenie pohľadávky" />
-        <meta name="author" content=" " />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1,user-scalable=no">
+        <meta name="author" content="Vymozete.sk" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, user-scalable=no">
 
-        <title>vymozete.sk - jednoduché online riešenie pohľadávok</title>
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
-
-        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+        <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('front/css/template.css') }}">
         <link rel="stylesheet" href="{{ asset('front/css/bootstrap-steps.css') }}">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900&amp;subset=latin-ext" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/front_app.js') }}" defer></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     {{--    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>--}}
     </head>

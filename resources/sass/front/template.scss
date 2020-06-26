@@ -3,6 +3,10 @@ $white: #fff;
 $bckgBttnPrimary: orange;
 $bckgBttnSecondary: darkorange;
 
+// Bootstrap
+//@import '../../../node_modules/bootstrap/scss/variables';
+//@import '~bootstrap-vue/src/index';
+
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;

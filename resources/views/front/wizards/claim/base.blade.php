@@ -13,14 +13,6 @@
                 @include($step->view(), compact('step', 'errors'))
 
                 <div class="d-flex align-items-center">
-                    <div class="mr-auto">
-                        @if ($stepRepo->hasPrev())
-                            <button type="button" class="btn btn-primary big_btn" onclick="this.form.action = '{{ $getActionUrl($postAction, [$step->slug(), '_trigger' => 'back']) }}'; this.form.submit();">
-                                @lang('wizard::generic.back')
-                            </button>
-                        @endif
-                    </div>
-
                     <div class="ml-auto">
                         @if ($stepRepo->hasNext())
                             <button type="submit" class="btn btn-primary big_btn">
@@ -29,6 +21,14 @@
                         @else
                             <button type="submit" class="btn btn-primary big_btn">
                                 @lang('wizard::generic.done')
+                            </button>
+                        @endif
+                    </div>
+
+                    <div class="mr-auto">
+                        @if ($stepRepo->hasPrev())
+                            <button type="button" class="btn btn-primary big_btn" onclick="this.form.action = '{{ $getActionUrl($postAction, [$step->slug(), '_trigger' => 'back']) }}'; this.form.submit();">
+                                @lang('wizard::generic.back')
                             </button>
                         @endif
                     </div>

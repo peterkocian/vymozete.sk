@@ -36,22 +36,17 @@
     export default {
         props: ['config'],
         data() {
-            let conf = this.loadConfig(this.config);
-
-            if (conf) {
+            if (this.config) {
                 return {
-                    data:    conf.data || {},
-                    columns: conf.columns || {},
-                    actions: conf.actions || {},
+                    data:    this.config.data || {},
+                    columns: this.config.columns || {},
+                    actions: this.config.actions || {},
                     modalText: '',
                     modalUrl: ''
                 }
             }
         },
         methods: {
-            loadConfig(conf) {
-                return JSON.parse(conf);
-            },
             buildUrl(urlTemplate, data) {
                 let resolvedUrl;
                 let params = urlTemplate.match(/[^{\}]+(?=})/g);

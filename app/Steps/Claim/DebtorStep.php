@@ -26,7 +26,7 @@ class DebtorStep extends Step
      *
      * @var string
      */
-    protected $view = 'steps.claim.debtor';
+    protected $view = 'front.wizards.claim.steps.debtor';
 
     /**
      * Set the step model instance or the relationships instance.

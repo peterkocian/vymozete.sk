@@ -8,6 +8,7 @@
                     <option value="{{ $option['id'] }}" @if($step->data('claim_type') == $option['id'])selected="selected"@endif>{{ $option['name'] }}</option>
                 @endforeach
             </select>
+            <b-form-datepicker id="datepicker-placeholder" placeholder="Choose a date" local="en"></b-form-datepicker>
         </div>
     </div>
 </div>

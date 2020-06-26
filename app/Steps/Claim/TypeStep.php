@@ -27,7 +27,7 @@ class TypeStep extends Step
      *
      * @var string
      */
-    protected $view = 'steps.claim.type';
+    protected $view = 'front.wizards.claim.steps.type';
 
     /**
      * Set the step model instance or the relationships instance.
