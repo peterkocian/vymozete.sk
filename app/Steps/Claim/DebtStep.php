@@ -58,6 +58,8 @@ class DebtStep extends Step
 
         $flattenWizardData = $this->flattenArray($wizardData);
 
+//        dd($flattenWizardData);
+
         $model->fill($flattenWizardData['debt'])->save();
     }
 
@@ -69,8 +71,10 @@ class DebtStep extends Step
      */
     public function rules(Request $request)
     {
-        //todo
-        return [];
+        return [
+            'amount' => 'required',
+            'paymentDueDate' => 'required',
+        ];
     }
 
     public function flattenArray($stepData) {

@@ -44,6 +44,10 @@ Route::namespace('Front')->name('front.')->middleware('auth')->group(function() 
     Wizard::routes('/claim', 'ClaimWizardController', 'claim');
 });
 
+Route::middleware('auth')->group(function() {
+    Route::get('/api/company-data', 'ApiController@getCompanyData');
+});
+
 Route::get('/', 'PublicController@index');
 Route::get('/vop', 'PublicController@vop');
 

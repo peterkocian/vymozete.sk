@@ -60,7 +60,19 @@ class CreditorStep extends Step
      */
     public function rules(Request $request)
     {
-        //todo
-        return [];
+        return [
+            'personType' => 'required',
+            'name' => 'required',
+            'surname' => 'required_if:personType,0',
+            'birthday' => 'required_if:personType,0|date',
+            'ico' => 'required_if:personType,1',
+            'street' => 'required',
+            'house_number' => 'required',
+            'town' => 'required',
+            'zip' => 'required',
+            'country' => 'required',
+//            'email' => 'regex:/^.+@.+$/i|nullable'
+            'email' => 'email|nullable'
+        ];
     }
 }

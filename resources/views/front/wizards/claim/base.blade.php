@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="mainbox mainbox_white">
-        <div class="col-md-8">
-            <div class="mb-3">
+        <div class="">
+            <div class="">
                 @include($getViewPath('steps_bar'))
             </div>
 

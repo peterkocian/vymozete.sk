@@ -2,10 +2,10 @@ $primary: #115063;
 $white: #fff;
 $bckgBttnPrimary: orange;
 $bckgBttnSecondary: darkorange;
+$error: #dc3545;
 
-// Bootstrap
-//@import '../../../node_modules/bootstrap/scss/variables';
-//@import '~bootstrap-vue/src/index';
+@import '~vue2-datepicker/scss/index.scss';
+@import '~vue-multiselect/dist/vue-multiselect.min.css';
 
 * {
     -webkit-box-sizing: border-box;
@@ -410,7 +410,7 @@ form {
 }
 
 .msg-error {
-    background-color: firebrick;
+    background-color: $error;
 }
 
 .msg-ok{
@@ -422,6 +422,7 @@ form {
     color: rgb(37, 116, 169);
 }
 
+//admin style
 .infoblock_admin {
     max-width: 160px;
     //height: auto;
@@ -480,7 +481,7 @@ table td span {
     padding: 10px;
     background-color: rgba(17, 80, 99, 1);
     position: fixed;
-    z-index: 8;
+    z-index: 2002;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -720,35 +721,37 @@ a .button {
     text-decoration: none;
     color: initial;
 }
+// styles platia pre vsetky buttony okrem tie, ktore su v popupe datapickeru
+//.mainbox:not(.mx-datepicker-main mx-datepicker-popup){
+    button, a.button {
+        font-size: 15px;
+        font-weight: 900;
+        text-decoration: none;
+        padding: 15px 25px;
+        //height: auto;
+        min-width: 140px;
+        display: block;
+        margin: 20px auto;
+        text-align: center;
+        transition: all 2s cubic-bezier(.25,.8,.25,1);
+        cursor: pointer;
+        border: none;
+        background-color: $bckgBttnSecondary;
+        color: $white;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    }
 
-button, a.button {
-    font-size: 15px;
-    font-weight: 900;
-    text-decoration: none;
-    padding: 15px 25px;
-    //height: auto;
-    min-width: 140px;
-    display: block;
-    margin: 20px auto;
-    text-align: center;
-    transition: all 2s cubic-bezier(.25,.8,.25,1);
-    cursor: pointer;
-    border: none;
-    background-color: $bckgBttnSecondary;
-    color: $white;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-}
+    button:hover, a.button:hover {
+        border: none;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+        background-color: $bckgBttnPrimary;
+    }
 
-button:hover, a.button:hover {
-    border: none;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
-    background-color: $bckgBttnPrimary;
-}
-
-button:focus {
-    outline:0;
-    border: none;
-}
+    button:focus {
+        outline:0;
+        border: none;
+    }
+//}
 
 .add-files button {
     padding: 10px 0px 5px 5px;
@@ -779,6 +782,7 @@ input[type="text"], input[type="email"], input[type="number"] {
     font-size: 18px;
     box-shadow: none;
     border-radius: 0;
+    color: $primary
 }
 input[type="text"]:focus {
     outline: none;
@@ -1243,3 +1247,55 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
 .autocomplete-suggestion { position: relative; padding: 0 .6em; line-height: 23px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.02em; color: #333; }
 .autocomplete-suggestion b { font-weight: normal; color: #1f8dd6; }
 .autocomplete-suggestion.selected { background: #f0f0f0; }
+
+// vue2-datepicker
+.mx-datepicker{
+    display: block;
+    width: auto;
+}
+.mx-btn {
+    display: inline-block;
+    min-width: auto;
+    box-shadow: none;
+}
+
+.mx-datepicker button:hover {
+    box-shadow: none;
+    background-color: transparent;
+}
+
+// vue-multiselect
+.multiselect, .multiselect--active {
+    border-bottom: 1px solid #115063;
+    .multiselect__single{
+        margin-bottom: 0;
+    }
+    .multiselect__tags{
+        border: none;
+        padding: 0 40px 0 0 ;
+    }
+    .multiselect__input{
+        width: 100% !important;
+        //border-bottom: 1px solid $primary;
+        padding: 10px 10px 10px 5px !important;
+    }
+    .multiselect__single{
+        padding: 10px 10px 10px 5px !important;
+        color: $primary;
+        font-weight: 400;
+    }
+    .multiselect__input:hover, .multiselect__single:hover{
+        border-color: $primary;
+    }
+    .multiselect__content-wrapper {
+        border-top: 1px solid #115063;
+    }
+}
+
+.validation-error{
+    color: $error;
+}
+
+.is-invalid {
+    border-bottom: 1px solid $error;
+}

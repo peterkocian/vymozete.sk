@@ -19,133 +19,296 @@
 <!--            </div>-->
 
             <div class="group">
-                <label>druh</label>
-                <select name="personType" v-model="selected">
-                    <option v-for="type in personType" v-bind:value="type.id">
-                        {{ type.value }}
+                <label>druh *</label>
+                <select name="personType" v-model="formData.personType">
+                    <option v-for="personType in config.personType" v-bind:value="personType.id">
+                        {{ personType.value }}
                     </option>
                 </select>
                 <span class="bar"></span>
+                <span v-if="this.config.validationErrors.personType" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['personType']">{{ message }}</div>
+                </span>
             </div>
 
-            <div v-if="selected == 0" class="group">
+            <div v-if="formData.personType == 0" class="group">
                 <label>meno *</label>
-                <input v-model="buffer.name" name="name" type="text" required="required">
+                <input v-model="formData.name" name="name" type="text">
+<!--                required="required"-->
                 <span class="bar"></span>
+                <span v-if="this.config.validationErrors.name" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['name']">{{ message }}</div>
+                </span>
             </div>
 
-            <div v-if="selected == 0" class="group">
+            <div v-if="formData.personType == 0" class="group">
                 <label>priezvisko *</label>
-                <input v-model="buffer.surname" name="surname" type="text" required="required">
+                <input v-model="formData.surname" name="surname" type="text">
+<!--                required="required"-->
                 <span class="bar"></span>
+                <span v-if="this.config.validationErrors.surname" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['surname']">{{ message }}</div>
+                </span>
             </div>
 
-            <div v-if="selected == 0" class="group">
+            <div v-if="formData.personType == 0" class="group">
                 <label>dátum narodenia *</label>
-                <input v-model="buffer.birthday" name="birthday" type="date" required="required" pattern="^\d{2}\.\d{2}\.\d{4}$" oninvalid="this.setCustomValidity('Zadajte dátum vo formáte DD.MM.YYYY')" oninput="this.setCustomValidity('')">
+                <input v-model="formData.birthday" name="birthday" type="hidden">
+<!--                required="required"-->
+                <date-picker
+                    v-model="formData.birthday"
+                    :lang="lang"
+                    format="DD.MM.YYYY"
+                    value-type="YYYY-MM-DD"
+                    input-class=""
+                    :input-attr="{name: ''}"
+                    placeholder="DD.MM.RRRR"
+                    :popupStyle="{left: 0, top: '100%'}"
+                    :append-to-body="false"
+                ></date-picker>
                 <span class="bar"></span>
+                <span v-if="this.config.validationErrors.birthday" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['birthday']">{{ message }}</div>
+                </span>
             </div>
 
-            <div v-if="selected == 0" class="group">
+            <div v-if="formData.personType == 0" class="group">
                 <label>rodné číslo</label>
-                <input v-model="buffer.id_number" name="id_number" type="text" pattern="^\d{6}\/\d{3,4}$" placeholder="rodné číslo zadajte aj s /" oninvalid="this.setCustomValidity('Zadajte RČ vo formáte 123456/1234')">
+                <input
+                    v-model="formData.id_number"
+                    name="id_number"
+                    type="text"
+                    pattern="^\d{6}\/\d{3,4}$"
+                    placeholder="rodné číslo zadajte aj s /"
+                    oninvalid="this.setCustomValidity('Zadajte RČ vo formáte 123456/1234')">
                 <span class="bar"></span>
+                <span v-if="this.config.validationErrors.id_number" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['id_number']">{{ message }}</div>
+                </span>
             </div>
 
-            <div v-if="selected == 0" class="group">
+            <div v-if="formData.personType == 0" class="group">
                 <label>občianstvo</label>
-                <input v-model="buffer.citizenship" name="citizenship" type="text">
+                <input v-model="formData.citizenship" name="citizenship" type="text">
                 <span class="bar"></span>
             </div>
 
-            <div v-if="selected == 1" class="group">
+            <div v-if="formData.personType == 1" class="group">
+                <input type="hidden" name="name" :value="formData.name">
                 <label>názov *</label>
-                <input v-model="buffer.name" class="cname" name="name" type="text" required="required">
-                <span class="bar"></span>
+                <multiselect
+                    v-model="selectedCompany"
+                    :options="companies"
+                    label="name"
+                    track-by="id"
+
+                    :loading="isLoading.includes('name')"
+                    :searchable="true"
+                    :internal-search="false"
+                    :clear-on-select="false"
+                    :close-on-select="true"
+                    placeholder="Začnite písať"
+                    open-direction="bottom"
+                    :showNoOptions="false"
+                    :showCaret="true"
+                    :show-labels="false"
+                    @search-change="query => debounceSearch(query, 'name')"
+                    @select="setCompanyFormData"
+                >
+                    <template slot="singleLabel" slot-scope="props"><span class="option__title">{{ props.option.name }}</span></template>
+                    <template slot="option" slot-scope="props">
+                        <div class="option__desc"><span class="option__title">{{ props.option.name }}</span> <span class="option__small"> ({{ props.option.ico }})</span></div>
+                    </template>
+                </multiselect>
+                <span v-if="this.config.validationErrors.name" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['name']">{{ message }}</div>
+                </span>
             </div>
 
-            <div v-if="selected == 1" class="group">
+            <div v-if="formData.personType == 1" class="group">
+                <input type="hidden" name="ico" :value="formData.ico" hidden>
                 <label>IČO *</label>
-                <input v-model="buffer.ico" class="ico" name="ico" type="text" pattern="^\d{8}$" required="required" oninvalid="this.setCustomValidity('Zadajte IČO vo formáte 12345678')">
-                <span class="bar"></span>
+                <multiselect
+                    v-model="selectedCompany"
+                    :options="companies"
+                    label="ico"
+                    track-by="id"
+
+                    :loading="isLoading.includes('cin')"
+                    :searchable="true"
+                    :internal-search="false"
+                    :clear-on-select="false"
+                    :close-on-select="true"
+                    placeholder="Začnite písať"
+                    open-direction="bottom"
+                    :showNoOptions="false"
+                    :showCaret="true"
+                    :show-labels="false"
+                    @search-change="query => debounceSearch(query, 'cin')"
+                    @select="setCompanyFormData"
+                >
+                    <template slot="singleLabel" slot-scope="props"><span class="option__title">{{ props.option.ico }}</span></template>
+                    <template slot="option" slot-scope="props">
+                        <div class="option__desc"><span class="option__title">{{ props.option.ico }}</span> <span class="option__small"> ({{ props.option.name }})</span></div>
+                    </template>
+                </multiselect>
+                <span v-if="this.config.validationErrors.ico" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['ico']">{{ message }}</div>
+                </span>
             </div>
 
             <div class="group">
                 <label>ulica *</label>
-                <input v-model="buffer.street" class="street" name="street" type="text" required="required">
+                <input v-model="formData.street" name="street" type="text">
+<!--                required="required"-->
                 <span class="bar"></span>
+                <span v-if="this.config.validationErrors.street" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['street']">{{ message }}</div>
+                </span>
             </div>
 
             <div class="group">
                 <label>číslo *</label>
-                <input v-model="buffer.house_number" class="number" name="house_number" type="text" required="required">
+                <input v-model="formData.house_number" name="house_number" type="text">
+<!--                       required="required"-->
+<!--                >-->
                 <span class="bar"></span>
+                <span v-if="this.config.validationErrors.house_number" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['house_number']">{{ message }}</div>
+                </span>
             </div>
 
             <div class="group">
                 <label>obec *</label>
-                <input v-model="buffer.town" class="city" name="town" type="text" required="required">
+                <input v-model="formData.town" name="town" type="text">
+<!--                       required="required"-->
+<!--                >-->
                 <span class="bar"></span>
+                <span v-if="this.config.validationErrors.town" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['town']">{{ message }}</div>
+                </span>
             </div>
 
             <div class="group">
                 <label>PSČ *</label>
-                <input v-model="buffer.zip" class="psc" name="zip" type="text" pattern="^\d{5}$" required="required" oninvalid="this.setCustomValidity('Zadajte PSČ vo formáte 12345')">
+                <input
+                    v-model="formData.zip"
+                    name="zip"
+                    type="text"
+                    oninvalid="this.setCustomValidity('Zadajte PSČ vo formáte 12345')"
+                >
+                <!--                    required="required"-->
+
                 <span class="bar"></span>
+                <span v-if="this.config.validationErrors.zip" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['zip']">{{ message }}</div>
+                </span>
             </div>
 
             <div class="group">
                 <label>štát *</label>
-                <input v-model="buffer.country" class="country" name="country" type="text" required="required">
+                <input v-model="formData.country" name="country" type="text">
+<!--                       required="required"-->
+<!--                >-->
                 <span class="bar"></span>
+                <span v-if="this.config.validationErrors.country" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['country']">{{ message }}</div>
+                </span>
             </div>
 
             <div class="group">
                 <label>telefón</label>
-                <input v-model="buffer.phone" name="phone" type="text">
+                <input v-model="formData.phone" name="phone" type="text">
                 <span class="bar"></span>
+                <span v-if="this.config.validationErrors.phone" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['phone']">{{ message }}</div>
+                </span>
             </div>
 
             <div class="group">
                 <label>e-mail</label>
                 <input
-                    v-model="buffer.email"
-                    name="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" oninvalid="this.setCustomValidity('Nesprávna mailová adresa')">
+                    v-model="formData.email"
+                    name="email" type="email"
+                    pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                    oninvalid="this.setCustomValidity('Nesprávna mailová adresa')"
+                >
                 <span class="bar"></span>
+                <span v-if="this.config.validationErrors.email" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['email']">{{ message }}</div>
+                </span>
             </div>
         </div>
     </div>
 </template>
 <script>
+    import * as lang from "../datepicker_language";
+
     export default {
         props: ['config'],
         mounted() {
-            this.mapStepDataToBuffer();
+            if (this.config.stepData || !Array.isArray(this.config.oldInputs)) {
+                this.setDefaultFormData();
+            }
+
+            // prepisanie defaultnych hodnot vue-multiselect komponenty. by default je autocomplete = nope
+            let el = document.querySelectorAll('.multiselect__input');
+            el.forEach(e => e.autocomplete = "off");
         },
         data() {
-            let stepData = {...this.config.stepData};
-            let personType = [
-                {
-                    id: 0,
-                    value: 'fyzická osoba (nepodnikateľ)'
-                },
-                {
-                    id: 1,
-                    value: 'podnikateľ (živnostník, s.r.o., ...)'
-                }
-            ];
-
             return {
-                buffer: {},
-                stepData,
-                selected: stepData.personType || 0,
-                personType,
+                isLoading: [],
+                debounce:null,
+                companies: [],
+                formData: {personType: 1},
+                selectedCompany: null,
+                lang: lang.slovak(),
             }
         },
         methods: {
-            mapStepDataToBuffer() {
-                this.buffer = {...this.stepData};
+            //todo prerobit tuto funkciu
+            setDefaultFormData() {
+                if (!Array.isArray(this.config.oldInputs)) {
+                    delete this.config.oldInputs._token;
+                    this.formData = {...this.config.oldInputs};
+                } else if (this.config.stepData) {
+                    this.formData = {...this.config.stepData};
+                }
+            },
+            getCompanyData(query, param) {
+                this.isLoading.push(param);
+                console.log(this.isLoading.includes(param));
+                let queryString = param + ':' + query;
+                axios.get(`/api/company-data`, {
+                        params: {
+                            search: queryString
+                        }
+                    })
+                    .then((response) => {
+                        this.removeFilterLoading(param);
+                        this.companies = response.data;
+                    }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            debounceSearch(query, param) {
+                clearTimeout(this.debounce);
+                this.debounce = setTimeout(() => {
+                    if (query !== "") {
+                        this.getCompanyData(query, param);
+                    }
+                }, 400);
+            },
+            setCompanyFormData(data) {
+                this.formData = {...this.formData, ...data};
+            },
+            removeFilterLoading(value) {
+                let index = this.isLoading.indexOf(value);
+
+                if (index > -1) {
+                    this.isLoading.splice(index,1);
+                }
             }
-        }
+        },
     };
 </script>
