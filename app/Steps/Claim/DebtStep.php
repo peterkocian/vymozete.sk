@@ -3,8 +3,13 @@
 namespace App\Steps\Claim;
 
 use App\Models\Front\Claim;
+use App\Models\Front\Organization;
+use App\Models\Front\Participant;
+use App\Models\Front\Person;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Ycs77\LaravelWizard\Step;
+use const http\Client\Curl\AUTH_ANY;
 
 class DebtStep extends Step
 {
@@ -58,7 +63,37 @@ class DebtStep extends Step
 
         $flattenWizardData = $this->flattenArray($wizardData);
 
-//        dd($flattenWizardData);
+        $creditor = $flattenWizardData['creditor'];
+        $debtor = $flattenWizardData['debtor'];
+
+        $creditorModel = $creditor['person_type'] == 1 ? new Organization($creditor) : new Person($creditor);
+        $debtorModel = $debtor['person_type'] == 1 ? new Organization($debtor) : new Person($debtor);
+
+        $debtorModel->save();
+        $creditorModel->save();
+
+        $participantCreditor = new Participant();
+        $participantCreditor->user()->associate(Auth::id());
+
+        $participantDebtor = new Participant();
+        $participantDebtor->user()->associate(Auth::id());
+
+        $debtorModel->participants()->save($participantDebtor);
+        $creditorModel->participants()->save($participantCreditor);
+
+//        dd($participantDebtor, $participantDebtor);
+
+        $model->claimStatus()->associate(Claim::DEFAULT_STATE_ID);
+        $model->claimType()->associate($flattenWizardData['type']['claim_type']);
+        $model->user()->associate(Auth::id());
+        $model->creditor()->associate($participantCreditor);
+//        $model->creditor($creditorModel);
+        $model->debtor()->associate($participantDebtor);
+//        $model->debtor($debtorModel);
+
+//        $model->fill($flattenWizardData['debt']);
+
+//        dd($model);
 
         $model->fill($flattenWizardData['debt'])->save();
     }

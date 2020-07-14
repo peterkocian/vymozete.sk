@@ -6,6 +6,30 @@ $error: #dc3545;
 
 @import '~vue2-datepicker/scss/index.scss';
 @import '~vue-multiselect/dist/vue-multiselect.min.css';
+@import 'steps/bootstrap-steps';
+
+//clearfix
+//input[type="checkbox"]:focus,
+//input[type="text"]:focus,
+button:focus,
+input:focus,
+select:focus {
+    outline: none;
+    box-shadow: none;
+    //border: none;
+}
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 $primary;
+}
+//input[type="text"]:focus {
+//    outline: none;
+//}
+//button:focus {
+//    outline:0;
+//    border: none;
+//}
+//input:focus { outline:none; }
 
 * {
     -webkit-box-sizing: border-box;
@@ -125,6 +149,7 @@ a {
     outline: 0;
     color: $bckgBttnSecondary;
     text-decoration: none;
+    cursor: pointer;
 }
 
 a:hover {
@@ -433,24 +458,24 @@ form {
     border-bottom: 1px $primary solid;
 }
 table th {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
+    //padding-left: 20px;
+    //padding-right: 20px;
+    //padding-bottom: 20px;
 }
 table td {
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 30px;
+    //padding-left: 10px;
+    //padding-right: 10px;
+    //padding-bottom: 30px;
 }
 table td span {
-    max-width: 160px;
+    //max-width: 160px;
     //height: auto;
-    align-items: flex-start;
-    margin:10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px $primary solid;
+    //align-items: flex-start;
+    //margin:10px;
+    //padding-left: 10px;
+    //padding-right: 10px;
+    //padding-bottom: 10px;
+    //border-bottom: 1px $primary solid;
 }
 
 .row_un {
@@ -746,11 +771,6 @@ a .button {
         box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
         background-color: $bckgBttnPrimary;
     }
-
-    button:focus {
-        outline:0;
-        border: none;
-    }
 //}
 
 .add-files button {
@@ -784,9 +804,7 @@ input[type="text"], input[type="email"], input[type="number"] {
     border-radius: 0;
     color: $primary
 }
-input[type="text"]:focus {
-    outline: none;
-}
+
 
 //.style-1 input[type="text"] {
 //    padding: 10px;
@@ -864,7 +882,6 @@ input, textarea	{
     /*-moz-box-sizing: border-box;*/
     /*box-sizing: border-box;*/
 }
-input:focus { outline:none; }
 
 input[type=file] {
     border: 0;
@@ -878,6 +895,7 @@ select {
     -moz-appearance: none;
     background-color: transparent;
     border: none;
+    border-radius: 0;
     border-bottom: 1px solid $primary;
     padding:10px 30px 10px 5px;
     display:block;
@@ -913,10 +931,6 @@ input[type=checkbox]   {
     height: 15px;
     width: 15px;
 }
-input[type=checkbox]:focus 		{
-    outline:none;
-}
-
 
 /* LABEL ======================================= */
 label 				 {
@@ -1248,7 +1262,7 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
 .autocomplete-suggestion b { font-weight: normal; color: #1f8dd6; }
 .autocomplete-suggestion.selected { background: #f0f0f0; }
 
-// vue2-datepicker
+// uprava stylov vue2-datepicker
 .mx-datepicker{
     display: block;
     width: auto;
@@ -1264,7 +1278,7 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
     background-color: transparent;
 }
 
-// vue-multiselect
+// uprava stylov vue-multiselect
 .multiselect, .multiselect--active {
     border-bottom: 1px solid #115063;
     .multiselect__single{
@@ -1298,4 +1312,20 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
 
 .is-invalid {
     border-bottom: 1px solid $error;
+}
+
+.step-text{
+    text-align: center;
+    word-break: inherit;
+}
+// back button in form wizard
+.without-bckg{
+    background-color: transparent;
+    color: orange;
+    box-shadow: none;
+    &:hover{
+        background-color: transparent;
+        box-shadow: none;
+        color: darkorange;
+    }
 }

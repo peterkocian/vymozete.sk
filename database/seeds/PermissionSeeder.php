@@ -13,13 +13,15 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         DB::table('permission')->insert([
-            'name' => 'Back office',
-            'created_at'    => \Carbon\Carbon::now(),
-            'updated_at'    => \Carbon\Carbon::now(),
-        ],[
-            'name' => 'Front office',
-            'created_at'    => \Carbon\Carbon::now(),
-            'updated_at'    => \Carbon\Carbon::now(),
+            [
+                'name' => 'Back office',
+                'created_at'    => \Carbon\Carbon::now(),
+                'updated_at'    => \Carbon\Carbon::now(),
+            ],[
+                'name' => 'Front office',
+                'created_at'    => \Carbon\Carbon::now(),
+                'updated_at'    => \Carbon\Carbon::now(),
+            ]
         ]);
     }
 }

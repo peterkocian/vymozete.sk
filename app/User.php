@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Front\Claim;
 use App\Permissions\HasPermissionsTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -90,5 +91,13 @@ class User extends Authenticatable
      */
     public function getUpdatedAtAttribute($value) {
         return date('d.m.Y H:i:s', strtotime($value));
+    }
+
+    /**
+     * Get the claims by user
+     */
+    public function claims()
+    {
+        return $this->hasMany(Claim::class);
     }
 }

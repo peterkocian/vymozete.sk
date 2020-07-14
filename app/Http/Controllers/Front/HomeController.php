@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
 
     public function index() {
-        return view('front/home', ['claims' => Claim::all()]);
+        return view('front/home', ['claims' => Claim::all()->where('user_id', Auth::id())]);
     }
 
     public function editProfile(User $user)
@@ -37,7 +37,7 @@ class HomeController extends Controller
 
             if ($user->update()) {
                 return redirect()
-                    ->route('admin.users.editProfile', $user->id)
+                    ->route('front.users.editProfile', $user->id)
                     ->withSuccess(__('general.Updated successfully'));
             }
         }

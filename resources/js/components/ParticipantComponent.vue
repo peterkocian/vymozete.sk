@@ -19,19 +19,19 @@
 <!--            </div>-->
 
             <div class="group">
-                <label>druh *</label>
-                <select name="personType" v-model="formData.personType">
-                    <option v-for="personType in config.personType" v-bind:value="personType.id">
-                        {{ personType.value }}
+                <label>typ osoby *</label>
+                <select name="person_type" v-model="formData.person_type">
+                    <option v-for="person_type in config.person_type" v-bind:value="person_type.id">
+                        {{ person_type.value }}
                     </option>
                 </select>
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.personType" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['personType']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.person_type" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['person_type']">{{ message }}</div>
                 </span>
             </div>
 
-            <div v-if="formData.personType == 0" class="group">
+            <div v-if="formData.person_type == 0" class="group">
                 <label>meno *</label>
                 <input v-model="formData.name" name="name" type="text">
 <!--                required="required"-->
@@ -41,7 +41,7 @@
                 </span>
             </div>
 
-            <div v-if="formData.personType == 0" class="group">
+            <div v-if="formData.person_type == 0" class="group">
                 <label>priezvisko *</label>
                 <input v-model="formData.surname" name="surname" type="text">
 <!--                required="required"-->
@@ -51,7 +51,7 @@
                 </span>
             </div>
 
-            <div v-if="formData.personType == 0" class="group">
+            <div v-if="formData.person_type == 0" class="group">
                 <label>dátum narodenia *</label>
                 <input v-model="formData.birthday" name="birthday" type="hidden">
 <!--                required="required"-->
@@ -72,7 +72,7 @@
                 </span>
             </div>
 
-            <div v-if="formData.personType == 0" class="group">
+            <div v-if="formData.person_type == 0" class="group">
                 <label>rodné číslo</label>
                 <input
                     v-model="formData.id_number"
@@ -87,13 +87,13 @@
                 </span>
             </div>
 
-            <div v-if="formData.personType == 0" class="group">
+            <div v-if="formData.person_type == 0" class="group">
                 <label>občianstvo</label>
                 <input v-model="formData.citizenship" name="citizenship" type="text">
                 <span class="bar"></span>
             </div>
 
-            <div v-if="formData.personType == 1" class="group">
+            <div v-if="formData.person_type == 1" class="group">
                 <input type="hidden" name="name" :value="formData.name">
                 <label>názov *</label>
                 <multiselect
@@ -125,7 +125,7 @@
                 </span>
             </div>
 
-            <div v-if="formData.personType == 1" class="group">
+            <div v-if="formData.person_type == 1" class="group">
                 <input type="hidden" name="ico" :value="formData.ico" hidden>
                 <label>IČO *</label>
                 <multiselect
@@ -260,7 +260,7 @@
                 isLoading: [],
                 debounce:null,
                 companies: [],
-                formData: {personType: 1},
+                formData: {person_type: 1},
                 selectedCompany: null,
                 lang: lang.slovak(),
             }
@@ -273,6 +273,9 @@
                     this.formData = {...this.config.oldInputs};
                 } else if (this.config.stepData) {
                     this.formData = {...this.config.stepData};
+                    if (this.config.stepData.name && this.config.stepData.ico) {
+                        this.selectedCompany = this.formData;
+                    }
                 }
             },
             getCompanyData(query, param) {

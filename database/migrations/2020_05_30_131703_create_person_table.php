@@ -18,10 +18,10 @@ class CreatePersonTable extends Migration
             $table->string('name');
             $table->string('surname');
             $table->date('birthday');
-            $table->string('id_number');
-            $table->string('citizenship');
-            $table->string('phone');
-            $table->string('email');
+            $table->string('id_number')->nullable();
+            $table->string('citizenship')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
             $table->string('street');
             $table->string('house_number');
             $table->string('town');

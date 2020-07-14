@@ -17,7 +17,7 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">dátum vytvorenia</th>
+                    <th scope="col">vytvorené</th>
                     <th scope="col">veriteľ</th>
                     <th scope="col">dlžník</th>
                     <th scope="col">dlžná suma</th>
@@ -31,10 +31,10 @@
                 <tr>
                     <th scope="row">1</th>
                     <td>{{ $claim->created_at }}</td>
-                    <td>Otto</td>
-                    <td>Miso</td>
+                    <td>{{ $claim->creditor->entity->name }}</td>
+                    <td>{{ $claim->debtor->entity->name }}</td>
                     <td>{{ $claim->amount }}</td>
-                    <td>@mdo</td>
+                    <td>{{ $claim->claimStatus->name }}</td>
                 </tr>
                 @endforeach
                 </tbody>

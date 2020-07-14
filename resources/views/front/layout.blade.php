@@ -18,7 +18,6 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('front/css/template.css') }}">
-        <link rel="stylesheet" href="{{ asset('front/css/bootstrap-steps.css') }}">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900&amp;subset=latin-ext" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 

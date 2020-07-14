@@ -5,7 +5,7 @@
         'slug' => $step->slug(),
         'validationErrors' => $errors->messages(),
         'oldInputs' => session()->getOldInput(),
-        'personType' => [
+        'person_type' => [
             [
                 'id' => 0,
                 'value' => 'fyzická osoba (nepodnikateľ)'

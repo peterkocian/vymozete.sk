@@ -61,11 +61,11 @@ class CreditorStep extends Step
     public function rules(Request $request)
     {
         return [
-            'personType' => 'required',
+            'person_type' => 'required',
             'name' => 'required',
-            'surname' => 'required_if:personType,0',
-            'birthday' => 'required_if:personType,0|date',
-            'ico' => 'required_if:personType,1',
+            'surname' => 'required_if:person_type,0',
+            'birthday' => 'required_if:person_type,0|date',
+            'ico' => 'required_if:person_type,1',
             'street' => 'required',
             'house_number' => 'required',
             'town' => 'required',

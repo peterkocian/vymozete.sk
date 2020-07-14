@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="mainbox mainbox_white">
-        <div class="">
-            <div class="">
+        <div>
+            <div>
                 @include($getViewPath('steps_bar'))
             </div>
 
@@ -12,23 +12,23 @@
 
                 @include($step->view(), compact('step', 'errors'))
 
-                <div class="d-flex align-items-center">
-                    <div class="ml-auto">
+                <div class="group">
+                    <div class="row">
                         @if ($stepRepo->hasNext())
-                            <button type="submit" class="btn btn-primary big_btn">
-                                @lang('wizard::generic.next')
+                            <button type="submit" class="big_btn">
+                                @lang('front/form-wizard.next')
                             </button>
                         @else
-                            <button type="submit" class="btn btn-primary big_btn">
-                                @lang('wizard::generic.done')
+                            <button type="submit" class="big_btn">
+                                @lang('front/form-wizard.done')
                             </button>
                         @endif
                     </div>
 
-                    <div class="mr-auto">
+                    <div class="row">
                         @if ($stepRepo->hasPrev())
-                            <button type="button" class="btn btn-primary big_btn" onclick="this.form.action = '{{ $getActionUrl($postAction, [$step->slug(), '_trigger' => 'back']) }}'; this.form.submit();">
-                                @lang('wizard::generic.back')
+                            <button class="switch-step without-bckg" onclick="this.form.action = '{{ $getActionUrl($postAction, [$step->slug(), '_trigger' => 'back']) }}'; this.form.submit();">
+                                @lang('front/form-wizard.back')
                             </button>
                         @endif
                     </div>

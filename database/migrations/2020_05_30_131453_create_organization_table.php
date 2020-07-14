@@ -17,9 +17,9 @@ class CreateOrganizationTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('ico');
-            $table->string('vat');
-            $table->string('phone');
-            $table->string('email');
+            $table->string('vat')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
             $table->string('street');
             $table->string('house_number');
             $table->string('town');

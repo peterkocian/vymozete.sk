@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClaimStatusTable extends Migration
+class CreateParticipantTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,18 @@ class CreateClaimStatusTable extends Migration
      */
     public function up()
     {
-        Schema::create('claim_status', function (Blueprint $table) {
+        Schema::create('participant', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('task');
-            $table->string('sms_ntf');
-            $table->string('email_ntf');
-            $table->string('next_step');
-            $table->string('schedule_ntf');
-            $table->string('timeout');
+            $table->unsignedBigInteger('user_id');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
+            $table->morphs('entity');
         });
     }
 
@@ -34,6 +35,6 @@ class CreateClaimStatusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('claim_status');
+        Schema::dropIfExists('participant');
     }
 }

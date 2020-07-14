@@ -5,7 +5,9 @@
         <div class="row"><h1>Údaje užívateľa</h1></div>
 
         <div class="form_box">
-            <form method="POST" action="">
+            <form method="POST" action="{{route('front.users.updateProfile', $user->id)}}">
+                @csrf
+                @method('put')
 
                 <div class="group">
                     <h4>Upravte svoje údaje</h4>

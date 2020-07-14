@@ -508,6 +508,134 @@ fieldset[disabled] .multiselect{pointer-events:none}.multiselect__spinner{positi
   background-color: #f3f3f3;
 }
 
+/*!
+ * Bootstrap Steps v1.0.1 (https://github.com/ycs77/bootstrap-steps)
+ * Copyright 2019 Lucas Yang <yangchenshin77@gmail.com>
+ * Licensed under MIT (https://github.com/ycs77/bootstrap-steps/blob/master/LICENSE)
+ */
+
+.steps {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  overflow-x: auto;
+}
+
+.steps .step:first-child {
+  margin-left: auto;
+}
+
+.steps .step:last-child {
+  margin-right: auto;
+}
+
+.step:first-of-type .step-circle::before {
+  display: none;
+}
+
+.step:last-of-type .step-content {
+  padding-right: 0;
+}
+
+.step-content {
+  box-sizing: content-box;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 5rem;
+  min-width: 5rem;
+  max-width: 5rem;
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+}
+
+.step-circle {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #adb5bd;
+  border: 2px solid #adb5bd;
+  border-radius: 100%;
+  background-color: white;
+}
+
+.step-circle::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: -2px;
+  width: calc(5rem + 1rem - 1.5rem);
+  height: 2px;
+  transform: translate(-100%, -50%);
+  color: #adb5bd;
+  background-color: currentColor;
+}
+
+.step-text {
+  color: #adb5bd;
+  word-break: break-all;
+  margin-top: 0.25em;
+}
+
+.step-active .step-circle {
+  color: white;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.step-active .step-circle::before {
+  color: #007bff;
+}
+
+.step-active .step-text {
+  color: #007bff;
+}
+
+.step-error .step-circle {
+  color: white;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.step-error .step-circle::before {
+  color: #dc3545;
+}
+
+.step-error .step-text {
+  color: #dc3545;
+}
+
+.step-success .step-circle {
+  color: #28a745;
+  background-color: white;
+  border-color: #28a745;
+}
+
+.step-success .step-circle::before {
+  color: #28a745;
+}
+
+.step-success .step-text {
+  color: #28a745;
+}
+
+button:focus,
+input:focus,
+select:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #115063;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -625,6 +753,7 @@ a {
   outline: 0;
   color: darkorange;
   text-decoration: none;
+  cursor: pointer;
 }
 
 a:hover {
@@ -924,28 +1053,6 @@ form {
   border-bottom: 1px #115063 solid;
 }
 
-table th {
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 20px;
-}
-
-table td {
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 30px;
-}
-
-table td span {
-  max-width: 160px;
-  align-items: flex-start;
-  margin: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px #115063 solid;
-}
-
 .row_un {
   width: 80%;
   border-bottom: 1px #115063 solid;
@@ -1222,11 +1329,6 @@ a.button:hover {
   background-color: orange;
 }
 
-button:focus {
-  outline: 0;
-  border: none;
-}
-
 .add-files button {
   padding: 10px 0px 5px 5px;
   min-width: 75px;
@@ -1262,10 +1364,6 @@ input[type=number] {
   color: #115063;
 }
 
-input[type=text]:focus {
-  outline: none;
-}
-
 /* MATERIAL INPUT */
 
 /* form starting stylings ------------------------------- */
@@ -1293,10 +1391,6 @@ textarea {
   /*box-sizing: border-box;*/
 }
 
-input:focus {
-  outline: none;
-}
-
 input[type=file] {
   border: 0;
   padding: 0;
@@ -1310,6 +1404,7 @@ select {
   -moz-appearance: none;
   background-color: transparent;
   border: none;
+  border-radius: 0;
   border-bottom: 1px solid #115063;
   padding: 10px 30px 10px 5px;
   display: block;
@@ -1345,10 +1440,6 @@ input[type=checkbox] {
   margin-right: 5px;
   height: 15px;
   width: 15px;
-}
-
-input[type=checkbox]:focus {
-  outline: none;
 }
 
 /* LABEL ======================================= */
@@ -1830,5 +1921,22 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
 
 .is-invalid {
   border-bottom: 1px solid #dc3545;
+}
+
+.step-text {
+  text-align: center;
+  word-break: inherit;
+}
+
+.without-bckg {
+  background-color: transparent;
+  color: orange;
+  box-shadow: none;
+}
+
+.without-bckg:hover {
+  background-color: transparent;
+  box-shadow: none;
+  color: darkorange;
 }
 

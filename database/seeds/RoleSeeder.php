@@ -14,7 +14,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('role')->insert(
+        DB::table('role')->insert([
             [
                 'name' => 'Super Admin',
     //            'slug' => 'super-admin',
@@ -31,6 +31,6 @@ class RoleSeeder extends Seeder
                 'created_at'    => \Carbon\Carbon::now(),
                 'updated_at'    => \Carbon\Carbon::now(),
             ]
-        );
+        ]);
     }
 }

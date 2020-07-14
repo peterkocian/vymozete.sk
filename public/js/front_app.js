@@ -2264,7 +2264,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       debounce: null,
       companies: [],
       formData: {
-        personType: 1
+        person_type: 1
       },
       selectedCompany: null,
       lang: _datepicker_language__WEBPACK_IMPORTED_MODULE_0__["slovak"]()
@@ -2278,6 +2278,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.formData = _objectSpread({}, this.config.oldInputs);
       } else if (this.config.stepData) {
         this.formData = _objectSpread({}, this.config.stepData);
+
+        if (this.config.stepData.name && this.config.stepData.ico) {
+          this.selectedCompany = this.formData;
+        }
       }
     },
     getCompanyData: function getCompanyData(query, param) {
@@ -55745,7 +55749,7 @@ var render = function() {
       _c("br"),
       _vm._v(" "),
       _c("div", { staticClass: "group" }, [
-        _c("label", [_vm._v("druh *")]),
+        _c("label", [_vm._v("typ osoby *")]),
         _vm._v(" "),
         _c(
           "select",
@@ -55754,11 +55758,11 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.formData.personType,
-                expression: "formData.personType"
+                value: _vm.formData.person_type,
+                expression: "formData.person_type"
               }
             ],
-            attrs: { name: "personType" },
+            attrs: { name: "person_type" },
             on: {
               change: function($event) {
                 var $$selectedVal = Array.prototype.filter
@@ -55771,17 +55775,17 @@ var render = function() {
                   })
                 _vm.$set(
                   _vm.formData,
-                  "personType",
+                  "person_type",
                   $event.target.multiple ? $$selectedVal : $$selectedVal[0]
                 )
               }
             }
           },
-          _vm._l(_vm.config.personType, function(personType) {
-            return _c("option", { domProps: { value: personType.id } }, [
+          _vm._l(_vm.config.person_type, function(person_type) {
+            return _c("option", { domProps: { value: person_type.id } }, [
               _vm._v(
                 "\n                        " +
-                  _vm._s(personType.value) +
+                  _vm._s(person_type.value) +
                   "\n                    "
               )
             ])
@@ -55791,11 +55795,11 @@ var render = function() {
         _vm._v(" "),
         _c("span", { staticClass: "bar" }),
         _vm._v(" "),
-        this.config.validationErrors.personType
+        this.config.validationErrors.person_type
           ? _c(
               "span",
               { staticClass: "validation-error" },
-              _vm._l(this.config.validationErrors["personType"], function(
+              _vm._l(this.config.validationErrors["person_type"], function(
                 message
               ) {
                 return _c("div", [_vm._v(_vm._s(message))])
@@ -55805,7 +55809,7 @@ var render = function() {
           : _vm._e()
       ]),
       _vm._v(" "),
-      _vm.formData.personType == 0
+      _vm.formData.person_type == 0
         ? _c("div", { staticClass: "group" }, [
             _c("label", [_vm._v("meno *")]),
             _vm._v(" "),
@@ -55847,7 +55851,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.formData.personType == 0
+      _vm.formData.person_type == 0
         ? _c("div", { staticClass: "group" }, [
             _c("label", [_vm._v("priezvisko *")]),
             _vm._v(" "),
@@ -55889,7 +55893,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.formData.personType == 0
+      _vm.formData.person_type == 0
         ? _c(
             "div",
             { staticClass: "group" },
@@ -55956,7 +55960,7 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.formData.personType == 0
+      _vm.formData.person_type == 0
         ? _c("div", { staticClass: "group" }, [
             _c("label", [_vm._v("rodné číslo")]),
             _vm._v(" "),
@@ -56005,7 +56009,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.formData.personType == 0
+      _vm.formData.person_type == 0
         ? _c("div", { staticClass: "group" }, [
             _c("label", [_vm._v("občianstvo")]),
             _vm._v(" "),
@@ -56034,7 +56038,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.formData.personType == 1
+      _vm.formData.person_type == 1
         ? _c(
             "div",
             { staticClass: "group" },
@@ -56127,7 +56131,7 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.formData.personType == 1
+      _vm.formData.person_type == 1
         ? _c(
             "div",
             { staticClass: "group" },
