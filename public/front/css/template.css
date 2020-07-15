@@ -1874,26 +1874,33 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
   background-color: transparent;
 }
 
-.multiselect,
-.multiselect--active {
-  border-bottom: 1px solid #115063;
-}
-
 .multiselect .multiselect__single,
 .multiselect--active .multiselect__single {
   margin-bottom: 0;
 }
 
+.multiselect .multiselect__select,
+.multiselect--active .multiselect__select {
+  z-index: 1;
+}
+
 .multiselect .multiselect__tags,
 .multiselect--active .multiselect__tags {
   border: none;
-  padding: 0 40px 0 0;
+  padding: 0 0 0 0;
+}
+
+.multiselect .multiselect__placeholder,
+.multiselect--active .multiselect__placeholder {
+  display: none;
 }
 
 .multiselect .multiselect__input,
 .multiselect--active .multiselect__input {
   width: 100% !important;
-  padding: 10px 10px 10px 5px !important;
+  border-bottom: 1px solid #115063;
+  padding: 9px 50px 9px 5px !important;
+  top: 2px;
 }
 
 .multiselect .multiselect__single,
@@ -1912,7 +1919,9 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
 
 .multiselect .multiselect__content-wrapper,
 .multiselect--active .multiselect__content-wrapper {
-  border-top: 1px solid #115063;
+  border-top: none;
+  top: 41px;
+  z-index: -1;
 }
 
 .validation-error {

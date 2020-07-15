@@ -1280,18 +1280,26 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
 
 // uprava stylov vue-multiselect
 .multiselect, .multiselect--active {
-    border-bottom: 1px solid #115063;
+    //border-bottom: 1px solid $primary;
     .multiselect__single{
         margin-bottom: 0;
     }
+    .multiselect__select{
+        //border-top: 1px solid $primary;
+        z-index: 1;
+    }
     .multiselect__tags{
         border: none;
-        padding: 0 40px 0 0 ;
+        padding: 0 0 0 0 ;
+    }
+    .multiselect__placeholder{
+        display: none;
     }
     .multiselect__input{
         width: 100% !important;
-        //border-bottom: 1px solid $primary;
-        padding: 10px 10px 10px 5px !important;
+        border-bottom: 1px solid $primary;
+        padding: 9px 50px 9px 5px !important;
+        top: 2px;
     }
     .multiselect__single{
         padding: 10px 10px 10px 5px !important;
@@ -1302,7 +1310,10 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
         border-color: $primary;
     }
     .multiselect__content-wrapper {
-        border-top: 1px solid #115063;
+        //border-top: 1px solid $primary;
+        border-top: none;
+        top: 41px;
+        z-index: -1;
     }
 }
 
