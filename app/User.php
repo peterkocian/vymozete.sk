@@ -74,6 +74,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Function returns user's full name
+     *
+     * @return string
+     */
+    public function getFullNameAttribute() {
+        return ucfirst($this->name) . ' ' . ucfirst($this->surname);
+    }
+
+    /**
      * Vzdy ked pristupime ku atributu created_at, tak sa automaticky naformatuje podla tohto formatu
      *
      * @param $value

@@ -23,6 +23,8 @@ import {  BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 
 Vue.component('simple-table-component', require('./components/SimpleTableComponent.vue').default);
 Vue.component('modal-component', require('./components/ModalComponent.vue').default);
+Vue.component('side-menu-component', require('./components/SideMenuComponent').default);
+Vue.component('button-component', require('./components/ButtonComponent').default);
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)

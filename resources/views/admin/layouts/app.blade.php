@@ -12,6 +12,9 @@
     <!-- Scripts -->
     <script src="{{ asset('js/admin_app.js') }}" defer></script>
 
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -21,15 +24,64 @@
 </head>
 <body>
     <div id="app">
-        @include('admin.navigation.nav')
+        @auth()
+            <side-menu-component :config="{{ json_encode([
+            'menuItems' => [
+                [
+                    "title" => "main",
+                    "subItems" => [
+                        [
+                        "icon" => "dashboard",
+                        "title" => "Dashboard",
+                        "src" => "/"
+                        ]
+                    ]
+                ],
+                [
+                    "title" => "reports",
+                    "subItems" => [
+                        [
+                            "icon" => "insert_chart",
+                            "title" => "Apple reporting",
+                            "src" => "/report"
+                        ]
+                    ]
+                ],
+                [
+                    "title" => "settings",
+                    "subItems" => [
+                        [
+                            "icon" => "supervised_user_circle",
+                            "title" => "Users",
+                            "src" => "/users"
+                        ]
+                    ]
+                ]
+            ],
+            'widthCollapsed' => 45,
+            'widthUncollapsed' => 200,
+            'isMenuCollapsed' => true,
+            'logoSrc' => '/image/westech.png',
+        ]) }}"></side-menu-component>
+        @endauth
 
-        <main class="py-4">
-            <div class="container">
+        <div class="main-wrapper">
+            @include('admin.navigation.nav')
+
+{{--            <main class="py-4">--}}
+{{--                <div class="container-fluid">--}}
+{{--                    @include('admin.flash-message')--}}
+
+{{--                    @yield('content')--}}
+{{--                </div>--}}
+{{--            </main>--}}
+
+            <main class="container-fluid main-container">
                 @include('admin.flash-message')
 
                 @yield('content')
-            </div>
-        </main>
+            </main>
+        </div>
     </div>
 </body>
 </html>

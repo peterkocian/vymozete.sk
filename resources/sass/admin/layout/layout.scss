@@ -1,0 +1,139 @@
+// Variables
+@import 'variables';
+
+html, body, #app {
+    height: 100%;
+}
+
+button:focus,
+a,
+input[type="reset"]:focus, input[type="reset"]:active:focus,
+.btn:focus,
+span
+{
+    outline: none;
+    box-shadow: none;
+}
+
+#app {
+    display: flex;
+}
+
+#side-menu {
+    flex: 0 0 45px;
+    overflow-y: hidden;
+    z-index: 1050;
+    -webkit-transition: 0.2s ease-out;
+    -moz-transition: 0.2s ease-out;
+    -o-transition: 0.2s ease-out;
+    transition: 0.2s ease-out;
+    padding: 0 0 5px 0;
+    background-color: $sideMenuBckg;
+    border-right: $sideMenuBorder;
+
+    .navbar-logo {
+        width: 100%;
+        padding: 0.5rem;
+        border-bottom: $sideMenuBorder;
+        .navbar-brand {
+            margin-right: 0;
+            img {
+                height: 22px;
+            }
+        }
+    }
+
+    .navbar-menu-container {
+        overflow-y: auto;
+        max-height: 100%;
+        height: calc(100% - #{$topMenuHeight});
+        width: 100%;
+        padding: 0.65rem;
+        .navbar-nav li {
+            padding-bottom: 5px;
+        }
+        .navbar-nav .nav-link {
+            padding: 0;
+        }
+        h6 + .navbar-nav:last-child {
+            margin-bottom: 10px;
+        }
+        h6 {
+            font-size: 0.7rem;
+            white-space: nowrap;
+            padding-bottom: 4px;
+        }
+        a {
+            white-space: nowrap;
+            color: $sideMenuItem;
+            &:hover {
+                color: $sideMenuItemHover;
+            }
+        }
+    }
+}
+
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+    background-color: $body-bg;
+    overflow: hidden;
+    .navbar-top-container {
+        border-bottom: $topMenuBorder;
+        background-color: $topMenuBckg;
+        padding: 0;
+        z-index: 1050;
+    }
+    .main-container {
+        height: 100%;
+        width: 100%;
+        overflow: auto;
+        padding: 15px;
+        white-space: nowrap;
+        .row {
+            padding-bottom: 15px;
+            margin: 0;
+        }
+        .row:last-child {
+            padding-bottom: 0;
+        }
+        .col{
+            padding: 15px;
+            background-color: white;
+            margin-right: 15px;
+        }
+        .col:last-child {
+            margin: 0;
+        }
+    }
+}
+
+.navbar-top {
+    height: 40px;
+    line-height: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.material-icons {
+    position: relative;
+    display: initial;
+    vertical-align: middle;
+}
+
+.bs-tooltip-left {
+    left: 40px !important;
+    background-color: black;
+    border-radius: 4px;
+}
+
+.navbar-expand .navbar-nav .dropdown-menu{
+    right: 5px;
+}
+
+.static-dropdown-item {
+    padding: 0.25rem 1.5rem;
+}
