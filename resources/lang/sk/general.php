@@ -19,6 +19,6 @@ return [
     'Deleted successfully' => 'Údaje úspešne vymazané',
     'Delete failed' => 'Údaje sa nepodarilo vymazať, skúste znovu prosím',
     'Created successfully' => 'Údaje úspešne vytvorené',
-    'Create failed' => 'Údaje sa nepodarilo vytvoriť, skúste znovu prosím',
+    'Create failed' => 'Údaje sa nepodarilo uložiť, skúste znovu prosím',
     'Unauthorized' => 'Nemáte oprávnenie na túto akciu.'
 ];

@@ -3,90 +3,166 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Permission;
+use App\Services\PermissionService;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class PermissionController extends Controller
 {
+    private $permissionService;
+
+    public function __construct(PermissionService $permissionService)
+    {
+        $this->permissionService = $permissionService;
+    }
+
     public function index()
     {
-        $permissions = Permission::all()->toArray();
-        return view('admin.permissions.index', ['data' => $permissions]);
+        $result = [];
+        try {
+            $result = $this->permissionService->all();
+        } catch (\Exception $e) {
+            report($e);
+
+            request()->session()->now('fail', $e->getMessage());
+        }
+
+        return view('admin.permissions.index', ['data' => $result]);
     }
 
     public function create()
     {
-        return view('admin.permissions.create');
+        try {
+            $result = $this->permissionService->getProjection();
+        } catch (\Exception $e) {
+            report($e);
+
+            //todo dopisat error message - vymysliet standard
+            return back()
+                ->withFail($e->getMessage());
+        }
+
+        return view('admin.permissions.create', ['permission' => $result]);
     }
 
     /**
      * Store a new user.
      *
-     * @param  Request  $request
      * @return Response
      */
     public function store()
     {
-        $validator = $this->validator(request()->all());
-        if (!$validator->fails()) {
-            $permission = new Permission($validator->validated());
+        $data = request()->all();
 
-            if ($permission->save()) {
-                return redirect()
-                    ->route('admin.permissions.show', $permission->id)
-                    ->withSuccess(__('general.Created successfully'));
-            }
+        try {
+            $result = $this->permissionService->savePermission($data);
+        } catch (ValidationException $e) {
+            report($e);
+
+            return back()
+                ->withFail(__('general.Create failed'))
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            report($e);
+
+            return back()
+                ->withFail(__('general.Create failed').PHP_EOL.$e->getMessage())
+                ->withInput();
         }
-        return back()
-            ->withFail(__('general.Create failed'))
-            ->withErrors($validator)
-            ->withInput();
+
+        return redirect()
+            ->route('admin.permissions.show', $result->id)
+            ->withSuccess(__('general.Created successfully'));
     }
 
     public function show($id)
     {
-        return view('admin.permissions.show', ['permission' => Permission::findOrFail($id)]);
-    }
+        try {
+            $result = $this->find($id);
+        } catch (\Exception $e) {
+            report($e);
 
-    public function edit(Permission $permission)
-    {
-        return view('admin.permissions.edit', ['permission' => $permission]);
-    }
-
-    public function update(Permission $permission)
-    {
-        $validator = $this->validator(request()->all());
-        if (!$validator->fails() && $permission->update($validator->validated())) {
-            return redirect()
-                ->route('admin.permissions.show', $permission->id)
-                ->withSuccess(__('general.Updated successfully'));
+            //todo dopisat error message - vymysliet standard
+            return back()
+                ->withFail($e->getMessage());
         }
-        return back()
-            ->withFail(__('general.Update failed'))
-            ->withErrors($validator)
-            ->withInput();
+
+        return view('admin.permissions.show', ['permission' => $result]);
+    }
+
+    public function edit($id)
+    {
+        try {
+            $result = $this->find($id);
+        } catch (\Exception $e) {
+            report($e);
+
+            //todo dopisat error message - vymysliet standard
+            return back()
+                ->withFail($e->getMessage());
+        }
+
+        return view('admin.permissions.edit', ['permission' => $result]);
+    }
+
+    public function update($id)
+    {
+        $data = request()->except('_token', '_method');
+
+        try {
+            $result = $this->permissionService->updatePermission($data, $id);
+        } catch (ValidationException $e) {
+            report($e);
+
+            return back()
+                ->withFail(__('general.Create failed'))
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            report($e);
+
+            return back()
+                ->withFail(__('general.Create failed').PHP_EOL.$e->getMessage())
+                ->withInput();
+        }
+
+        return redirect()
+            ->route('admin.permissions.show', $result->id)
+            ->withSuccess(__('general.Created successfully'));
     }
 
     public function destroy($id) {
-        $permission = Permission::findOrFail($id);
+        try {
+            $result = $this->find($id);
+        } catch (\Exception $e) {
+            report($e);
 
-        if ($permission->delete()) {
+            //todo dopisat error message - vymysliet standard
+            return back()
+                ->withFail($e->getMessage());
+        }
+
+        if ($result->delete())
+        {
             return redirect()
                 ->route('admin.permissions.index')
                 ->withSuccess(__('general.Deleted successfully', [
-                    'name' => $permission->name,
-                    'id' => $permission->id
+                    'name'      => $result->name,
+                    'surname'   => $result->surname,
+                    'id'        => $result->id
                 ]));
         }
         return back()
-            ->withFail(__('general.Delete failed'));
+            ->withFail(__('general.Delete failed', [
+                'name'      => $result->name,
+                'surname'   => $result->surname,
+                'id'        => $result->id
+            ]));
     }
 
-    private function validator(array $all)
+    private function find($id)
     {
-        return \Validator::make($all, [
-            'name' => 'required|max:191',
-//            'slug' => 'required|max:191',    nastavuje mutator
-        ]);
+        return $this->permissionService->getProjection()->findOrFail($id);
     }
 }

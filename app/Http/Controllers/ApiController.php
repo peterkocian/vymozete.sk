@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use GuzzleHttp\Exception\GuzzleException;
-use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
 class ApiController extends Controller

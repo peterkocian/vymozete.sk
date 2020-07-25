@@ -80534,7 +80534,7 @@ var render = function() {
                 { staticClass: "navbar-brand p-0", attrs: { href: "/" } },
                 [
                   _c("img", {
-                    attrs: { src: this.config.logoSrc, alt: "westech" }
+                    attrs: { src: this.config.logoSrc, alt: "vmzt.sk" }
                   })
                 ]
               )

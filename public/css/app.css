@@ -14138,10 +14138,15 @@ span {
   display: flex;
 }
 
+.form-group,
+.alert-block {
+  white-space: normal;
+}
+
 #side-menu {
   flex: 0 0 45px;
   overflow-y: hidden;
-  z-index: 1050;
+  z-index: 1040;
   transition: 0.2s ease-out;
   padding: 0 0 5px 0;
   background-color: #fff;
@@ -14211,7 +14216,7 @@ span {
   border-bottom: 1px solid #e3e3e394;
   background-color: #fff;
   padding: 0;
-  z-index: 1050;
+  z-index: 1040;
 }
 
 .main-wrapper .main-container {

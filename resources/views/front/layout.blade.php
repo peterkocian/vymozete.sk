@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="sk">
     <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-7L818077L0"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-7L818077L0');
+        </script>
+
         <title>vymozete.sk - jednoduché online riešenie pohľadávok</title>
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 

@@ -30,7 +30,7 @@ return [
         'array' => 'The :attribute must have between :min and :max items.',
     ],
     'boolean' => 'The :attribute field must be true or false.',
-    'confirmed' => 'The :attribute confirmation does not match.',
+    'confirmed' => 'Pole :attribute potvrdenie sa nezhoduje.',
     'date' => 'Pole :attribute músí byť validná dátum.',
     'date_equals' => 'The :attribute must be a date equal to :date.',
     'date_format' => 'The :attribute does not match the format :format.',
@@ -85,10 +85,10 @@ return [
     'mimes' => 'The :attribute must be a file of type: :values.',
     'mimetypes' => 'The :attribute must be a file of type: :values.',
     'min' => [
-        'numeric' => 'The :attribute must be at least :min.',
-        'file' => 'The :attribute must be at least :min kilobytes.',
-        'string' => 'The :attribute must be at least :min characters.',
-        'array' => 'The :attribute must have at least :min items.',
+        'numeric' => 'Pole :attribute musí byť minimálne :min.',
+        'file' => 'Pole :attribute musí mať minimálne :min kilobytov.',
+        'string' => 'Pole :attribute musí mať minimálne :min znakov.',
+        'array' => 'Pole :attribute musí mať minimálne :min items.',
     ],
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',
@@ -158,7 +158,8 @@ return [
         'zip' => 'PSČ',
         'country' => 'štát',
         'person_type' => 'typ osoby',
-        'country' => 'štát',
 
+        'password' => 'heslo',
+        'permissions' => 'oprávnenia'
     ],
 ];

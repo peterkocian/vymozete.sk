@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Steps\Claim;
+namespace App\Http\Controllers\Front\Steps\Claim;
 
 use App\Models\Front\ClaimType;
+use App\Repositories\Eloquent\ClaimTypeRepository;
 use Illuminate\Http\Request;
 use Ycs77\LaravelWizard\Step;
 
@@ -68,6 +69,9 @@ class TypeStep extends Step
 
     public function getClaimTypes()
     {
-        return ClaimType::all(['id', 'name'])->toArray();
+        $claimType = new ClaimType();
+        $claimTypeRepository = new ClaimTypeRepository($claimType);
+        return $claimTypeRepository->all();
+//        return ClaimType::all(['id','name'])->toArray();
     }
 }

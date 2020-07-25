@@ -177,6 +177,7 @@ return [
 
         // Other Service Providers
         App\Providers\PermissionServiceProvider::class,
+        App\Providers\RepositoryServiceProvider::class
 
     ],
 

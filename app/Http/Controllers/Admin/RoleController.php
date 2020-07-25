@@ -3,93 +3,165 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Role;
-use Illuminate\Http\Request;
+use App\Services\RoleService;
+use Illuminate\Validation\ValidationException;
 
 class RoleController extends Controller
 {
+    private $roleService;
+
+    public function __construct(RoleService $roleService)
+    {
+        $this->roleService = $roleService;
+    }
+
     public function index()
     {
-        $roles = Role::all()->toArray();
-        return view ('admin.roles.index', ['data' => $roles]);
+        $result = [];
+        try {
+            $result = $this->roleService->all();
+        } catch (\Exception $e) {
+            report($e);
+
+            request()->session()->now('fail', $e->getMessage());
+        }
+
+        return view('admin.roles.index', ['data' => $result]);
     }
 
     public function create()
     {
-        $role = new Role();
-        return view('admin.roles.create', ['role' => $role]);
+        try {
+            $result = $this->roleService->getProjection();
+        } catch (\Exception $e) {
+            report($e);
+
+            //todo dopisat error message - vymysliet standard
+            return back()
+                ->withFail($e->getMessage());
+        }
+
+        return view('admin.roles.create', ['role' => $result]);
     }
 
     /**
-     * Store a new user.
+     * Store a new role.
      *
-     * @param  Request  $request
      * @return Response
      */
     public function store()
     {
-        $validator = $this->validator(request()->all());
-        if (!$validator->fails()) {
-            $role = new Role($validator->validated());
+        $data = request()->all();
 
-            if ($role->save()) {
-                $role->permissions()->sync(request('permissions'));
-                return redirect()
-                    ->route('admin.roles.show', $role->id)
-                    ->withSuccess(__('general.Created successfully'));
-            }
+        try {
+            $result = $this->roleService->saveRole($data);
+        } catch (ValidationException $e) {
+            report($e);
+
+            return back()
+                ->withFail(__('general.Create failed'))
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            report($e);
+
+            return back()
+                ->withFail(__('general.Create failed').PHP_EOL.$e->getMessage())
+                ->withInput();
         }
-        return back()
-            ->withFail(__('general.Create failed'))
-            ->withErrors($validator)
-            ->withInput();
+
+        return redirect()
+            ->route('admin.roles.show', $result->id)
+            ->withSuccess(__('general.Created successfully'));
     }
 
     public function show($id)
     {
-        return view('admin.roles.show', ['role' => Role::findOrFail($id)]);
-    }
+        try {
+            $result = $this->find($id);
+        } catch (\Exception $e) {
+            report($e);
 
-    public function edit(Role $role)
-    {
-        return view('admin.roles.edit', ['role' => $role]);
-    }
-
-    public function update(Role $role)
-    {
-        $validator = $this->validator(request()->all());
-        if (!$validator->fails() && $role->update($validator->validated())) {
-            $role->permissions()->sync(request('permissions'));
-            return redirect()
-                ->route('admin.roles.show', $role->id)
-                ->withSuccess(__('general.Updated successfully'));
+            //todo dopisat error message - vymysliet standard
+            return back()
+                ->withFail($e->getMessage());
         }
-        return back()
-            ->withFail(__('general.Update failed'))
-            ->withErrors($validator)
-            ->withInput();
+
+        return view('admin.roles.show', ['role' => $result]);
+    }
+
+    public function edit($id)
+    {
+        try {
+            $result = $this->find($id);
+        } catch (\Exception $e) {
+            report($e);
+
+            //todo dopisat error message - vymysliet standard
+            return back()
+                ->withFail($e->getMessage());
+        }
+
+        return view('admin.roles.edit', ['role' => $result]);
+    }
+
+    public function update($id)
+    {
+        $data = request()->except('_token', '_method');
+
+        try {
+            $result = $this->roleService->updateRole($data, $id);
+        } catch (ValidationException $e) {
+            report($e);
+
+            return back()
+                ->withFail(__('general.Create failed'))
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            report($e);
+
+            return back()
+                ->withFail(__('general.Create failed').PHP_EOL.$e->getMessage())
+                ->withInput();
+        }
+
+        return redirect()
+            ->route('admin.roles.show', $result->id)
+            ->withSuccess(__('general.Created successfully'));
     }
 
     public function destroy($id) {
-        $role = Role::findOrFail($id);
+        try {
+            $result = $this->find($id);
+        } catch (\Exception $e) {
+            report($e);
 
-        if ($role->delete()) {
+            //todo dopisat error message - vymysliet standard
+            return back()
+                ->withFail($e->getMessage());
+        }
+
+        if ($result->delete())
+        {
             return redirect()
                 ->route('admin.roles.index')
                 ->withSuccess(__('general.Deleted successfully', [
-                    'name' => $role->name,
-                    'id' => $role->id
+                    'name'      => $result->name,
+                    'surname'   => $result->surname,
+                    'id'        => $result->id
                 ]));
         }
         return back()
-            ->withFail(__('general.Delete failed'));
+            ->withFail(__('general.Delete failed', [
+                'name'      => $result->name,
+                'surname'   => $result->surname,
+                'id'        => $result->id
+            ]));
     }
 
-    private function validator(array $all)
+    private function find($id)
     {
-        return \Validator::make($all, [
-            'name' => 'required|max:191',
-//            'slug' => 'required|max:191',    nastavuje mutator
-        ]);
+        return $this->roleService->getProjection()->findOrFail($id);
     }
 }

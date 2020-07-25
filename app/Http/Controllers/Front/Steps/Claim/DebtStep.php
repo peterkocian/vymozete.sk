@@ -1,18 +1,25 @@
 <?php
 
-namespace App\Steps\Claim;
+namespace App\Http\Controllers\Front\Steps\Claim;
 
 use App\Models\Front\Claim;
 use App\Models\Front\Organization;
 use App\Models\Front\Participant;
 use App\Models\Front\Person;
+use App\Repositories\Eloquent\ClaimRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Ycs77\LaravelWizard\Step;
-use const http\Client\Curl\AUTH_ANY;
 
 class DebtStep extends Step
 {
+    private $claimRepository;
+
+//    public function __construct(ClaimRepository $claimRepository)
+//    {
+//        $this->claimRepository = $claimRepository;
+//    }
+
     /**
      * The step slug.
      *

@@ -3,142 +3,237 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\UserProfileRequest;
+use App\Services\UserService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        $users = User::all()->toArray();
-        return view ('admin.users.index', ['data' => $users]);
-    }
+    private $userService;
 
-    public function create()
+    public function __construct(UserService $userService)
     {
-        $user = new User();
-        return view('admin.users.create', ['user' => $user]);
+        $this->userService = $userService;
     }
 
     /**
-     * Store a new user.
+     * Show all users from DB in table view.
      *
-     * @param  Request  $request
-     * @return Response
+     * @return Application|Factory|View
+     */
+    public function index()
+    {
+        $result = [];
+        try {
+            $result = $this->userService->all();
+        } catch (\Exception $e) {
+            report($e);
+
+            request()->session()->now('fail', $e->getMessage());
+        }
+
+        return view('admin.users.index', ['data' => $result]);
+    }
+
+    /**
+     * Return view form for create new user.
+     *
+     * @return Application|Factory|View
+     */
+    public function create()
+    {
+        try {
+            $result = $this->userService->getProjection();
+        } catch (\Exception $e) {
+            report($e);
+
+            //todo dopisat error message - vymysliet standard
+            return back()
+                ->withFail($e->getMessage());
+        }
+
+        return view('admin.users.create', ['user' => $result]);
+    }
+
+    /**
+     * Store a new user into DB.
+     *
+     * @return mixed
      */
     public function store()
     {
-        $validator = $this->validator(request()->all());
-        if (!$validator->fails()) {
-            $user = new User($validator->validated());
-            $user->password = request('password') ? bcrypt(request('password')) : $user->password;
+        $data = request()->all();
 
-            if ($user->save()) {
-                $user->roles()->sync(request('roles'));
-                $user->permissions()->sync(request('permissions'));
-                return redirect()
-                    ->route('admin.users.show', $user->id)
-                    ->withSuccess(__('general.Created successfully'));
-            }
+        try {
+            $result = $this->userService->saveUser($data);
+        } catch (ValidationException $e) {
+            report($e);
+
+            return back()
+                ->withFail(__('general.Create failed'))
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            report($e);
+
+            return back()
+                ->withFail(__('general.Create failed').PHP_EOL.$e->getMessage())
+                ->withInput();
         }
-        return back()
-            ->withFail(__('general.Create failed'))
-            ->withErrors($validator)
-            ->withInput();
+
+        return redirect()
+            ->route('admin.users.show', $result->id)
+            ->withSuccess(__('general.Created successfully'));
     }
 
+    /**
+     * @param $id
+     * @return Application|Factory|View
+     */
     public function show($id)
     {
-        return view('admin.users.show', ['user' => User::findOrFail($id)]);
+        try {
+            $result = $this->find($id);
+        } catch (\Exception $e) {
+            report($e);
+
+            //todo dopisat error message - vymysliet standard
+            return back()
+                ->withFail($e->getMessage());
+        }
+
+        return view('admin.users.show', ['user' => $result]);
     }
 
-    public function edit(User $user)
+    public function edit($id)
     {
-        return view('admin.users.edit', ['user' => $user]);
+        try {
+            $result = $this->find($id);
+        } catch (\Exception $e) {
+            report($e);
+
+            //todo dopisat error message - vymysliet standard
+            return back()
+                ->withFail($e->getMessage());
+        }
+
+        return view('admin.users.edit', ['user' => $result]);
     }
 
-    public function editProfile(User $user)
+    public function editProfile($id)
     {
-        if(Auth::id() == $user->id) {
-            return view('admin.users.editProfile', ['user' => $user]);
+        if(Auth::id() == $id) {
+            try {
+                $result = $this->find($id);
+            } catch (\Exception $e) {
+                report($e);
+
+                //todo dopisat error message - vymysliet standard
+                return back()
+                    ->withFail($e->getMessage());
+            }
+
+            return view('admin.users.editProfile', ['user' => $result]);
         }
         return abort(403, __('general.Unauthorized'));
     }
 
-    public function update(User $user)
+    public function update($id)
     {
-        $validator = $this->validator(request()->all(), $user->id);
-        if (!$validator->fails())
-        {
-            $user->name     = request('name');
-            $user->surname  = request('surname');
-            $user->email    = request('email');
-            $user->password = request('password') ? bcrypt(request('password')) : $user->password;
-            $user->roles()->sync(request('roles'));
-            $user->permissions()->sync(request('permissions'));
+        $data = request()->except('_token', '_method');
 
-            if ($user->save()) {
-                return redirect()
-                    ->route('admin.users.show', $user->id)
-                    ->withSuccess(__('general.Updated successfully'));
-            }
+        try {
+            $result = $this->userService->updateUser($data, $id);
+        } catch (ValidationException $e) {
+            report($e);
+
+            return back()
+                ->withFail(__('general.Create failed'))
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            report($e);
+
+            return back()
+                ->withFail(__('general.Create failed').PHP_EOL.$e->getMessage())
+                ->withInput();
         }
-        return back()
-            ->withFail(__('general.Update failed'))
-            ->withErrors($validator)
-            ->withInput();
+
+        return redirect()
+            ->route('admin.users.show', $result->id)
+            ->withSuccess(__('general.Created successfully'));
     }
 
-    public function updateProfile(User $user)
+    public function updateProfile(UserProfileRequest $request, $id)
     {
-        $validator = $this->validator(request()->all());
-        if (!$validator->fails())
-        {
-            $user->name     = request('name');
-            $user->surname  = request('surname');
-            $user->password = request('password') ? bcrypt(request('password')) : $user->password;
+        //todo validation->fails() throw exception
 
-            if ($user->update()) {
-                return redirect()
-                    ->route('admin.users.editProfile', $user->id)
-                    ->withSuccess(__('general.Updated successfully'));
+        if(Auth::id() == $id) {
+            $data = $request->except('_token', '_method');
+
+            try {
+                $result = $this->userService->updateUserProfile($data, $id);
+            } catch (ValidationException $e) {
+                report($e);
+
+                return back()
+                    ->withFail(__('general.Create failed'))
+                    ->withErrors($e->validator)
+                    ->withInput();
+            } catch (\Exception $e) {
+                report($e);
+
+                return back()
+                    ->withFail(__('general.Create failed') . PHP_EOL . $e->getMessage())
+                    ->withInput();
             }
+
+            return redirect()
+                ->route('admin.users.editProfile', $result->id)
+                ->withSuccess(__('general.Updated successfully'));
         }
-        return back()
-            ->withFail(__('general.Update failed'))
-            ->withErrors($validator)
-            ->withInput();
+        return abort(403, __('general.Unauthorized'));
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function destroy($id) {
-        $user = User::findOrFail($id);
+        try {
+            $result = $this->find($id);
+        } catch (\Exception $e) {
+            report($e);
 
-        if ($user->delete())
+            //todo dopisat error message - vymysliet standard
+            return back()
+                ->withFail($e->getMessage());
+        }
+
+        if ($result->delete())
         {
             return redirect()
                 ->route('admin.users.index')
                 ->withSuccess(__('general.Deleted successfully', [
-                    'name'      => $user->name,
-                    'surname'   => $user->surname,
-                    'id'        => $user->id
+                    'name'      => $result->name,
+                    'surname'   => $result->surname,
+                    'id'        => $result->id
                 ]));
         }
         return back()
             ->withFail(__('general.Delete failed', [
-                'name'      => $user->name,
-                'surname'   => $user->surname,
-                'id'        => $user->id
+                'name'      => $result->name,
+                'surname'   => $result->surname,
+                'id'        => $result->id
             ]));
     }
 
-    private function validator(array $all, $id = null)
+    private function find($id)
     {
-        return \Validator::make($all, [
-            'name'      => 'required|max:191',
-            'surname'   => 'required|max:191',
-            'password'  => 'nullable|min:6|confirmed',
-            'email'     => 'nullable|email|unique:users,email,'.$id
-        ]);
+        return $this->userService->getProjection()->findOrFail($id);
     }
 }

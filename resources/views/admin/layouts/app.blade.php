@@ -33,17 +33,7 @@
                         [
                         "icon" => "dashboard",
                         "title" => "Dashboard",
-                        "src" => "/"
-                        ]
-                    ]
-                ],
-                [
-                    "title" => "reports",
-                    "subItems" => [
-                        [
-                            "icon" => "insert_chart",
-                            "title" => "Apple reporting",
-                            "src" => "/report"
+                        "src" => "/admin"
                         ]
                     ]
                 ],
@@ -53,7 +43,27 @@
                         [
                             "icon" => "supervised_user_circle",
                             "title" => "Users",
-                            "src" => "/users"
+                            "src" => "/admin/users"
+                        ]
+                    ]
+                ],
+                [
+                    "title" => "settings",
+                    "subItems" => [
+                        [
+                            "icon" => "supervised_user_circle",
+                            "title" => "Roles",
+                            "src" => "/admin/roles"
+                        ]
+                    ]
+                ],
+                [
+                    "title" => "settings",
+                    "subItems" => [
+                        [
+                            "icon" => "supervised_user_circle",
+                            "title" => "Permissions",
+                            "src" => "/admin/permissions"
                         ]
                     ]
                 ]

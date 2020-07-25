@@ -20,7 +20,7 @@ class User extends Authenticatable
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable
      */
-    const ENTITY_ROUTE_PREFIX = '/users/';
+    const ENTITY_ROUTE_PREFIX = '/admin/users/';
 
     /**
      * The attributes that are mass assignable.

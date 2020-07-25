@@ -19,9 +19,16 @@ class Role extends Model
     protected $table = 'role';
 
     /**
+     * Pri update roli pouzivatela v pivot tabulke (M:N) updatne timestamp updated_at aj v modeli users (parent)
+     *
+     * @var string[]
+     */
+    protected $touches = ['users'];
+
+    /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable
      */
-    const ENTITY_ROUTE_PREFIX = '/roles/';
+    const ENTITY_ROUTE_PREFIX = '/admin/roles/';
 
     /**
      * The attributes that are mass assignable.

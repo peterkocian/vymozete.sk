@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Steps\Claim;
+namespace App\Http\Controllers\Front\Steps\Claim;
 
 use Illuminate\Http\Request;
 use Ycs77\LaravelWizard\Step;

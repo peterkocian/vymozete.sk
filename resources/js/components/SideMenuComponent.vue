@@ -6,7 +6,7 @@
     >
         <div class="navbar-logo navbar-top">
             <a v-if=sidebarConf.showLabel class="navbar-brand p-0" href="/">
-                <img :src="this.config.logoSrc" alt="westech">
+                <img :src="this.config.logoSrc" alt="vmzt.sk">
             </a>
             <button-component :config="{...buttonConfig }"></button-component>
         </div>

@@ -16,9 +16,16 @@ class Permission extends Model
     protected $table = 'permission';
 
     /**
+     * Pri update opravneni pouzivatela v pivot tabulkach (M:N) updatne timestamp updated_at aj v modeli users resp. roles (parentov)
+     *
+     * @var string[]
+     */
+    protected $touches = ['users','roles'];
+
+    /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable
      */
-    const ENTITY_ROUTE_PREFIX = '/permissions/';
+    const ENTITY_ROUTE_PREFIX = '/admin/permissions/';
 
     /**
      * The attributes that are mass assignable.

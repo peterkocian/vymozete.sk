@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'route-prefix' => 'admin',
+    'route-prefix' => '',
 ];

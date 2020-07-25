@@ -6,7 +6,7 @@
             <form method="post" action="{{route('admin.users.update', $user->id)}}">
                 @csrf
                 @method('put')
-                @include('admin.users._form', ['dontRequiredPassword' => true])
+                @include('admin.users._form', ['requirePassword' => false])
                 <div class="text-right">
                     <button type="submit" class="btn btn-success btn-sm">{{__('general.Save')}}</button>
                     <a role="button" class="btn btn-secondary btn-sm" href="{{url()->previous()}}">{{__('general.Back')}}</a>

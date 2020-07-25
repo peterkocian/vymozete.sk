@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Steps\Claim\TypeStep;
-use App\Steps\Claim\CreditorStep;
-use App\Steps\Claim\DebtorStep;
-use App\Steps\Claim\DebtStep;
+use App\Http\Controllers\Front\Steps\Claim\TypeStep;
+use App\Http\Controllers\Front\Steps\Claim\CreditorStep;
+use App\Http\Controllers\Front\Steps\Claim\DebtorStep;
+use App\Http\Controllers\Front\Steps\Claim\DebtStep;
 use Ycs77\LaravelWizard\Wizardable;
 use App\Http\Controllers\Controller;
 

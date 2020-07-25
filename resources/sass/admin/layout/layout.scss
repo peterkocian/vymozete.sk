@@ -19,10 +19,15 @@ span
     display: flex;
 }
 
+//basic
+.form-group, .alert-block{
+    white-space: normal;
+}
+
 #side-menu {
     flex: 0 0 45px;
     overflow-y: hidden;
-    z-index: 1050;
+    z-index: 1040;
     -webkit-transition: 0.2s ease-out;
     -moz-transition: 0.2s ease-out;
     -o-transition: 0.2s ease-out;
@@ -85,7 +90,7 @@ span
         border-bottom: $topMenuBorder;
         background-color: $topMenuBckg;
         padding: 0;
-        z-index: 1050;
+        z-index: 1040;
     }
     .main-container {
         height: 100%;

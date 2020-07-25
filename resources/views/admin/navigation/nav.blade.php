@@ -11,15 +11,15 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 @auth
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.users.index') }}">{{ __('menu-item.Users') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.roles.index') }}">{{ __('menu-item.Roles') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.permissions.index') }}">{{ __('menu-item.Permissions') }}</a>
-                    </li>
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link" href="{{ route('admin.users.index') }}">{{ __('menu-item.Users') }}</a>--}}
+{{--                    </li>--}}
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link" href="{{ route('admin.roles.index') }}">{{ __('menu-item.Roles') }}</a>--}}
+{{--                    </li>--}}
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link" href="{{ route('admin.permissions.index') }}">{{ __('menu-item.Permissions') }}</a>--}}
+{{--                    </li>--}}
 {{--                    <li class="nav-item">--}}
 {{--                        <a class="nav-link" href="{{ route('admin.claims.index') }}">{{ __('menu-item.Claims') }}</a>--}}
 {{--                    </li>--}}
