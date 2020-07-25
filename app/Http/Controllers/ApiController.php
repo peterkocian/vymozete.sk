@@ -40,6 +40,7 @@ class ApiController extends Controller
                 'id'        => $company['id'],
                 'name'      => $company['name'],
                 'ico'       => preg_replace('/\s+/', '', $company['cin']),
+                'vat'       => $company['vatin'],
                 'street'    => $company['street'],
                 'house_number' => $company['street_number'],
                 'zip'       => preg_replace('/\s+/', '', $company['postal_code']),

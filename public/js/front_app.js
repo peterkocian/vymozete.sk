@@ -1958,6 +1958,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['config'],
   mounted: function mounted() {
@@ -2001,6 +2007,16 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -55614,13 +55630,7 @@ var render = function() {
               expression: "formData.amount"
             }
           ],
-          attrs: {
-            id: "suma",
-            name: "amount",
-            type: "number",
-            step: "0.01",
-            required: ""
-          },
+          attrs: { id: "suma", name: "amount", type: "number", step: "0.01" },
           domProps: { value: _vm.formData.amount },
           on: {
             input: function($event) {
@@ -55632,7 +55642,18 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _c("span", { staticClass: "bar" })
+        _c("span", { staticClass: "bar" }),
+        _vm._v(" "),
+        this.config.validationErrors.amount
+          ? _c(
+              "span",
+              { staticClass: "validation-error" },
+              _vm._l(this.config.validationErrors["amount"], function(message) {
+                return _c("div", [_vm._v(_vm._s(message))])
+              }),
+              0
+            )
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("p", [
@@ -55659,7 +55680,7 @@ var render = function() {
               "value-type": "YYYY-MM-DD",
               type: "date",
               "input-class": "",
-              "input-attr": { name: "", required: "required" },
+              "input-attr": { name: "" },
               placeholder: "DD.MM.RRRR",
               "popup-style": { left: 0, top: "100%" },
               "append-to-body": false
@@ -55671,7 +55692,20 @@ var render = function() {
               },
               expression: "formData.paymentDueDate"
             }
-          })
+          }),
+          _vm._v(" "),
+          this.config.validationErrors.paymentDueDate
+            ? _c(
+                "span",
+                { staticClass: "validation-error" },
+                _vm._l(this.config.validationErrors["paymentDueDate"], function(
+                  message
+                ) {
+                  return _c("div", [_vm._v(_vm._s(message))])
+                }),
+                0
+              )
+            : _vm._e()
         ],
         1
       ),
@@ -56222,6 +56256,48 @@ var render = function() {
             ],
             1
           )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.formData.person_type == 1
+        ? _c("div", { staticClass: "group" }, [
+            _c("label", [_vm._v("IČ DPH *")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.vat,
+                  expression: "formData.vat"
+                }
+              ],
+              attrs: { name: "vat", type: "text" },
+              domProps: { value: _vm.formData.vat },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "vat", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "bar" }),
+            _vm._v(" "),
+            this.config.validationErrors.vat
+              ? _c(
+                  "span",
+                  { staticClass: "validation-error" },
+                  _vm._l(this.config.validationErrors["vat"], function(
+                    message
+                  ) {
+                    return _c("div", [_vm._v(_vm._s(message))])
+                  }),
+                  0
+                )
+              : _vm._e()
+          ])
         : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "group" }, [

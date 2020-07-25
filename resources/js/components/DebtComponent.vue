@@ -6,8 +6,11 @@
 
             <div class="group">
                 <label for="suma">dlžná suma (istina) *</label>
-                <input v-model="formData.amount" id="suma" name="amount" type="number" step="0.01" required>
+                <input v-model="formData.amount" id="suma" name="amount" type="number" step="0.01">
                 <span class="bar"></span>
+                <span v-if="this.config.validationErrors.amount" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['amount']">{{ message }}</div>
+                </span>
             </div>
 
             <p>Zadajte dátum splatnosti dlhu (kedy mal byť dlh najneskôr vyrovnaný).</p>
@@ -22,11 +25,14 @@
                     value-type="YYYY-MM-DD"
                     type="date"
                     input-class=""
-                    :input-attr="{name: '', required: 'required'}"
+                    :input-attr="{name: ''}"
                     placeholder="DD.MM.RRRR"
                     :popup-style="{left: 0, top: '100%'}"
                     :append-to-body="false"
                 ></date-picker>
+                <span v-if="this.config.validationErrors.paymentDueDate" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['paymentDueDate']">{{ message }}</div>
+                </span>
             </div>
 
             <div class="group description">
