@@ -95,7 +95,7 @@ return [
     'numeric' => 'The :attribute must be a number.',
     'password' => 'The password is incorrect.',
     'present' => 'The :attribute field must be present.',
-    'regex' => 'The :attribute format is invalid.',
+    'regex' => 'Pole :attribute nemá požadovaný formát 421911222333.',
     'required' => 'Pole :attribute je povinné.',
     'required_if' => 'Pole :attribute je povinné, ak :other je :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
@@ -113,7 +113,7 @@ return [
     'starts_with' => 'The :attribute must start with one of the following: :values.',
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid zone.',
-    'unique' => 'The :attribute has already been taken.',
+    'unique' => 'Tento :attribute už bol použitý pri registrácií. Použite prosím iný.',
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
@@ -164,6 +164,7 @@ return [
 
         'password' => 'heslo',
         'permissions' => 'oprávnenia',
+        'phone' => 'telefónne číslo',
 
     ],
 ];

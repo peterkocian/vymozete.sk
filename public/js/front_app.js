@@ -1964,6 +1964,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['config'],
   mounted: function mounted() {
@@ -2007,7 +2010,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -55616,7 +55618,7 @@ var render = function() {
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
-      _c("div", { staticClass: "group" }, [
+      _c("div", { staticClass: "group currency" }, [
         _c("label", { attrs: { for: "suma" } }, [
           _vm._v("dlžná suma (istina) *")
         ]),
@@ -55630,6 +55632,7 @@ var render = function() {
               expression: "formData.amount"
             }
           ],
+          staticClass: "c-input",
           attrs: { id: "suma", name: "amount", type: "number", step: "0.01" },
           domProps: { value: _vm.formData.amount },
           on: {
@@ -55641,6 +55644,17 @@ var render = function() {
             }
           }
         }),
+        _vm._v(" "),
+        _c(
+          "select",
+          { staticClass: "c-selectbox", attrs: { name: "currency" } },
+          _vm._l(_vm.config.currencies, function(currency) {
+            return _c("option", { domProps: { value: currency.id } }, [
+              _vm._v(_vm._s(currency.code))
+            ])
+          }),
+          0
+        ),
         _vm._v(" "),
         _c("span", { staticClass: "bar" }),
         _vm._v(" "),
@@ -55735,26 +55749,11 @@ var render = function() {
             }
           }
         })
-      ]),
-      _vm._v(" "),
-      _c("p", [_vm._v("Nahrajte dokumenty")]),
-      _vm._v(" "),
-      _vm._m(0)
+      ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "group add-files" }, [
-      _c("button", { attrs: { type: "button", title: "Pridať ďalší súbor" } }, [
-        _c("i", { staticClass: "material-icons" }, [_vm._v("playlist_add")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -56260,7 +56259,7 @@ var render = function() {
       _vm._v(" "),
       _vm.formData.person_type == 1
         ? _c("div", { staticClass: "group" }, [
-            _c("label", [_vm._v("IČ DPH *")]),
+            _c("label", [_vm._v("IČ DPH")]),
             _vm._v(" "),
             _c("input", {
               directives: [

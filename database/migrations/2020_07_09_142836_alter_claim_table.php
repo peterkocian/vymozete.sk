@@ -55,8 +55,11 @@ class AlterClaimTable extends Migration
     public function down()
     {
         Schema::table('claim', function (Blueprint $table) {
-            $table->dropColumn('phone');
-            $table->dropColumn('surname');
+            $table->dropColumn('claim_type_id');
+            $table->dropColumn('claim_status_id');
+            $table->dropColumn('creditor_id');
+            $table->dropColumn('debtor_id');
+            $table->dropColumn('user_id');
         });
     }
 }

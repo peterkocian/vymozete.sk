@@ -47,13 +47,12 @@ class RoleService
 
         try {
             $result = $this->roleRepository->save($data);
+            DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
 //            Log::info($e->getMessage());
             throw new Exception('Nepodarilo sa ulozit udaje'. $e->getMessage());
         }
-
-        DB::commit();
 
         return $result;
     }
@@ -79,13 +78,12 @@ class RoleService
 
         try {
             $result = $this->roleRepository->update($data, $id);
+            DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
 //            Log::info($e->getMessage());
             throw new Exception('Nepodarilo sa ulozit udaje'. $e->getMessage());
         }
-
-        DB::commit();
 
         return $result;
     }

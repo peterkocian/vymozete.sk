@@ -72,6 +72,5 @@ class TypeStep extends Step
         $claimType = new ClaimType();
         $claimTypeRepository = new ClaimTypeRepository($claimType);
         return $claimTypeRepository->all();
-//        return ClaimType::all(['id','name'])->toArray();
     }
 }

@@ -170,20 +170,11 @@ class UserController extends Controller
 
     public function updateProfile(UserProfileRequest $request, $id)
     {
-        //todo validation->fails() throw exception
-
         if(Auth::id() == $id) {
             $data = $request->except('_token', '_method');
 
             try {
                 $result = $this->userService->updateUserProfile($data, $id);
-            } catch (ValidationException $e) {
-                report($e);
-
-                return back()
-                    ->withFail(__('general.Create failed'))
-                    ->withErrors($e->validator)
-                    ->withInput();
             } catch (\Exception $e) {
                 report($e);
 

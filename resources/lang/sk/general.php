@@ -13,6 +13,8 @@ return [
     'Cancel' => 'Zrušiť',
     'Confirmation delete' => 'Naozaj chcete vymazať údaje?',
     'Yes' => 'Áno',
+    'Reset Password' => 'Nastavenie nového hesla',
+    'Set new password' => 'Nastaviť nové heslo',
 
     'Updated successfully' => 'Údaje úspešne aktualizované',
     'Update failed' => 'Údaje sa nepodarilo uložiť, skúste znovu prosím',

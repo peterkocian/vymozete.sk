@@ -16,12 +16,18 @@
                     <label for="email">E-mail *</label>
                     <input id="email" name="email" required="required" type="email" autocomplete="off" value="{{ old('email') }}">
                     <span class="bar"></span>
+                    @error('email')
+                        <span class="validation-error">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="group">
                     <label for="password">Heslo *</label>
                     <input id="password" name="password" required="required" type="password" autocomplete="new-password">
                     <span class="bar"></span>
+                    @error('password')
+                        <span class="validation-error">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="group">
@@ -32,28 +38,17 @@
 
                 <div class="group">
                     <label for="phone">Telefónne číslo pre SMS notifikácie</label>
-                    <input id="phone" name="phone" type="text" pattern="\+\d{12}" placeholder="Vo formáte +421911222333" value="{{ old('phone') }}">
+                    <input id="phone" name="phone" type="text" placeholder="Vo formáte +421911222333" value="{{ old('phone') }}">
                     <span class="bar"></span>
+                    @error('phone')
+                        <span class="validation-error">{{ $message }}</span>
+                    @enderror
                 </div>
-
-                @if ($errors->any())
-                    <div class="group">
-                        <div class="row">
-                            <div class="message">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                @endif
 
                 <div class="group">
                     <div class="row">
                         <p>
-                            <input type="checkbox" value="1" name="vop" required="required">
+                            <input type="checkbox" value="1" name="vop" required="required" @if(old('vop') == 1) checked @endif>
                                 Súhlasím so <a target="_blank" href="{{ url('/vop') }}"><b>Všeobecnými podmienkami používania služby (VOP)</b></a> *
                         </p>
                     </div>
@@ -78,78 +73,4 @@
             </div>
         </div>
     </div>
-
-{{--    <div class="container">--}}
-{{--        <div class="row justify-content-center">--}}
-{{--            <div class="col-md-8">--}}
-{{--                <div class="card">--}}
-{{--                    <div class="card-header">{{ __('Register') }}</div>--}}
-
-{{--                    <div class="card-body">--}}
-{{--                        <form method="POST" action="{{ route('register') }}">--}}
-{{--                            @csrf--}}
-
-{{--                            <div class="form-group row">--}}
-{{--                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>--}}
-
-{{--                                <div class="col-md-6">--}}
-{{--                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>--}}
-
-{{--                                    @error('name')--}}
-{{--                                    <span class="invalid-feedback" role="alert">--}}
-{{--                                        <strong>{{ $message }}</strong>--}}
-{{--                                    </span>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-
-{{--                            <div class="form-group row">--}}
-{{--                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>--}}
-
-{{--                                <div class="col-md-6">--}}
-{{--                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">--}}
-
-{{--                                    @error('email')--}}
-{{--                                    <span class="invalid-feedback" role="alert">--}}
-{{--                                        <strong>{{ $message }}</strong>--}}
-{{--                                    </span>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-
-{{--                            <div class="form-group row">--}}
-{{--                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>--}}
-
-{{--                                <div class="col-md-6">--}}
-{{--                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">--}}
-
-{{--                                    @error('password')--}}
-{{--                                    <span class="invalid-feedback" role="alert">--}}
-{{--                                        <strong>{{ $message }}</strong>--}}
-{{--                                    </span>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-
-{{--                            <div class="form-group row">--}}
-{{--                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>--}}
-
-{{--                                <div class="col-md-6">--}}
-{{--                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-
-{{--                            <div class="form-group row mb-0">--}}
-{{--                                <div class="col-md-6 offset-md-4">--}}
-{{--                                    <button type="submit" class="btn btn-primary">--}}
-{{--                                        {{ __('Register') }}--}}
-{{--                                    </button>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </form>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
 @endsection

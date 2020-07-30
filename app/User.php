@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Front\Claim;
+use App\Models\Front\Language;
 use App\Permissions\HasPermissionsTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -23,12 +24,17 @@ class User extends Authenticatable
     const ENTITY_ROUTE_PREFIX = '/admin/users/';
 
     /**
+     * nastavenie dlzky hesla.
+     */
+    const USER_PASSWORD_LENGTH = 6;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'surname', 'email', 'password',
+        'name', 'surname', 'email', 'password', 'language_id'
     ];
 
     /**
@@ -103,10 +109,18 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the claims by user
+     * Get the user's claims.
      */
     public function claims()
     {
         return $this->hasMany(Claim::class);
+    }
+
+    /**
+     * Get the user's language.
+     */
+    public function language()
+    {
+        return $this->belongsTo(Language::class);
     }
 }

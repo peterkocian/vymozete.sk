@@ -42,7 +42,7 @@
                     "subItems" => [
                         [
                             "icon" => "supervised_user_circle",
-                            "title" => "Users",
+                            "title" => __('menu-item.Users'),
                             "src" => "/admin/users"
                         ]
                     ]
@@ -52,7 +52,7 @@
                     "subItems" => [
                         [
                             "icon" => "supervised_user_circle",
-                            "title" => "Roles",
+                            "title" => __('menu-item.Roles'),
                             "src" => "/admin/roles"
                         ]
                     ]
@@ -62,7 +62,7 @@
                     "subItems" => [
                         [
                             "icon" => "supervised_user_circle",
-                            "title" => "Permissions",
+                            "title" => __('menu-item.Permissions'),
                             "src" => "/admin/permissions"
                         ]
                     ]

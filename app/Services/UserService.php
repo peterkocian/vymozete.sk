@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\UserRepositoryInterface;
 use App\Rules\EmailMustHaveTLD;
+use App\User;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -49,13 +50,12 @@ class UserService
 
         try {
             $result = $this->userRepository->save($data);
+            DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
 //            Log::info($e->getMessage());
             throw new Exception('Nepodarilo sa ulozit udaje'. $e->getMessage());
         }
-
-        DB::commit();
 
         return $result;
     }
@@ -81,30 +81,37 @@ class UserService
 
         try {
             $result = $this->userRepository->update($data, $id);
+            DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
 //            Log::info($e->getMessage());
             throw new Exception('Nepodarilo sa ulozit udaje'. $e->getMessage());
         }
 
-        DB::commit();
-
         return $result;
     }
 
+
+    /**
+     * Update user profile.
+     *
+     * @param $data
+     * @param null $id
+     * @return mixed
+     * @throws Exception
+     */
     public function updateUserProfile($data, $id = null)
     {
         DB::beginTransaction();
 
         try {
             $result = $this->userRepository->update($data, $id);
+            DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
 //            Log::info($e->getMessage());
             throw new Exception('Nepodarilo sa ulozit udaje'. $e->getMessage());
         }
-
-        DB::commit();
 
         return $result;
     }
@@ -119,7 +126,7 @@ class UserService
         return \Validator::make($all, [
             'name'      => 'required|max:191',
             'surname'   => 'required|max:191',
-            'password'  => 'nullable|min:6|confirmed',
+            'password'  => 'nullable|confirmed|min:'.User::USER_PASSWORD_LENGTH,
             'email'     => ['nullable','email',new EmailMustHaveTLD,'unique:users,email,'.$id],
             'roles'     => 'required_without:permissions',
             'permissions' => 'required_without:roles'

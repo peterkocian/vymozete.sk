@@ -60,6 +60,14 @@ class Claim extends Model
     }
 
     /**
+     * Get the claim_status record associated with the claim.
+     */
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
+    }
+
+    /**
      * Get the user record associated with the claim.
      */
     public function user()

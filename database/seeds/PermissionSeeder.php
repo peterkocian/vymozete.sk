@@ -15,10 +15,12 @@ class PermissionSeeder extends Seeder
         DB::table('permission')->insert([
             [
                 'name' => 'Back office',
+//                'slug' => 'back-office',
                 'created_at'    => \Carbon\Carbon::now(),
                 'updated_at'    => \Carbon\Carbon::now(),
             ],[
                 'name' => 'Front office',
+//                'slug' => 'front-office',
                 'created_at'    => \Carbon\Carbon::now(),
                 'updated_at'    => \Carbon\Carbon::now(),
             ]

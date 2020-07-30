@@ -45,13 +45,12 @@ class PermissionService
 
         try {
             $result = $this->permissionRepository->save($data);
+            DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
 //            Log::info($e->getMessage());
             throw new Exception('Nepodarilo sa ulozit udaje'. $e->getMessage());
         }
-
-        DB::commit();
 
         return $result;
     }
@@ -77,13 +76,12 @@ class PermissionService
 
         try {
             $result = $this->permissionRepository->update($data, $id);
+            DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
 //            Log::info($e->getMessage());
             throw new Exception('Nepodarilo sa ulozit udaje'. $e->getMessage());
         }
-
-        DB::commit();
 
         return $result;
     }

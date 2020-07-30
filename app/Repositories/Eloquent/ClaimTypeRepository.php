@@ -26,4 +26,9 @@ class ClaimTypeRepository extends BaseRepository implements ClaimTypeRepositoryI
     {
         return $this->model->all();
     }
+
+    public function translation($language_id): Collection
+    {
+        return $this->model->translation(2);
+    }
 }

@@ -19,7 +19,7 @@ class ClaimType extends Model
      * @var array
      */
     protected $fillable = [
-        'key', 'name', 'description'
+        'key'
     ];
 
     /**
@@ -48,5 +48,14 @@ class ClaimType extends Model
     public function claims()
     {
         return $this->hasMany(Claim::class);
+    }
+
+    public function translation($language = null)
+    {
+//        if ($language == null) {
+//            $language = App::getLocale();
+//        }
+
+        return $this->hasMany(ClaimTypeTranslation::class, 'claim_type_id', 'id')->where('language_id','=', $language);
     }
 }

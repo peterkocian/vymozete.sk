@@ -4,9 +4,12 @@
             <p>Zadajte dlžnú sumu (istiny) bez úrokov.</p>
             <br>
 
-            <div class="group">
+            <div class="group currency">
                 <label for="suma">dlžná suma (istina) *</label>
-                <input v-model="formData.amount" id="suma" name="amount" type="number" step="0.01">
+                <input v-model="formData.amount" class="c-input" id="suma" name="amount" type="number" step="0.01">
+                <select class="c-selectbox" name="currency">
+                    <option v-for="currency in config.currencies" :value="currency.id">{{currency.code}}</option>
+                </select>
                 <span class="bar"></span>
                 <span v-if="this.config.validationErrors.amount" class="validation-error">
                     <div v-for="message in this.config.validationErrors['amount']">{{ message }}</div>
@@ -40,11 +43,11 @@
                 <textarea id="desc" v-model="formData.description" name="description"></textarea>
             </div>
 
-            <p>Nahrajte dokumenty</p>
+<!--            <p>Nahrajte dokumenty</p>-->
 
-            <div class="group add-files">
-                <button type="button" title="Pridať ďalší súbor"><i class="material-icons">playlist_add</i></button>
-            </div>
+<!--            <div class="group add-files">-->
+<!--                <button type="button" title="Pridať ďalší súbor"><i class="material-icons">playlist_add</i></button>-->
+<!--            </div>-->
         </div>
     </div>
 </template>

@@ -3,6 +3,7 @@
         'stepData' => $step->data(),
         'validationErrors' => $errors->messages(),
         'oldInputs' => session()->getOldInput(),
+        'currencies' => $step->getCurrencies()
     ];
     if($step->data('paymentDueDate')){
         $config['stepData']['paymentDueDate'] = \Carbon\Carbon::parse($config['stepData']['paymentDueDate'])->format('Y-m-d');

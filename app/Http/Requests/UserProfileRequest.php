@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserProfileRequest extends FormRequest
@@ -28,7 +29,7 @@ class UserProfileRequest extends FormRequest
         return [
             'name'      => 'required|max:191',
             'surname'   => 'required|max:191',
-            'password'  => 'nullable|min:6|confirmed',
+            'password'  => 'nullable|confirmed|min:'.User::USER_PASSWORD_LENGTH,
             'email'     => 'nullable|email|unique:users,email,'.$id,
         ];
     }

@@ -2,11 +2,11 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Models\Front\Language;
 use App\Repositories\UserRepositoryInterface;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Exception;
 
 // custom actions for user repository
 class UserRepository extends BaseRepository implements UserRepositoryInterface
@@ -38,7 +38,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      */
     public function save(array $attributes): Model
     {
+        $language = Language::where('default', 1)->first();
+
         $this->model->fill($attributes);
+        $this->model->language()->associate($language->id);
         if ($this->model->save()) {
             $this->model->roles()->sync($attributes['roles'] ?? []);
             $this->model->permissions()->sync($attributes['permissions'] ?? []);
@@ -52,9 +55,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         if ($id) {
             try {
                 $user = $this->model->findOrFail($id);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 report($e);
-                throw new Exception('Uzivatela sa nepodarilo najst z neznamych dovod.'. $e->getMessage());
+                throw new \Exception('Uzivatela sa nepodarilo najst z neznamych dovod.'. $e->getMessage());
             }
         }
 

@@ -13,6 +13,8 @@ return [
     'Cancel' => 'Cancel',
     'Confirmation delete' => 'Are you sure?',
     'Yes' => 'Yes',
+    'Reset Password' => 'Reset Password',
+    'Set new password' => 'Set new password',
 
     'Updated successfully' => 'Updated successfully',
     'Update failed' => 'Update failed',

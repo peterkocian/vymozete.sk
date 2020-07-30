@@ -158,9 +158,8 @@
             </div>
 
             <div v-if="formData.person_type == 1" class="group">
-                <label>IČ DPH *</label>
+                <label>IČ DPH</label>
                 <input v-model="formData.vat" name="vat" type="text">
-                <!--                required="required"-->
                 <span class="bar"></span>
                 <span v-if="this.config.validationErrors.vat" class="validation-error">
                     <div v-for="message in this.config.validationErrors['vat']">{{ message }}</div>
