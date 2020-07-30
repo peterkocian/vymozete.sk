@@ -31,6 +31,7 @@ class AlterUsersTable2 extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['language_id']);
             $table->dropColumn('language_id');
         });
     }

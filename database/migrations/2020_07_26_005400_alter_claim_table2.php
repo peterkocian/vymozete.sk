@@ -31,6 +31,7 @@ class AlterClaimTable2 extends Migration
     public function down()
     {
         Schema::table('claim', function (Blueprint $table) {
+            $table->dropForeign(['currency_id']);
             $table->dropColumn('currency_id');
         });
     }
