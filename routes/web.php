@@ -33,6 +33,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')
             ]);
             Route::get('/users/{user}/editProfile', 'UserController@editProfile')->name('users.editProfile');
             Route::put('/users/{user}/updateProfile', 'UserController@updateProfile')->name('users.updateProfile');
+
+            Route::get('/claims/', 'ClaimController@index')->name('claims.index');
+            Route::get('/claims/{claim}/preview', 'ClaimController@index')->name('claims.preview');
         });
 });
 
@@ -57,3 +60,6 @@ Auth::routes();
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 
+Route::fallback(function () {
+    abort(404);
+});

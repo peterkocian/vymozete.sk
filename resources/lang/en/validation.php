@@ -118,6 +118,10 @@ return [
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
 
+    //custom validation rules
+    'EmailTLD validation message' => 'The :attribute must be a valid email address.',
+    'Strong password' => 'The :attribute must be 6–20 characters, and include a number, a lower and a upper case letter.',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Models\Front\Claim;
+use App\Repositories\ClaimRepositoryInterface;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -15,10 +15,19 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
-    public function index() {
-        return view('front/home', ['claims' => Claim::all()->where('user_id', Auth::id())]);
+    private $claimRepository;
+
+    public function __construct(ClaimRepositoryInterface $claimRepository)
+    {
+        $this->claimRepository = $claimRepository;
     }
 
+    public function index() {
+        $claims = $this->claimRepository->allByUser(Auth::id());
+        return view('front/home', ['claims' => $claims]);
+    }
+
+    //todo User model vymenit za Repository
     public function editProfile(User $user)
     {
         if(Auth::id() == $user->id) {

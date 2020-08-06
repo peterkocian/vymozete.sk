@@ -38,7 +38,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      */
     public function save(array $attributes): Model
     {
-        $language = Language::where('default', 1)->first();
+        $language = Language::where('default', 1)->firstOrFail();
 
         $this->model->fill($attributes);
         $this->model->language()->associate($language->id);

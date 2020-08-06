@@ -4,13 +4,16 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class EmailMustHaveTLD implements Rule
+class StrongPassword implements Rule
 {
     /**
-     * Create a new rule instance.
+     * Determine if the validation rule passes.
      *
-     * @return void
-     */
+     * The password must be 6 - 20 characters in length,
+     * and include a number, an upper case letter,
+     * and a lower case letter.
+     *
+     **/
     public function __construct()
     {
         //
@@ -25,13 +28,7 @@ class EmailMustHaveTLD implements Rule
      */
     public function passes($attribute, $value)
     {
-        if (! strpos($value, '@')) {
-            return;
-        }
-
-        $domain = explode('@', $value)[1];
-
-        return !! strpos($domain, '.');
+        return preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,20}$/", $value);
     }
 
     /**
@@ -41,6 +38,6 @@ class EmailMustHaveTLD implements Rule
      */
     public function message()
     {
-        return __('validation.EmailTLD validation message');
+        return __('validation.Strong password');
     }
 }

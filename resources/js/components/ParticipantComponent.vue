@@ -247,6 +247,12 @@
                     <div v-for="message in this.config.validationErrors['email']">{{ message }}</div>
                 </span>
             </div>
+
+            <div class="group">
+                <div class="row">
+                    <i>* označuje povinné údaje</i>
+                </div>
+            </div>
         </div>
     </div>
 </template>

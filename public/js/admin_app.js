@@ -2102,15 +2102,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['config'],
   data: function data() {
-    if (this.config) {
-      return {
-        data: this.config.data || {},
-        columns: this.config.columns || {},
-        actions: this.config.actions || {},
-        modalText: '',
-        modalUrl: ''
-      };
-    }
+    return {
+      modalText: '',
+      modalUrl: ''
+    };
   },
   methods: {
     buildUrl: function buildUrl(urlTemplate, data) {
@@ -80631,17 +80626,17 @@ var render = function() {
           _c(
             "tr",
             [
-              _vm._l(_vm.columns, function(column) {
+              _vm._l(_vm.config.columns, function(column) {
                 return _c(
                   "th",
                   { key: column.key, staticStyle: { cursor: "pointer" } },
-                  [_vm._v(_vm._s(column.label) + "\n            ")]
+                  [_vm._v(_vm._s(column.label) + "\n                ")]
                 )
               }),
               _vm._v(" "),
-              _vm.actions.length > 0
+              _vm.config.actions.length > 0
                 ? _c("th", { staticStyle: { width: "140px" } }, [
-                    _vm._v("Actions")
+                    _vm._v(_vm._s(_vm.config.actionColumnLabel))
                   ])
                 : _vm._e()
             ],
@@ -80651,25 +80646,25 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.data, function(item) {
+          _vm._l(_vm.config.data, function(item) {
             return _c(
               "tr",
               { key: item.id },
               [
-                _vm._l(_vm.columns, function(column) {
+                _vm._l(_vm.config.columns, function(column) {
                   return _c("td", { staticClass: "align-middle" }, [
                     _vm._v(_vm._s(item[column.key]))
                   ])
                 }),
                 _vm._v(" "),
-                _vm.actions.length > 0
+                _vm.config.actions.length > 0
                   ? _c(
                       "td",
                       {
                         staticClass: "align-middle",
                         staticStyle: { width: "150px" }
                       },
-                      _vm._l(_vm.actions, function(action) {
+                      _vm._l(_vm.config.actions, function(action) {
                         return _c("a", {
                           class: action.class,
                           attrs: {

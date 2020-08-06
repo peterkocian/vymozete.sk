@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\User;
+use App\Rules\StrongPassword;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserProfileRequest extends FormRequest
@@ -29,7 +29,7 @@ class UserProfileRequest extends FormRequest
         return [
             'name'      => 'required|max:191',
             'surname'   => 'required|max:191',
-            'password'  => 'nullable|confirmed|min:'.User::USER_PASSWORD_LENGTH,
+            'password'  => ['nullable','confirmed',new StrongPassword()],
             'email'     => 'nullable|email|unique:users,email,'.$id,
         ];
     }

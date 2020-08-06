@@ -10,6 +10,7 @@ return [
     'Back' => 'Späť',
     'Created at' => 'Dátum vytvorenia',
     'Updated at' => 'Dátum poslednej úpravy',
+    'Actions' => 'Akcie',
     'Cancel' => 'Zrušiť',
     'Confirmation delete' => 'Naozaj chcete vymazať údaje?',
     'Yes' => 'Áno',

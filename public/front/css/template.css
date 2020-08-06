@@ -773,10 +773,8 @@ a:hover {
   color: #fff;
   background-color: darkorange;
   font-size: 18px;
-  font-weight: 900;
   text-decoration: none;
   padding: 10px 15px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
   transition: 1s;
   border-radius: 25px;
 }
@@ -784,7 +782,7 @@ a:hover {
 .big_btn:hover {
   color: #fff;
   background-color: orange;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
 }
 
 .small_btn {
@@ -932,13 +930,6 @@ a:hover {
   /*box-sizing: border-box;*/
 }
 
-.infoblock_bl {
-  max-width: 600px;
-  align-items: flex-start;
-  padding: 30px;
-  /*box-sizing: border-box;*/
-}
-
 /* media corrections */
 
 @media screen and (max-height: 450px) {
@@ -973,102 +964,21 @@ a:hover {
   overflow: hidden;
 }
 
+.row.done {
+  padding: 50px;
+  text-align: center;
+}
+
 .pohladavka {
-  display: flex;
-  justify-content: center;
   /*box-sizing: border-box;*/
-  flex-wrap: wrap;
-  width: 100%;
-  padding: 10px;
-  background-color: ghostwhite;
-  border: 1px solid Gainsboro;
-  /*rgb(37, 116, 169)*/
-  margin: 10px;
-}
-
-.pohladavka .pohladavka_item {
-  width: 100%;
-  max-width: 200px;
-  align-items: flex-start;
-  margin: 10px;
-  padding: 10px;
-  background-color: #fff;
-  border-top: 1px solid #2574a9;
-}
-
-.pohladavka .pohladavka_item.orange {
-  border-top: 3px solid darkorange;
 }
 
 /* END css V2 */
-
-article {
-  /*box-sizing: border-box;*/
-  max-width: 800px;
-  width: auto;
-  padding: 20px;
-}
-
-article p {
-  text-align: justify;
-}
-
-form {
-  margin: 0;
-  padding: 0;
-}
-
-.messages {
-  padding-top: 70px;
-  padding-bottom: 20px;
-  display: block;
-  width: 100%;
-  background-color: #fff;
-}
 
 .message {
   background-color: firebrick;
   color: #fff;
   padding: 10px;
-}
-
-.msg-error {
-  background-color: #dc3545;
-}
-
-.msg-ok {
-  background-color: ForestGreen;
-}
-
-.msg-info {
-  background-color: Gainsboro;
-  color: #2574a9;
-}
-
-.infoblock_admin {
-  max-width: 160px;
-  align-items: flex-start;
-  margin: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-bottom: 1px #115063 solid;
-}
-
-.row_un {
-  width: 80%;
-  border-bottom: 1px #115063 solid;
-}
-
-.container_flex_row {
-  color: #115063;
-  display: inline-flex;
-  width: auto;
-  justify-content: center;
-  flex-wrap: wrap;
-  background-color: #fff;
-  padding-bottom: 5px;
-  padding-top: 5px;
-  border-bottom: 1px #c8c8c8 solid;
 }
 
 /* containers  */
@@ -1085,51 +995,6 @@ form {
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-.container_flex_home {
-  color: black;
-  display: inline-flex;
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
-  justify-content: center;
-  flex-wrap: wrap;
-  background-color: #fff;
-  /* padding-bottom: 30px;
-  padding-top: 30px;    */
-  padding-bottom: 150px;
-  padding-top: 50px;
-}
-
-.container_flex_blue_home {
-  color: #fff;
-  display: inline-flex;
-  width: 100%;
-  min-height: 100%;
-  justify-content: center;
-  /* align-items: center; */
-  flex-wrap: wrap;
-  /*background-color: $primary; */
-  background-color: transparent;
-  /* padding-bottom: 30px;
-  padding-top: 30px;    */
-  padding-bottom: 50px;
-  padding-top: 100px;
-}
-
-.container_flex_blue {
-  color: #fff;
-  display: inline-flex;
-  text-align: center;
-  width: 100%;
-  justify-content: center;
-  flex-wrap: wrap;
-  background-color: #115063;
-  /* padding-bottom: 30px;
-  padding-top: 30px;    */
-  padding-bottom: 50px;
-  padding-top: 50px;
-}
-
 .container_flex_white {
   color: #115063;
   display: inline-flex;
@@ -1141,27 +1006,6 @@ form {
   padding-top: 50px;
   /*box-sizing: border-box;*/
   overflow: hidden;
-}
-
-.container_flex_pohladavka {
-  color: #115063;
-  display: inline-flex;
-  width: 100%;
-  justify-content: center;
-  flex-wrap: wrap;
-  background-color: #dedede;
-  /* padding-bottom: 30px;
-  padding-top: 30px;    */
-  margin-bottom: 10px;
-  padding-top: 60px;
-}
-
-.green {
-  background-color: #a6da95;
-}
-
-.red {
-  background-color: #dbc6bb;
 }
 
 /* blocks  */
@@ -1187,63 +1031,6 @@ form {
   margin: 10px;
   padding: 0px;
   /* background-color: rgb(0, 0, 0); */
-}
-
-.infoblock {
-  /*max-width: 300px;*/
-  width: 300px;
-  /* max-width: 80%; */
-  /*justify-content: flex-start; */
-  align-items: center;
-  display: flex;
-  flex-basis: auto;
-  /*box-sizing: border-box;*/
-  margin: 10px;
-  padding: 20px;
-  background-color: ghostwhite;
-}
-
-.block_right {
-  max-width: 700px;
-  overflow: hidden;
-  align-items: flex-start;
-  justify-content: center;
-  align-self: center;
-  display: flex;
-  /*box-sizing: border-box;*/
-  flex-wrap: wrap;
-  margin: 10px;
-  padding: 10px;
-}
-
-.infoblock_footer {
-  max-width: 200px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  display: flex;
-  /*box-sizing: border-box;*/
-  flex-flow: column;
-  text-align: left;
-  margin: 10px;
-  padding: 20px;
-}
-
-.infoblock_footer p {
-  text-align: left;
-}
-
-.infoblock_b {
-  max-width: 400px;
-  align-items: flex-start;
-  margin: 10px;
-  padding: 5px;
-}
-
-.headerblock {
-  width: 100%;
-  align-items: flex-start;
-  margin: 0px;
-  padding: 0px;
 }
 
 .row_black {
@@ -1658,11 +1445,11 @@ a.alogin:hover {
   position: absolute;
   top: 10px;
   right: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  font-size: 30px;
+  padding-left: 18px;
+  padding-right: 18px;
+  font-size: 24px;
   margin-left: 50px;
-  border-radius: 25px;
+  border-radius: 24px;
 }
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
@@ -1783,30 +1570,6 @@ ul.left-menu li.icon {
 
 form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
   display: none;
-}
-
-.zoznam-pohladavok .pohladavka {
-  width: auto;
-}
-
-.zoznam-pohladavok form {
-  max-width: 90%;
-}
-
-.zoznam-pohladavok .files b {
-  max-width: 100%;
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.label {
-  font-size: 14px;
-  color: #115063;
-  font-weight: normal;
-  margin-left: 5px;
-  margin-bottom: 10px;
 }
 
 .datepicker-container {
@@ -1962,5 +1725,46 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
   background-color: transparent;
   box-shadow: none;
   color: darkorange;
+}
+
+.table-pohladavka {
+  overflow-x: auto;
+}
+
+.table-pohladavka .table {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.table-pohladavka .table td,
+.table-pohladavka .table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table-pohladavka .table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table-pohladavka .table tr:hover.hover {
+  background-color: #ddd;
+}
+
+.table-pohladavka .table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #115063;
+  color: #fff;
+  text-align: center;
+}
+
+.table-pohladavka .table tr.no-content {
+  text-align: center;
+  height: 120px;
+}
+
+.table-pohladavka .table tr.no-content .notice {
+  padding: 20px;
 }
 

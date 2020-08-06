@@ -24,11 +24,6 @@ class User extends Authenticatable
     const ENTITY_ROUTE_PREFIX = '/admin/users/';
 
     /**
-     * nastavenie dlzky hesla.
-     */
-    const USER_PASSWORD_LENGTH = 6;
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array

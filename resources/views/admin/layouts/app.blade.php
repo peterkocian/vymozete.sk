@@ -25,58 +25,11 @@
 <body>
     <div id="app">
         @auth()
-            <side-menu-component :config="{{ json_encode([
-            'menuItems' => [
-                [
-                    "title" => "main",
-                    "subItems" => [
-                        [
-                        "icon" => "dashboard",
-                        "title" => "Dashboard",
-                        "src" => "/admin"
-                        ]
-                    ]
-                ],
-                [
-                    "title" => "settings",
-                    "subItems" => [
-                        [
-                            "icon" => "supervised_user_circle",
-                            "title" => __('menu-item.Users'),
-                            "src" => "/admin/users"
-                        ]
-                    ]
-                ],
-                [
-                    "title" => "settings",
-                    "subItems" => [
-                        [
-                            "icon" => "supervised_user_circle",
-                            "title" => __('menu-item.Roles'),
-                            "src" => "/admin/roles"
-                        ]
-                    ]
-                ],
-                [
-                    "title" => "settings",
-                    "subItems" => [
-                        [
-                            "icon" => "supervised_user_circle",
-                            "title" => __('menu-item.Permissions'),
-                            "src" => "/admin/permissions"
-                        ]
-                    ]
-                ]
-            ],
-            'widthCollapsed' => 45,
-            'widthUncollapsed' => 200,
-            'isMenuCollapsed' => true,
-            'logoSrc' => '/image/westech.png',
-        ]) }}"></side-menu-component>
+            @include('admin.navigation.side-nav')
         @endauth
 
         <div class="main-wrapper">
-            @include('admin.navigation.nav')
+            @include('admin.navigation.top-nav')
 
 {{--            <main class="py-4">--}}
 {{--                <div class="container-fluid">--}}

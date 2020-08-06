@@ -25,4 +25,9 @@ class ClaimRepository extends BaseRepository implements ClaimRepositoryInterface
     {
         return $this->model->all();
     }
+
+    public function allByUser($id): Collection
+    {
+        return $this->model->all()->where('user_id', $id);
+    }
 }

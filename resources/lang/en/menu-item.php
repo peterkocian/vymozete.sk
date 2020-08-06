@@ -6,5 +6,6 @@ return [
     'Login' => 'Login',
     'Users' => 'Users',
     'Roles' => 'Roles',
-    'Permissions' => 'Permissions'
+    'Permissions' => 'Permissions',
+    'Claims' => 'Claims',
 ];

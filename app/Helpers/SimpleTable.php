@@ -8,19 +8,21 @@ class SimpleTable
     protected $columns;
     protected $actions;
     protected $entityRoutePrefix;
+    protected $actionColumnLabel;
 
     /**
      * SimpleTable constructor.
      *
-     * @param $entityRoutePrefix String define base url link for action button
-     * @param $data array of data, that shows in table
      * @param $columns array of columns desc
-     * @param $actions array of action buttons
+     * @param $data array of data, that shows in table
+     * @param $entityRoutePrefix String define base url link for action button
+     * @param null $actions array of action buttons
      */
     public function __construct($columns = [], $data = [], $entityRoutePrefix = '', $actions = null)
     {
         $this->data = $data;
         $this->columns = $columns;
+        $this->actionColumnLabel = __('general.Actions');
 
         if (is_null($actions)) {
             $this->entityRoutePrefix = $entityRoutePrefix;
@@ -74,7 +76,8 @@ class SimpleTable
         return view('admin.simple-table', ['config' => [
             'data' => $this->data,
             'columns' => $this->columns,
-            'actions' => $this->actions
+            'actions' => $this->actions,
+            'actionColumnLabel' => $this->actionColumnLabel,
         ]]);
     }
 }

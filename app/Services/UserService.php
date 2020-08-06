@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Repositories\UserRepositoryInterface;
 use App\Rules\EmailMustHaveTLD;
-use App\User;
+use App\Rules\StrongPassword;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -126,7 +126,7 @@ class UserService
         return \Validator::make($all, [
             'name'      => 'required|max:191',
             'surname'   => 'required|max:191',
-            'password'  => 'nullable|confirmed|min:'.User::USER_PASSWORD_LENGTH,
+            'password'  => ['nullable','confirmed',new StrongPassword()],
             'email'     => ['nullable','email',new EmailMustHaveTLD,'unique:users,email,'.$id],
             'roles'     => 'required_without:permissions',
             'permissions' => 'required_without:roles'

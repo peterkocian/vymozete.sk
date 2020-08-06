@@ -48,6 +48,12 @@
 <!--            <div class="group add-files">-->
 <!--                <button type="button" title="Pridať ďalší súbor"><i class="material-icons">playlist_add</i></button>-->
 <!--            </div>-->
+
+            <div class="group">
+                <div class="row">
+                    <i>* označuje povinné údaje</i>
+                </div>
+            </div>
         </div>
     </div>
 </template>

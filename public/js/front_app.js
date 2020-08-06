@@ -1967,6 +1967,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['config'],
   mounted: function mounted() {
@@ -2010,6 +2016,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -55749,11 +55761,24 @@ var render = function() {
             }
           }
         })
-      ])
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "group" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("i", [_vm._v("* označuje povinné údaje")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -56576,11 +56601,24 @@ var render = function() {
               0
             )
           : _vm._e()
-      ])
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "group" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("i", [_vm._v("* označuje povinné údaje")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

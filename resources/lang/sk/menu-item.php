@@ -6,5 +6,6 @@ return [
     'Login' => 'Prihlásiť',
     'Users' => 'Používatelia',
     'Roles' => 'Role',
-    'Permissions' => 'Oprávnenia'
+    'Permissions' => 'Oprávnenia',
+    'Claims' => 'Pohľadávky',
 ];

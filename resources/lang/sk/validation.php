@@ -118,6 +118,10 @@ return [
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
 
+    //custom validation rules
+    'EmailTLD validation message' => 'Pole :attribute musí byť validná mailová adresa.',
+    'Strong password' => 'Pole :attribute musí mať 6–20 znakov, musí obsahovať minimálne 1 číslo, minimálne 1 malé písmeno a minimálne 1 veľké písmeno.',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines

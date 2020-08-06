@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Front;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\ClaimRepositoryInterface;
-use Illuminate\Http\Request;
 
 class ClaimController extends Controller
 {
@@ -17,12 +16,9 @@ class ClaimController extends Controller
 
     public function index()
     {
-        dd($this->claimRepository->all());
-        return $this->claimRepository->all();
-    }
-
-    public function find($id)
-    {
-        return $this->claimRepository->get($id);
+//        $claim = Claim::find(1);
+//        dd($claim->debtor->entity->name);
+        $claims = $this->claimRepository->all();
+        return view('admin.claims.index', ['data' => $claims]);
     }
 }

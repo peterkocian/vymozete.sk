@@ -23,6 +23,15 @@ class Person extends Model
     ];
 
     /**
+     * Function returns user's full name
+     *
+     * @return string
+     */
+    public function getFullNameAttribute() {
+        return ucfirst($this->name) . ' ' . ucfirst($this->surname);
+    }
+
+    /**
      * Get all of the person's participants.
      */
     public function participants()
