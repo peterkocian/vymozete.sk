@@ -1,6 +1,11 @@
 @php
     $columns = [
         [
+            'label' => __('claim.id'),
+            'key' => 'id',
+            'type' => 'number'
+        ],
+        [
             'label' => __('claim.Creditor'),
             'key' => 'creditor_id',
             'type' => 'text'
@@ -27,7 +32,17 @@
         ],
     ];
 
-    $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\Models\Claim::ENTITY_ROUTE_PREFIX, []);
+    $actions = [
+        [
+            'label' => '<img src="'.asset('/images/simple-table/visibility-white-18dp.svg').'"/>',
+            'title' => __('general.Detail'),
+            'key' => 'detail',
+            'class' => 'btn btn-primary btn-sm mr-1',
+            'url' => url(config('simple-table.route-prefix').\App\Models\Claim::ENTITY_ROUTE_PREFIX.'{id}/overview')
+        ],
+    ];
+
+    $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\Models\Claim::ENTITY_ROUTE_PREFIX, $actions);
 @endphp
 @extends ('admin.layouts.app')
 @section ('content')

@@ -35,7 +35,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')
             Route::put('/users/{user}/updateProfile', 'UserController@updateProfile')->name('users.updateProfile');
 
             Route::get('/claims/', 'ClaimController@index')->name('claims.index');
-            Route::get('/claims/{claim}/preview', 'ClaimController@index')->name('claims.preview');
+            Route::get('/claims/{claim}/overview', 'ClaimController@overview')->name('claims.overview');
+            Route::get('/claims/{claim}/creditor', 'ClaimController@creditor')->name('claims.creditor');
+            Route::get('/claims/{claim}/debtor', 'ClaimController@debtor')->name('claims.debtor');
+            Route::get('/claims/{claim}/documents', 'ClaimController@documents')->name('claims.documents');
         });
 });
 

@@ -54,6 +54,6 @@
         'widthCollapsed' => 45,
         'widthUncollapsed' => 200,
         'isMenuCollapsed' => true,
-        'logoSrc' => '/image/westech.png',
+        'logoSrc' => '/images/logo.png',
     ]) }}"
 ></side-menu-component>
