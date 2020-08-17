@@ -1,28 +1,33 @@
 @php
     $columns = [
         [
-            'label' => __('claim.id'),
+            'label' => __('claim.Claim ID'),
             'key' => 'id',
             'type' => 'number'
         ],
         [
             'label' => __('claim.Creditor'),
-            'key' => 'creditor_id',
+            'key' => 'creditorPlain',
             'type' => 'text'
         ],
         [
             'label' => __('claim.Debtor'),
-            'key' => 'debtor_id',
+            'key' => 'debtorPlain',
             'type' => 'text',
         ],
         [
             'label' => __('claim.Amount'),
-            'key' => 'amount',
+            'key' => 'amountWithCurrency',
             'type' => 'text'
         ],
         [
             'label' => __('claim.Status'),
-            'key' => 'claim_status_id',
+            'key' => 'statusPlain',
+            'type' => 'text'
+        ],
+        [
+            'label' => __('claim.Type'),
+            'key' => 'typePlain',
             'type' => 'text'
         ],
         [
@@ -42,7 +47,7 @@
         ],
     ];
 
-    $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\Models\Claim::ENTITY_ROUTE_PREFIX, $actions);
+    $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\Models\Claim::ENTITY_ROUTE_PREFIX, [], $actions);
 @endphp
 @extends ('admin.layouts.app')
 @section ('content')

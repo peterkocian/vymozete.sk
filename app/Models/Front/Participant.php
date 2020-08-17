@@ -2,11 +2,13 @@
 
 namespace App\Models\Front;
 
+use App\Helpers\DateFormatTrait;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Participant extends Model
 {
+    use DateFormatTrait;
     const PERSON_TYPE_FO = 'FO';
     const PERSON_TYPE_PO = 'PO';
     /**

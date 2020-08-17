@@ -42,6 +42,10 @@ return [
     */
 
     'disks' => [
+        'uploads' => [
+            'driver' => 'local',
+            'root' => storage_path('files/uploads'),
+        ],
 
         'local' => [
             'driver' => 'local',
@@ -64,7 +68,6 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
-
     ],
 
     /*

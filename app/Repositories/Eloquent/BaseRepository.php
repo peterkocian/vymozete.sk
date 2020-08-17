@@ -63,7 +63,7 @@ class BaseRepository implements EloquentRepositoryInterface
      * @param $id
      * @return Model
      */
-    public function get($id): ?Model
+    public function get(int $id): ?Model
     {
         return $this->model->find($id);
     }
@@ -84,7 +84,7 @@ class BaseRepository implements EloquentRepositoryInterface
      * @param int $id
      * @return bool
      */
-    public function delete($id): boolean
+    public function delete(int $id): boolean
     {
         return $this->model->destroy($id);
     }
@@ -96,7 +96,7 @@ class BaseRepository implements EloquentRepositoryInterface
      * @param array $attributes
      * @return Model
      */
-    public function update(array $attributes, $id): Model
+    public function update(array $attributes, int $id): Model
     {
         return $this->model->find($id)->update($attributes);
     }

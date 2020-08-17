@@ -23,7 +23,7 @@ interface EloquentRepositoryInterface
      * @param int $id
      * @return Model
      */
-    public function get($id): ?Model;
+    public function get(int $id): ?Model;
 
     /**
      * Get's all entities.
@@ -38,7 +38,7 @@ interface EloquentRepositoryInterface
      * @param int $id
      * @return bool
      */
-    public function delete($id): boolean;
+    public function delete(int $id): boolean;
 
     /**
      * Updates an entity by it's ID.
@@ -47,5 +47,5 @@ interface EloquentRepositoryInterface
      * @param array $attributes
      * @return Model
      */
-    public function update(array $attributes, $id): Model;
+    public function update(array $attributes, int $id): Model;
 }

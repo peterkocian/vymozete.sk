@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Front\Steps\Claim;
 
-use App\Models\Front\Claim;
+use App\Models\Claim;
 use App\Models\Front\Currency;
 use App\Models\Front\Organization;
 use App\Models\Front\Participant;

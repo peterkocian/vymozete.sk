@@ -2099,10 +2099,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['config'],
   data: function data() {
     return {
+      file: null,
+      newEntry: {},
       modalText: '',
       modalUrl: ''
     };
@@ -2119,6 +2161,51 @@ __webpack_require__.r(__webpack_exports__);
     showModal: function showModal(url, text) {
       this.modalUrl = url;
       this.modalText = text;
+    },
+    handleActions: function handleActions(action, url) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      switch (action) {
+        case 'createItem':
+          this.createItem(url);
+          break;
+      }
+
+      ;
+    },
+    createItem: function createItem(url) {
+      var _this = this;
+
+      // const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+      this.newEntry.file = this.file;
+      var formData = new FormData(); // formData.append('test', JSON.stringify(this.newEntry));
+
+      this.newEntry.filename ? formData.append('filename', this.newEntry.filename) : null;
+      this.newEntry.file_type_id ? formData.append('file_type_id', this.newEntry.file_type_id) : null;
+      this.newEntry.show_to_customer ? formData.append('show_to_customer', this.newEntry.show_to_customer) : null;
+      formData.append('file', this.file); // console.log('formData: ', formData);
+      // console.log('this.newEntry: ', this.newEntry);
+
+      axios.post(url, formData).then(function (res) {
+        _this.$root.$emit('reloadData'); // this.$root.$emit('flash', this.setFlashMessage(res, 4000));
+
+
+        console.log('success');
+      })["catch"](function (e) {
+        // this.$root.$emit('flash', this.setFlashMessage({data:e}));
+        console.log('error');
+      });
+      this.setDefaultValue();
+    },
+    setDefaultValue: function setDefaultValue() {
+      this.newEntry = {};
+    },
+    handleChange: function handleChange(e, type) {
+      if (type === 'file') {
+        // console.log(e.target.files[0])
+        this.file = e.target.files[0];
+      }
     }
   }
 });
@@ -80621,6 +80708,263 @@ var render = function() {
     "div",
     { staticClass: "table-responsive" },
     [
+      _vm.config.config.inlineNew
+        ? _c(
+            "table",
+            {
+              staticClass: "table table-borderless table-sm table-responsive-xl"
+            },
+            [
+              _c("tbody", [
+                _c(
+                  "tr",
+                  [
+                    _vm._l(_vm.config.config.inlineNew.fields, function(field) {
+                      return _c(
+                        "td",
+                        {
+                          key: field.id,
+                          staticClass: "align-middle text-center"
+                        },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(field.label) +
+                              "\n                "
+                          ),
+                          field.type === "checkbox" && field.type !== "select"
+                            ? _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.newEntry[field.key],
+                                    expression: "newEntry[field.key]"
+                                  }
+                                ],
+                                staticClass: "form-control form-control-sm",
+                                attrs: {
+                                  placeholder: field.label,
+                                  name: field.key,
+                                  id: field.key,
+                                  type: "checkbox"
+                                },
+                                domProps: {
+                                  checked: Array.isArray(
+                                    _vm.newEntry[field.key]
+                                  )
+                                    ? _vm._i(_vm.newEntry[field.key], null) > -1
+                                    : _vm.newEntry[field.key]
+                                },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$a = _vm.newEntry[field.key],
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.newEntry,
+                                              field.key,
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.newEntry,
+                                              field.key,
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(_vm.newEntry, field.key, $$c)
+                                      }
+                                    },
+                                    function($event) {
+                                      return _vm.handleChange(
+                                        $event,
+                                        field.type
+                                      )
+                                    }
+                                  ]
+                                }
+                              })
+                            : field.type === "radio" && field.type !== "select"
+                            ? _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.newEntry[field.key],
+                                    expression: "newEntry[field.key]"
+                                  }
+                                ],
+                                staticClass: "form-control form-control-sm",
+                                attrs: {
+                                  placeholder: field.label,
+                                  name: field.key,
+                                  id: field.key,
+                                  type: "radio"
+                                },
+                                domProps: {
+                                  checked: _vm._q(_vm.newEntry[field.key], null)
+                                },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      return _vm.$set(
+                                        _vm.newEntry,
+                                        field.key,
+                                        null
+                                      )
+                                    },
+                                    function($event) {
+                                      return _vm.handleChange(
+                                        $event,
+                                        field.type
+                                      )
+                                    }
+                                  ]
+                                }
+                              })
+                            : field.type !== "select"
+                            ? _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.newEntry[field.key],
+                                    expression: "newEntry[field.key]"
+                                  }
+                                ],
+                                staticClass: "form-control form-control-sm",
+                                attrs: {
+                                  placeholder: field.label,
+                                  name: field.key,
+                                  id: field.key,
+                                  type: field.type
+                                },
+                                domProps: { value: _vm.newEntry[field.key] },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.handleChange($event, field.type)
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.newEntry,
+                                      field.key,
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            : _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.newEntry[field.key],
+                                      expression: "newEntry[field.key]"
+                                    }
+                                  ],
+                                  staticClass: "form-control form-control-sm",
+                                  attrs: {
+                                    required: field.settings["required"]
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.newEntry,
+                                        field.key,
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                _vm._l(field.options, function(item) {
+                                  return _c(
+                                    "option",
+                                    { domProps: { value: item.id } },
+                                    [_vm._v(_vm._s(item.name))]
+                                  )
+                                }),
+                                0
+                              )
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      {
+                        staticClass: "align-middle",
+                        staticStyle: { width: "150px" }
+                      },
+                      [
+                        _c("div", [
+                          _vm.config.config.inlineNew.action
+                            ? _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-success btn-sm",
+                                  attrs: {
+                                    type: "button",
+                                    href: "",
+                                    onclick: "this.blur();"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.config.config.inlineNew.action
+                                        ? _vm.handleActions(
+                                            _vm.config.config.inlineNew.action,
+                                            _vm.config.config.inlineNew.url
+                                          )
+                                        : null
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(_vm.config.config.inlineNew.label)
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ])
+                      ]
+                    )
+                  ],
+                  2
+                )
+              ])
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _c("table", { staticClass: "table table-striped table-hover table-sm" }, [
         _c("thead", { staticClass: "thead-dark" }, [
           _c(

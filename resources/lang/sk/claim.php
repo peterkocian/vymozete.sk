@@ -6,4 +6,7 @@ return [
     'Debtor' => 'Dlžník',
     'Amount' => 'Suma',
     'Status' => 'Stav',
+    'Type' => 'Typ',
+    'Currency' => 'Mena',
+    'Claim ID' => 'ID',
 ];

@@ -2,6 +2,10 @@
 
 namespace App\Helpers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+
 class SimpleTable
 {
     protected $data;
@@ -9,6 +13,7 @@ class SimpleTable
     protected $actions;
     protected $entityRoutePrefix;
     protected $actionColumnLabel;
+    protected $config;
 
     /**
      * SimpleTable constructor.
@@ -16,12 +21,14 @@ class SimpleTable
      * @param $columns array of columns desc
      * @param $data array of data, that shows in table
      * @param $entityRoutePrefix String define base url link for action button
+     * @param array $config array of config table view (pagination, items par page, inline new ...atd)
      * @param null $actions array of action buttons
      */
-    public function __construct($columns = [], $data = [], $entityRoutePrefix = '', $actions = null)
+    public function __construct($columns = [], $data = [], $entityRoutePrefix = '', $config = [], $actions = null)
     {
         $this->data = $data;
         $this->columns = $columns;
+        $this->config = $config;
         $this->actionColumnLabel = __('general.Actions');
 
         if (is_null($actions)) {
@@ -69,7 +76,7 @@ class SimpleTable
     /**
      * Sends data to blade template, which contains Vue component
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function render()
     {
@@ -77,6 +84,7 @@ class SimpleTable
             'data' => $this->data,
             'columns' => $this->columns,
             'actions' => $this->actions,
+            'config' => $this->config,
             'actionColumnLabel' => $this->actionColumnLabel,
         ]]);
     }

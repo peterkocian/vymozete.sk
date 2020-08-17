@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Front;
+namespace App\Models;
 
 use App\Helpers\DateFormatTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Language extends Model
+class FileType extends Model
 {
     use DateFormatTrait;
     /**
@@ -13,14 +13,17 @@ class Language extends Model
      *
      * @var string
      */
-    protected $table = 'language';
+    protected $table = 'file_type';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'key', 'name'
-    ];
+    protected $fillable = ['key', 'name', 'description'];
+
+    public function files()
+    {
+        return $this->hasMany(File::class);
+    }
 }

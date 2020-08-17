@@ -2,10 +2,12 @@
 
 namespace App\Models\Front;
 
+use App\Helpers\DateFormatTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
 {
+    use DateFormatTrait;
     /**
      * Nazov tabulky v DB
      *
@@ -27,7 +29,8 @@ class Person extends Model
      *
      * @return string
      */
-    public function getFullNameAttribute() {
+    public function getFullNameAttribute()
+    {
         return ucfirst($this->name) . ' ' . ucfirst($this->surname);
     }
 

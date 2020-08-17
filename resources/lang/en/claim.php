@@ -6,4 +6,7 @@ return [
     'Debtor' => 'Debtor',
     'Amount' => 'Amount',
     'Status' => 'Status',
+    'Type' => 'Type',
+    'Currency' => 'Currency',
+    'Claim ID' => 'ID',
 ];

@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Models\Front\Claim;
+use App\Models\Claim;
 use App\Models\Front\Language;
 use App\Permissions\HasPermissionsTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;

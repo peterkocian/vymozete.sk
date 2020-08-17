@@ -7,16 +7,16 @@
     {{--        </div>--}}
     {{--    </nav>--}}
     <li class="nav-item">
-        <a class="nav-link @if($tab === 'overview') active @endif" href="{{route('admin.claims.overview', $claim->id)}}">Prehľad</a>
+        <a class="nav-link @if($tab === 'overview') active @endif" href="{{route('admin.claims.overview', $claim->id ?? "")}}">Prehľad</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @if($tab === 'creditor') active @endif" href="{{route('admin.claims.creditor', $claim->id)}}">Veriteľ</a>
+        <a class="nav-link @if($tab === 'creditor') active @endif" href="{{route('admin.claims.creditor', $claim->id ?? "")}}">Veriteľ</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @if($tab === 'debtor') active @endif" href="{{route('admin.claims.debtor', $claim->id)}}">Dlžník</a>
+        <a class="nav-link @if($tab === 'debtor') active @endif" href="{{route('admin.claims.debtor', $claim->id ?? "")}}">Dlžník</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @if($tab === 'documents') active @endif" href="{{route('admin.claims.documents', $claim->id)}}">Dokumenty</a>
+        <a class="nav-link @if($tab === 'documents') active @endif" href="{{route('admin.claims.documents', $claim->id ?? "")}}">Dokumenty</a>
     </li>
     {{--    <li class="nav-item">--}}
     {{--        <a class="nav-link" href="{{route('admin.claims.documents', $claim->id)}}">Dokumenty</a>--}}

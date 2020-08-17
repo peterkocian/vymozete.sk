@@ -2,10 +2,12 @@
 
 namespace App\Models\Front;
 
+use App\Helpers\DateFormatTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Organization extends Model
 {
+    use DateFormatTrait;
     /**
      * Nazov tabulky v DB
      *
@@ -23,10 +25,12 @@ class Organization extends Model
     ];
 
     /**
-     * Get all of the organization's participants.
+     * Function returns company full name
+     *
+     * @return string
      */
-    public function participants()
+    public function getFullNameAttribute()
     {
-        return $this->morphMany(Participant::class, 'entity');
+        return $this->name;
     }
 }

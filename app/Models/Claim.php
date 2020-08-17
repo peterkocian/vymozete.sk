@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\DateFormatTrait;
 use App\Models\Front\ClaimStatus;
 use App\Models\Front\ClaimType;
 use App\Models\Front\Currency;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Claim extends Model
 {
+    use DateFormatTrait;
     CONST DEFAULT_STATE_ID = 1;
 
     /**
@@ -32,24 +34,9 @@ class Claim extends Model
      */
     protected $fillable = ['amount', 'description', 'paymentDueDate'];
 
-    /**
-     * Vzdy ked pristupime ku atributu created_at, tak sa automaticky naformatuje podla tohto formatu
-     *
-     * @param $value
-     * @return false|string
-     */
-    public function getCreatedAtAttribute($value) {
-        return date('d.m.Y H:i:s', strtotime($value));
-    }
-
-    /**
-     * Vzdy ked pristupime ku atributu updated_at, tak sa automaticky naformatuje podla tohto formatu
-     *
-     * @param $value
-     * @return false|string
-     */
-    public function getUpdatedAtAttribute($value) {
-        return date('d.m.Y H:i:s', strtotime($value));
+    public function getAmountWithCurrencyAttribute()
+    {
+        return $this->amount . ' ' . $this->currency->symbol;
     }
 
     /**
@@ -98,5 +85,29 @@ class Claim extends Model
     public function creditor()
     {
         return $this->belongsTo(Participant::class);
+    }
+
+    /**
+     * A claim can have many files
+     */
+    public function files()
+    {
+        return $this->morphMany(File::class, 'fileable');
+    }
+
+    /**
+     * A claim can have many notes
+     */
+    public function claim_notes()
+    {
+        return $this->hasMany(File::class);
+    }
+
+    /**
+     * A claim can have many properties
+     */
+    public function properties()
+    {
+        return $this->hasMany(File::class);
     }
 }
