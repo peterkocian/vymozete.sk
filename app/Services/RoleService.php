@@ -30,10 +30,8 @@ class RoleService
      * Store a new user into DB.
      *
      * @param $data
-     * @param null $id
      * @return mixed
      * @throws ValidationException
-     * @throws Exception
      */
     public function saveRole($data)
     {

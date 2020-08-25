@@ -3,7 +3,7 @@
     @php
         $actionDelete =[
             'url' => url(config('simple-table.route-prefix').\App\Models\Admin\Permission::ENTITY_ROUTE_PREFIX.$permission->id),
-            'modalText' => __('general.Confirmation delete')
+            'text' => __('general.Confirmation delete')
         ];
     @endphp
     <div class="form-group">

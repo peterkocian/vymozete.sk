@@ -47,21 +47,21 @@ class SimpleTable
     private function getDefaultActions() {
         return [
             [
-                'label' => '<img src="'.asset('/images/simple-table/visibility-white-18dp.svg').'"/>',
+                'label' => 'visibility',
                 'title' => __('general.Detail'),
                 'key' => 'detail',
                 'class' => 'btn btn-primary btn-sm mr-1',
                 'url' => url(config('simple-table.route-prefix').$this->entityRoutePrefix.'{id}')
             ],
             [
-                'label' => '<img src="'.asset('/images/simple-table/edit-white-18dp.svg').'"/>',
+                'label' => 'edit',
                 'title' => __('general.Edit'),
                 'key' => 'edit',
                 'class' => 'btn btn-primary btn-sm mr-1',
                 'url' => url(config('simple-table.route-prefix').$this->entityRoutePrefix.'{id}/edit')
             ],
             [
-                'label' => '<img src="'.asset('/images/simple-table/delete-white-18dp.svg').'"/>',
+                'label' => 'delete',
                 'title' => __('general.Delete'),
                 'key' => 'delete',
                 'class' => 'btn btn-sm btn-danger',

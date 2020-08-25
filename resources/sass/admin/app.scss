@@ -10,6 +10,8 @@
 // Bootstrap  Vue
 @import '~bootstrap-vue/src/index';
 
-
 //my admin layout
 @import 'layout/layout';
+
+// overwrite default bootstrap style
+@import 'custom';

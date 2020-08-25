@@ -1,29 +1,19 @@
 @php
     $columns = [
         [
-            'label' => __('file.Filename'),
-            'key' => 'name',
+            'label' => __('property.Title'),
+            'key' => 'title',
             'type' => 'text'
         ],
         [
-            'label' => __('file.Size'),
-            'key' => 'size',
+            'label' => __('property.Amount'),
+            'key' => 'amountWithCurrency',
             'type' => 'number',
         ],
         [
-            'label' => __('file.File type'),
-            'key' => 'file_type_id',
+            'label' => __('property.Description'),
+            'key' => 'description',
             'type' => 'text'
-        ],
-        [
-            'label' => __('file.Show to customer'),
-            'key' => 'show_to_customer',
-            'type' => 'text',
-        ],
-        [
-            'label' => __('general.Created at'),
-            'key' => 'created_at',
-            'type' => 'date'
         ],
     ];
 
@@ -31,12 +21,12 @@
         'label' => __('general.Create'),
         'key' => 'store',
         'class' => 'btn btn-primary btn-sm mr-1',
-        'action' => 'uploadFile',
-        'url' => '/admin/claims/'.$claim['id'].'/documents/upload-files',
+        'action' => 'createItem',
+        'url' => "/admin/claims/{$claim['id']}/properties",
         'fields' => [
             [
-                'label' => __('file.Filename'),
-                'key' => 'filename',
+                'label' => __('property.Title'),
+                'key' => 'title',
                 'type' => 'text',
                 'settings' => [
                     'required' => true,
@@ -44,28 +34,28 @@
                 ]
             ],
             [
-                'label' => __('file.File type'),
-                'key' => 'file_type_id',
-                'type' => 'select',
-                'settings' => [
-                    'required' => true,
-                    'searchable' => true
-                ],
-                'options' => $fileTypes
-            ],
-            [
-                'label' => __('file.Show to customer'),
-                'key' => 'show_to_customer',
-                'type' => 'checkbox',
+                'label' => __('property.Amount'),
+                'key' => 'amount',
+                'type' => 'number',
                 'settings' => [
                     'required' => true,
                     'searchable' => true
                 ]
             ],
             [
-                'label' => __('file.File'),
-                'key' => 'file',
-                'type' => 'file',
+                'label' => __('property.Currency'),
+                'key' => 'currency_id',
+                'type' => 'select',
+                'settings' => [
+                    'required' => true,
+                    'searchable' => true
+                ],
+                'options' => $currencies
+            ],
+            [
+                'label' => __('property.Description'),
+                'key' => 'description',
+                'type' => 'textarea',
                 'settings' => [
                     'required' => true,
                     'searchable' => true
@@ -75,16 +65,9 @@
     ];
     $config['hide-pagination'] = true;
     $config['hide-itemsPerPage'] = true;
-    $config['reloadUrl'] = "/admin/claims/{$claim['id']}/documents";
+    $config['reloadUrl'] = "/admin/claims/{$claim['id']}/properties";
 
     $actions = [
-        [
-            'label' => 'get_app',
-            'title' => __('general.Download'),
-            'key' => 'download',
-            'class' => 'btn btn-primary btn-sm mr-1',
-            'url' => url(config('simple-table.route-prefix').'admin/download/{id}')
-        ],
         [
             'label' => 'delete',
             'title' => __('general.Delete'),
@@ -97,7 +80,7 @@
         ]
     ];
 
-    $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\Models\File::ENTITY_ROUTE_PREFIX, $config, $actions);
+    $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\Models\Property::ENTITY_ROUTE_PREFIX, $config, $actions);
 @endphp
 <div class="card">
 {{--    <div class="card-header">{{__('user.User list')}}</div>--}}

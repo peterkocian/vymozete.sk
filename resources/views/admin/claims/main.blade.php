@@ -22,15 +22,15 @@
                 @include('admin.claims.tabs.documents')
             @endif
         </div>
-{{--        <div class="tab-pane fade @if($tab === 'debtor') show active @endif" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">--}}
-{{--            @if($tab === 'debtor')--}}
-{{--                @include('admin.claims.tabs.participant')--}}
-{{--            @endif--}}
-{{--        </div>--}}
-{{--        <div class="tab-pane fade @if($tab === 'debtor') show active @endif" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">--}}
-{{--            @if($tab === 'debtor')--}}
-{{--                @include('admin.claims.tabs.participant')--}}
-{{--            @endif--}}
-{{--        </div>--}}
+        <div class="tab-pane fade @if($tab === 'properties') show active @endif" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            @if($tab === 'properties')
+                @include('admin.claims.tabs.properties')
+            @endif
+        </div>
+        <div class="tab-pane fade @if($tab === 'notes') show active @endif" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            @if($tab === 'notes')
+                @include('admin.claims.tabs.notes')
+            @endif
+        </div>
     </div>
 @endsection

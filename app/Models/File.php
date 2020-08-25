@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Helpers\DateFormatTrait;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class File extends Model
@@ -41,11 +43,21 @@ class File extends Model
         return $this->morphTo();
     }
 
+    /**
+     * A file belongs to user
+     *
+     * @return BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * A file has one file type
+     *
+     * @return HasOne
+     */
     public function fileType()
     {
         return $this->hasOne(FileType::class);

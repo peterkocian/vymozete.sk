@@ -47,7 +47,7 @@ class PermissionController extends Controller
     /**
      * Store a new user.
      *
-     * @return Response
+     * @return Response todo
      */
     public function store()
     {
@@ -75,7 +75,7 @@ class PermissionController extends Controller
             ->withSuccess(__('general.Created successfully'));
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         try {
             $result = $this->find($id);
@@ -90,7 +90,7 @@ class PermissionController extends Controller
         return view('admin.permissions.show', ['permission' => $result]);
     }
 
-    public function edit($id)
+    public function edit(int $id)
     {
         try {
             $result = $this->find($id);
@@ -105,7 +105,7 @@ class PermissionController extends Controller
         return view('admin.permissions.edit', ['permission' => $result]);
     }
 
-    public function update($id)
+    public function update(int $id)
     {
         $data = request()->except('_token', '_method');
 
@@ -131,7 +131,7 @@ class PermissionController extends Controller
             ->withSuccess(__('general.Created successfully'));
     }
 
-    public function destroy($id) {
+    public function destroy(int $id) {
         try {
             $result = $this->find($id);
         } catch (\Exception $e) {
@@ -160,7 +160,7 @@ class PermissionController extends Controller
             ]));
     }
 
-    private function find($id)
+    private function find(int $id)
     {
         return $this->permissionService->getProjection()->findOrFail($id);
     }

@@ -35,6 +35,17 @@ class Person extends Model
     }
 
     /**
+     * Function returns formated birthday
+     *
+     * @param $value
+     * @return string
+     */
+    public function getBirthdayAttribute($value)
+    {
+        return date('d.m.Y', strtotime($value));
+    }
+
+    /**
      * Get all of the person's participants.
      */
     public function participants()

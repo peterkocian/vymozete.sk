@@ -31,16 +31,10 @@
         <div class="main-wrapper">
             @include('admin.navigation.top-nav')
 
-{{--            <main class="py-4">--}}
-{{--                <div class="container-fluid">--}}
-{{--                    @include('admin.flash-message')--}}
-
-{{--                    @yield('content')--}}
-{{--                </div>--}}
-{{--            </main>--}}
-
             <main class="container-fluid main-container">
                 @include('admin.flash-message')
+                <flash messsage=""></flash>
+
 
                 @yield('content')
             </main>

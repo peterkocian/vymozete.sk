@@ -14253,9 +14253,10 @@ span {
   justify-content: space-between;
 }
 
-.material-icons {
+.navbar .material-icons {
   position: relative;
   display: initial;
+  font-size: 24px;
   vertical-align: middle;
 }
 
@@ -14280,5 +14281,17 @@ span {
 
 .static-dropdown-item {
   padding: 0.25rem 1.5rem;
+}
+
+.btn-sm,
+.btn-group-sm > .btn {
+  padding: 0.4rem 0.4rem;
+  font-size: inherit;
+  line-height: 1;
+}
+
+.material-icons {
+  font-size: 16px;
+  vertical-align: middle;
 }
 

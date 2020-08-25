@@ -40,5 +40,8 @@ return [
     'Delete failed' => 'Delete failed',
     'Created successfully' => 'Created successfully',
     'Create failed' => 'Create failed',
-    'Unauthorized' => 'This action is unauthorized'
+    'Unauthorized' => 'This action is unauthorized',
+
+    'User has been logged in!' => 'User has been logged in!',
+    'User has been logged out!' => 'User has been logged out!',
 ];

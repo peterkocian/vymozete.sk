@@ -75,7 +75,7 @@ class RoleController extends Controller
             ->withSuccess(__('general.Created successfully'));
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         try {
             $result = $this->find($id);
@@ -90,7 +90,7 @@ class RoleController extends Controller
         return view('admin.roles.show', ['role' => $result]);
     }
 
-    public function edit($id)
+    public function edit(int $id)
     {
         try {
             $result = $this->find($id);
@@ -105,7 +105,7 @@ class RoleController extends Controller
         return view('admin.roles.edit', ['role' => $result]);
     }
 
-    public function update($id)
+    public function update(int $id)
     {
         $data = request()->except('_token', '_method');
 
@@ -131,7 +131,7 @@ class RoleController extends Controller
             ->withSuccess(__('general.Created successfully'));
     }
 
-    public function destroy($id) {
+    public function destroy(int $id) {
         try {
             $result = $this->find($id);
         } catch (\Exception $e) {
@@ -160,7 +160,7 @@ class RoleController extends Controller
             ]));
     }
 
-    private function find($id)
+    private function find(int $id)
     {
         return $this->roleService->getProjection()->findOrFail($id);
     }

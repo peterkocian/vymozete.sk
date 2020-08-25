@@ -94,7 +94,7 @@ class UserController extends Controller
      * @param $id
      * @return Application|Factory|View
      */
-    public function show($id)
+    public function show(int $id)
     {
         try {
             $result = $this->find($id);
@@ -109,7 +109,7 @@ class UserController extends Controller
         return view('admin.users.show', ['user' => $result]);
     }
 
-    public function edit($id)
+    public function edit(int $id)
     {
         try {
             $result = $this->find($id);
@@ -124,7 +124,7 @@ class UserController extends Controller
         return view('admin.users.edit', ['user' => $result]);
     }
 
-    public function editProfile($id)
+    public function editProfile(int $id)
     {
         if(Auth::id() == $id) {
             try {
@@ -142,7 +142,7 @@ class UserController extends Controller
         return abort(403, __('general.Unauthorized'));
     }
 
-    public function update($id)
+    public function update(int $id)
     {
         $data = request()->except('_token', '_method');
 
@@ -168,9 +168,9 @@ class UserController extends Controller
             ->withSuccess(__('general.Created successfully'));
     }
 
-    public function updateProfile(UserProfileRequest $request, $id)
+    public function updateProfile(UserProfileRequest $request, int $id)
     {
-        if(Auth::id() == $id) {
+        if(Auth::id() === $id) {
             $data = $request->except('_token', '_method');
 
             try {
@@ -194,7 +194,7 @@ class UserController extends Controller
      * @param $id
      * @return mixed
      */
-    public function destroy($id) {
+    public function destroy(int $id) {
         try {
             $result = $this->find($id);
         } catch (\Exception $e) {
@@ -223,7 +223,7 @@ class UserController extends Controller
             ]));
     }
 
-    private function find($id)
+    private function find(int $id)
     {
         return $this->userService->getProjection()->findOrFail($id);
     }

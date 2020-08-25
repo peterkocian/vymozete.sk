@@ -6,11 +6,11 @@
                 <input type="hidden" name="_token" :value="csrf">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <p class="text-center">{{ this.config.modalText }}</p>
+                        <p class="text-center">{{ this.config.text }}</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" data-dismiss="modal" class="btn btn-danger" @click="submit">Yes</button>
+                        <button type="submit" class="btn btn-danger" data-dismiss="modal" @click="submit">Yes</button>
                     </div>
                 </div>
             </form>
@@ -28,7 +28,11 @@
         },
         methods: {
             submit() {
-                this.$refs.form.submit()
+                if (this.config.ajax) {
+                    this.$emit('ajaxSubmitDelete', this.config.url);
+                } else {
+                    this.$refs.form.submit()
+                }
             }
         }
     };

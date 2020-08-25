@@ -39,7 +39,7 @@
 
     $actions = [
         [
-            'label' => '<img src="'.asset('/images/simple-table/visibility-white-18dp.svg').'"/>',
+            'label' => 'visibility',
             'title' => __('general.Detail'),
             'key' => 'detail',
             'class' => 'btn btn-primary btn-sm mr-1',

@@ -32,10 +32,8 @@ class UserService
      * Store a new user into DB.
      *
      * @param $data
-     * @param null $id
      * @return mixed
      * @throws ValidationException
-     * @throws Exception
      */
     public function saveUser($data)
     {
@@ -91,12 +89,11 @@ class UserService
         return $result;
     }
 
-
     /**
      * Update user profile.
      *
      * @param $data
-     * @param null $id
+     * @param null $id user id
      * @return mixed
      * @throws Exception
      */

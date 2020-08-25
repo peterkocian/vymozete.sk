@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UploadAdminClaimFileRequest extends FormRequest
+class PropertySaveRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +16,6 @@ class UploadAdminClaimFileRequest extends FormRequest
         return true;
     }
 
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,9 +24,9 @@ class UploadAdminClaimFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'filename'      => 'required|max:191',
-            'file_type_id'  => 'required',
-            'file'          => 'required|mimes:txt,pdf,doc,docx,jpg,jpeg',
+            'title'         => 'required|max:191',
+            'amount'        => 'required|numeric',
+            'currency_id'   => 'required|integer',
         ];
     }
 }

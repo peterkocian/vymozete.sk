@@ -18,22 +18,19 @@
     <li class="nav-item">
         <a class="nav-link @if($tab === 'documents') active @endif" href="{{route('admin.claims.documents', $claim->id ?? "")}}">Dokumenty</a>
     </li>
-    {{--    <li class="nav-item">--}}
-    {{--        <a class="nav-link" href="{{route('admin.claims.documents', $claim->id)}}">Dokumenty</a>--}}
-    {{--    </li>--}}
-    {{--    <li class="nav-item">--}}
-    {{--        <a class="nav-link" href="{{route('admin.claims.property', $claim->id)}}">Majetok</a>--}}
-    {{--    </li>--}}
+    <li class="nav-item">
+        <a class="nav-link @if($tab === 'properties') active @endif" href="{{route('admin.claims.properties', $claim->id ?? "")}}">Majetok</a>
+    </li>
     {{--    <li class="nav-item">--}}
     {{--        <a class="nav-link" href="{{route('admin.claims.lustration', $claim->id)}}">Lustrácia</a>--}}
     {{--    </li>--}}
     {{--    <li class="nav-item">--}}
     {{--        <a class="nav-link" href="{{route('admin.claims.calc', $claim->id)}}">Kalkulácia</a>--}}
     {{--    </li>--}}
-    {{--    <li class="nav-item">--}}
-    {{--        <a class="nav-link" href="{{route('admin.claims.notes', $claim->id)}}">Poznámky</a>--}}
-    {{--    </li>--}}
+    <li class="nav-item">
+        <a class="nav-link @if($tab === 'notes') active @endif" href="{{route('admin.claims.notes', $claim->id ?? "")}}">Poznámky</a>
+    </li>
     {{--    <li class="nav-item">--}}
     {{--        <a class="nav-link" href="{{route('admin.claims.cal', $claim->id)}}">Kalendár</a>--}}
-    </li>
+    {{--    </li>--}}
 </ul>

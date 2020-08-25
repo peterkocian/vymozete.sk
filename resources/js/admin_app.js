@@ -10,6 +10,12 @@ window.Vue = require('vue');
 
 import {  BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 
+window.events = new Vue();
+
+window.flash = function(message) {
+    window.events.$emit('flash', message);
+}
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -25,6 +31,7 @@ Vue.component('simple-table-component', require('./components/SimpleTableCompone
 Vue.component('modal-component', require('./components/ModalComponent.vue').default);
 Vue.component('side-menu-component', require('./components/SideMenuComponent').default);
 Vue.component('button-component', require('./components/ButtonComponent').default);
+Vue.component('flash', require('./components/Flash').default);
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)

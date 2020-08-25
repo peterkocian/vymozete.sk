@@ -39,10 +39,18 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')
             Route::get('/claims/{claim}/creditor', 'ClaimController@creditor')->name('claims.creditor');
             Route::get('/claims/{claim}/debtor', 'ClaimController@debtor')->name('claims.debtor');
             Route::get('/claims/{claim}/documents', 'ClaimController@documents')->name('claims.documents');
-            Route::post('/claims/{claim}/documents/upload-files', 'ClaimController@uploadFiles')->name('uploadFiles');
+            Route::post('/claims/{claim}/documents/upload-files', 'ClaimController@uploadFiles')->name('claims.uploadFiles');
 
             Route::get('/download/{id}', 'FileController@download')->name('file.download');
-            Route::delete('/delete/{id}', 'FileController@destroy')->name('file.download');
+            Route::delete('/delete/{id}', 'FileController@destroy')->name('file.delete');
+
+            Route::get('/claims/{claim}/properties', 'ClaimController@properties')->name('claims.properties');
+            Route::post('/claims/{claim}/properties', 'ClaimController@storeProperties')->name('claims.properties.store');
+
+            Route::get('/claims/{claim}/notes', 'ClaimController@notes')->name('claims.notes');
+            Route::post('/claims/{claim}/notes', 'ClaimController@storeNotes')->name('claims.notes.store');
+
+            Route::resource('notes', 'NoteController')->except(['index', 'create']);
         });
 });
 

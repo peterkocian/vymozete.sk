@@ -26,6 +26,7 @@ class ClaimRepository extends BaseRepository implements ClaimRepositoryInterface
         return $this->model->with(['creditor.entity.fullname', 'debtor'])->get();
     }
 
+    // todo takato funkcia ma byt v Repository, alebo v Service? podla mna v Repository, lebo vysledok funkcie je zavisly od Eloquentu.
     public function index(): Collection
     {
         $claims = $this->model->all();
@@ -38,9 +39,7 @@ class ClaimRepository extends BaseRepository implements ClaimRepositoryInterface
             $claim['typePlain']     = $claim->claimType->translation(\Illuminate\Support\Facades\Auth::user()->language_id)->firstOrFail()->name;
         }
 
-//        dd($claims);
         return $claims;
-//        return $this->model->all();
     }
 
     public function allByUser(int $id): Collection

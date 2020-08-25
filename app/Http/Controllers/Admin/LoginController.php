@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -54,18 +53,19 @@ class LoginController extends Controller
         $this->performLogin($request);
         return redirect()
             ->route('admin.home')
-            ->with('success','User has been logged in!');
+            ->with('success',__('general.User has been logged in!'));
     }
 
     /**
      * Log the user out from backoffice.
      *
+     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function logout(Request $request){
         $this->performLogout($request);
         return redirect()
             ->route('admin.login')
-            ->with('status','User has been logged out!');
+            ->with('success',__('general.User has been logged out!'));
     }
 }

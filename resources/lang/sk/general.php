@@ -40,5 +40,8 @@ return [
     'Delete failed' => 'Údaje sa nepodarilo vymazať, skúste znovu prosím',
     'Created successfully' => 'Údaje úspešne vytvorené',
     'Create failed' => 'Údaje sa nepodarilo uložiť, skúste znovu prosím',
-    'Unauthorized' => 'Nemáte oprávnenie na túto akciu.'
+    'Unauthorized' => 'Nemáte oprávnenie na túto akciu.',
+
+    'User has been logged in!' => 'Užívateľ bol úspešne prihlásený!',
+    'User has been logged out!' => 'Užívateľ bol úspešne odhlásený!',
 ];

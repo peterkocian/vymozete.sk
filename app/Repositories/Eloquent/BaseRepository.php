@@ -65,7 +65,7 @@ class BaseRepository implements EloquentRepositoryInterface
      */
     public function get(int $id): ?Model
     {
-        return $this->model->find($id);
+        return $this->model->findOrFail($id);
     }
 
     /**
@@ -98,6 +98,6 @@ class BaseRepository implements EloquentRepositoryInterface
      */
     public function update(array $attributes, int $id): Model
     {
-        return $this->model->find($id)->update($attributes);
+        return $this->model->findOrFail($id)->update($attributes);
     }
 }

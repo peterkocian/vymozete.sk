@@ -98,9 +98,9 @@ class Claim extends Model
     /**
      * A claim can have many notes
      */
-    public function claim_notes()
+    public function notes()
     {
-        return $this->hasMany(File::class);
+        return $this->hasMany(Note::class);
     }
 
     /**
@@ -108,6 +108,6 @@ class Claim extends Model
      */
     public function properties()
     {
-        return $this->hasMany(File::class);
+        return $this->hasMany(Property::class);
     }
 }

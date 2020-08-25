@@ -123,10 +123,13 @@ span
     justify-content: space-between;
 }
 
-.material-icons {
-    position: relative;
-    display: initial;
-    vertical-align: middle;
+.navbar {
+    .material-icons{
+        position: relative;
+        display: initial;
+        font-size: 24px;
+        vertical-align: middle;
+    }
 }
 
 .bs-tooltip-left {
