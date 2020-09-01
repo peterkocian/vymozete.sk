@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Front;
+namespace App\Models;
 
 use App\Helpers\DateFormatTrait;
 use Illuminate\Database\Eloquent\Model;

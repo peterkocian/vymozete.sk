@@ -5,7 +5,7 @@
         <img class="headline_logo" src="{{ asset('front/images/logo_vymozete.svg') }}"/>
         <h1>Vy môžete viac.</h1>
         <p>Pohľadávky vymôžete online.</p>
-        <a class="big_btn" href="/">vymôcť pohľadávku</a>
+        <a class="big_btn" href="{{ route('front.claim') }}">vymôcť pohľadávku</a>
         <a class="small_btn" href="#o_sluzbe">zistiť viac</a>
     </div>
 
@@ -49,7 +49,7 @@
                     Platíte nám až po úspešnom vymožení pohľadávky</p>
             </div>
         </div>
-        <div class="row"><a class="big_btn" href="/nova">vymôcť pohľadávku</a></div>
+        <div class="row"><a class="big_btn" href="{{ route('front.claim') }}">vymôcť pohľadávku</a></div>
     </div>
 
     <!--  section Q&A -->
@@ -81,7 +81,7 @@
             <p>Ak neuspejeme, za naše služby neplatíte.</p>
         </div>
 
-        <div class="row"><a class="big_btn" href="/nova">vymôcť pohľadávku</a></div>
+        <div class="row"><a class="big_btn" href="{{ route('front.claim') }}">vymôcť pohľadávku</a></div>
     </div>
 
     <!--  section portfolio -->
@@ -266,7 +266,7 @@
             <div class="box_grey"><img class="box_icon" src="{{ asset('front/images/cena.svg') }}">
                 <p><b>Ak neuspejeme, našu odmenu a náklady nám neplatíte</b></p></div>
         </div>
-        <div class="row"><a class="big_btn" href="/nova">vymôcť pohľadávku</a></div>
+        <div class="row"><a class="big_btn" href="{{ route('front.claim') }}">vymôcť pohľadávku</a></div>
     </div>
 
     <!-- section stats -->
@@ -296,6 +296,6 @@
             <h1>6%</h1>
             <p>dlžníkov svoju pohľadávku nikdy nesplatí.</p>
         </div>
-        <div class="row"><a class="big_btn" href="/nova">vymôcť pohľadávku</a></div>
+        <div class="row"><a class="big_btn" href="{{ route('front.claim') }}">vymôcť pohľadávku</a></div>
     </div>
 @endsection

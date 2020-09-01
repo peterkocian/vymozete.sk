@@ -7,8 +7,8 @@ use App\Http\Requests\NoteSaveRequest;
 use App\Http\Requests\PropertySaveRequest;
 use App\Http\Requests\UploadAdminClaimFileRequest;
 use App\Repositories\ClaimRepositoryInterface;
-use App\Repositories\CurrencyRepositoryInterface;
 use App\Repositories\Eloquent\FileTypeRepository;
+use App\Services\CurrencyService;
 use App\Services\NoteService;
 use App\Services\PropertyService;
 use App\Services\UploadService;
@@ -25,7 +25,7 @@ class ClaimController extends Controller
     public function __construct(
         ClaimRepositoryInterface $claimRepository,
         FileTypeRepository $fileTypeRepository,
-        CurrencyRepositoryInterface $currencyRepository,
+        CurrencyService $currencyRepository,
         PropertyService $propertyService,
         NoteService $noteService,
         UploadService $uploadService
@@ -50,7 +50,6 @@ class ClaimController extends Controller
 
     public function overview(int $claim_id)
     {
-
         $claim = $this->claimRepository->get($claim_id);
 //        $claim->debtor = $claim->debtor->en;
 //        $claim->creditor = $claim->creditor->entity;
@@ -129,6 +128,7 @@ class ClaimController extends Controller
     public function properties(int $claim_id)
     {
         $claim = $this->claimRepository->get($claim_id);
+//        $currencies = $this->currencyRepository->all();
         $currencies = $this->currencyRepository->all();
         $properties = $this->propertyService->index($claim->properties);
 

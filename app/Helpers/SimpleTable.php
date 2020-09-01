@@ -51,21 +51,21 @@ class SimpleTable
                 'title' => __('general.Detail'),
                 'key' => 'detail',
                 'class' => 'btn btn-primary btn-sm mr-1',
-                'url' => url(config('simple-table.route-prefix').$this->entityRoutePrefix.'{id}')
+                'url' => url(config('simple-table.route-prefix').'/'.$this->entityRoutePrefix.'/{id}')
             ],
             [
                 'label' => 'edit',
                 'title' => __('general.Edit'),
                 'key' => 'edit',
                 'class' => 'btn btn-primary btn-sm mr-1',
-                'url' => url(config('simple-table.route-prefix').$this->entityRoutePrefix.'{id}/edit')
+                'url' => url(config('simple-table.route-prefix').'/'.$this->entityRoutePrefix.'/{id}/edit')
             ],
             [
                 'label' => 'delete',
                 'title' => __('general.Delete'),
                 'key' => 'delete',
                 'class' => 'btn btn-sm btn-danger',
-                'url' => url(config('simple-table.route-prefix').$this->entityRoutePrefix.'{id}'),
+                'url' => url(config('simple-table.route-prefix').'/'.$this->entityRoutePrefix.'/{id}'),
                 'dataToggle' => 'modal',
                 'dataTarget' => '#modalConfirm',
                 'modalText' => __('general.Confirmation delete')

@@ -47,7 +47,10 @@
                 @include('front.partials.navigation.main')
             </div>
 
+            @include('front.flash-message')
+
             @yield('content')
+
             @include('front.partials.footer')
         </div>
     </body>

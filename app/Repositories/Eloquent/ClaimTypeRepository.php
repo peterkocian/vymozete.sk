@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Models\Front\ClaimType;
+use App\Models\ClaimType;
 use App\Repositories\ClaimTypeRepositoryInterface;
 use Illuminate\Support\Collection;
 

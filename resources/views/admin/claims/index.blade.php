@@ -43,7 +43,7 @@
             'title' => __('general.Detail'),
             'key' => 'detail',
             'class' => 'btn btn-primary btn-sm mr-1',
-            'url' => url(config('simple-table.route-prefix').\App\Models\Claim::ENTITY_ROUTE_PREFIX.'{id}/overview')
+            'url' => url(config('simple-table.route-prefix').'/'.\App\Models\Claim::ENTITY_ROUTE_PREFIX.'/{id}/overview')
         ],
     ];
 

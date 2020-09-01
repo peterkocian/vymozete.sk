@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Models\Front\Language;
+use App\Models\Language;
 use App\Repositories\UserRepositoryInterface;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -61,12 +61,17 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             }
         }
 
-        $attributes['password'] = $attributes['password'] ? bcrypt($attributes['password']) : $user->password;
+//        if (isset($attributes['password'])) {
+//            $attributes['password'] = bcrypt($attributes['password']);
+//        } else {
+//            $attributes['password'] = $user->password;
+//        }
+        $attributes['password'] = isset($attributes['password']) ? bcrypt($attributes['password']) : $user->password;
 
         if ($user) {
             $user->update($attributes);
-            $user->roles()->sync($attributes['roles'] ?? []);
-            $user->permissions()->sync($attributes['permissions'] ?? []);
+            $user->roles()->sync($attributes['roles'] ?? $user->roles);
+            $user->permissions()->sync($attributes['permissions'] ?? $user->permissions);
 
             return $user;
         }

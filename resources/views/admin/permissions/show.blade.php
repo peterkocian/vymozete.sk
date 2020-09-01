@@ -2,7 +2,7 @@
 @section ('content')
     @php
         $actionDelete =[
-            'url' => url(config('simple-table.route-prefix').\App\Models\Admin\Permission::ENTITY_ROUTE_PREFIX.$permission->id),
+            'url' => url(config('simple-table.route-prefix').'/'.\App\Models\Permission::ENTITY_ROUTE_PREFIX.'/'.$permission->id),
             'text' => __('general.Confirmation delete')
         ];
     @endphp

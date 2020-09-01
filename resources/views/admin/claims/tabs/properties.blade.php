@@ -29,6 +29,7 @@
                 'key' => 'title',
                 'type' => 'text',
                 'settings' => [
+                    'divClass' => 'col-2 pl-0',
                     'required' => true,
                     'searchable' => true
                 ]
@@ -38,6 +39,7 @@
                 'key' => 'amount',
                 'type' => 'number',
                 'settings' => [
+                    'divClass' => 'col-1',
                     'required' => true,
                     'searchable' => true
                 ]
@@ -47,6 +49,7 @@
                 'key' => 'currency_id',
                 'type' => 'select',
                 'settings' => [
+                    'divClass' => 'col-1',
                     'required' => true,
                     'searchable' => true
                 ],
@@ -57,6 +60,7 @@
                 'key' => 'description',
                 'type' => 'textarea',
                 'settings' => [
+                    'divClass' => 'col-4',
                     'required' => true,
                     'searchable' => true
                 ]
@@ -73,7 +77,7 @@
             'title' => __('general.Delete'),
             'key' => 'delete',
             'class' => 'btn btn-sm btn-danger',
-            'url' => url(config('simple-table.route-prefix').'admin/delete/{id}'),
+            'url' => url(config('simple-table.route-prefix').'/delete/{id}'),
             'dataToggle' => 'modal',
             'dataTarget' => '#modalConfirm',
             'modalText' => __('general.Confirmation delete')

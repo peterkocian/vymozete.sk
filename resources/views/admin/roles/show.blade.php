@@ -2,7 +2,7 @@
 @section ('content')
     @php
         $actionDelete =[
-            'url' => url(\App\Models\Admin\Role::ENTITY_ROUTE_PREFIX.$role->id),
+            'url' => url(\App\Models\Role::ENTITY_ROUTE_PREFIX.'/'.$role->id),
             'text' => __('general.Confirmation delete')
         ];
     @endphp

@@ -11,6 +11,7 @@ use App\Repositories\Eloquent\BaseRepository;
 use App\Repositories\Eloquent\CurrencyRepository;
 use App\Repositories\Eloquent\FileRepository;
 use App\Repositories\Eloquent\FileTypeRepository;
+use App\Repositories\Eloquent\LanguageRepository;
 use App\Repositories\Eloquent\NoteRepository;
 use App\Repositories\Eloquent\PermissionRepository;
 use App\Repositories\Eloquent\PropertyRepository;
@@ -19,6 +20,7 @@ use App\Repositories\Eloquent\UserRepository;
 use App\Repositories\EloquentRepositoryInterface;
 use App\Repositories\FileRepositoryInterface;
 use App\Repositories\FileTypeRepositoryInterface;
+use App\Repositories\LanguageRepositoryInterface;
 use App\Repositories\NoteRepositoryInterface;
 use App\Repositories\PermissionRepositoryInterface;
 use App\Repositories\PropertyRepositoryInterface;
@@ -46,6 +48,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(FileRepositoryInterface::class, FileRepository::class);
         $this->app->bind(PropertyRepositoryInterface::class, PropertyRepository::class);
         $this->app->bind(NoteRepositoryInterface::class, NoteRepository::class);
+        $this->app->bind(LanguageRepositoryInterface::class, LanguageRepository::class);
     }
 
     /**

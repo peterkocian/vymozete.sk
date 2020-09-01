@@ -13,7 +13,7 @@
 <div class="right-menu">
     @auth()
         <a href="{{ route('front.home') }}" class="alogin">moje konto</a> |&nbsp;
-        <a href="{{ url('logout') }}" class="alogin">odhlásiť</a>&nbsp;
+        <a href="{{ url('/logout') }}" class="alogin">odhlásiť</a>&nbsp;
         @can('back-office')
         |
         <a href="{{ route('admin.home') }}" class="alogin">admin</a>

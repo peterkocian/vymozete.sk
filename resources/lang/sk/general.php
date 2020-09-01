@@ -44,4 +44,8 @@ return [
 
     'User has been logged in!' => 'Užívateľ bol úspešne prihlásený!',
     'User has been logged out!' => 'Užívateľ bol úspešne odhlásený!',
+
+    'Ban user' => 'Naozaj chcete zablokovať používateľa?',
+    'Unban user' => 'Naozaj chcete odblokovať používateľa?',
+    'Reset user password' => 'Mail pre resetnutie hesla bude odoslaný na mailovú adresu: ',
 ];

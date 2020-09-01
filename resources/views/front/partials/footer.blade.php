@@ -22,8 +22,8 @@
         <h2>Služba</h2>
         <p>
             @auth()
-                <a href="/" class="alogin">moje konto</a><br>
-                <a href="/" class="alogin">odhlásiť</a><br><br>
+                <a href="{{ route('front.home') }}" class="alogin">moje konto</a><br>
+                <a href="{{ url('/logout') }}" class="alogin">odhlásiť</a><br><br>
             @else
                 <a href="{{ url('/register') }}" class="alogin">vytvoriť konto</a><br>
                 <a href="{{ url('/login') }}" class="alogin">prihlásenie</a><br>

@@ -39,6 +39,7 @@
                 'key' => 'filename',
                 'type' => 'text',
                 'settings' => [
+                    'divClass' => 'col-3 pl-0',
                     'required' => true,
                     'searchable' => true
                 ]
@@ -48,6 +49,7 @@
                 'key' => 'file_type_id',
                 'type' => 'select',
                 'settings' => [
+                    'divClass' => 'col-1',
                     'required' => true,
                     'searchable' => true
                 ],
@@ -58,6 +60,7 @@
                 'key' => 'show_to_customer',
                 'type' => 'checkbox',
                 'settings' => [
+                    'divClass' => 'col-3',
                     'required' => true,
                     'searchable' => true
                 ]
@@ -67,6 +70,7 @@
                 'key' => 'file',
                 'type' => 'file',
                 'settings' => [
+                    'divClass' => 'col-3',
                     'required' => true,
                     'searchable' => true
                 ]
@@ -83,14 +87,14 @@
             'title' => __('general.Download'),
             'key' => 'download',
             'class' => 'btn btn-primary btn-sm mr-1',
-            'url' => url(config('simple-table.route-prefix').'admin/download/{id}')
+            'url' => url(config('simple-table.route-prefix').'/download/{id}')
         ],
         [
             'label' => 'delete',
             'title' => __('general.Delete'),
             'key' => 'delete',
             'class' => 'btn btn-sm btn-danger',
-            'url' => url(config('simple-table.route-prefix').'admin/delete/{id}'),
+            'url' => url(config('simple-table.route-prefix').'/delete/{id}'),
             'dataToggle' => 'modal',
             'dataTarget' => '#modalConfirm',
             'modalText' => __('general.Confirmation delete')

@@ -14295,3 +14295,7 @@ span {
   vertical-align: middle;
 }
 
+.modal-body {
+  white-space: normal;
+}
+

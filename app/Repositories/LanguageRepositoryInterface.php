@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories;
 
-interface UserRepositoryInterface
+interface LanguageRepositoryInterface
 {
     //
 }

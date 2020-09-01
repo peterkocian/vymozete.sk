@@ -2026,6 +2026,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['config'],
   data: function data() {
@@ -2036,7 +2037,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     submit: function submit() {
       if (this.config.ajax) {
-        this.$emit('ajaxSubmitDelete', this.config.url);
+        this.$emit('ajaxModalSubmit', this.config.url);
       } else {
         this.$refs.form.submit();
       }
@@ -2280,6 +2281,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['config'],
   data: function data() {
@@ -2290,7 +2310,8 @@ __webpack_require__.r(__webpack_exports__);
       modal: {
         text: '',
         url: '',
-        ajax: false
+        ajax: false,
+        requestMethod: ''
       },
       queryParams: {
         rows: '',
@@ -2305,17 +2326,28 @@ __webpack_require__.r(__webpack_exports__);
     buildUrl: function buildUrl(urlTemplate, data) {
       var resolvedUrl;
       var params = urlTemplate.match(/[^{\}]+(?=})/g);
-      params.forEach(function (param) {
-        resolvedUrl = urlTemplate.replace("{".concat(param, "}"), data[param]);
-      });
+
+      if (params) {
+        params.forEach(function (param) {
+          resolvedUrl = urlTemplate.replace("{".concat(param, "}"), data[param]);
+        });
+      } else {
+        resolvedUrl = urlTemplate;
+      }
+
       return resolvedUrl;
     },
-    showModal: function showModal(url, text, ajax) {
-      this.modal = {
+    showModal: function showModal(url, text, ajax, requestMethod, key, item) {
+      if (key === 'passwordReset') {
+        this.modal.email = item['email'];
+      }
+
+      this.modal = Object.assign(this.modal, {
         url: url,
         text: text,
-        ajax: ajax
-      };
+        ajax: ajax,
+        requestMethod: requestMethod
+      });
     },
     handleActions: function handleActions(action, url) {
       event.preventDefault();
@@ -2405,7 +2437,7 @@ __webpack_require__.r(__webpack_exports__);
     setDefaultValue: function setDefaultValue() {
       this.newEntry = {};
     },
-    handleAjaxDelete: function handleAjaxDelete(url) {
+    handleAjaxModalSubmit: function handleAjaxModalSubmit(url) {
       var _this4 = this;
 
       axios["delete"](url, {// params: this.queryParams,
@@ -81454,11 +81486,12 @@ var render = function() {
           "form",
           {
             ref: "form",
-            attrs: { id: "deleteForm", method: "post", action: this.config.url }
+            attrs: { id: "deleteForm", method: "POST", action: this.config.url }
           },
           [
             _c("input", {
-              attrs: { type: "hidden", name: "_method", value: "DELETE" }
+              attrs: { type: "hidden", name: "_method" },
+              domProps: { value: this.config.requestMethod }
             }),
             _vm._v(" "),
             _c("input", {
@@ -81466,10 +81499,19 @@ var render = function() {
               domProps: { value: _vm.csrf }
             }),
             _vm._v(" "),
+            this.config.email
+              ? _c("input", {
+                  attrs: { type: "hidden", name: "email" },
+                  domProps: { value: this.config.email }
+                })
+              : _vm._e(),
+            _vm._v(" "),
             _c("div", { staticClass: "modal-content" }, [
               _c("div", { staticClass: "modal-body" }, [
                 _c("p", { staticClass: "text-center" }, [
-                  _vm._v(_vm._s(this.config.text))
+                  _vm._v(
+                    _vm._s(this.config.text) + " " + _vm._s(this.config.email)
+                  )
                 ])
               ]),
               _vm._v(" "),
@@ -81486,7 +81528,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-danger",
+                    staticClass: "btn btn-success",
                     attrs: { type: "submit", "data-dismiss": "modal" },
                     on: { click: _vm.submit }
                   },
@@ -81634,539 +81676,211 @@ var render = function() {
     "div",
     { staticClass: "table-responsive" },
     [
-      _c(
-        "form",
-        { staticClass: "form-inline" },
-        [
-          _vm._l(_vm.config.config.inlineNew.fields, function(field) {
-            return _c("div", { key: field.id }, [
-              field.type === "checkbox" &&
-              (field.type === "text" ||
-                field.type === "number" ||
-                field.type === "file" ||
-                field.type === "textarea")
-                ? _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.newEntry[field.key],
-                        expression: "newEntry[field.key]"
-                      }
-                    ],
-                    staticClass: "form-control form-control-sm",
-                    class: _vm.errors.hasOwnProperty(field.key)
-                      ? "is-invalid"
-                      : null,
-                    attrs: {
-                      placeholder: field.label,
-                      name: field.key,
-                      id: field.key,
-                      type: "checkbox"
-                    },
-                    domProps: {
-                      checked: Array.isArray(_vm.newEntry[field.key])
-                        ? _vm._i(_vm.newEntry[field.key], null) > -1
-                        : _vm.newEntry[field.key]
-                    },
-                    on: {
-                      change: [
-                        function($event) {
-                          var $$a = _vm.newEntry[field.key],
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = null,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 &&
-                                _vm.$set(
-                                  _vm.newEntry,
-                                  field.key,
-                                  $$a.concat([$$v])
-                                )
-                            } else {
-                              $$i > -1 &&
-                                _vm.$set(
-                                  _vm.newEntry,
-                                  field.key,
-                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                )
-                            }
-                          } else {
-                            _vm.$set(_vm.newEntry, field.key, $$c)
-                          }
-                        },
-                        function($event) {
-                          return _vm.handleChange($event, field.type)
-                        }
-                      ]
-                    }
-                  })
-                : field.type === "radio" &&
-                  (field.type === "text" ||
-                    field.type === "number" ||
-                    field.type === "file" ||
-                    field.type === "textarea")
-                ? _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.newEntry[field.key],
-                        expression: "newEntry[field.key]"
-                      }
-                    ],
-                    staticClass: "form-control form-control-sm",
-                    class: _vm.errors.hasOwnProperty(field.key)
-                      ? "is-invalid"
-                      : null,
-                    attrs: {
-                      placeholder: field.label,
-                      name: field.key,
-                      id: field.key,
-                      type: "radio"
-                    },
-                    domProps: {
-                      checked: _vm._q(_vm.newEntry[field.key], null)
-                    },
-                    on: {
-                      change: [
-                        function($event) {
-                          return _vm.$set(_vm.newEntry, field.key, null)
-                        },
-                        function($event) {
-                          return _vm.handleChange($event, field.type)
-                        }
-                      ]
-                    }
-                  })
-                : field.type === "text" ||
-                  field.type === "number" ||
-                  field.type === "file" ||
-                  field.type === "textarea"
-                ? _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.newEntry[field.key],
-                        expression: "newEntry[field.key]"
-                      }
-                    ],
-                    staticClass: "form-control form-control-sm",
-                    class: _vm.errors.hasOwnProperty(field.key)
-                      ? "is-invalid"
-                      : null,
-                    attrs: {
-                      placeholder: field.label,
-                      name: field.key,
-                      id: field.key,
-                      type: field.type
-                    },
-                    domProps: { value: _vm.newEntry[field.key] },
-                    on: {
-                      change: function($event) {
-                        return _vm.handleChange($event, field.type)
-                      },
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.newEntry, field.key, $event.target.value)
-                      }
-                    }
-                  })
-                : field.type === "select"
-                ? _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.newEntry[field.key],
-                          expression: "newEntry[field.key]"
-                        }
-                      ],
-                      staticClass: "form-control form-control-sm",
-                      class: _vm.errors.hasOwnProperty(field.key)
-                        ? "is-invalid"
-                        : null,
-                      attrs: { required: field.settings["required"] },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.newEntry,
-                            field.key,
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
-                      }
-                    },
-                    _vm._l(field.options, function(item) {
-                      return _c("option", { domProps: { value: item.id } }, [
-                        _vm._v(_vm._s(item.code))
-                      ])
-                    }),
-                    0
-                  )
-                : field.type === "checkbox"
-                ? _c("div", { staticClass: "form-check" }, [
-                    field.type === "checkbox"
-                      ? _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.newEntry[field.key],
-                              expression: "newEntry[field.key]"
-                            }
-                          ],
-                          staticClass: "form-check-input",
-                          class: _vm.errors.hasOwnProperty(field.key)
-                            ? "is-invalid"
-                            : null,
-                          attrs: {
-                            name: field.key,
-                            id: field.key,
-                            type: "checkbox"
-                          },
-                          domProps: {
-                            checked: Array.isArray(_vm.newEntry[field.key])
-                              ? _vm._i(_vm.newEntry[field.key], null) > -1
-                              : _vm.newEntry[field.key]
-                          },
-                          on: {
-                            change: [
-                              function($event) {
-                                var $$a = _vm.newEntry[field.key],
-                                  $$el = $event.target,
-                                  $$c = $$el.checked ? true : false
-                                if (Array.isArray($$a)) {
-                                  var $$v = null,
-                                    $$i = _vm._i($$a, $$v)
-                                  if ($$el.checked) {
-                                    $$i < 0 &&
-                                      _vm.$set(
-                                        _vm.newEntry,
-                                        field.key,
-                                        $$a.concat([$$v])
-                                      )
-                                  } else {
-                                    $$i > -1 &&
-                                      _vm.$set(
-                                        _vm.newEntry,
-                                        field.key,
-                                        $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1))
-                                      )
-                                  }
-                                } else {
-                                  _vm.$set(_vm.newEntry, field.key, $$c)
-                                }
-                              },
-                              function($event) {
-                                return _vm.handleChange($event, field.type)
-                              }
-                            ]
-                          }
-                        })
-                      : field.type === "radio"
-                      ? _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.newEntry[field.key],
-                              expression: "newEntry[field.key]"
-                            }
-                          ],
-                          staticClass: "form-check-input",
-                          class: _vm.errors.hasOwnProperty(field.key)
-                            ? "is-invalid"
-                            : null,
-                          attrs: {
-                            name: field.key,
-                            id: field.key,
-                            type: "radio"
-                          },
-                          domProps: {
-                            checked: _vm._q(_vm.newEntry[field.key], null)
-                          },
-                          on: {
-                            change: [
-                              function($event) {
-                                return _vm.$set(_vm.newEntry, field.key, null)
-                              },
-                              function($event) {
-                                return _vm.handleChange($event, field.type)
-                              }
-                            ]
-                          }
-                        })
-                      : _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.newEntry[field.key],
-                              expression: "newEntry[field.key]"
-                            }
-                          ],
-                          staticClass: "form-check-input",
-                          class: _vm.errors.hasOwnProperty(field.key)
-                            ? "is-invalid"
-                            : null,
-                          attrs: {
-                            name: field.key,
-                            id: field.key,
-                            type: field.type
-                          },
-                          domProps: { value: _vm.newEntry[field.key] },
-                          on: {
-                            change: function($event) {
-                              return _vm.handleChange($event, field.type)
-                            },
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.newEntry,
-                                field.key,
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-check-label",
-                        attrs: { for: field.key }
-                      },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(field.label) +
-                            "\n                    "
-                        )
-                      ]
-                    )
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.errors.hasOwnProperty(field.key)
-                ? _c("div", { staticClass: "invalid-feedback" }, [
-                    _vm._v(_vm._s(_vm.errors[field.key][0]))
-                  ])
-                : _vm._e()
-            ])
-          }),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-success btn-sm",
-              attrs: { type: "submit" }
-            },
-            [_vm._v("Submit")]
-          )
-        ],
-        2
-      ),
-      _vm._v(" "),
       _vm.config.config.inlineNew
-        ? _c(
-            "table",
-            {
-              staticClass: "table table-borderless table-sm table-responsive-xl"
-            },
-            [
-              _c("tbody", [
-                _c(
-                  "tr",
-                  [
-                    _vm._l(_vm.config.config.inlineNew.fields, function(field) {
-                      return _c(
-                        "td",
-                        {
-                          key: field.id,
-                          staticClass: "align-middle text-center"
-                        },
-                        [
-                          field.type === "checkbox" &&
+        ? _c("form", { staticClass: "py-2" }, [
+            _c(
+              "div",
+              { staticClass: "d-flex flex-wrap" },
+              [
+                _vm._l(_vm.config.config.inlineNew.fields, function(field) {
+                  return _c(
+                    "div",
+                    { key: field.id, class: field.settings.divClass },
+                    [
+                      field.type === "checkbox" &&
+                      (field.type === "text" ||
+                        field.type === "number" ||
+                        field.type === "file" ||
+                        field.type === "textarea")
+                        ? _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.newEntry[field.key],
+                                expression: "newEntry[field.key]"
+                              }
+                            ],
+                            staticClass: "form-control form-control-sm",
+                            class: _vm.errors.hasOwnProperty(field.key)
+                              ? "is-invalid"
+                              : null,
+                            attrs: {
+                              placeholder: field.label,
+                              name: field.key,
+                              id: field.key,
+                              type: "checkbox"
+                            },
+                            domProps: {
+                              checked: Array.isArray(_vm.newEntry[field.key])
+                                ? _vm._i(_vm.newEntry[field.key], null) > -1
+                                : _vm.newEntry[field.key]
+                            },
+                            on: {
+                              change: [
+                                function($event) {
+                                  var $$a = _vm.newEntry[field.key],
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.newEntry,
+                                          field.key,
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.newEntry,
+                                          field.key,
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.newEntry, field.key, $$c)
+                                  }
+                                },
+                                function($event) {
+                                  return _vm.handleChange($event, field.type)
+                                }
+                              ]
+                            }
+                          })
+                        : field.type === "radio" &&
                           (field.type === "text" ||
                             field.type === "number" ||
                             field.type === "file" ||
                             field.type === "textarea")
-                            ? _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.newEntry[field.key],
-                                    expression: "newEntry[field.key]"
-                                  }
-                                ],
-                                staticClass: "form-control form-control-sm",
-                                class: _vm.errors.hasOwnProperty(field.key)
-                                  ? "is-invalid"
-                                  : null,
-                                attrs: {
-                                  placeholder: field.label,
-                                  name: field.key,
-                                  id: field.key,
-                                  type: "checkbox"
+                        ? _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.newEntry[field.key],
+                                expression: "newEntry[field.key]"
+                              }
+                            ],
+                            staticClass: "form-control form-control-sm",
+                            class: _vm.errors.hasOwnProperty(field.key)
+                              ? "is-invalid"
+                              : null,
+                            attrs: {
+                              placeholder: field.label,
+                              name: field.key,
+                              id: field.key,
+                              type: "radio"
+                            },
+                            domProps: {
+                              checked: _vm._q(_vm.newEntry[field.key], null)
+                            },
+                            on: {
+                              change: [
+                                function($event) {
+                                  return _vm.$set(_vm.newEntry, field.key, null)
                                 },
-                                domProps: {
-                                  checked: Array.isArray(
-                                    _vm.newEntry[field.key]
-                                  )
-                                    ? _vm._i(_vm.newEntry[field.key], null) > -1
-                                    : _vm.newEntry[field.key]
-                                },
-                                on: {
-                                  change: [
-                                    function($event) {
-                                      var $$a = _vm.newEntry[field.key],
-                                        $$el = $event.target,
-                                        $$c = $$el.checked ? true : false
-                                      if (Array.isArray($$a)) {
-                                        var $$v = null,
-                                          $$i = _vm._i($$a, $$v)
-                                        if ($$el.checked) {
-                                          $$i < 0 &&
-                                            _vm.$set(
-                                              _vm.newEntry,
-                                              field.key,
-                                              $$a.concat([$$v])
-                                            )
-                                        } else {
-                                          $$i > -1 &&
-                                            _vm.$set(
-                                              _vm.newEntry,
-                                              field.key,
-                                              $$a
-                                                .slice(0, $$i)
-                                                .concat($$a.slice($$i + 1))
-                                            )
-                                        }
-                                      } else {
-                                        _vm.$set(_vm.newEntry, field.key, $$c)
-                                      }
-                                    },
-                                    function($event) {
-                                      return _vm.handleChange(
-                                        $event,
-                                        field.type
-                                      )
-                                    }
-                                  ]
+                                function($event) {
+                                  return _vm.handleChange($event, field.type)
                                 }
-                              })
-                            : field.type === "radio" &&
-                              (field.type === "text" ||
-                                field.type === "number" ||
-                                field.type === "file" ||
-                                field.type === "textarea")
-                            ? _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.newEntry[field.key],
-                                    expression: "newEntry[field.key]"
-                                  }
-                                ],
-                                staticClass: "form-control form-control-sm",
-                                class: _vm.errors.hasOwnProperty(field.key)
-                                  ? "is-invalid"
-                                  : null,
-                                attrs: {
-                                  placeholder: field.label,
-                                  name: field.key,
-                                  id: field.key,
-                                  type: "radio"
-                                },
-                                domProps: {
-                                  checked: _vm._q(_vm.newEntry[field.key], null)
-                                },
-                                on: {
-                                  change: [
-                                    function($event) {
-                                      return _vm.$set(
-                                        _vm.newEntry,
-                                        field.key,
-                                        null
-                                      )
-                                    },
-                                    function($event) {
-                                      return _vm.handleChange(
-                                        $event,
-                                        field.type
-                                      )
-                                    }
-                                  ]
+                              ]
+                            }
+                          })
+                        : field.type === "text" ||
+                          field.type === "number" ||
+                          field.type === "file" ||
+                          field.type === "textarea"
+                        ? _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.newEntry[field.key],
+                                expression: "newEntry[field.key]"
+                              }
+                            ],
+                            staticClass: "form-control form-control-sm",
+                            class: _vm.errors.hasOwnProperty(field.key)
+                              ? "is-invalid"
+                              : null,
+                            attrs: {
+                              placeholder: field.label,
+                              name: field.key,
+                              id: field.key,
+                              type: field.type
+                            },
+                            domProps: { value: _vm.newEntry[field.key] },
+                            on: {
+                              change: function($event) {
+                                return _vm.handleChange($event, field.type)
+                              },
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
                                 }
-                              })
-                            : field.type === "text" ||
-                              field.type === "number" ||
-                              field.type === "file" ||
-                              field.type === "textarea"
-                            ? _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.newEntry[field.key],
-                                    expression: "newEntry[field.key]"
-                                  }
-                                ],
-                                staticClass: "form-control form-control-sm",
-                                class: _vm.errors.hasOwnProperty(field.key)
-                                  ? "is-invalid"
-                                  : null,
-                                attrs: {
-                                  placeholder: field.label,
-                                  name: field.key,
-                                  id: field.key,
-                                  type: field.type
-                                },
-                                domProps: { value: _vm.newEntry[field.key] },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.handleChange($event, field.type)
-                                  },
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.newEntry,
-                                      field.key,
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            : field.type === "select"
-                            ? _c(
-                                "select",
+                                _vm.$set(
+                                  _vm.newEntry,
+                                  field.key,
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        : field.type === "select"
+                        ? _c(
+                            "select",
+                            {
+                              directives: [
                                 {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.newEntry[field.key],
+                                  expression: "newEntry[field.key]"
+                                }
+                              ],
+                              staticClass: "form-control form-control-sm",
+                              class: _vm.errors.hasOwnProperty(field.key)
+                                ? "is-invalid"
+                                : null,
+                              attrs: { required: field.settings["required"] },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.newEntry,
+                                    field.key,
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            _vm._l(field.options, function(item) {
+                              return _c(
+                                "option",
+                                { domProps: { value: item.id } },
+                                [_vm._v(_vm._s(item.code))]
+                              )
+                            }),
+                            0
+                          )
+                        : field.type === "checkbox"
+                        ? _c("div", { staticClass: "form-check" }, [
+                            field.type === "checkbox"
+                              ? _c("input", {
                                   directives: [
                                     {
                                       name: "model",
@@ -82175,282 +81889,198 @@ var render = function() {
                                       expression: "newEntry[field.key]"
                                     }
                                   ],
-                                  staticClass: "form-control form-control-sm",
+                                  staticClass: "form-check-input",
                                   class: _vm.errors.hasOwnProperty(field.key)
                                     ? "is-invalid"
                                     : null,
                                   attrs: {
-                                    required: field.settings["required"]
+                                    name: field.key,
+                                    id: field.key,
+                                    type: "checkbox"
+                                  },
+                                  domProps: {
+                                    checked: Array.isArray(
+                                      _vm.newEntry[field.key]
+                                    )
+                                      ? _vm._i(_vm.newEntry[field.key], null) >
+                                        -1
+                                      : _vm.newEntry[field.key]
                                   },
                                   on: {
-                                    change: function($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call($event.target.options, function(
-                                          o
-                                        ) {
-                                          return o.selected
-                                        })
-                                        .map(function(o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
-                                      _vm.$set(
-                                        _vm.newEntry,
-                                        field.key,
-                                        $event.target.multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
-                                      )
-                                    }
-                                  }
-                                },
-                                _vm._l(field.options, function(item) {
-                                  return _c(
-                                    "option",
-                                    { domProps: { value: item.id } },
-                                    [_vm._v(_vm._s(item.code))]
-                                  )
-                                }),
-                                0
-                              )
-                            : field.type === "checkbox"
-                            ? _c("div", { staticClass: "form-check" }, [
-                                field.type === "checkbox"
-                                  ? _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.newEntry[field.key],
-                                          expression: "newEntry[field.key]"
-                                        }
-                                      ],
-                                      staticClass: "form-check-input",
-                                      class: _vm.errors.hasOwnProperty(
-                                        field.key
-                                      )
-                                        ? "is-invalid"
-                                        : null,
-                                      attrs: {
-                                        name: field.key,
-                                        id: field.key,
-                                        type: "checkbox"
-                                      },
-                                      domProps: {
-                                        checked: Array.isArray(
-                                          _vm.newEntry[field.key]
-                                        )
-                                          ? _vm._i(
-                                              _vm.newEntry[field.key],
-                                              null
-                                            ) > -1
-                                          : _vm.newEntry[field.key]
-                                      },
-                                      on: {
-                                        change: [
-                                          function($event) {
-                                            var $$a = _vm.newEntry[field.key],
-                                              $$el = $event.target,
-                                              $$c = $$el.checked ? true : false
-                                            if (Array.isArray($$a)) {
-                                              var $$v = null,
-                                                $$i = _vm._i($$a, $$v)
-                                              if ($$el.checked) {
-                                                $$i < 0 &&
-                                                  _vm.$set(
-                                                    _vm.newEntry,
-                                                    field.key,
-                                                    $$a.concat([$$v])
-                                                  )
-                                              } else {
-                                                $$i > -1 &&
-                                                  _vm.$set(
-                                                    _vm.newEntry,
-                                                    field.key,
-                                                    $$a
-                                                      .slice(0, $$i)
-                                                      .concat(
-                                                        $$a.slice($$i + 1)
-                                                      )
-                                                  )
-                                              }
-                                            } else {
+                                    change: [
+                                      function($event) {
+                                        var $$a = _vm.newEntry[field.key],
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = null,
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
                                               _vm.$set(
                                                 _vm.newEntry,
                                                 field.key,
-                                                $$c
+                                                $$a.concat([$$v])
                                               )
-                                            }
-                                          },
-                                          function($event) {
-                                            return _vm.handleChange(
-                                              $event,
-                                              field.type
-                                            )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.newEntry,
+                                                field.key,
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
                                           }
-                                        ]
-                                      }
-                                    })
-                                  : field.type === "radio"
-                                  ? _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.newEntry[field.key],
-                                          expression: "newEntry[field.key]"
+                                        } else {
+                                          _vm.$set(_vm.newEntry, field.key, $$c)
                                         }
-                                      ],
-                                      staticClass: "form-check-input",
-                                      class: _vm.errors.hasOwnProperty(
-                                        field.key
-                                      )
-                                        ? "is-invalid"
-                                        : null,
-                                      attrs: {
-                                        name: field.key,
-                                        id: field.key,
-                                        type: "radio"
                                       },
-                                      domProps: {
-                                        checked: _vm._q(
-                                          _vm.newEntry[field.key],
+                                      function($event) {
+                                        return _vm.handleChange(
+                                          $event,
+                                          field.type
+                                        )
+                                      }
+                                    ]
+                                  }
+                                })
+                              : field.type === "radio"
+                              ? _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.newEntry[field.key],
+                                      expression: "newEntry[field.key]"
+                                    }
+                                  ],
+                                  staticClass: "form-check-input",
+                                  class: _vm.errors.hasOwnProperty(field.key)
+                                    ? "is-invalid"
+                                    : null,
+                                  attrs: {
+                                    name: field.key,
+                                    id: field.key,
+                                    type: "radio"
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(
+                                      _vm.newEntry[field.key],
+                                      null
+                                    )
+                                  },
+                                  on: {
+                                    change: [
+                                      function($event) {
+                                        return _vm.$set(
+                                          _vm.newEntry,
+                                          field.key,
                                           null
                                         )
                                       },
-                                      on: {
-                                        change: [
-                                          function($event) {
-                                            return _vm.$set(
-                                              _vm.newEntry,
-                                              field.key,
-                                              null
-                                            )
-                                          },
-                                          function($event) {
-                                            return _vm.handleChange(
-                                              $event,
-                                              field.type
-                                            )
-                                          }
-                                        ]
+                                      function($event) {
+                                        return _vm.handleChange(
+                                          $event,
+                                          field.type
+                                        )
                                       }
-                                    })
-                                  : _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.newEntry[field.key],
-                                          expression: "newEntry[field.key]"
-                                        }
-                                      ],
-                                      staticClass: "form-check-input",
-                                      class: _vm.errors.hasOwnProperty(
-                                        field.key
-                                      )
-                                        ? "is-invalid"
-                                        : null,
-                                      attrs: {
-                                        name: field.key,
-                                        id: field.key,
-                                        type: field.type
-                                      },
-                                      domProps: {
-                                        value: _vm.newEntry[field.key]
-                                      },
-                                      on: {
-                                        change: function($event) {
-                                          return _vm.handleChange(
-                                            $event,
-                                            field.type
-                                          )
-                                        },
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            _vm.newEntry,
-                                            field.key,
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    }),
-                                _vm._v(" "),
-                                _c(
-                                  "label",
-                                  {
-                                    staticClass: "form-check-label",
-                                    attrs: { for: field.key }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                            " +
-                                        _vm._s(field.label) +
-                                        "\n                        "
-                                    )
-                                  ]
-                                )
-                              ])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm.errors.hasOwnProperty(field.key)
-                            ? _c("div", { staticClass: "invalid-feedback" }, [
-                                _vm._v(_vm._s(_vm.errors[field.key][0]))
-                              ])
-                            : _vm._e()
-                        ]
-                      )
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass: "align-middle",
-                        staticStyle: { width: "150px" }
-                      },
-                      [
-                        _c("div", [
-                          _vm.config.config.inlineNew.action
-                            ? _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-success btn-sm",
+                                    ]
+                                  }
+                                })
+                              : _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.newEntry[field.key],
+                                      expression: "newEntry[field.key]"
+                                    }
+                                  ],
+                                  staticClass: "form-check-input",
+                                  class: _vm.errors.hasOwnProperty(field.key)
+                                    ? "is-invalid"
+                                    : null,
                                   attrs: {
-                                    type: "button",
-                                    href: "",
-                                    onclick: "this.blur();"
+                                    name: field.key,
+                                    id: field.key,
+                                    type: field.type
                                   },
+                                  domProps: { value: _vm.newEntry[field.key] },
                                   on: {
-                                    click: function($event) {
-                                      _vm.config.config.inlineNew.action
-                                        ? _vm.handleActions(
-                                            _vm.config.config.inlineNew.action,
-                                            _vm.config.config.inlineNew.url
-                                          )
-                                        : null
+                                    change: function($event) {
+                                      return _vm.handleChange(
+                                        $event,
+                                        field.type
+                                      )
+                                    },
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.newEntry,
+                                        field.key,
+                                        $event.target.value
+                                      )
                                     }
                                   }
-                                },
-                                [
-                                  _vm._v(
-                                    _vm._s(_vm.config.config.inlineNew.label)
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        ])
-                      ]
+                                }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-check-label",
+                                attrs: { for: field.key }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(field.label) +
+                                    "\n                        "
+                                )
+                              ]
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.errors.hasOwnProperty(field.key)
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(_vm._s(_vm.errors[field.key][0]))
+                          ])
+                        : _vm._e()
+                    ]
+                  )
+                }),
+                _vm._v(" "),
+                _vm.config.config.inlineNew.action
+                  ? _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-success btn-sm",
+                        attrs: {
+                          type: "button",
+                          href: "",
+                          onclick: "this.blur();"
+                        },
+                        on: {
+                          click: function($event) {
+                            _vm.config.config.inlineNew.action
+                              ? _vm.handleActions(
+                                  _vm.config.config.inlineNew.action,
+                                  _vm.config.config.inlineNew.url
+                                )
+                              : null
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.config.config.inlineNew.label))]
                     )
-                  ],
-                  2
-                )
-              ])
-            ]
-          )
+                  : _vm._e()
+              ],
+              2
+            )
+          ])
         : _vm._e(),
       _vm._v(" "),
       _c("table", { staticClass: "table table-striped table-hover table-sm" }, [
@@ -82514,7 +82144,10 @@ var render = function() {
                                   ? _vm.showModal(
                                       _vm.buildUrl(action.url, item),
                                       action.modalText,
-                                      action.ajax
+                                      action.ajax,
+                                      action.requestMethod,
+                                      action.key,
+                                      item
                                     )
                                   : null
                               }
@@ -82541,8 +82174,8 @@ var render = function() {
       _c("modal-component", {
         attrs: { config: Object.assign({}, _vm.modal) },
         on: {
-          ajaxSubmitDelete: function($event) {
-            return _vm.handleAjaxDelete(_vm.modal.url)
+          ajaxModalSubmit: function($event) {
+            return _vm.handleAjaxModalSubmit(_vm.modal.url)
           }
         }
       })

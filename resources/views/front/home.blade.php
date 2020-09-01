@@ -3,25 +3,23 @@
 @section('content')
     <div class="mainbox mainbox_white">
 
-        <div class="row"><h1>Moje pohľadávky</h1></div>
+        <div class="row"><h1>@lang('front/main.My claims')</h1></div>
         <div class="row"><p>
-            <a href="{{ route('front.claim') }}"><b>Pridať novú pohľadávku</b></a>
-            &nbsp;/ <a href="{{ route('front.users.editProfile', Auth::id()) }}"><b>Upraviť moje údaje</b></a></p>
+            <a href="{{ route('front.claim') }}"><b>@lang('front/main.Add new claim')</b></a>
+            &nbsp;/ <a href="{{ route('front.users.editProfile', Auth::id()) }}"><b>@lang('front/main.Edit user profile')</b></a></p>
         </div>
-
-        <div class="row"><h4>Všetky Vaše pohľadávky</h4></div>
 
         <div class="row table-pohladavka">
             <table class="table">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>vytvorené</th>
-                        <th>veriteľ</th>
-                        <th>dlžník</th>
-                        <th>dlžná suma</th>
-                        <th>stav</th>
-                        <th>akcie</th>
+                        <th>@lang('front/main.created_at')</th>
+                        <th>@lang('front/main.creditor')</th>
+                        <th>@lang('front/main.debtor')</th>
+                        <th>@lang('front/main.amount')</th>
+                        <th>@lang('front/main.status')</th>
+                        <th>@lang('front/main.actions')</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,8 +28,8 @@
                     <tr class="hover">
                         <td>{{ $i++ }}</td>
                         <td>{{ $claim->created_at }}</td>
-                        <td>{{ $claim->creditor->entity_type === 'App\Models\Front\Person' ? $claim->creditor->entity->fullName : $claim->creditor->entity->name  }}</td>
-                        <td>{{ $claim->debtor->entity_type === 'App\Models\Front\Person' ? $claim->debtor->entity->fullName : $claim->debtor->entity->name  }}</td>
+                        <td>{{ $claim->creditor->entity_type === \App\Models\Person::class ? $claim->creditor->entity->fullName : $claim->creditor->entity->name  }}</td>
+                        <td>{{ $claim->debtor->entity_type === \App\Models\Person::class ? $claim->debtor->entity->fullName : $claim->debtor->entity->name  }}</td>
                         <td>{{ $claim->amount }}</td>
                         <td>{{ $claim->claimStatus->name }}</td>
                         <td>Detail</td>
@@ -39,9 +37,9 @@
                 @empty
                     <tr class="no-content">
                         <td colspan="7">
-                            <div class="notice">nemáte vytvorenú žiadnu pohľadávku</div>
+                            <div class="notice">@lang('front/main.no claims created')</div>
                             <div>
-                                <a class="big_btn" href="{{ route('front.claim') }}">vytvoriť</a>
+                                <a class="big_btn" href="{{ route('front.claim') }}">@lang('front/main.create')</a>
                             </div>
                         </td>
                     </tr>

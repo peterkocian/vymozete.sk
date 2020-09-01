@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -43,7 +44,7 @@ class LoginController extends Controller
     /**
      * Handle a login request to the backoffice application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      *
      * @throws \Illuminate\Validation\ValidationException
@@ -67,5 +68,17 @@ class LoginController extends Controller
         return redirect()
             ->route('admin.login')
             ->with('success',__('general.User has been logged out!'));
+    }
+
+    /**
+     * When user is authenticated, than logout other devices
+     *
+     * @param Request $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        Auth::logoutOtherDevices($request->get('password'));
     }
 }

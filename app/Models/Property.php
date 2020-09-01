@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use App\Helpers\DateFormatTrait;
-use App\Models\Front\Currency;
+use App\Models\Currency;
 use Illuminate\Database\Eloquent\Model;
 
 class Property extends Model
 {
     use DateFormatTrait;
 
-    const ENTITY_ROUTE_PREFIX = '/admin/claims/';
+    const ENTITY_ROUTE_PREFIX = 'properties';
 
     /**
      * Nazov tabulky v DB

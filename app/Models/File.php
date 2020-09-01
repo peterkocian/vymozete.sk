@@ -15,7 +15,7 @@ class File extends Model
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable
      */
-    const ENTITY_ROUTE_PREFIX = '/admin/claims/';
+    const ENTITY_ROUTE_PREFIX = 'files';
 
     /**
      * Nazov tabulky v DB

@@ -7,7 +7,7 @@
             <div class="group currency">
                 <label for="suma">dlžná suma (istina) *</label>
                 <input v-model="formData.amount" class="c-input" id="suma" name="amount" type="number" step="0.01">
-                <select class="c-selectbox" name="currency">
+                <select class="c-selectbox" name="currency" v-model="formData.currency">
                     <option v-for="currency in config.currencies" :value="currency.id">{{currency.code}}</option>
                 </select>
                 <span class="bar"></span>
@@ -16,7 +16,7 @@
                 </span>
             </div>
 
-            <p>Zadajte dátum splatnosti dlhu (kedy mal byť dlh najneskôr vyrovnaný).</p>
+            <p>Zadajte dátum splatnosti dlhu (kedy mal byť dlh najneskôr uhradený).</p>
 
             <div class="group">
                 <input type="hidden" name="paymentDueDate" :value="formData.paymentDueDate">
@@ -39,15 +39,17 @@
             </div>
 
             <div class="group description">
-                <label for="desc">Popíšte prosím škodovú udalosť</label>
+                <label for="desc">popíšte prosím škodovú udalosť</label>
                 <textarea id="desc" v-model="formData.description" name="description"></textarea>
             </div>
 
-<!--            <p>Nahrajte dokumenty</p>-->
-
-<!--            <div class="group add-files">-->
-<!--                <button type="button" title="Pridať ďalší súbor"><i class="material-icons">playlist_add</i></button>-->
-<!--            </div>-->
+            <p>nahrajte dokumenty</p>
+            <input type="file" :value="formData.files" name="files">
+            <upload-component
+                v-model="formData.files"
+                :config="{multi:true}"
+                v-on:filesChange="handleFilesChange"
+            ></upload-component>
 
             <div class="group">
                 <div class="row">
@@ -64,10 +66,10 @@
             this.setDefaultFormData();
         },
         data() {
-            let stepData = {...this.config.stepData};
+            let stepData = this.config.stepData;
 
             return {
-                formData: {},
+                formData: { currency:1 },
                 stepData,
                 lang: {
                     formatLocale: {
@@ -77,8 +79,14 @@
             }
         },
         methods: {
+            handleFilesChange(files) {
+                console.log('chytam', files);
+                this.formData.files = files;
+            },
             setDefaultFormData() {
-                this.formData = {...this.stepData};
+                if (this.stepData instanceof Object) {
+                    this.formData = {...this.stepData};
+                }
             },
         }
     };

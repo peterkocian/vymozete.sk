@@ -2,10 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\User;
 use Closure;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Request;
 
 class AdminAuthorization
 {
@@ -19,7 +17,7 @@ class AdminAuthorization
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if(Route::as('admin.*')){
+        if(Request::is('admin/*')){
             return route('admin.loginForm');
         }
     }

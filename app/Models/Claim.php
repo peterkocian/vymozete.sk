@@ -3,10 +3,6 @@
 namespace App\Models;
 
 use App\Helpers\DateFormatTrait;
-use App\Models\Front\ClaimStatus;
-use App\Models\Front\ClaimType;
-use App\Models\Front\Currency;
-use App\Models\Front\Participant;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,7 +14,7 @@ class Claim extends Model
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable
      */
-    const ENTITY_ROUTE_PREFIX = '/admin/claims/';
+    const ENTITY_ROUTE_PREFIX = 'claims';
 
     /**
      * Nazov tabulky v DB

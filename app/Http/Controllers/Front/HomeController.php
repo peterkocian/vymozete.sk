@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Http\Requests\UserProfileFrontRequest;
 use App\Repositories\ClaimRepositoryInterface;
+use App\Services\LanguageService;
+use App\Services\UserService;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -16,10 +19,18 @@ class HomeController extends Controller
      */
 
     private $claimRepository;
+    private $languageService;
+    private $userService;
 
-    public function __construct(ClaimRepositoryInterface $claimRepository)
+    public function __construct(
+        ClaimRepositoryInterface $claimRepository,
+        LanguageService $languageService,
+        UserService $userService
+    )
     {
         $this->claimRepository = $claimRepository;
+        $this->languageService = $languageService;
+        $this->userService = $userService;
     }
 
     public function index() {
@@ -28,40 +39,43 @@ class HomeController extends Controller
     }
 
     //todo User model vymenit za Repository
-    public function editProfile(User $user)
+    public function editProfile(int $id)
     {
-        if(Auth::id() == $user->id) {
-            return view('front.user-profile', ['user' => $user]);
+        if(Auth::id() == $id) {
+            try {
+                $result = $this->userService->get($id);
+                $languages = $this->languageService->all();
+            } catch (\Exception $e) {
+                report($e);
+
+                //todo dopisat error message - vymysliet standard
+                return back()
+                    ->withFail($e->getMessage());
+            }
+
+            return view('front.user-profile', ['user' => $result, 'languages' => $languages]);
         }
         return abort(403, __('general.Unauthorized'));
     }
 
-    public function updateProfile(User $user)
+    public function updateProfile(UserProfileFrontRequest $request, int $id)
     {
-        $validator = $this->validator(request()->all());
-        if (!$validator->fails())
-        {
-            $user->name     = request('name');
-            $user->surname  = request('surname');
+        if(Auth::id() === $id) {
+            $data = $request->except('_token', '_method');
 
-            if ($user->update()) {
-                return redirect()
-                    ->route('front.users.editProfile', $user->id)
-                    ->withSuccess(__('general.Updated successfully'));
+            try {
+                $result = $this->userService->updateUserProfile($data, $id);
+            } catch (\Exception $e) {
+                report($e);
+
+                return back()
+                    ->withFail(__('general.Create failed') . PHP_EOL . $e->getMessage())
+                    ->withInput();
             }
-        }
-        return back()
-            ->withFail(__('general.Update failed'))
-            ->withErrors($validator)
-            ->withInput();
-    }
 
-    private function validator(array $all, $id = null)
-    {
-        return \Validator::make($all, [
-            'name'      => 'required|max:191',
-            'surname'   => 'required|max:191',
-            'email'     => 'nullable|email|unique:users,email,'.$id
-        ]);
+            return back()
+                ->withSuccess(__('general.Updated successfully'));
+        }
+        return abort(403, __('general.Unauthorized'));
     }
 }

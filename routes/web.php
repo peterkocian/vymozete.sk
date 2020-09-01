@@ -33,6 +33,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')
             ]);
             Route::get('/users/{user}/editProfile', 'UserController@editProfile')->name('users.editProfile');
             Route::put('/users/{user}/updateProfile', 'UserController@updateProfile')->name('users.updateProfile');
+            Route::post('/users/{user}/ban', 'UserController@ban')->name('users.ban');
+            Route::post('/users/{user}/unban', 'UserController@unban')->name('users.unban');
 
             Route::get('/claims/', 'ClaimController@index')->name('claims.index');
             Route::get('/claims/{claim}/overview', 'ClaimController@overview')->name('claims.overview');

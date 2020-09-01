@@ -17,7 +17,7 @@
         ],
     ];
 
-    $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\Models\Admin\Role::ENTITY_ROUTE_PREFIX);
+    $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\Models\Role::ENTITY_ROUTE_PREFIX);
 @endphp
 @extends ('admin.layouts.app')
 @section ('content')

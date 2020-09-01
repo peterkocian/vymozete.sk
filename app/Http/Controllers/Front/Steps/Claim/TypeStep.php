@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Front\Steps\Claim;
 
-use App\Models\Front\ClaimType;
+use App\Models\ClaimType;
 use App\Repositories\Eloquent\ClaimTypeRepository;
 use Illuminate\Http\Request;
 use Ycs77\LaravelWizard\Step;

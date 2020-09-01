@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models\Admin;
+namespace App\Models;
 
+use App\Helpers\DateFormatTrait;
 use App\Permissions\HasPermissionsTrait;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +10,7 @@ use Illuminate\Support\Str;
 
 class Role extends Model
 {
-    use HasPermissionsTrait;
+    use HasPermissionsTrait, DateFormatTrait;
 
     /**
      * Nazov tabulky v DB
@@ -28,7 +29,7 @@ class Role extends Model
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable
      */
-    const ENTITY_ROUTE_PREFIX = '/admin/roles/';
+    const ENTITY_ROUTE_PREFIX = 'roles';
 
     /**
      * The attributes that are mass assignable.
@@ -48,26 +49,6 @@ class Role extends Model
     public function setNameAttribute($value) {
         $this->attributes['name'] = $value;
         $this->attributes['slug'] = Str::slug($value);
-    }
-
-    /**
-     * Vzdy ked pristupime ku atributu created_at, tak sa automaticky naformatuje podla tohto formatu
-     *
-     * @param $value
-     * @return false|string
-     */
-    public function getCreatedAtAttribute($value) {
-        return date('d.m.Y H:i:s', strtotime($value));
-    }
-
-    /**
-     * Vzdy ked pristupime ku atributu updated_at, tak sa automaticky naformatuje podla tohto formatu
-     *
-     * @param $value
-     * @return false|string
-     */
-    public function getUpdatedAtAttribute($value) {
-        return date('d.m.Y H:i:s', strtotime($value));
     }
 
     /**

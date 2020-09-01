@@ -24,6 +24,7 @@
                 'key' => 'title',
                 'type' => 'text',
                 'settings' => [
+                    'divClass' => 'col-3  pl-0',
                     'required' => true,
                     'searchable' => true
                 ]
@@ -33,6 +34,7 @@
                 'key' => 'description',
                 'type' => 'textarea',
                 'settings' => [
+                    'divClass' => 'col-6',
                     'required' => true,
                     'searchable' => true
                 ]
@@ -49,14 +51,14 @@
             'title' => __('general.Edit'),
             'key' => 'edit',
             'class' => 'btn btn-primary btn-sm mr-1',
-            'url' => url(config('simple-table.route-prefix').'admin/notes/{id}/edit')
+            'url' => url(config('simple-table.route-prefix').'/notes/{id}/edit')
         ],
         [
             'label' => 'delete',
             'title' => __('general.Delete'),
             'key' => 'delete',
             'class' => 'btn btn-sm btn-danger',
-            'url' => url(config('simple-table.route-prefix').'admin/notes/{id}'),
+            'url' => url(config('simple-table.route-prefix').'/notes/{id}'),
             'dataToggle' => 'modal',
             'dataTarget' => '#modalConfirm',
             'modalText' => __('general.Confirmation delete'),

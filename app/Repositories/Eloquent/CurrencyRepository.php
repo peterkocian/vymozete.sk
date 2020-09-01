@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Models\Front\Currency;
+use App\Models\Currency;
 use App\Repositories\CurrencyRepositoryInterface;
 use Illuminate\Support\Collection;
 

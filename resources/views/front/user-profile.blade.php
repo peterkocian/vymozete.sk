@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="mainbox mainbox_white">
-        <div class="row"><h1>Údaje užívateľa</h1></div>
+        <div class="row"><h1>Údaje používateľa</h1></div>
 
         <div class="form_box">
             <form method="POST" action="{{route('front.users.updateProfile', $user->id)}}">
@@ -32,8 +32,20 @@
                 </div>
 
                 <div class="group">
-                    <label for="telefon">Mobil (v tvare +4219xxyyyyyy)</label>
-                    <input id="telefon" name="phone" type="text" value="{{ $user->phone }}" pattern="\+[0-9]{12}">
+                    <label for="phone">Mobil (v tvare +4219xxyyyyyy)</label>
+                    <input id="phone" name="phone" type="text" value="{{ $user->phone }}" pattern="\+[0-9]{12}">
+                    <span class="bar"></span>
+                </div>
+
+                <div class="group">
+                    <label for="language">Jazyk</label>
+                    <select id="language" name="language_id" required="required">
+                        @foreach($languages as $language)
+                            <option value="{{$language->id}}"
+                                @if($user->language && $user->language->id === $language->id)selected="selected"@endif
+                            >{{$language->name}}</option>
+                        @endforeach
+                    </select>
                     <span class="bar"></span>
                 </div>
 

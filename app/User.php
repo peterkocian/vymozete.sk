@@ -2,8 +2,9 @@
 
 namespace App;
 
+use App\Helpers\DateFormatTrait;
 use App\Models\Claim;
-use App\Models\Front\Language;
+use App\Models\Language;
 use App\Permissions\HasPermissionsTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,12 +17,12 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use Notifiable, HasPermissionsTrait;
+    use Notifiable, HasPermissionsTrait, DateFormatTrait;
 
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable
      */
-    const ENTITY_ROUTE_PREFIX = '/admin/users/';
+    const ENTITY_ROUTE_PREFIX = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -29,7 +30,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'surname', 'email', 'password', 'language_id'
+        'name', 'surname', 'email', 'password', 'language_id', 'banned'
     ];
 
     /**
@@ -81,26 +82,6 @@ class User extends Authenticatable
      */
     public function getFullNameAttribute() {
         return ucfirst($this->name) . ' ' . ucfirst($this->surname);
-    }
-
-    /**
-     * Vzdy ked pristupime ku atributu created_at, tak sa automaticky naformatuje podla tohto formatu
-     *
-     * @param $value
-     * @return false|string
-     */
-    public function getCreatedAtAttribute($value) {
-        return date('d.m.Y H:i:s', strtotime($value));
-    }
-
-    /**
-     * Vzdy ked pristupime ku atributu updated_at, tak sa automaticky naformatuje podla tohto formatu
-     *
-     * @param $value
-     * @return false|string
-     */
-    public function getUpdatedAtAttribute($value) {
-        return date('d.m.Y H:i:s', strtotime($value));
     }
 
     /**

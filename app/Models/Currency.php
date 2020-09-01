@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Front;
+namespace App\Models;
 
 use App\Helpers\DateFormatTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Language extends Model
+class Currency extends Model
 {
     use DateFormatTrait;
     /**
@@ -13,7 +13,7 @@ class Language extends Model
      *
      * @var string
      */
-    protected $table = 'language';
+    protected $table = 'currency';
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +21,6 @@ class Language extends Model
      * @var array
      */
     protected $fillable = [
-        'key', 'name'
+        'code', 'symbol'
     ];
 }

@@ -1973,16 +1973,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['config'],
   mounted: function mounted() {
     this.setDefaultFormData();
   },
   data: function data() {
-    var stepData = _objectSpread({}, this.config.stepData);
-
+    var stepData = this.config.stepData;
     return {
-      formData: {},
+      formData: {
+        currency: 1
+      },
       stepData: stepData,
       lang: {
         formatLocale: {
@@ -1992,8 +1995,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   methods: {
+    handleFilesChange: function handleFilesChange(files) {
+      console.log('chytam', files);
+      this.formData.files = files;
+    },
     setDefaultFormData: function setDefaultFormData() {
-      this.formData = _objectSpread({}, this.stepData);
+      if (this.stepData instanceof Object) {
+        this.formData = _objectSpread({}, this.stepData);
+      }
     }
   }
 });
@@ -2351,6 +2360,213 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (index > -1) {
         this.isLoading.splice(index, 1);
       }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PokusComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PokusComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  /*
+    Defines the data used by the component
+  */
+  data: function data() {
+    return {
+      files: []
+    };
+  },
+
+  /*
+    Defines the method used by the component
+  */
+  methods: {
+    /*
+      Adds a file
+    */
+    addFiles: function addFiles() {
+      this.$refs.files.click();
+    },
+
+    /*
+      Submits files to the server
+    */
+    submitFiles: function submitFiles() {
+      /*
+        Initialize the form data
+      */
+      var formData = new FormData();
+      /*
+        Iteate over any file sent over appending the files
+        to the form data.
+      */
+
+      for (var i = 0; i < this.files.length; i++) {
+        var file = this.files[i];
+        formData.append('files[' + i + ']', file);
+      }
+      /*
+        Make the request to the POST /select-files URL
+      */
+
+
+      axios.post('/select-files', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function () {
+        console.log('SUCCESS!!');
+      })["catch"](function () {
+        console.log('FAILURE!!');
+      });
+    },
+
+    /*
+      Handles the uploading of files
+    */
+    handleFilesUpload: function handleFilesUpload() {
+      var uploadedFiles = this.$refs.files.files;
+      /*
+        Adds the uploaded file to the files array
+      */
+
+      for (var i = 0; i < uploadedFiles.length; i++) {
+        this.files.push(uploadedFiles[i]);
+      }
+    },
+
+    /*
+      Removes a select file the user has uploaded
+    */
+    removeFile: function removeFile(key) {
+      this.files.splice(key, 1);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UploadComponent.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/UploadComponent.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['config'],
+  data: function data() {
+    return {
+      files: [],
+      errors: {}
+    };
+  },
+  methods: {
+    addFiles: function addFiles() {
+      this.$refs.files.click();
+    },
+    handleActions: function handleActions(action, url) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      switch (action) {
+        case 'uploadFile':
+          this.uploadFile(url);
+          break;
+      }
+
+      ;
+    },
+    uploadFile: function uploadFile(url) {// this.newEntry.file = this.file;
+      // let formData = new FormData();
+      // // formData.append('test', JSON.stringify(this.newEntry));
+      // this.newEntry.filename ? formData.append('filename', this.newEntry.filename) : null;
+      // this.newEntry.file_type_id ? formData.append('file_type_id', this.newEntry.file_type_id) : null;
+      // this.newEntry.show_to_customer ? formData.append('show_to_customer', this.newEntry.show_to_customer) : null;
+      // formData.append('file', this.file);
+      // // console.log('formData: ', formData);
+      // // console.log('this.newEntry: ', this.newEntry);
+      // axios.post(url, formData)
+      //     .then(res => {
+      //         this.reloadData(this.config.config.reloadUrl);
+      //         flash({text: 'File successfully uploaded', type:'success', timer:3000 });
+      //     }).catch(e => {
+      //         this.errors = e.response.data.errors;
+      //         flash({text: `Something went wrong in reloadData: ${e}`, type:'error', timer:null });
+      //     });
+    },
+    handleChange: function handleChange(e, type) {
+      if (type === 'file') {
+        console.log(e.target.files[0]); // this.files = e.target.files[0];
+
+        var uploadedFiles = this.$refs.files.files;
+        /*
+          Adds the uploaded file to the files array
+        */
+
+        for (var i = 0; i < uploadedFiles.length; i++) {
+          this.files.push(uploadedFiles[i]);
+        }
+
+        this.$emit('filesChange', this.files);
+      }
+    },
+
+    /*
+      Removes a select file the user has uploaded
+    */
+    removeFile: function removeFile(key) {
+      this.files.splice(key, 1);
     }
   }
 });
@@ -55625,106 +55841,87 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", {}, [
-    _c("div", { staticClass: "form_box" }, [
-      _c("p", [_vm._v("Zadajte dlžnú sumu (istiny) bez úrokov.")]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("div", { staticClass: "group currency" }, [
-        _c("label", { attrs: { for: "suma" } }, [
-          _vm._v("dlžná suma (istina) *")
-        ]),
+    _c(
+      "div",
+      { staticClass: "form_box" },
+      [
+        _c("p", [_vm._v("Zadajte dlžnú sumu (istiny) bez úrokov.")]),
         _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.formData.amount,
-              expression: "formData.amount"
-            }
-          ],
-          staticClass: "c-input",
-          attrs: { id: "suma", name: "amount", type: "number", step: "0.01" },
-          domProps: { value: _vm.formData.amount },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.formData, "amount", $event.target.value)
-            }
-          }
-        }),
+        _c("br"),
         _vm._v(" "),
-        _c(
-          "select",
-          { staticClass: "c-selectbox", attrs: { name: "currency" } },
-          _vm._l(_vm.config.currencies, function(currency) {
-            return _c("option", { domProps: { value: currency.id } }, [
-              _vm._v(_vm._s(currency.code))
-            ])
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _c("span", { staticClass: "bar" }),
-        _vm._v(" "),
-        this.config.validationErrors.amount
-          ? _c(
-              "span",
-              { staticClass: "validation-error" },
-              _vm._l(this.config.validationErrors["amount"], function(message) {
-                return _c("div", [_vm._v(_vm._s(message))])
-              }),
-              0
-            )
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v(
-          "Zadajte dátum splatnosti dlhu (kedy mal byť dlh najneskôr vyrovnaný)."
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "group" },
-        [
+        _c("div", { staticClass: "group currency" }, [
+          _c("label", { attrs: { for: "suma" } }, [
+            _vm._v("dlžná suma (istina) *")
+          ]),
+          _vm._v(" "),
           _c("input", {
-            attrs: { type: "hidden", name: "paymentDueDate" },
-            domProps: { value: _vm.formData.paymentDueDate }
-          }),
-          _vm._v(" "),
-          _c("label", [_vm._v("dátum splatnosti *")]),
-          _vm._v(" "),
-          _c("date-picker", {
-            attrs: {
-              lang: _vm.lang,
-              format: "DD.MM.YYYY",
-              "value-type": "YYYY-MM-DD",
-              type: "date",
-              "input-class": "",
-              "input-attr": { name: "" },
-              placeholder: "DD.MM.RRRR",
-              "popup-style": { left: 0, top: "100%" },
-              "append-to-body": false
-            },
-            model: {
-              value: _vm.formData.paymentDueDate,
-              callback: function($$v) {
-                _vm.$set(_vm.formData, "paymentDueDate", $$v)
-              },
-              expression: "formData.paymentDueDate"
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.formData.amount,
+                expression: "formData.amount"
+              }
+            ],
+            staticClass: "c-input",
+            attrs: { id: "suma", name: "amount", type: "number", step: "0.01" },
+            domProps: { value: _vm.formData.amount },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.formData, "amount", $event.target.value)
+              }
             }
           }),
           _vm._v(" "),
-          this.config.validationErrors.paymentDueDate
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.currency,
+                  expression: "formData.currency"
+                }
+              ],
+              staticClass: "c-selectbox",
+              attrs: { name: "currency" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.formData,
+                    "currency",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            _vm._l(_vm.config.currencies, function(currency) {
+              return _c("option", { domProps: { value: currency.id } }, [
+                _vm._v(_vm._s(currency.code))
+              ])
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c("span", { staticClass: "bar" }),
+          _vm._v(" "),
+          this.config.validationErrors.amount
             ? _c(
                 "span",
                 { staticClass: "validation-error" },
-                _vm._l(this.config.validationErrors["paymentDueDate"], function(
+                _vm._l(this.config.validationErrors["amount"], function(
                   message
                 ) {
                   return _c("div", [_vm._v(_vm._s(message))])
@@ -55732,39 +55929,113 @@ var render = function() {
                 0
               )
             : _vm._e()
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "group description" }, [
-        _c("label", { attrs: { for: "desc" } }, [
-          _vm._v("Popíšte prosím škodovú udalosť")
         ]),
         _vm._v(" "),
-        _c("textarea", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.formData.description,
-              expression: "formData.description"
-            }
-          ],
-          attrs: { id: "desc", name: "description" },
-          domProps: { value: _vm.formData.description },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+        _c("p", [
+          _vm._v(
+            "Zadajte dátum splatnosti dlhu (kedy mal byť dlh najneskôr uhradený)."
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "group" },
+          [
+            _c("input", {
+              attrs: { type: "hidden", name: "paymentDueDate" },
+              domProps: { value: _vm.formData.paymentDueDate }
+            }),
+            _vm._v(" "),
+            _c("label", [_vm._v("dátum splatnosti *")]),
+            _vm._v(" "),
+            _c("date-picker", {
+              attrs: {
+                lang: _vm.lang,
+                format: "DD.MM.YYYY",
+                "value-type": "YYYY-MM-DD",
+                type: "date",
+                "input-class": "",
+                "input-attr": { name: "" },
+                placeholder: "DD.MM.RRRR",
+                "popup-style": { left: 0, top: "100%" },
+                "append-to-body": false
+              },
+              model: {
+                value: _vm.formData.paymentDueDate,
+                callback: function($$v) {
+                  _vm.$set(_vm.formData, "paymentDueDate", $$v)
+                },
+                expression: "formData.paymentDueDate"
               }
-              _vm.$set(_vm.formData, "description", $event.target.value)
+            }),
+            _vm._v(" "),
+            this.config.validationErrors.paymentDueDate
+              ? _c(
+                  "span",
+                  { staticClass: "validation-error" },
+                  _vm._l(
+                    this.config.validationErrors["paymentDueDate"],
+                    function(message) {
+                      return _c("div", [_vm._v(_vm._s(message))])
+                    }
+                  ),
+                  0
+                )
+              : _vm._e()
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "group description" }, [
+          _c("label", { attrs: { for: "desc" } }, [
+            _vm._v("popíšte prosím škodovú udalosť")
+          ]),
+          _vm._v(" "),
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.formData.description,
+                expression: "formData.description"
+              }
+            ],
+            attrs: { id: "desc", name: "description" },
+            domProps: { value: _vm.formData.description },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.formData, "description", $event.target.value)
+              }
             }
+          })
+        ]),
+        _vm._v(" "),
+        _c("p", [_vm._v("nahrajte dokumenty")]),
+        _vm._v(" "),
+        _c("input", {
+          attrs: { type: "file", name: "files" },
+          domProps: { value: _vm.formData.files }
+        }),
+        _vm._v(" "),
+        _c("upload-component", {
+          attrs: { config: { multi: true } },
+          on: { filesChange: _vm.handleFilesChange },
+          model: {
+            value: _vm.formData.files,
+            callback: function($$v) {
+              _vm.$set(_vm.formData, "files", $$v)
+            },
+            expression: "formData.files"
           }
-        })
-      ]),
-      _vm._v(" "),
-      _vm._m(0)
-    ])
+        }),
+        _vm._v(" "),
+        _vm._m(0)
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = [
@@ -56619,6 +56890,181 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PokusComponent.vue?vue&type=template&id=f55e0044&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PokusComponent.vue?vue&type=template&id=f55e0044& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
+      _c("label", [
+        _vm._v("Files\n            "),
+        _c("input", {
+          ref: "files",
+          attrs: { type: "file", id: "files", multiple: "" },
+          on: {
+            change: function($event) {
+              return _vm.handleFilesUpload()
+            }
+          }
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "large-12 medium-12 small-12 cell" },
+      _vm._l(_vm.files, function(file, key) {
+        return _c("div", { staticClass: "file-listing" }, [
+          _vm._v(_vm._s(file.name) + " "),
+          _c(
+            "span",
+            {
+              staticClass: "remove-file",
+              on: {
+                click: function($event) {
+                  return _vm.removeFile(key)
+                }
+              }
+            },
+            [_vm._v("Remove")]
+          )
+        ])
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
+      _c(
+        "button",
+        {
+          on: {
+            click: function($event) {
+              return _vm.addFiles()
+            }
+          }
+        },
+        [_vm._v("Add Files")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
+      _c(
+        "button",
+        {
+          on: {
+            click: function($event) {
+              return _vm.submitFiles()
+            }
+          }
+        },
+        [_vm._v("Submit")]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UploadComponent.vue?vue&type=template&id=602a0e61&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/UploadComponent.vue?vue&type=template&id=602a0e61& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "group add-files" }, [
+    _c("input", {
+      ref: "files",
+      staticClass: "form-control form-control-sm",
+      style: _vm.config.multi ? { display: "none" } : null,
+      attrs: {
+        type: "file",
+        placeholder: _vm.config.placeholder,
+        multiple: "",
+        id: "files"
+      },
+      on: {
+        change: function($event) {
+          return _vm.handleChange($event, "file")
+        }
+      }
+    }),
+    _vm._v(" "),
+    _vm.config.multi
+      ? _c(
+          "div",
+          { staticClass: "large-12 medium-12 small-12 cell" },
+          _vm._l(_vm.files, function(file, key) {
+            return _c("div", { staticClass: "file-listing" }, [
+              _vm._v(_vm._s(file.name)),
+              _c(
+                "i",
+                {
+                  staticClass: "material-icons",
+                  on: {
+                    click: function($event) {
+                      return _vm.removeFile(key)
+                    }
+                  }
+                },
+                [_vm._v("clear")]
+              )
+            ])
+          }),
+          0
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.config.multi
+      ? _c(
+          "button",
+          {
+            attrs: { type: "button", title: "Pridať súbor" },
+            on: {
+              click: function($event) {
+                return _vm.addFiles()
+              }
+            }
+          },
+          [_c("i", { staticClass: "material-icons" }, [_vm._v("playlist_add")])]
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -73247,6 +73693,144 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/PokusComponent.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/PokusComponent.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PokusComponent_vue_vue_type_template_id_f55e0044___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PokusComponent.vue?vue&type=template&id=f55e0044& */ "./resources/js/components/PokusComponent.vue?vue&type=template&id=f55e0044&");
+/* harmony import */ var _PokusComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PokusComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/PokusComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PokusComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PokusComponent_vue_vue_type_template_id_f55e0044___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PokusComponent_vue_vue_type_template_id_f55e0044___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PokusComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PokusComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/PokusComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PokusComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PokusComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PokusComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PokusComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PokusComponent.vue?vue&type=template&id=f55e0044&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/PokusComponent.vue?vue&type=template&id=f55e0044& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PokusComponent_vue_vue_type_template_id_f55e0044___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PokusComponent.vue?vue&type=template&id=f55e0044& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PokusComponent.vue?vue&type=template&id=f55e0044&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PokusComponent_vue_vue_type_template_id_f55e0044___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PokusComponent_vue_vue_type_template_id_f55e0044___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/UploadComponent.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/UploadComponent.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _UploadComponent_vue_vue_type_template_id_602a0e61___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UploadComponent.vue?vue&type=template&id=602a0e61& */ "./resources/js/components/UploadComponent.vue?vue&type=template&id=602a0e61&");
+/* harmony import */ var _UploadComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UploadComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/UploadComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _UploadComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _UploadComponent_vue_vue_type_template_id_602a0e61___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _UploadComponent_vue_vue_type_template_id_602a0e61___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/UploadComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/UploadComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/UploadComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UploadComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./UploadComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UploadComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UploadComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/UploadComponent.vue?vue&type=template&id=602a0e61&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/UploadComponent.vue?vue&type=template&id=602a0e61& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UploadComponent_vue_vue_type_template_id_602a0e61___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./UploadComponent.vue?vue&type=template&id=602a0e61& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UploadComponent.vue?vue&type=template&id=602a0e61&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UploadComponent_vue_vue_type_template_id_602a0e61___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UploadComponent_vue_vue_type_template_id_602a0e61___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/datepicker_language.js":
 /*!*********************************************!*\
   !*** ./resources/js/datepicker_language.js ***!
@@ -73315,6 +73899,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('participant-component', __webpack_require__(/*! ./components/ParticipantComponent */ "./resources/js/components/ParticipantComponent.vue")["default"]);
 Vue.component('debt-component', __webpack_require__(/*! ./components/DebtComponent */ "./resources/js/components/DebtComponent.vue")["default"]);
+Vue.component('upload-component', __webpack_require__(/*! ./components/UploadComponent */ "./resources/js/components/UploadComponent.vue")["default"]);
+Vue.component('pokus-component', __webpack_require__(/*! ./components/PokusComponent */ "./resources/js/components/PokusComponent.vue")["default"]);
 Vue.use(vue2_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"]);
 Vue.component('multiselect', vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a);
 /**

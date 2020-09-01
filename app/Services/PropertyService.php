@@ -35,10 +35,6 @@ class PropertyService
 
     public function saveProperty(array $data, int $claim_id)
     {
-//        $claim = Claim::findOrFail($claim_id);
-//        $data['claim_id'] = $claim->id;
-//        $data['user_id'] = Auth::id();
-
         DB::beginTransaction();
 
         try {

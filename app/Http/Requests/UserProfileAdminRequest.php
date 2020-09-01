@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Rules\StrongPassword;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserProfileRequest extends FormRequest
+class UserProfileAdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

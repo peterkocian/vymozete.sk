@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Front;
+namespace App\Models;
 
 use App\Helpers\DateFormatTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -35,7 +35,7 @@ class Person extends Model
     }
 
     /**
-     * Function returns formated birthday
+     * Function returns formatted birthday
      *
      * @param $value
      * @return string

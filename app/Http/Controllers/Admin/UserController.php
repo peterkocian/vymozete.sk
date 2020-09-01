@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserProfileRequest;
+use App\Http\Requests\UserProfileAdminRequest;
 use App\Services\UserService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -97,7 +97,8 @@ class UserController extends Controller
     public function show(int $id)
     {
         try {
-            $result = $this->find($id);
+//            $result = $this->find($id);
+            $result = $this->userService->get($id);
         } catch (\Exception $e) {
             report($e);
 
@@ -112,7 +113,8 @@ class UserController extends Controller
     public function edit(int $id)
     {
         try {
-            $result = $this->find($id);
+//            $result = $this->find($id);
+            $result = $this->userService->get($id);
         } catch (\Exception $e) {
             report($e);
 
@@ -126,9 +128,10 @@ class UserController extends Controller
 
     public function editProfile(int $id)
     {
-        if(Auth::id() == $id) {
+        if(Auth::id() === $id) {
             try {
-                $result = $this->find($id);
+//                $result = $this->find($id);
+                $result = $this->userService->get($id);
             } catch (\Exception $e) {
                 report($e);
 
@@ -168,7 +171,7 @@ class UserController extends Controller
             ->withSuccess(__('general.Created successfully'));
     }
 
-    public function updateProfile(UserProfileRequest $request, int $id)
+    public function updateProfile(UserProfileAdminRequest $request, int $id)
     {
         if(Auth::id() === $id) {
             $data = $request->except('_token', '_method');
@@ -196,7 +199,8 @@ class UserController extends Controller
      */
     public function destroy(int $id) {
         try {
-            $result = $this->find($id);
+//            $result = $this->find($id);
+            $result = $this->userService->get($id);
         } catch (\Exception $e) {
             report($e);
 
@@ -223,8 +227,77 @@ class UserController extends Controller
             ]));
     }
 
-    private function find(int $id)
+    public function ban(int $id)
     {
-        return $this->userService->getProjection()->findOrFail($id);
+        try {
+            if ($id) {
+                //check if exist
+                $user = $this->userService->get($id);
+
+                if ($user->banned) {
+                    throw new \Exception('Uzivatel uz je zablokovany.');
+                }
+
+                $data['banned'] = 1; //true
+
+                $this->userService->updateUserBan($data, $id);
+            }
+        } catch (ValidationException $e) {
+            report($e);
+
+            return back()
+                ->withFail(__('general.Create failed'))
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            report($e);
+
+            return back()
+                ->withFail(__('general.Create failed').PHP_EOL.$e->getMessage())
+                ->withInput();
+        }
+
+        return redirect()
+            ->route('admin.users.index')
+            ->withSuccess(__('general.Created successfully'));
     }
+
+    public function unBan(int $id)
+    {
+        try {
+            if ($id) {
+                //check if exist
+                $user = $this->userService->get($id);
+
+                if ($user->banned) {
+                    $data['banned'] = 0; //false
+
+                    $this->userService->updateUserBan($data, $id);
+                } else {
+                    throw new \Exception('Uzivatel uz je odblokovany.');
+                }
+            }
+        } catch (ValidationException $e) {
+            report($e);
+
+            return back()
+                ->withFail(__('general.Create failed'))
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            report($e);
+
+            return back()
+                ->withFail(__('general.Create failed').PHP_EOL.$e->getMessage())
+                ->withInput();
+        }
+
+        return redirect()
+            ->route('admin.users.index')
+            ->withSuccess(__('general.Created successfully'));
+    }
+//    private function find(int $id)
+//    {
+//        return $this->userService->getProjection()->findOrFail($id);
+//    }
 }

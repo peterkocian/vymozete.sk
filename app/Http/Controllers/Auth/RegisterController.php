@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\WelcomeMail;
-use App\Models\Front\Language;
+use App\Models\Language;
 use App\Providers\RouteServiceProvider;
+use App\Rules\EmailMustHaveTLD;
 use App\Rules\StrongPassword;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -55,10 +56,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-//            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email'     => ['required','string', 'email', 'max:255', new EmailMustHaveTLD, 'unique:users,email,'],
             'password'  => ['required','confirmed',new StrongPassword()],
-            'phone' => ['regex:/\+\d{12}/u', 'nullable'],
+            'phone'     => ['regex:/\+\d{12}/u', 'nullable'],
         ]);
     }
 
@@ -74,9 +74,9 @@ class RegisterController extends Controller
 
         $user = User::create([
 //            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'phone' => $data['phone'],
+            'email'     => $data['email'],
+            'password'  => Hash::make($data['password']),
+            'phone'     => $data['phone'],
             'language_id' => $language->id,
         ]);
 

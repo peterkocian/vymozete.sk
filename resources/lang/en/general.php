@@ -44,4 +44,8 @@ return [
 
     'User has been logged in!' => 'User has been logged in!',
     'User has been logged out!' => 'User has been logged out!',
+
+    'Ban user' => 'Are you sure you want to ban this user?',
+    'Unban user' => 'Are you sure you want to unban this user?',
+    'Reset user password' => 'Password reset mail will be sent to: ',
 ];

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Front;
+namespace App\Models;
 
 use App\Helpers\DateFormatTrait;
 use App\User;
@@ -11,6 +11,7 @@ class Participant extends Model
     use DateFormatTrait;
     const PERSON_TYPE_FO = 'FO';
     const PERSON_TYPE_PO = 'PO';
+
     /**
      * Nazov tabulky v DB
      *
@@ -34,9 +35,9 @@ class Participant extends Model
     public function getPersonTypeAttribute()
     {
         switch ($this->entity_type) {
-            case 'App\Models\Front\Organization':
+            case Organization::class:
                 return self::PERSON_TYPE_PO;
-            case 'App\Models\Front\Person':
+            case Person::class:
                 return self::PERSON_TYPE_FO;
         }
     }

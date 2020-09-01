@@ -9,7 +9,7 @@ class Note extends Model
 {
     use DateFormatTrait;
 
-    const ENTITY_ROUTE_PREFIX = '/admin/claims/';
+    const ENTITY_ROUTE_PREFIX = 'notes';
 
     /**
      * Nazov tabulky v DB
