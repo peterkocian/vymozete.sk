@@ -22,6 +22,15 @@
         ],
     ];
 
+    $config = [
+        'reloadUrl'     => "/admin/users",
+        'showPagination' => \App\User::INDEX_VIEW_PAGINATION,
+        'itemsPerPage'  => [50, 100, 150],
+        'numberOfRows'  => 50,
+        'sortKey'       => 'created_at',
+        'sortDirection' => 'asc',
+    ];
+
     $actions = [
         [
             'label' => 'visibility',
@@ -83,7 +92,7 @@
         ]
     ];
 
-    $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\User::ENTITY_ROUTE_PREFIX, [], $actions);
+    $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\User::ENTITY_ROUTE_PREFIX, $config, $actions);
 @endphp
 @extends ('admin.layouts.app')
 @section ('content')

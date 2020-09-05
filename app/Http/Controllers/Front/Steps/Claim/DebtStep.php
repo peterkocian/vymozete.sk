@@ -3,20 +3,37 @@
 namespace App\Http\Controllers\Front\Steps\Claim;
 
 use App\Models\Claim;
-use App\Models\Front\Currency;
-use App\Models\Front\Organization;
-use App\Models\Front\Participant;
-use App\Models\Front\Person;
+use App\Models\Currency;
+use App\Models\File;
+use App\Models\Organization;
+use App\Models\Participant;
+use App\Models\Person;
 use App\Repositories\Eloquent\CurrencyRepository;
+use App\Repositories\Eloquent\FileRepository;
+use App\Services\UploadService;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Ycs77\LaravelWizard\Step;
+use Ycs77\LaravelWizard\Wizard;
 
 class DebtStep extends Step
 {
+    protected $uploadService;
+
+    public function __construct(Wizard $wizard, int $index)
+    {
+        parent::__construct($wizard, $index);
+
+        //todo hack
+        $file = new File();
+        $fileRepository = new FileRepository($file);
+        $this->uploadService = new UploadService($fileRepository);
+    }
+
     /**
      * The step slug.
      *
@@ -46,16 +63,17 @@ class DebtStep extends Step
      */
     public function model(Request $request)
     {
-        return new Claim();
+//        return new Claim();
     }
 
     /**
      * Save this step form data.
      *
      * @param Request $request
-     * @param  array|null  $data
-     * @param  Model|Relation|null  $model
+     * @param array|null $data
+     * @param Model|Relation|null $model
      * @return void
+     * @throws Exception
      */
     public function saveData(Request $request, $data = null, $model = null)
     {
@@ -67,14 +85,23 @@ class DebtStep extends Step
 
         $flattenWizardData = $this->flattenArray($wizardData);
 
-        $creditor = $flattenWizardData['creditor'];
-        $debtor = $flattenWizardData['debtor'];
-
-        $creditorModel = $creditor['person_type'] == 1 ? new Organization($creditor) : new Person($creditor);
-        $debtorModel = $debtor['person_type'] == 1 ? new Organization($debtor) : new Person($debtor);
-
         DB::beginTransaction();
+
         try {
+            if (isset($flattenWizardData['creditor'])) {
+                $creditor = $flattenWizardData['creditor'];
+                $creditorModel = $creditor['person_type'] == 1 ? new Organization($creditor) : new Person($creditor);
+            } else {
+                throw new Exception('Vyskytol sa problem pri ziskavani udajov veritela.');
+            }
+
+            if (isset($flattenWizardData['debtor'])){
+                $debtor = $flattenWizardData['debtor'];
+                $debtorModel = $debtor['person_type'] == 1 ? new Organization($debtor) : new Person($debtor);
+            } else {
+                throw new Exception('Vyskytol sa problem pri ziskavani udajov dlznika.');
+            }
+
             $debtorModel->save();
             $creditorModel->save();
 
@@ -96,10 +123,20 @@ class DebtStep extends Step
 
             $model->fill($flattenWizardData['debt'])->save();
 
+            //save file from form wizard
+            if (isset($flattenWizardData['debt']['uploads'])){
+                foreach ($flattenWizardData['debt']['uploads'] as $file) {
+                    $this->uploadService->saveFile($model, $file);
+                }
+            }
+
             DB::commit();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
-            throw new \Exception('Nepodarilo sa ulozit udaje'. $e->getMessage());
+
+//            return back()
+//                ->withFails($e->getMessage());
+            throw new Exception('Nepodarilo sa ulozit udaje'. $e->getMessage());
         }
     }
 
@@ -114,6 +151,8 @@ class DebtStep extends Step
         return [
             'amount' => 'required',
             'paymentDueDate' => 'required',
+            'currency' => 'required',
+            'uploads' => 'required',
         ];
     }
 

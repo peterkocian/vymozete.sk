@@ -34,7 +34,6 @@
             <div v-if="formData.person_type == 0" class="group">
                 <label>meno *</label>
                 <input v-model="formData.name" name="name" type="text">
-<!--                required="required"-->
                 <span class="bar"></span>
                 <span v-if="this.config.validationErrors.name" class="validation-error">
                     <div v-for="message in this.config.validationErrors['name']">{{ message }}</div>
@@ -44,7 +43,6 @@
             <div v-if="formData.person_type == 0" class="group">
                 <label>priezvisko *</label>
                 <input v-model="formData.surname" name="surname" type="text">
-<!--                required="required"-->
                 <span class="bar"></span>
                 <span v-if="this.config.validationErrors.surname" class="validation-error">
                     <div v-for="message in this.config.validationErrors['surname']">{{ message }}</div>
@@ -54,7 +52,6 @@
             <div v-if="formData.person_type == 0" class="group">
                 <label>dátum narodenia *</label>
                 <input v-model="formData.birthday" name="birthday" type="hidden">
-<!--                required="required"-->
                 <date-picker
                     v-model="formData.birthday"
                     :lang="lang"
@@ -115,10 +112,16 @@
                     @search-change="query => debounceSearch(query, 'name')"
                     @select="setCompanyFormData"
                 >
-                    <template slot="singleLabel" slot-scope="props"><span class="option__title">{{ props.option.name }}</span></template>
-                    <template slot="option" slot-scope="props">
-                        <div class="option__desc"><span class="option__title">{{ props.option.name }}</span> <span class="option__small"> ({{ props.option.ico }})</span></div>
+                    <template slot="singleLabel" slot-scope="props">
+                        <span class="option__title">{{ props.option.name }}</span>
                     </template>
+                    <template slot="option" slot-scope="props">
+                        <div class="option__desc">
+                            <span class="option__title">{{ props.option.name }}</span>
+                            <span class="option__small"> ({{ props.option.ico }})</span>
+                        </div>
+                    </template>
+                    <span slot="noResult">Ziadne vysledky</span>
                 </multiselect>
                 <span v-if="this.config.validationErrors.name" class="validation-error">
                     <div v-for="message in this.config.validationErrors['name']">{{ message }}</div>
@@ -133,7 +136,6 @@
                     :options="companies"
                     label="ico"
                     track-by="id"
-
                     :loading="isLoading.includes('cin')"
                     :searchable="true"
                     :internal-search="false"
@@ -147,10 +149,16 @@
                     @search-change="query => debounceSearch(query, 'cin')"
                     @select="setCompanyFormData"
                 >
-                    <template slot="singleLabel" slot-scope="props"><span class="option__title">{{ props.option.ico }}</span></template>
-                    <template slot="option" slot-scope="props">
-                        <div class="option__desc"><span class="option__title">{{ props.option.ico }}</span> <span class="option__small"> ({{ props.option.name }})</span></div>
+                    <template slot="singleLabel" slot-scope="props">
+                        <span class="option__title">{{ props.option.ico }}</span>
                     </template>
+                    <template slot="option" slot-scope="props">
+                        <div class="option__desc">
+                            <span class="option__title">{{ props.option.ico }}</span>
+                            <span class="option__small"> ({{ props.option.name }})</span>
+                        </div>
+                    </template>
+                    <span slot="noResult">Ziadne vysledky</span> <!-- todo -->
                 </multiselect>
                 <span v-if="this.config.validationErrors.ico" class="validation-error">
                     <div v-for="message in this.config.validationErrors['ico']">{{ message }}</div>
@@ -169,7 +177,6 @@
             <div class="group">
                 <label>ulica *</label>
                 <input v-model="formData.street" name="street" type="text">
-<!--                required="required"-->
                 <span class="bar"></span>
                 <span v-if="this.config.validationErrors.street" class="validation-error">
                     <div v-for="message in this.config.validationErrors['street']">{{ message }}</div>
@@ -179,8 +186,6 @@
             <div class="group">
                 <label>číslo *</label>
                 <input v-model="formData.house_number" name="house_number" type="text">
-<!--                       required="required"-->
-<!--                >-->
                 <span class="bar"></span>
                 <span v-if="this.config.validationErrors.house_number" class="validation-error">
                     <div v-for="message in this.config.validationErrors['house_number']">{{ message }}</div>
@@ -190,8 +195,6 @@
             <div class="group">
                 <label>obec *</label>
                 <input v-model="formData.town" name="town" type="text">
-<!--                       required="required"-->
-<!--                >-->
                 <span class="bar"></span>
                 <span v-if="this.config.validationErrors.town" class="validation-error">
                     <div v-for="message in this.config.validationErrors['town']">{{ message }}</div>
@@ -206,8 +209,6 @@
                     type="text"
                     oninvalid="this.setCustomValidity('Zadajte PSČ vo formáte 12345')"
                 >
-                <!--                    required="required"-->
-
                 <span class="bar"></span>
                 <span v-if="this.config.validationErrors.zip" class="validation-error">
                     <div v-for="message in this.config.validationErrors['zip']">{{ message }}</div>
@@ -217,8 +218,6 @@
             <div class="group">
                 <label>štát *</label>
                 <input v-model="formData.country" name="country" type="text">
-<!--                       required="required"-->
-<!--                >-->
                 <span class="bar"></span>
                 <span v-if="this.config.validationErrors.country" class="validation-error">
                     <div v-for="message in this.config.validationErrors['country']">{{ message }}</div>
@@ -295,7 +294,6 @@
             },
             getCompanyData(query, param) {
                 this.isLoading.push(param);
-                console.log(this.isLoading.includes(param));
                 let queryString = param + ':' + query;
                 axios.get(`/api/company-data`, {
                         params: {

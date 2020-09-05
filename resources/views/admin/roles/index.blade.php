@@ -17,7 +17,16 @@
         ],
     ];
 
-    $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\Models\Role::ENTITY_ROUTE_PREFIX);
+    $config = [
+        'reloadUrl'     => "/admin/roles",
+        'showPagination' => \App\Models\Role::INDEX_VIEW_PAGINATION,
+        'itemsPerPage'  => [50, 100, 150],
+        'numberOfRows'  => 50,
+        'sortKey'       => 'created_at',
+        'sortDirection' => 'asc',
+    ];
+
+    $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\Models\Role::ENTITY_ROUTE_PREFIX, $config);
 @endphp
 @extends ('admin.layouts.app')
 @section ('content')

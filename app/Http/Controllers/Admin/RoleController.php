@@ -26,6 +26,10 @@ class RoleController extends Controller
             request()->session()->now('fail', $e->getMessage());
         }
 
+        if (request()->ajax()) {
+            return response()->json($result);
+        }
+
         return view('admin.roles.index', ['data' => $result]);
     }
 

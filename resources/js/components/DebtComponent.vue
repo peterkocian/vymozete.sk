@@ -44,11 +44,9 @@
             </div>
 
             <p>nahrajte dokumenty</p>
-            <input type="file" :value="formData.files" name="files">
+
             <upload-component
-                v-model="formData.files"
                 :config="{multi:true}"
-                v-on:filesChange="handleFilesChange"
             ></upload-component>
 
             <div class="group">
@@ -79,10 +77,6 @@
             }
         },
         methods: {
-            handleFilesChange(files) {
-                console.log('chytam', files);
-                this.formData.files = files;
-            },
             setDefaultFormData() {
                 if (this.stepData instanceof Object) {
                     this.formData = {...this.stepData};

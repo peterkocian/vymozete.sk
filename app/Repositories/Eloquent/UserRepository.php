@@ -76,4 +76,12 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             return $user;
         }
     }
+
+    /**
+     * @return array
+     */
+    public function index()
+    {
+        return $this->getTableData($this->model);
+    }
 }

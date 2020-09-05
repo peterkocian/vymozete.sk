@@ -16,6 +16,17 @@ class SimpleTable
     protected $config;
 
     /**
+     * Defaultne hodnoty pre SimpleTableComponent, ak treba je mozne ich pretazit
+     * zadefinovanim rovnakych konstant v konkretnom modeli
+     */
+    const NUMBER_OF_ROWS    = 50;
+    const SORT_KEY          = 'created_at';
+    const SORT_DIRECTION    = 'asc';
+    const SEARCH            = [];
+    const ITEMS_PER_PAGE    = ['50', '100', '150'];
+    const SEARCHABLE        = true;
+
+    /**
      * SimpleTable constructor.
      *
      * @param $columns array of columns desc
@@ -40,7 +51,7 @@ class SimpleTable
     }
 
     /**
-     * Sets default actions 'Detail' and 'Delete' for every row in table
+     * Sets default actions 'Detail', 'Edit' and 'Delete' for every row in table
      *
      * @return array[]
      */
@@ -73,8 +84,13 @@ class SimpleTable
         ];
     }
 
+    public function orderBy($sort_key, $order_by)
+    {
+        $this->data->orderBy();
+    }
+
     /**
-     * Sends data to blade template, which contains Vue component
+     * Sends data to blade template, which contains Vue component => SimpleTableComponent
      *
      * @return Application|Factory|View
      */

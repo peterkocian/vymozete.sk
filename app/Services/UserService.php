@@ -30,7 +30,7 @@ class UserService
 
     public function all()
     {
-        return $this->userRepository->all();
+        return $this->userRepository->index();
     }
 
     /**

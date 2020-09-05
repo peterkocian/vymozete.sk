@@ -18,7 +18,7 @@ class RoleService
 
     public function all()
     {
-        return $this->roleRepository->all();
+        return $this->roleRepository->index();
     }
 
     public function getProjection()

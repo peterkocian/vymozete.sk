@@ -7,6 +7,7 @@ use App\Http\Requests\UserProfileAdminRequest;
 use App\Services\UserService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
@@ -23,7 +24,7 @@ class UserController extends Controller
     /**
      * Show all users from DB in table view.
      *
-     * @return Application|Factory|View
+     * @return Application|Factory|JsonResponse|View
      */
     public function index()
     {
@@ -34,6 +35,10 @@ class UserController extends Controller
             report($e);
 
             request()->session()->now('fail', $e->getMessage());
+        }
+
+        if (request()->ajax()) {
+            return response()->json($result);
         }
 
         return view('admin.users.index', ['data' => $result]);

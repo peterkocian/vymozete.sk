@@ -786,12 +786,14 @@ a .button {
     border-radius: 25px;
 }
 
-.add-files div {
-    /*margin-bottom: 5px;*/
-    font-size: 14px;
-    font-weight: 400;
-    margin-left: 5px;
-    margin-bottom: 10px;
+.add-files {
+    div {
+        /*margin-bottom: 5px;*/
+        font-size: 14px;
+        font-weight: 400;
+        margin-left: 5px;
+        //margin-bottom: 10px;
+    }
 }
 
 .add-files input {
@@ -1339,6 +1341,10 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
 
 .validation-error{
     color: $error;
+    font-weight: lighter;
+    div {
+        padding-top: 3px;
+    }
 }
 
 .is-invalid {

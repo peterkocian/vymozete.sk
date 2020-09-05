@@ -1,144 +1,30 @@
 <template>
-    <div class="table-responsive">
-        <form class="form-inline" v-if="config.config.inlineNew">
-            <div v-for="field in config.config.inlineNew.fields" :key="field.id">
-                <!-- ak field je input type = text, number, file -->
-                <input
-                    v-if="field.type === 'text' || field.type === 'number' || field.type === 'file' || field.type === 'textarea'"
-                    class="form-control form-control-sm"
-                    :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
-                    :type="field.type"
-                    :placeholder="field.label"
-                    :name="field.key"
-                    :id="field.key"
-                    v-model="newEntry[field.key]"
-                    @change="handleChange($event, field.type)"
-                >
-                <!-- ak field je select -->
-                <select
-                    v-else-if="field.type === 'select'"
-                    class="form-control form-control-sm"
-                    :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
-                    v-model="newEntry[field.key]"
-                    :required="field.settings['required']"
-                >
-                    <option v-for="item in field.options" v-bind:value="item.id">{{item.code}}</option>
-                </select>
-                <!-- ak field je input type checkbox -->
-                <div class="form-check" v-else-if="field.type === 'checkbox'">
-                    <input
-                        class="form-check-input"
-                        :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
-                        :type="field.type"
-                        :name="field.key"
-                        :id="field.key"
-                        v-model="newEntry[field.key]"
-                        @change="handleChange($event, field.type)"
-                    >
-                    <label class="form-check-label" :for="field.key">
-                        {{ field.label }}
-                    </label>
-                </div>
-                <!-- ak field je textarea -->
-                <!--                    <textarea v-else-if="field.type === 'textarea'" class="form-control" rows="3"></textarea>-->
-                <div v-if="errors.hasOwnProperty(field.key)" class="invalid-feedback">{{ errors[field.key][0] }}</div>
-            </div>
-
-            <button type="submit" class="btn btn-success btn-sm">Submit</button>
-        </form>
-        <table class="table table-borderless table-sm table-responsive-xl" v-if="config.config.inlineNew">
-            <tbody>
-            <tr>
-                <td class="align-middle text-center" v-for="field in config.config.inlineNew.fields" :key="field.id">
-                    <!-- ak field je input type = text, number, file -->
-                    <input
-                        v-if="field.type === 'text' || field.type === 'number' || field.type === 'file' || field.type === 'textarea'"
-                        class="form-control form-control-sm"
-                        :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
-                        :type="field.type"
-                        :placeholder="field.label"
-                        :name="field.key"
-                        :id="field.key"
-                        v-model="newEntry[field.key]"
-                        @change="handleChange($event, field.type)"
-                    >
-                    <!-- ak field je select -->
-                    <select
-                        v-else-if="field.type === 'select'"
-                        class="form-control form-control-sm"
-                        :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
-                        v-model="newEntry[field.key]"
-                        :required="field.settings['required']"
-                    >
-                        <option v-for="item in field.options" v-bind:value="item.id">{{item.code}}</option>
-                    </select>
-                    <!-- ak field je input type checkbox -->
-                    <div class="form-check" v-else-if="field.type === 'checkbox'">
-                        <input
-                            class="form-check-input"
-                            :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
-                            :type="field.type"
-                            :name="field.key"
-                            :id="field.key"
-                            v-model="newEntry[field.key]"
-                            @change="handleChange($event, field.type)"
-                        >
-                        <label class="form-check-label" :for="field.key">
-                            {{ field.label }}
-                        </label>
-                    </div>
-                    <!-- ak field je textarea -->
-<!--                    <textarea v-else-if="field.type === 'textarea'" class="form-control" rows="3"></textarea>-->
-                    <div v-if="errors.hasOwnProperty(field.key)" class="invalid-feedback">{{ errors[field.key][0] }}</div>
-                </td>
-                <td class="align-middle" style="width: 150px">
-                    <div>
-                        <a
-
-                            class="btn btn-success btn-sm"
-                            type="button"
-                            href=""
-                            v-if="config.config.inlineNew.action"
-                            v-on:click="config.config.inlineNew.action ? handleActions(config.config.inlineNew.action, config.config.inlineNew.url) : null"
-                            onclick="this.blur();"
-                        >{{config.config.inlineNew.label}}</a>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-
-        <table class="table table-striped table-hover table-sm">
-            <thead class="thead-dark">
-                <tr>
-                    <th v-for="column in config.columns" :key="column.key"
-                        style="cursor:pointer;">{{column.label}}
-                    </th>
-                    <th style="width: 140px" v-if="config.actions.length > 0">{{config.actionColumnLabel}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="item in source" :key="item.id">
-                    <td class="align-middle" v-for="column in config.columns">{{ item[column.key] }}</td>
-                    <td v-if="config.actions.length > 0" class="align-middle" style="width: 150px">
-                        <a
-                            role="button"
-                            v-for="action in config.actions"
-                            :title=action.title
-                            v-bind:href=buildUrl(action.url,item)
-                            :class=action.class
-                            :data-toggle="action.dataToggle || null"
-                            :data-target="action.dataTarget || null"
-                            v-on:click="action.dataToggle ? showModal(buildUrl(action.url,item),action.modalText,action.ajax) : null"
-                        ><span class="material-icons">{{action.label}}</span></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <modal-component
-            :config="{...modal}"
-            v-on:ajaxSubmitDelete="handleAjaxDelete(modal.url)"
-        ></modal-component>
+    <div class="group add-files">
+        <input
+            v-for="i in counter"
+            ref="files"
+            type="file"
+            class="form-control form-control-sm"
+            name="uploads[]"
+        >
+<!--        <input-->
+<!--            id="files"-->
+<!--            ref="files"-->
+<!--            type="file"-->
+<!--            class="form-control form-control-sm"-->
+<!--            name="uploads[]"-->
+<!--            :style="config.multi ? {display:'none'} : null"-->
+<!--            :placeholder="config.placeholder"-->
+<!--            :multiple="config.multi ? 'multiple' : null"-->
+<!--            @change="handleChange($event, 'file')"-->
+<!--        >-->
+<!--        <div v-if="config.multi" class="file-list">-->
+<!--            <div v-for="(file, key) in files" class="item">-->
+<!--                <div class="name">{{ file.name }}</div>-->
+<!--                <i class="material-icons" v-on:click="removeFile( key )">clear</i>-->
+<!--            </div>-->
+<!--        </div>-->
+        <button v-if="config.multi" type="button" title="Pridať súbor" v-on:click="addFiles()"><i class="material-icons">playlist_add</i></button>
     </div>
 </template>
 
@@ -147,116 +33,27 @@
         props: ['config'],
         data() {
             return {
-                source: this.config.data,
-                file: null,
-                newEntry: {},
-                modal: {
-                    text: '',
-                    url: '',
-                    ajax: false,
-                },
-                queryParams: {
-                    rows: '',
-                    sortKey: '',
-                    orderBy: '',
-                    search: ''
-                },
+                counter: 0,
+                files: [],
                 errors: {}
             }
         },
         methods: {
-            buildUrl(urlTemplate, data) {
-                let resolvedUrl;
-                let params = urlTemplate.match(/[^{\}]+(?=})/g);
-                params.forEach(param => {
-                    resolvedUrl = urlTemplate.replace(`{${param}}`,data[param]);
-                });
-
-                return resolvedUrl;
+            addFiles(){
+                this.counter++;
             },
-            showModal(url,text,ajax) {
-                this.modal = {url, text, ajax};
-            },
-            handleActions(action, url) {
-                event.preventDefault();
-                event.stopPropagation();
-                switch (action) {
-                    case 'createItem':
-                        this.createItem(url);
-                        break;
-                    case 'uploadFile':
-                        this.uploadFile(url);
-                        break;
-                };
-            },
-            createItem(url) {
-                axios.post(url, this.newEntry)
-                    .then(res => {
-                        this.reloadData(this.config.config.reloadUrl);
-                        flash({text: 'Item succesfully created', type:'success', timer:3000 });
-                    }).catch(e => {
-                        console.log(e.response.data.errors);
-                        this.errors = e.response.data.errors;
-                        flash({text: `${e.response.data.message}`, type:'error', timer:null });
-                    });
-
-                this.setDefaultValue();
-            },
-
-            uploadFile(url) {
-                this.newEntry.file = this.file;
-                let formData = new FormData();
-                // formData.append('test', JSON.stringify(this.newEntry));
-                this.newEntry.filename ? formData.append('filename', this.newEntry.filename) : null;
-                this.newEntry.file_type_id ? formData.append('file_type_id', this.newEntry.file_type_id) : null;
-                this.newEntry.show_to_customer ? formData.append('show_to_customer', this.newEntry.show_to_customer) : null;
-                formData.append('file', this.file);
-                // console.log('formData: ', formData);
-                // console.log('this.newEntry: ', this.newEntry);
-                axios.post(url, formData)
-                    .then(res => {
-                        this.reloadData(this.config.config.reloadUrl);
-                        flash({text: 'File successfully uploaded', type:'success', timer:3000 });
-                    }).catch(e => {
-                        this.errors = e.response.data.errors;
-                        flash({text: `Something went wrong in reloadData: ${e}`, type:'error', timer:null });
-                    });
-
-                this.setDefaultValue();
-            },
-            reloadData(url) {
-                axios.get(url, {
-                    // params: this.queryParams,
-                    // paramsSerializer: function (params) {
-                    //     return decodeURIComponent( $.param(params))
-                    // }
-                }).then(res => {
-                    this.source = res.data;
-                }).catch(e => {
-                    flash({text: `Something went wrong in reloadData: ${e}`, type:'error', timer:null });
-                });
-            },
-            setDefaultValue() {
-                this.newEntry = {};
-            },
-            handleAjaxDelete(url) {
-                axios.delete(url, {
-                    // params: this.queryParams,
-                    // paramsSerializer: function (params) {
-                    //     return decodeURIComponent( $.param(params))
-                    // }
-                }).then(res => {
-                    this.reloadData(this.config.config.reloadUrl);
-                    flash({text: 'Deleted successfully', type:'success', timer:3000 });
-                }).catch(e => {
-                    flash({text: `Something went wrong in handleAjaxDelete: ${e}`, type:'error', timer:null });
-                });
-            },
-            handleChange(e, type) {
-                if (type === 'file') {
-                    this.file = e.target.files[0];
-                }
-            }
+            // handleChange(e, type) {
+            //     if (type === 'file') {
+            //         let uploadedFiles = this.$refs.files.files;
+            //
+            //         for(let i = 0; i < uploadedFiles.length; i++){
+            //             this.files.push( uploadedFiles[i] );
+            //         }
+            //     }
+            // },
+            // removeFile( key ){
+            //     this.files.splice(key, 1);
+            // }
         },
     };
 </script>

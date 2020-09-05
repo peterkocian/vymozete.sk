@@ -25,6 +25,7 @@ import Multiselect from 'vue-multiselect';
 
 Vue.component('participant-component', require('./components/ParticipantComponent').default);
 Vue.component('debt-component', require('./components/DebtComponent').default)
+Vue.component('upload-component', require('./components/UploadComponent').default)
 Vue.use(DatePicker);
 Vue.component('multiselect', Multiselect);
 

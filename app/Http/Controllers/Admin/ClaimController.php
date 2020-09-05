@@ -102,23 +102,28 @@ class ClaimController extends Controller
     {
         if ($request->ajax())
         {
-            $data = $request->except(['file']);
+            $data = $request->all();
             $file = $request->file('file');
 
             $claim = $this->claimRepository->get($claim_id);
 
-            if ($file && $file->isValid()) {
-                $saved = $this->uploadService->saveFile($claim, $file, $data);
+            try {
+                if ($file && $file->isValid()) {
+                    $saved = $this->uploadService->saveFile($claim, $file, $data);
 
+                    return response()->json([
+                        'success' => true,
+                        'id' => $saved->id
+                    ], 200);
+                } else {
+                    throw new \Exception('Requestom neprisiel ziadny subor na ulozenie');
+                }
+            } catch (\Exception $e) {
                 return response()->json([
-                    'success' => true,
-                    'id' => $saved->id
-                ], 200);
+                    'success' => false,
+                    'message' => $e->getMessage()
+                ], 500);
             }
-
-            return response()->json([
-                'success' => false
-            ], 500);
         }
 
         return back()

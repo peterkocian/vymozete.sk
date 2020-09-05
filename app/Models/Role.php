@@ -12,6 +12,8 @@ class Role extends Model
 {
     use HasPermissionsTrait, DateFormatTrait;
 
+    const INDEX_VIEW_PAGINATION = false;
+
     /**
      * Nazov tabulky v DB
      *
