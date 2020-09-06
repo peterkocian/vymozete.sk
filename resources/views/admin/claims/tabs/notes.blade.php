@@ -10,6 +10,11 @@
             'key' => 'description',
             'type' => 'text'
         ],
+        [
+            'label' => __('general.Created at'),
+            'key' => 'created_at',
+            'type' => 'date'
+        ],
     ];
 
     $config['inlineNew'] = [
@@ -41,9 +46,45 @@
             ],
         ]
     ];
-    $config['hide-pagination'] = true;
-    $config['hide-itemsPerPage'] = true;
-    $config['reloadUrl'] = "/admin/claims/{$claim['id']}/notes";
+
+    $config = [
+        'reloadUrl'     => "/admin/claims/{$claim['id']}/notes",
+        'showPagination' => \App\Models\Note::INDEX_VIEW_PAGINATION,
+        'itemsPerPage'  => \App\Helpers\SimpleTable::ITEMS_PER_PAGE,
+        'numberOfRows'  => \App\Helpers\SimpleTable::NUMBER_OF_ROWS,
+        'sortKey'       => 'created_at',
+        'sortDirection' => 'asc',
+
+        'inlineNew' => [
+            'label' => __('general.Create'),
+            'key' => 'store',
+            'class' => 'btn btn-primary btn-sm mr-1',
+            'action' => 'createItem',
+            'url' => "/admin/claims/{$claim['id']}/notes",
+            'fields' => [
+                [
+                    'label' => __('note.Title'),
+                    'key' => 'title',
+                    'type' => 'text',
+                    'settings' => [
+                        'divClass' => 'col-3  pl-0',
+                        'required' => true,
+                        'searchable' => true
+                    ]
+                ],
+                [
+                    'label' => __('note.Description'),
+                    'key' => 'description',
+                    'type' => 'textarea',
+                    'settings' => [
+                        'divClass' => 'col-6',
+                        'required' => true,
+                        'searchable' => true
+                    ]
+                ],
+            ],
+        ]
+    ];
 
     $actions = [
         [

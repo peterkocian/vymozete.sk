@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class Claim extends Model
 {
     use DateFormatTrait;
-    CONST DEFAULT_STATE_ID = 1;
+    const DEFAULT_STATE_ID = 1; //todo iba docasne
+    const INDEX_VIEW_PAGINATION = false;
 
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable

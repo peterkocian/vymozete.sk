@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\NoteSaveRequest;
 use App\Http\Requests\PropertySaveRequest;
 use App\Http\Requests\UploadAdminClaimFileRequest;
 use App\Repositories\ClaimRepositoryInterface;
@@ -43,9 +42,12 @@ class ClaimController extends Controller
     {
 //        $claim = Claim::find(1);
 //        dd($claim->debtor->entity->name);
-        $claims = $this->claimRepository->index();
+        $result = $this->claimRepository->index();
 //        dd($claims);
-        return view('admin.claims.index', ['data' => $claims]);
+        if (request()->ajax()) {
+            return response()->json($result);
+        }
+        return view('admin.claims.index', ['data' => $result]);
     }
 
     public function overview(int $claim_id)
@@ -156,48 +158,6 @@ class ClaimController extends Controller
 
             try {
                 $result = $this->propertyService->saveProperty($data, $claim_id);
-            } catch (\Exception $e) {
-                report($e);
-
-                return response()->json([
-                    'success' => false,
-                    'message' => __('general.Create failed') . PHP_EOL . $e->getMessage(),
-                ], 500);
-            }
-
-            return response()->json([
-                'success' => true,
-                'id' => $result->id,
-                'message' => __('general.Created successfully'),
-            ], 200);
-        }
-
-        return back()
-            ->withFail('povoleny iba ajax request');
-    }
-
-    public function notes(int $claim_id)
-    {
-        $claim = $this->claimRepository->get($claim_id);
-
-        if (request()->ajax()) {
-            return response()->json($claim->notes);
-        }
-        return view('admin.claims.main', [
-            'claim' => $claim,
-            'data' => $claim->notes,
-            'tab' => 'notes'
-        ]);
-    }
-
-    public function storeNotes(NoteSaveRequest $request, int $claim_id)
-    {
-        if ($request->ajax())
-        {
-            $data = $request->except('_token', '_method');
-
-            try {
-                $result = $this->noteService->saveNote($data, $claim_id);
             } catch (\Exception $e) {
                 report($e);
 

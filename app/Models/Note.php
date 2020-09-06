@@ -10,6 +10,7 @@ class Note extends Model
     use DateFormatTrait;
 
     const ENTITY_ROUTE_PREFIX = 'notes';
+    const INDEX_VIEW_PAGINATION = true;
 
     /**
      * Nazov tabulky v DB

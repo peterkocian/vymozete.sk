@@ -117,7 +117,7 @@ class BaseRepository implements EloquentRepositoryInterface
             $rows = request('rows') ? intval(request('rows')) : SimpleTable::NUMBER_OF_ROWS;
             $sortKey = request('sortKey') ? request('sortKey') : SimpleTable::SORT_KEY;
             $sortDirection = request('sortDirection') ? request('sortDirection') : SimpleTable::SORT_DIRECTION;
-            $search = request('search') ? request('search') : SimpleTable::SEARCH;
+//            $search = request('search') ? request('search') : SimpleTable::SEARCH;
 
 //            if (count($search) > 0) {
 //                $query = $model::where(function($q) use($search,$model) {
@@ -138,12 +138,16 @@ class BaseRepository implements EloquentRepositoryInterface
 //                $query = $model::orderBy($sortKey, $sortDirection);
 //            }
 
-            $result = $model::orderBy($sortKey, $sortDirection);
+            $data = $model::orderBy($sortKey, $sortDirection);
 
             if ($pagination) {
-                $result = $result->paginate($rows);
+                $paginate = $data->paginate($rows);
+                $arr = $paginate->toArray();
+                $result['data'] = $arr['data'];
+                unset($arr['data']);  // z povodneho objektu paginate ktory vracia Laravel mazem data, aby mi v result['pagination'] posielalo na FE iba info o strankovani
+                $result['pagination'] = $arr;
             } else {
-                $result = $result->get()->toArray();
+                $result = $data->get()->toArray();
             }
 
             return $result;

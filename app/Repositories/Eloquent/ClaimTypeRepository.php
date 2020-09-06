@@ -19,14 +19,6 @@ class ClaimTypeRepository extends BaseRepository implements ClaimTypeRepositoryI
         parent::__construct($model);
     }
 
-    /**
-     * @return Collection
-     */
-    public function all(): Collection
-    {
-        return $this->model->all();
-    }
-
     public function translation(int $language_id): Collection
     {
         //todo

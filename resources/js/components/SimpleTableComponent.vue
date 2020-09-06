@@ -57,83 +57,27 @@
                 >{{config.config.inlineNew.label}}</a>
             </div>
         </form>
-<!--        <table class="table table-borderless table-sm table-responsive-xl" v-if="config.config.inlineNew">-->
-<!--            <tbody>-->
-<!--            <tr>-->
-<!--                <td class="align-middle text-center" v-for="field in config.config.inlineNew.fields" :key="field.id">-->
-<!--                    &lt;!&ndash; ak field je input type = text, number, file &ndash;&gt;-->
-<!--                    <input-->
-<!--                        v-if="field.type === 'text' || field.type === 'number' || field.type === 'file' || field.type === 'textarea'"-->
-<!--                        class="form-control form-control-sm"-->
-<!--                        :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"-->
-<!--                        :type="field.type"-->
-<!--                        :placeholder="field.label"-->
-<!--                        :name="field.key"-->
-<!--                        :id="field.key"-->
-<!--                        v-model="newEntry[field.key]"-->
-<!--                        @change="handleChange($event, field.type)"-->
-<!--                    >-->
-<!--                    &lt;!&ndash; ak field je select &ndash;&gt;-->
-<!--                    <select-->
-<!--                        v-else-if="field.type === 'select'"-->
-<!--                        class="form-control form-control-sm"-->
-<!--                        :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"-->
-<!--                        v-model="newEntry[field.key]"-->
-<!--                        :required="field.settings['required']"-->
-<!--                    >-->
-<!--                        <option v-for="item in field.options" v-bind:value="item.id">{{item.code}}</option>-->
-<!--                    </select>-->
-<!--                    &lt;!&ndash; ak field je input type checkbox &ndash;&gt;-->
-<!--                    <div class="form-check" v-else-if="field.type === 'checkbox'">-->
-<!--                        <input-->
-<!--                            class="form-check-input"-->
-<!--                            :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"-->
-<!--                            :type="field.type"-->
-<!--                            :name="field.key"-->
-<!--                            :id="field.key"-->
-<!--                            v-model="newEntry[field.key]"-->
-<!--                            @change="handleChange($event, field.type)"-->
-<!--                        >-->
-<!--                        <label class="form-check-label" :for="field.key">-->
-<!--                            {{ field.label }}-->
-<!--                        </label>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; ak field je textarea &ndash;&gt;-->
-<!--&lt;!&ndash;                    <textarea v-else-if="field.type === 'textarea'" class="form-control" rows="3"></textarea>&ndash;&gt;-->
-<!--                    <div v-if="errors.hasOwnProperty(field.key)" class="invalid-feedback">{{ errors[field.key][0] }}</div>-->
-<!--                </td>-->
-<!--                <td class="align-middle" style="width: 150px">-->
-<!--                    <div>-->
-<!--                        <a-->
-
-<!--                            class="btn btn-success btn-sm"-->
-<!--                            type="button"-->
-<!--                            href=""-->
-<!--                            v-if="config.config.inlineNew.action"-->
-<!--                            v-on:click="config.config.inlineNew.action ? handleActions(config.config.inlineNew.action, config.config.inlineNew.url) : null"-->
-<!--                            onclick="this.blur();"-->
-<!--                        >{{config.config.inlineNew.label}}</a>-->
-<!--                    </div>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
 
         <b-overlay :show="overlay" rounded="sm" class="h-100">
+            <div class="form-group form-row justify-content-end" v-if="this.config.config.showPagination">
+                <div class="col col-sm-2">
+                    <select class="form-control form-control-sm" v-model="rows" @change="reloadData()">
+                        <option v-for="item in this.config.config.itemsPerPage" :value="item">{{item}}</option>
+                    </select>
+                </div>
+            </div>
+
             <table class="table table-striped table-hover table-sm">
                 <thead class="thead-dark">
                     <tr>
                         <th
                             v-for="column in config.columns"
                             :key="column.key"
-                            :class="sortKey === column.key ? (sortDirection === 'asc' ? 'fa-sort-asc' : 'fa-sort-desc') : 'fa-sort-desc'"
-                            @click="sortBy(column.key)"
+                            @click="column.map ? sortBy(column.map) : sortBy(column.key)"
                             style="cursor:pointer;"
                         >{{column.label}}
                             <b-icon icon="sort-alpha-down" v-if=" ( column.key === sortKey && sortDirection === 'asc')"></b-icon>
                             <b-icon icon="sort-alpha-down-alt" v-if=" ( column.key === sortKey && sortDirection === 'desc') "></b-icon>
-    <!--                        <div v-if=" ( column.key === sortKey && sortDirection === 'asc') ">asc</div>-->
-    <!--                        <div v-if=" ( column.key === sortKey && sortDirection === 'desc') ">desc</div>-->
                         </th>
                         <th style="width: 140px" v-if="config.actions.length > 0">{{config.actionColumnLabel}}</th>
                     </tr>
@@ -163,6 +107,28 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="d-flex justify-content-between" v-if="this.config.config.showPagination">
+                <div>
+                    {{pagination.from}} - {{pagination.to}} / {{pagination.total}}
+                </div>
+                <ul class="pagination pagination-sm">
+                    <li class="page-item" :class="{disabled:!pagination.prev_page_url}">
+                        <a class="page-link" @click="reloadData(pagination.first_page_url)">&lt;&lt;</a>
+                    </li>
+                    <li class="page-item" :class="{disabled:!pagination.prev_page_url}">
+                        <a class="page-link" @click="reloadData(pagination.prev_page_url)">&lt;</a>
+                    </li>
+                    <li v-for="item in pagination.last_page" :key="item" class="page-item" :class="{active: pagination.current_page === item}">
+                        <a class="page-link" @click="reloadData(pagination.path + '?page=' + item)" onclick="this.blur();">{{item}}</a>
+                    </li>
+                    <li class="page-item" :class="{disabled:!pagination.next_page_url}">
+                        <a class="page-link" @click="reloadData(pagination.next_page_url)">&gt;</a>
+                    </li>
+                    <li class="page-item" :class="{disabled:!pagination.next_page_url}">
+                        <a class="page-link" @click="reloadData(pagination.last_page_url)">&gt;&gt;</a>
+                    </li>
+                </ul>
+            </div>
         </b-overlay>
         <modal-component
             :config="{...modal}"
@@ -177,6 +143,10 @@
         data() {
             return {
                 source: [],
+                pagination: this.config.data.pagination || null,
+                rows: this.config.config.numberOfRows || null,
+                sortKey: this.config.config.sortKey || null,
+                sortDirection: this.config.config.sortDirection || null,
                 file: null,
                 newEntry: {},
                 overlay: false,
@@ -186,14 +156,6 @@
                     ajax: false,
                     requestMethod: '',
                 },
-                queryParams: {
-                    rows: '',
-                    sortKey: '',
-                    sortDirection: '',
-                    search: ''
-                },
-                sortKey: this.config.config.sortKey || null,
-                sortDirection: this.config.config.sortDirection || null,
                 errors: {}
             }
         },
@@ -235,7 +197,7 @@
             createItem(url) {
                 axios.post(url, this.newEntry)
                     .then(res => {
-                        this.reloadData(this.config.config.reloadUrl);
+                        this.reloadData();
                         flash({text: 'Item succesfully created', type:'success', timer:3000 });
                     }).catch(e => {
                         console.log(e.response.data.errors);
@@ -253,11 +215,9 @@
                 this.newEntry.file_type_id ? formData.append('file_type_id', this.newEntry.file_type_id) : null;
                 this.newEntry.show_to_customer ? formData.append('show_to_customer', this.newEntry.show_to_customer) : null;
                 formData.append('file', this.file);
-                // console.log('formData: ', formData);
-                // console.log('this.newEntry: ', this.newEntry);
                 axios.post(url, formData)
                     .then(res => {
-                        this.reloadData(this.config.config.reloadUrl);
+                        this.reloadData();
                         flash({text: 'File successfully uploaded', type:'success', timer:3000 });
                     }).catch(e => {
                         this.errors = e.response.data.errors;
@@ -267,16 +227,23 @@
                 this.setDefaultValue();
             },
             loadSourceData(data){
+                //funkcia nacitava zdrojove data pre tabulku, struktura moze byt rozna, podla toho ci sa jedna o tabulku so strankovanim
+                // alebo nie
                 if (this.config.config.showPagination) {
-                    this.source = data.data;
+                    this.source     = data.data;
+                    this.pagination = data.pagination;
                 } else {
                     this.source = data;
                 }
             },
-            reloadData(url) {
+            reloadData(url = this.config.config.reloadUrl) {
                 this.showOverlay();
                 axios.get(url, {
-                    params: this.queryParams,
+                    params: {
+                        sortKey: this.sortKey,
+                        sortDirection: this.sortDirection,
+                        rows: this.rows,
+                    },
                     paramsSerializer: function (params) {
                         return decodeURIComponent( $.param(params))
                     }
@@ -289,6 +256,7 @@
                 });
             },
             setDefaultValue() {
+                //function for new entry in inline new mode
                 this.newEntry = {};
             },
             handleAjaxModalSubmit(url) {
@@ -298,7 +266,7 @@
                     //     return decodeURIComponent( $.param(params))
                     // }
                 }).then(res => {
-                    this.reloadData(this.config.config.reloadUrl);
+                    this.reloadData();
                     flash({text: 'Deleted successfully', type:'success', timer:3000 });
                 }).catch(e => {
                     flash({text: `Something went wrong in handleAjaxDelete: ${e}`, type:'error', timer:null });
@@ -310,18 +278,17 @@
                 }
             },
             sortBy(key) {
-                // this.resetPagination();
+                // sortovanie podla stlpca. kluc moze byt bud key, alebo map parameter
                 this.sortKey = key;
                 this.sortDirection === 'asc' ? this.sortDirection = 'desc' : this.sortDirection = 'asc';
-
-                this.queryParams.sortKey = this.sortKey;
-                this.queryParams.sortDirection = this.sortDirection;
-                this.reloadData(this.config.config.reloadUrl);
+                this.reloadData();
             },
             showOverlay: function() {
+                // zobrazit loading
                 this.overlay = true;
             },
             hideOverlay: function() {
+                // skryt loading
                 this.overlay = false;
             },
         },

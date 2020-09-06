@@ -49,10 +49,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')
             Route::get('/claims/{claim}/properties', 'ClaimController@properties')->name('claims.properties');
             Route::post('/claims/{claim}/properties', 'ClaimController@storeProperties')->name('claims.properties.store');
 
-            Route::get('/claims/{claim}/notes', 'ClaimController@notes')->name('claims.notes');
-            Route::post('/claims/{claim}/notes', 'ClaimController@storeNotes')->name('claims.notes.store');
+            Route::get('/claims/{claim}/notes', 'NoteController@getByClaimId')->name('claims.notes.byClaimId');
+            Route::post('/claims/{claim}/notes', 'NoteController@store')->name('claims.notes.store');
 
-            Route::resource('notes', 'NoteController')->except(['index', 'create']);
+            Route::resource('notes', 'NoteController')->only(['update', 'destroy', 'edit']);
         });
 });
 

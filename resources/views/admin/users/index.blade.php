@@ -25,8 +25,8 @@
     $config = [
         'reloadUrl'     => "/admin/users",
         'showPagination' => \App\User::INDEX_VIEW_PAGINATION,
-        'itemsPerPage'  => [50, 100, 150],
-        'numberOfRows'  => 50,
+        'itemsPerPage'  => \App\Helpers\SimpleTable::ITEMS_PER_PAGE,
+        'numberOfRows'  => \App\Helpers\SimpleTable::NUMBER_OF_ROWS,
         'sortKey'       => 'created_at',
         'sortDirection' => 'asc',
     ];

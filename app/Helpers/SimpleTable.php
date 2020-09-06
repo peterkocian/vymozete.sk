@@ -21,7 +21,7 @@ class SimpleTable
      */
     const NUMBER_OF_ROWS    = 50;
     const SORT_KEY          = 'created_at';
-    const SORT_DIRECTION    = 'asc';
+    const SORT_DIRECTION    = 'desc';
     const SEARCH            = [];
     const ITEMS_PER_PAGE    = ['50', '100', '150'];
     const SEARCHABLE        = true;

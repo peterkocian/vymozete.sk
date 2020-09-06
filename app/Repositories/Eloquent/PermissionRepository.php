@@ -51,7 +51,7 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
                 $permission = $this->model->findOrFail($id);
             } catch (Exception $e) {
                 report($e);
-                throw new Exception('Opravnenie sa nepodarilo najst z neznamych dovod.'. $e->getMessage());
+                throw new Exception('Opravnenie sa nepodarilo najst.'. $e->getMessage());
             }
         }
 
