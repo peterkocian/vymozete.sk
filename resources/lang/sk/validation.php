@@ -82,8 +82,8 @@ return [
         'string' => 'The :attribute may not be greater than :max characters.',
         'array' => 'The :attribute may not have more than :max items.',
     ],
-    'mimes' => 'The :attribute must be a file of type: :values.',
-    'mimetypes' => 'The :attribute must be a file of type: :values.',
+    'mimes' => 'Pole :attribute musí byť: :values.',
+    'mimetypes' => 'Pole :attribute musí byť: :values.',
     'min' => [
         'numeric' => 'Pole :attribute musí byť minimálne :min.',
         'file' => 'Pole :attribute musí mať minimálne :min kilobytov.',
@@ -169,6 +169,14 @@ return [
         'password' => 'heslo',
         'permissions' => 'oprávnenia',
         'phone' => 'telefónne číslo',
+
+        'filename' => 'názov súboru',
+        'file_type_id' => 'typ súboru',
+        'uploads' => 'súbor',
+
+        'title' => 'názov',
+        'currency_id' => 'mena',
+        'description' => 'popis',
 
     ],
 ];

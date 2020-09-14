@@ -5,7 +5,6 @@ namespace App\Services;
 use Exception;
 use App\Repositories\PropertyRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 
 class PropertyService
 {
@@ -16,34 +15,30 @@ class PropertyService
         $this->propertyRepository = $propertyRepository;
     }
 
-    public function index($properties): Collection
+    public function propertyByClaimId(int $claim_id)
     {
-        try {
-            $result = $this->propertyRepository->index($properties);
-        } catch (Exception $e) {
-//            Log::info($e->getMessage());
-            throw new Exception('Nepodarilo sa vyhladat udaje'. $e->getMessage());
-        }
-
-        return $result;
-//        foreach ($properties as $property) {
-//            $property['amountWithCurrency'] = $property->amountWithCurrency;
-//        }
-//
-//        return $properties;
+        return $this->propertyRepository->propertyByClaimId($claim_id);
     }
 
     public function saveProperty(array $data, int $claim_id)
     {
-        DB::beginTransaction();
-
         try {
             $result = $this->propertyRepository->save($data, $claim_id);
-            DB::commit();
         } catch (Exception $e) {
-            DB::rollBack();
 //            Log::info($e->getMessage());
-            throw new Exception('Nepodarilo sa ulozit udaje'. $e->getMessage());
+            throw new Exception($e->getMessage());
+        }
+
+        return $result;
+    }
+
+    public function destroy(int $id)
+    {
+        try {
+            $this->propertyRepository->get($id);
+            $result = $this->propertyRepository->delete($id);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
         }
 
         return $result;

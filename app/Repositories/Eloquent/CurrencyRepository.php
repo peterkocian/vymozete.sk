@@ -25,4 +25,9 @@ class CurrencyRepository extends BaseRepository implements CurrencyRepositoryInt
     {
         return $this->model->all();
     }
+
+    public function getDataForSelectbox()
+    {
+        return Currency::get(['id', 'code as value'])->toArray();
+    }
 }

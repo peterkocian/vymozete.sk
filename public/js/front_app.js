@@ -2397,6 +2397,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['config'],
   data: function data() {
@@ -57166,6 +57167,7 @@ var render = function() {
     [
       _vm._l(_vm.counter, function(i) {
         return _c("input", {
+          key: i,
           ref: "files",
           refInFor: true,
           staticClass: "form-control form-control-sm",

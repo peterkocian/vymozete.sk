@@ -44,6 +44,11 @@ export default {
         },
         hide() {
             this.show = false
+            this.reset();
+        },
+        reset() {
+            this.type = '';
+            this.body = '';
         }
     }
 }

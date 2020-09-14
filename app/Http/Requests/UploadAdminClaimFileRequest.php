@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\Response;
+use Illuminate\Contracts\Validation\Validator;
 
 class UploadAdminClaimFileRequest extends FormRequest
 {
@@ -27,7 +30,28 @@ class UploadAdminClaimFileRequest extends FormRequest
         return [
             'filename'      => 'required|max:191',
             'file_type_id'  => 'required',
-            'file'          => 'required|mimes:txt,pdf,doc,docx,jpg,jpeg',
+//            'uploads'       => 'required|mimes:txt,pdf,doc,docx,jpg,jpeg',
+            'uploads'       => 'required|array|min:1',
+            'uploads.*'     => 'required|mimes:txt,pdf,doc,docx,jpg,jpeg',
         ];
+    }
+
+    /**
+     * Handle a failed validation attempt.
+     *
+     * @param Validator $validator
+     * @return void
+     *
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        $response = [
+            "success" => false,
+            "message" => __("general.The given data was invalid"),
+            "errors" => $validator->errors(),
+        ];
+
+        // Finally throw the HttpResponseException.
+        throw new HttpResponseException(response()->json($response, Response::HTTP_UNPROCESSABLE_ENTITY));
     }
 }

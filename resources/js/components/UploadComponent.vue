@@ -4,6 +4,7 @@
             v-for="i in counter"
             ref="files"
             type="file"
+            :key="i"
             class="form-control form-control-sm"
             name="uploads[]"
         >

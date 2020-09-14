@@ -6,7 +6,6 @@ use App\Helpers\SimpleTable;
 use App\Repositories\EloquentRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use phpDocumentor\Reflection\Types\Boolean;
 
 class BaseRepository implements EloquentRepositoryInterface
 {
@@ -85,8 +84,9 @@ class BaseRepository implements EloquentRepositoryInterface
      * @param int $id
      * @return bool
      */
-    public function delete(int $id): boolean
+    public function delete(int $id): bool
     {
+//        dd($this->model->findOrFail($id));
         return $this->model->destroy($id);
     }
 
@@ -114,33 +114,14 @@ class BaseRepository implements EloquentRepositoryInterface
 
         if ($model)
         {
-            $rows = request('rows') ? intval(request('rows')) : SimpleTable::NUMBER_OF_ROWS;
             $sortKey = request('sortKey') ? request('sortKey') : SimpleTable::SORT_KEY;
             $sortDirection = request('sortDirection') ? request('sortDirection') : SimpleTable::SORT_DIRECTION;
-//            $search = request('search') ? request('search') : SimpleTable::SEARCH;
-
-//            if (count($search) > 0) {
-//                $query = $model::where(function($q) use($search,$model) {
-//                    foreach ($search as $col => $value) {
-//                        if ($col === 'status') {
-//                            if ($value === $model::STATUS_REGISTERED) {
-//                                $q->where($value, 1)->where($model::STATUS_APPROVED,0)->where($model::STATUS_REJECTED,0);
-//                            } else {
-//                                $q->where($value, 1);
-//                            }
-//                        }
-//                        elseif (strlen($value) > 0) {
-//                            $q->where($col, 'LIKE' , '%' . $value . '%');
-//                        }
-//                    }
-//                })->orderBy($sortKey, $sortDirection);
-//            } else {
-//                $query = $model::orderBy($sortKey, $sortDirection);
-//            }
 
             $data = $model::orderBy($sortKey, $sortDirection);
 
             if ($pagination) {
+                $rows = request('rows') ? intval(request('rows')) : SimpleTable::NUMBER_OF_ROWS;
+
                 $paginate = $data->paginate($rows);
                 $arr = $paginate->toArray();
                 $result['data'] = $arr['data'];
@@ -153,4 +134,10 @@ class BaseRepository implements EloquentRepositoryInterface
             return $result;
         }
     }
+
+    public function getPagination()
+    {
+        return $this->model::INDEX_VIEW_PAGINATION;
+    }
+
 }

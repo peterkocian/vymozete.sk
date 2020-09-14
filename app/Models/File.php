@@ -6,7 +6,6 @@ use App\Helpers\DateFormatTrait;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class File extends Model
@@ -16,6 +15,11 @@ class File extends Model
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable
      */
     const ENTITY_ROUTE_PREFIX = 'files';
+    const INDEX_VIEW_PAGINATION = true;
+    const INDEX_VIEW_PER_PAGE_SELECT = true;
+
+    const SHOW_TO_CUSTOMER_TRUE = '1';
+    const SHOW_TO_CUSTOMER_FALSE = '0';
 
     /**
      * Nazov tabulky v DB
@@ -30,8 +34,18 @@ class File extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'filename', 'mime', 'ext', 'path', 'size', 'show-to-customer', 'fileable_id', 'fileable_type', 'file_type_id', 'user_id'
+        'name', 'filename', 'mime', 'ext', 'path', 'size', 'show_to_customer', 'fileable_id', 'fileable_type', 'file_type_id', 'user_id'
     ];
+
+    public function getShowToCustomerNameAttribute()
+    {
+        return $this->getShowToCustomerName();
+    }
+
+    public function getFileTypeNameAttribute()
+    {
+        return $this->fileType->name;
+    }
 
     /**
      *
@@ -56,10 +70,20 @@ class File extends Model
     /**
      * A file has one file type
      *
-     * @return HasOne
+     * @return BelongsTo
      */
     public function fileType()
     {
-        return $this->hasOne(FileType::class);
+        return $this->belongsTo(FileType::class);
+    }
+
+    public function getShowToCustomerName()
+    {
+        switch ($this->show_to_customer) {
+            case self::SHOW_TO_CUSTOMER_TRUE:
+                return __('general.Yes');
+            case self::SHOW_TO_CUSTOMER_FALSE:
+                return __('general.No');
+        }
     }
 }

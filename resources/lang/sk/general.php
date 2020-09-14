@@ -15,6 +15,7 @@ return [
     'Cancel' => 'Zrušiť',
     'Confirmation delete' => 'Naozaj chcete vymazať údaje?',
     'Yes' => 'Áno',
+    'No' => 'Nie',
     'Reset Password' => 'Nastavenie nového hesla',
     'Set new password' => 'Nastaviť nové heslo',
 
@@ -48,4 +49,9 @@ return [
     'Ban user' => 'Naozaj chcete zablokovať používateľa?',
     'Unban user' => 'Naozaj chcete odblokovať používateľa?',
     'Reset user password' => 'Mail pre resetnutie hesla bude odoslaný na mailovú adresu: ',
+    'Reset password' => 'Reset hesla',
+    'Ban' => 'Zablokovať',
+    'Unban' => 'Odblokovať',
+
+    'The given data was invalid' => 'Vyplnené údaje nie sú správne.',
 ];

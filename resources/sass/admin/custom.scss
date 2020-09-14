@@ -12,3 +12,13 @@
 .modal-body {
     white-space: normal;
 }
+
+.nav-tabs-custom {
+    background-color: white;
+    a {
+        color: gray;
+    }
+    .nav-link.active {
+        color: #00ADEE;
+    }
+}

@@ -1,13 +1,14 @@
 <template>
     <div class="table-responsive">
+        <!-- start inline new entry -->
         <form class="py-2" v-if="config.config.inlineNew">
             <div class="d-flex flex-wrap">
                 <div v-for="field in config.config.inlineNew.fields" :key="field.id"
                      :class="field.settings.divClass"
                 >
-                    <!-- ak field je input type = text, number, file -->
+                    <!-- ak field je input type = text, number, textarea -->
                     <input
-                        v-if="field.type === 'text' || field.type === 'number' || field.type === 'file' || field.type === 'textarea'"
+                        v-if="field.type === 'text' || field.type === 'number' || field.type === 'textarea'"
                         class="form-control form-control-sm"
                         :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
                         :type="field.type"
@@ -15,7 +16,19 @@
                         :name="field.key"
                         :id="field.key"
                         v-model="newEntry[field.key]"
-                        @change="handleChange($event, field.type)"
+                    >
+                    <!-- ak field je input type = file -->
+                    <input
+                        v-if="field.type === 'file'"
+                        class="form-control form-control-sm"
+                        :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
+                        :type="field.type"
+                        :placeholder="field.label"
+                        :name="field.key+'[]'"
+                        :id="field.key"
+                        v-model="newEntry[field.key]"
+                        @change="handleFilesUpload($event)"
+                        multiple
                     >
                     <!-- ak field je select -->
                     <select
@@ -25,7 +38,7 @@
                         v-model="newEntry[field.key]"
                         :required="field.settings['required']"
                     >
-                        <option v-for="item in field.options" v-bind:value="item.id">{{item.code}}</option>
+                        <option v-for="item in field.options" v-bind:value="item.id">{{item.value}}</option>
                     </select>
                     <!-- ak field je input type checkbox -->
                     <div class="form-check" v-else-if="field.type === 'checkbox'">
@@ -34,9 +47,10 @@
                             :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
                             :type="field.type"
                             :name="field.key"
+                            true-value="1"
+                            false-value="0"
                             :id="field.key"
                             v-model="newEntry[field.key]"
-                            @change="handleChange($event, field.type)"
                         >
                         <label class="form-check-label" :for="field.key">
                             {{ field.label }}
@@ -46,10 +60,10 @@
                     <!--                    <textarea v-else-if="field.type === 'textarea'" class="form-control" rows="3"></textarea>-->
                     <div v-if="errors.hasOwnProperty(field.key)" class="invalid-feedback">{{ errors[field.key][0] }}</div>
                 </div>
-
                 <a
-                    class="btn btn-success btn-sm"
-                    type="button"
+                    class="btn btn-sm btn-outline-success"
+                    role="button"
+                    style="height: max-content;"
                     href=""
                     v-if="config.config.inlineNew.action"
                     v-on:click="config.config.inlineNew.action ? handleActions(config.config.inlineNew.action, config.config.inlineNew.url) : null"
@@ -57,9 +71,9 @@
                 >{{config.config.inlineNew.label}}</a>
             </div>
         </form>
-
+        <!-- ends inline new entry -->
         <b-overlay :show="overlay" rounded="sm" class="h-100">
-            <div class="form-group form-row justify-content-end" v-if="this.config.config.showPagination">
+            <div class="d-flex justify-content-end" v-if="this.config.config.showPagination && this.config.config.showPerPageSelect">
                 <div class="col col-sm-2">
                     <select class="form-control form-control-sm" v-model="rows" @change="reloadData()">
                         <option v-for="item in this.config.config.itemsPerPage" :value="item">{{item}}</option>
@@ -76,8 +90,8 @@
                             @click="column.map ? sortBy(column.map) : sortBy(column.key)"
                             style="cursor:pointer;"
                         >{{column.label}}
-                            <b-icon icon="sort-alpha-down" v-if=" ( column.key === sortKey && sortDirection === 'asc')"></b-icon>
-                            <b-icon icon="sort-alpha-down-alt" v-if=" ( column.key === sortKey && sortDirection === 'desc') "></b-icon>
+                            <b-icon icon="sort-alpha-down" v-if="((column.key === sortKey || column.map === sortKey) && sortDirection === 'asc')"></b-icon>
+                            <b-icon icon="sort-alpha-down-alt" v-if="((column.key === sortKey || column.map === sortKey) && sortDirection === 'desc') "></b-icon>
                         </th>
                         <th style="width: 140px" v-if="config.actions.length > 0">{{config.actionColumnLabel}}</th>
                     </tr>
@@ -147,7 +161,7 @@
                 rows: this.config.config.numberOfRows || null,
                 sortKey: this.config.config.sortKey || null,
                 sortDirection: this.config.config.sortDirection || null,
-                file: null,
+                files: [],
                 newEntry: {},
                 overlay: false,
                 modal: {
@@ -190,7 +204,7 @@
                         this.createItem(url);
                         break;
                     case 'uploadFile':
-                        this.uploadFile(url);
+                        this.submitFiles(url);
                         break;
                 };
             },
@@ -198,7 +212,7 @@
                 axios.post(url, this.newEntry)
                     .then(res => {
                         this.reloadData();
-                        flash({text: 'Item succesfully created', type:'success', timer:3000 });
+                        flash({text: res.data.message, type:'success', timer:3000 });
                     }).catch(e => {
                         console.log(e.response.data.errors);
                         this.errors = e.response.data.errors;
@@ -207,21 +221,37 @@
 
                 this.setDefaultValue();
             },
-            uploadFile(url) {
-                this.newEntry.file = this.file;
+            submitFiles(url) {
                 let formData = new FormData();
+                this.newEntry.file = this.files;
                 // formData.append('test', JSON.stringify(this.newEntry));
                 this.newEntry.filename ? formData.append('filename', this.newEntry.filename) : null;
                 this.newEntry.file_type_id ? formData.append('file_type_id', this.newEntry.file_type_id) : null;
                 this.newEntry.show_to_customer ? formData.append('show_to_customer', this.newEntry.show_to_customer) : null;
-                formData.append('file', this.file);
-                axios.post(url, formData)
+                //singe - file
+                // formData.append('files', this.newEntry.file);
+                //multiple files
+                for( let i = 0; i < this.files.length; i++ ){
+                    let file = this.files[i];
+
+                    formData.append('uploads[' + i + ']', file);
+                }
+                axios.post(
+                    url,
+                    formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
                     .then(res => {
+                        console.log(res.data)
+                        this.errors = {};
                         this.reloadData();
-                        flash({text: 'File successfully uploaded', type:'success', timer:3000 });
+                        flash({text: res.data.message, type:'success', timer:3000 });
                     }).catch(e => {
                         this.errors = e.response.data.errors;
-                        flash({text: `Something went wrong in uploadFile: ${e}`, type:'error', timer:null });
+                        flash({text: `submitFiles: ${e.response.data.message}`, type:'error', timer:null });
                     });
 
                 this.setDefaultValue();
@@ -252,7 +282,8 @@
                     this.hideOverlay();
                 }).catch(e => {
                     this.hideOverlay();
-                    flash({text: `Something went wrong in reloadData: ${e}`, type:'error', timer:null });
+                    let message = e.response.data.errors ?? e;
+                    flash({text: `reloadData: ${message}`, type:'error', timer:null });
                 });
             },
             setDefaultValue() {
@@ -267,15 +298,14 @@
                     // }
                 }).then(res => {
                     this.reloadData();
-                    flash({text: 'Deleted successfully', type:'success', timer:3000 });
+                    flash({text: res.data.message, type:'success', timer:3000 });
                 }).catch(e => {
-                    flash({text: `Something went wrong in handleAjaxDelete: ${e}`, type:'error', timer:null });
+                    console.log(e.response.data.message);
+                    flash({text: `handleAjaxModalSubmit: ${e.response.data.message}`, type:'error', timer:null });
                 });
             },
-            handleChange(e, type) {
-                if (type === 'file') {
-                    this.file = e.target.files[0];
-                }
+            handleFilesUpload(e) {
+                this.files = e.target.files;
             },
             sortBy(key) {
                 // sortovanie podla stlpca. kluc moze byt bud key, alebo map parameter

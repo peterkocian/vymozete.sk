@@ -25,10 +25,11 @@
     $config = [
         'reloadUrl'     => "/admin/users",
         'showPagination' => \App\User::INDEX_VIEW_PAGINATION,
+        'showPerPageSelect' => \App\User::INDEX_VIEW_PER_PAGE_SELECT,
         'itemsPerPage'  => \App\Helpers\SimpleTable::ITEMS_PER_PAGE,
         'numberOfRows'  => \App\Helpers\SimpleTable::NUMBER_OF_ROWS,
-        'sortKey'       => 'created_at',
-        'sortDirection' => 'asc',
+        'sortKey'       => \App\Helpers\SimpleTable::SORT_KEY,
+        'sortDirection' => \App\Helpers\SimpleTable::SORT_DIRECTION,
     ];
 
     $actions = [
@@ -36,21 +37,21 @@
             'label' => 'visibility',
             'title' => __('general.Detail'),
             'key' => 'detail',
-            'class' => 'btn btn-primary btn-sm mr-1',
+            'class' => 'btn btn-outline-primary btn-sm mr-1',
             'url' => url(config('simple-table.route-prefix').'/'.\App\User::ENTITY_ROUTE_PREFIX.'/{id}')
         ],
         [
             'label' => 'edit',
             'title' => __('general.Edit'),
             'key' => 'edit',
-            'class' => 'btn btn-primary btn-sm mr-1',
+            'class' => 'btn btn-outline-primary btn-sm mr-1',
             'url' => url(config('simple-table.route-prefix').'/'.\App\User::ENTITY_ROUTE_PREFIX.'/{id}/edit')
         ],
         [
             'label' => 'delete',
             'title' => __('general.Delete'),
             'key' => 'delete',
-            'class' => 'btn btn-sm btn-danger mr-1',
+            'class' => 'btn btn-sm btn-outline-danger mr-1',
             'url' => url(config('simple-table.route-prefix').'/'.\App\User::ENTITY_ROUTE_PREFIX.'/{id}'),
             'dataToggle' => 'modal',
             'dataTarget' => '#modalConfirm',
@@ -61,7 +62,7 @@
             'label' => 'block',
             'title' => __('general.Ban'),
             'key' => 'ban',
-            'class' => 'btn btn-sm btn-danger mr-1',
+            'class' => 'btn btn-sm btn-outline-danger mr-1',
             'url' => url(config('simple-table.route-prefix').'/'.\App\User::ENTITY_ROUTE_PREFIX.'/{id}/ban'),
             'dataToggle' => 'modal',
             'dataTarget' => '#modalConfirm',
@@ -72,7 +73,7 @@
             'label' => 'refresh',
             'title' => __('general.Unban'),
             'key' => 'unban',
-            'class' => 'btn btn-sm btn-success mr-1',
+            'class' => 'btn btn-sm btn-outline-success mr-1',
             'url' => url(config('simple-table.route-prefix').'/'.\App\User::ENTITY_ROUTE_PREFIX.'/{id}/unban'),
             'dataToggle' => 'modal',
             'dataTarget' => '#modalConfirm',
@@ -81,9 +82,9 @@
         ],
         [
             'label' => 'email',
-            'title' => __('general.Reset mail'),
+            'title' => __('general.Reset password'),
             'key' => 'passwordReset',
-            'class' => 'btn btn-sm btn-info',
+            'class' => 'btn btn-sm btn-outline-primary',
             'url' => url('password/email'),
             'dataToggle' => 'modal',
             'dataTarget' => '#modalConfirm',

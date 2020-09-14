@@ -14274,3 +14274,15 @@ span {
   white-space: normal;
 }
 
+.nav-tabs-custom {
+  background-color: white;
+}
+
+.nav-tabs-custom a {
+  color: gray;
+}
+
+.nav-tabs-custom .nav-link.active {
+  color: #00ADEE;
+}
+

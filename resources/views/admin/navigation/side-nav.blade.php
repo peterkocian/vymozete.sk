@@ -11,30 +11,20 @@
                 ]
             ],
             [
-                "title" => "settings",
+                "title" => "user-management",
                 "subItems" => [
                     [
-                        "icon" => "supervised_user_circle",
+                        "icon" => "group",
                         "title" => __('menu-item.Users'),
                         "src" => "/admin/users"
-                    ]
-                ]
-            ],
-            [
-                "title" => "settings",
-                "subItems" => [
+                    ],
                     [
-                        "icon" => "supervised_user_circle",
+                        "icon" => "account_tree",
                         "title" => __('menu-item.Roles'),
                         "src" => "/admin/roles"
-                    ]
-                ]
-            ],
-            [
-                "title" => "settings",
-                "subItems" => [
+                    ],
                     [
-                        "icon" => "supervised_user_circle",
+                        "icon" => "assignment_ind",
                         "title" => __('menu-item.Permissions'),
                         "src" => "/admin/permissions"
                     ]

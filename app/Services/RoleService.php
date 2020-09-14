@@ -49,7 +49,7 @@ class RoleService
         } catch (Exception $e) {
             DB::rollBack();
 //            Log::info($e->getMessage());
-            throw new Exception('Nepodarilo sa ulozit udaje'. $e->getMessage());
+            throw new Exception($e->getMessage());
         }
 
         return $result;
@@ -80,7 +80,7 @@ class RoleService
         } catch (Exception $e) {
             DB::rollBack();
 //            Log::info($e->getMessage());
-            throw new Exception('Nepodarilo sa ulozit udaje'. $e->getMessage());
+            throw new Exception($e->getMessage());
         }
 
         return $result;

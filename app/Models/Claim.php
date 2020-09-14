@@ -10,7 +10,8 @@ class Claim extends Model
 {
     use DateFormatTrait;
     const DEFAULT_STATE_ID = 1; //todo iba docasne
-    const INDEX_VIEW_PAGINATION = false;
+    const INDEX_VIEW_PAGINATION = true;
+    const INDEX_VIEW_PER_PAGE_SELECT = true;
 
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable
@@ -25,6 +26,12 @@ class Claim extends Model
     protected $table = 'claim';
 
     /**
+     * Vsetky tieto atributy su automaticky priradene ku modelu, ked sa tahaju data z DB cez tento model.
+     *
+     * @var string[]
+     */
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -34,6 +41,27 @@ class Claim extends Model
     public function getAmountWithCurrencyAttribute()
     {
         return $this->amount . ' ' . $this->currency->symbol;
+    }
+
+    public function getDebtorFullNameAttribute()
+    {
+        return $this->debtor->entity->fullname;
+    }
+
+    public function getCreditorFullNameAttribute()
+    {
+        return $this->creditor->entity->fullname;
+    }
+
+    public function getTypeNameAttribute()
+    {
+        //todo prerobit asi do repository
+        return $this->claimType->translation(\Illuminate\Support\Facades\Auth::user()->language_id)->firstOrFail()->name;
+    }
+
+    public function getStatusNameAttribute()
+    {
+        return $this->claimStatus->name;
     }
 
     /**
@@ -53,7 +81,7 @@ class Claim extends Model
     }
 
     /**
-     * Get the claim_status record associated with the claim.
+     * Get the currency record associated with the claim.
      */
     public function currency()
     {

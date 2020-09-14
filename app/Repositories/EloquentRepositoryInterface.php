@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * Interface EloquentRepositoryInterface
@@ -38,7 +37,7 @@ interface EloquentRepositoryInterface
      * @param int $id
      * @return bool
      */
-    public function delete(int $id): boolean;
+    public function delete(int $id): bool;
 
     /**
      * Updates an entity by it's ID.
@@ -48,4 +47,6 @@ interface EloquentRepositoryInterface
      * @return Model
      */
     public function update(array $attributes, int $id): Model;
+
+    public function getTableData(Model $model);
 }

@@ -6,7 +6,6 @@ use App\Http\Requests\UserProfileFrontRequest;
 use App\Repositories\ClaimRepositoryInterface;
 use App\Services\LanguageService;
 use App\Services\UserService;
-use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -69,7 +68,7 @@ class HomeController extends Controller
                 report($e);
 
                 return back()
-                    ->withFail(__('general.Create failed') . PHP_EOL . $e->getMessage())
+                    ->withFail(__('general.Create failed') . ' ' . $e->getMessage())
                     ->withInput();
             }
 

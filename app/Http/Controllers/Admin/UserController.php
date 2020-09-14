@@ -86,7 +86,7 @@ class UserController extends Controller
             report($e);
 
             return back()
-                ->withFail(__('general.Create failed').PHP_EOL.$e->getMessage())
+                ->withFail(__('general.Create failed').' '.$e->getMessage())
                 ->withInput();
         }
 
@@ -167,7 +167,7 @@ class UserController extends Controller
             report($e);
 
             return back()
-                ->withFail(__('general.Create failed').PHP_EOL.$e->getMessage())
+                ->withFail(__('general.Create failed').' '.$e->getMessage())
                 ->withInput();
         }
 
@@ -187,7 +187,7 @@ class UserController extends Controller
                 report($e);
 
                 return back()
-                    ->withFail(__('general.Create failed') . PHP_EOL . $e->getMessage())
+                    ->withFail(__('general.Create failed') . ' ' . $e->getMessage())
                     ->withInput();
             }
 
@@ -258,7 +258,7 @@ class UserController extends Controller
             report($e);
 
             return back()
-                ->withFail(__('general.Create failed').PHP_EOL.$e->getMessage())
+                ->withFail(__('general.Create failed').' '.$e->getMessage())
                 ->withInput();
         }
 
@@ -293,7 +293,7 @@ class UserController extends Controller
             report($e);
 
             return back()
-                ->withFail(__('general.Create failed').PHP_EOL.$e->getMessage())
+                ->withFail(__('general.Create failed').' '.$e->getMessage())
                 ->withInput();
         }
 

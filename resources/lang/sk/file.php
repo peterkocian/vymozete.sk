@@ -10,4 +10,6 @@ return [
     'File type' => 'Typ súboru',
     'File' => 'Súbor',
     'User' => 'Používateľ',
+
+    'File successfully uploaded' => 'Súbor úspešne uložený',
 ];

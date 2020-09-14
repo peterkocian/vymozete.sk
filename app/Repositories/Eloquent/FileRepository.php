@@ -2,9 +2,10 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Models\Claim;
 use App\Models\File;
 use App\Repositories\FileRepositoryInterface;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Builder;
 
 class FileRepository extends BaseRepository implements FileRepositoryInterface
 {
@@ -16,5 +17,18 @@ class FileRepository extends BaseRepository implements FileRepositoryInterface
     public function __construct(File $model)
     {
         parent::__construct($model);
+    }
+
+    public function getData(int $claim_id): Builder
+    {
+        return Claim::find($claim_id)->files()->getQuery();
+    }
+
+    public function getRelatedData($data): array
+    {
+        return $data->append([
+            'showToCustomerName',
+            'fileTypeName',
+        ])->toArray();
     }
 }

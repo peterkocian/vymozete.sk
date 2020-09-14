@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header">{{__('note.Title')}}</div>
         <div class="card-body">
-            <form method="post" action="{{route('admin.notes.update', $note->id)}}">
+            <form method="post" action="{{route('admin.claims.notes.update', [$claim_id, $note['id']])}}">
                 @csrf
                 @method('put')
                 @include('admin.notes._form', [])

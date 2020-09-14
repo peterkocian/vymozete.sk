@@ -20,6 +20,7 @@ class User extends Authenticatable
     use Notifiable, HasPermissionsTrait, DateFormatTrait;
 
     const INDEX_VIEW_PAGINATION = true;
+    const INDEX_VIEW_PER_PAGE_SELECT = false;
 
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable

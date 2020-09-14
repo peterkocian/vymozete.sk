@@ -7,13 +7,13 @@
         ],
         [
             'label' => __('claim.Creditor'),
-            'key' => 'creditorPlain',
+            'key' => 'creditorFullName',
             'type' => 'text',
             'map' => 'creditor_id'
         ],
         [
             'label' => __('claim.Debtor'),
-            'key' => 'debtorPlain',
+            'key' => 'debtorFullName',
             'type' => 'text',
             'map' => 'debtor_id'
         ],
@@ -25,13 +25,13 @@
         ],
         [
             'label' => __('claim.Status'),
-            'key' => 'statusPlain',
+            'key' => 'statusName',
             'type' => 'text',
             'map' => 'claim_status_id'
         ],
         [
             'label' => __('claim.Type'),
-            'key' => 'typePlain',
+            'key' => 'typeName',
             'type' => 'text',
             'map' => 'claim_type_id'
         ],
@@ -45,10 +45,11 @@
     $config = [
         'reloadUrl'     => "/admin/claims",
         'showPagination' => \App\Models\Claim::INDEX_VIEW_PAGINATION,
+        'showPerPageSelect' => \App\Models\Claim::INDEX_VIEW_PER_PAGE_SELECT,
         'itemsPerPage'  => \App\Helpers\SimpleTable::ITEMS_PER_PAGE,
         'numberOfRows'  => \App\Helpers\SimpleTable::NUMBER_OF_ROWS,
-        'sortKey'       => 'created_at',
-        'sortDirection' => 'asc',
+        'sortKey'       => \App\Helpers\SimpleTable::SORT_KEY,
+        'sortDirection' => \App\Helpers\SimpleTable::SORT_DIRECTION,
     ];
 
     $actions = [
@@ -56,7 +57,7 @@
             'label' => 'visibility',
             'title' => __('general.Detail'),
             'key' => 'detail',
-            'class' => 'btn btn-primary btn-sm mr-1',
+            'class' => 'btn btn-sm btn-outline-primary mr-1',
             'url' => url(config('simple-table.route-prefix').'/'.\App\Models\Claim::ENTITY_ROUTE_PREFIX.'/{id}/overview')
         ],
     ];

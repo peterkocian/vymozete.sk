@@ -10,4 +10,6 @@ return [
     'File type' => 'File type',
     'File' => 'File',
     'User' => 'User',
+
+    'File successfully uploaded' => 'File successfully uploaded',
 ];

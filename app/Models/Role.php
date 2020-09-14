@@ -13,6 +13,7 @@ class Role extends Model
     use HasPermissionsTrait, DateFormatTrait;
 
     const INDEX_VIEW_PAGINATION = false;
+    const INDEX_VIEW_PER_PAGE_SELECT = false;
 
     /**
      * Nazov tabulky v DB
@@ -26,7 +27,7 @@ class Role extends Model
      *
      * @var string[]
      */
-    protected $touches = ['users'];
+//    protected $touches = ['users'];
 
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable

@@ -66,7 +66,7 @@ class PermissionController extends Controller
             report($e);
 
             return back()
-                ->withFail(__('general.Create failed').PHP_EOL.$e->getMessage())
+                ->withFail(__('general.Create failed') . ' ' . $e->getMessage())
                 ->withInput();
         }
 
@@ -122,7 +122,7 @@ class PermissionController extends Controller
             report($e);
 
             return back()
-                ->withFail(__('general.Create failed').PHP_EOL.$e->getMessage())
+                ->withFail(__('general.Create failed') . ' ' . $e->getMessage())
                 ->withInput();
         }
 

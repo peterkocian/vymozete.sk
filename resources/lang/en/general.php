@@ -15,6 +15,7 @@ return [
     'Cancel' => 'Cancel',
     'Confirmation delete' => 'Are you sure?',
     'Yes' => 'Yes',
+    'No' => 'No',
     'Reset Password' => 'Reset Password',
     'Set new password' => 'Set new password',
 
@@ -48,4 +49,9 @@ return [
     'Ban user' => 'Are you sure you want to ban this user?',
     'Unban user' => 'Are you sure you want to unban this user?',
     'Reset user password' => 'Password reset mail will be sent to: ',
+    'Reset password' => 'Reset password',
+    'Ban' => 'Ban user',
+    'Unban' => 'Unban user',
+
+    'The given data was invalid' => 'The given data was invalid.',
 ];

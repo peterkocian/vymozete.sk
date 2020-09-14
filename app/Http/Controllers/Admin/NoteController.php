@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NoteSaveRequest;
-use App\Models\Note;
 use App\Services\ClaimService;
 use App\Services\NoteService;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Response;
 
 class NoteController extends Controller
 {
@@ -25,17 +24,15 @@ class NoteController extends Controller
         // return Note::all();
     }
 
-    public function getByClaimId(int $claim_id)
+    public function getAllByClaimId(int $claim_id)
     {
         $result = $this->noteService->notesByClaimId($claim_id);
-
-        $claim = $this->claimService->get($claim_id);
 
         if (request()->ajax()) {
             return response()->json($result);
         }
         return view('admin.claims.main', [
-            'claim' => $claim,
+            'claim_id' => $claim_id,
             'data' => $result,
             'tab' => 'notes'
         ]);
@@ -43,36 +40,41 @@ class NoteController extends Controller
 
     public function store(NoteSaveRequest $request, int $claim_id)
     {
-        if ($request->ajax())
-        {
-            $data = $request->except('_token', '_method');
+        $data = $request->all();
 
-            try {
-                $result = $this->noteService->saveNote($data, $claim_id);
-            } catch (\Exception $e) {
-                report($e);
+        try {
+            $result = $this->noteService->saveNote($data, $claim_id);
+        } catch (\Exception $e) {
+            report($e);
 
+            if ($request->ajax()) {
                 return response()->json([
                     'success' => false,
-                    'message' => __('general.Create failed') . PHP_EOL . $e->getMessage(),
-                ], 500);
+                    'message' => __('general.Create failed') . ' ' . $e->getMessage(),
+                ], $e->getCode());
+            } else {
+                return redirect()
+                    ->route('admin.claims.notes.allByClaimId', $claim_id)
+                    ->withFail(__('general.Create failed') . ' ' . $e->getMessage());
             }
+        }
 
+        if ($request->ajax()) {
             return response()->json([
                 'success' => true,
                 'id' => $result->id,
                 'message' => __('general.Created successfully'),
             ], 200);
+        } else {
+            return back()
+                ->withSuccess(__('general.Created successfully'));
         }
-
-        return back()
-            ->withFail('povoleny iba ajax request');
     }
 
-    public function edit(int $id)
+    public function edit(int $claim_id, int $note_id)
     {
         try {
-            $result = $this->noteService->get($id);
+            $result = $this->noteService->get($note_id);
         } catch (\Exception $e) {
             report($e);
 
@@ -81,37 +83,57 @@ class NoteController extends Controller
                 ->withFail($e->getMessage());
         }
 
-        return view('admin.notes.edit', ['note' => $result]);
+        return view('admin.notes.edit', ['note' => $result, 'claim_id' => $claim_id]);
     }
 
-    public function update(int $id)
+    public function update(NoteSaveRequest $request, int $claim_id, int $note_id)
     {
-        $data = request()->except('_token', '_method');
+
+        $data = $request->all();
 
         try {
-            $result = $this->noteService->updateNote($data, $id);
-        } catch (ValidationException $e) {
-            report($e);
+            $this->noteService->updateNote($data, $note_id);
 
-            return back()
-                ->withFail(__('general.Create failed'))
-                ->withErrors($e->validator)
-                ->withInput();
+            return redirect()
+                ->route('admin.claims.notes.allByClaimId', $claim_id)
+                ->withSuccess(__('general.Updated successfully'));
         } catch (\Exception $e) {
             report($e);
 
             return back()
-                ->withFail(__('general.Create failed').PHP_EOL.$e->getMessage())
+                ->withFail(__('general.Update failed') . ' ' . $e->getMessage())
                 ->withInput();
         }
-
-        return redirect()
-            ->route('admin.claims.notes.byClaimId', 1)
-            ->withSuccess(__('general.Created successfully'));
     }
 
-    public function destroy(int $id)
+    public function destroy(int $claim_id, int $note_id)
     {
-        Note::findOrFail($id)->delete();
+        try {
+            $this->noteService->destroy($note_id);
+
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'id' => $note_id,
+                    'message' => __('general.Deleted successfully'),
+                ], 200);
+            } else {
+                return redirect()
+                    ->route('admin.claims.notes.allByClaimId', $claim_id)
+                    ->withSuccess(__('general.Deleted successfully'));
+            }
+        } catch (\Exception $e) {
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'id' => $note_id,
+                    'message' => $e->getMessage(),
+                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+            } else {
+                return redirect()
+                    ->route('admin.claims.notes.allByClaimId', $claim_id)
+                    ->withFail(__('general.Delete failed') . ' ' . $e->getMessage());
+            }
+        }
     }
 }

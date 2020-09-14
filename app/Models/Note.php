@@ -11,6 +11,7 @@ class Note extends Model
 
     const ENTITY_ROUTE_PREFIX = 'notes';
     const INDEX_VIEW_PAGINATION = true;
+    const INDEX_VIEW_PER_PAGE_SELECT = false;
 
     /**
      * Nazov tabulky v DB

@@ -22,7 +22,7 @@ class Permission extends Model
      *
      * @var string[]
      */
-    protected $touches = ['users','roles'];
+//    protected $touches = ['users','roles'];
 
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable

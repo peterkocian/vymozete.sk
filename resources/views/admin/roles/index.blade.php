@@ -22,8 +22,8 @@
         'showPagination' => \App\Models\Role::INDEX_VIEW_PAGINATION,
         'itemsPerPage'  => \App\Helpers\SimpleTable::ITEMS_PER_PAGE,
         'numberOfRows'  => \App\Helpers\SimpleTable::NUMBER_OF_ROWS,
-        'sortKey'       => 'created_at',
-        'sortDirection' => 'asc',
+        'sortKey'       => \App\Helpers\SimpleTable::SORT_KEY,
+        'sortDirection' => \App\Helpers\SimpleTable::SORT_DIRECTION,
     ];
 
     $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\Models\Role::ENTITY_ROUTE_PREFIX, $config);
