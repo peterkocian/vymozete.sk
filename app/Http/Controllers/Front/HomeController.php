@@ -7,6 +7,7 @@ use App\Repositories\ClaimRepositoryInterface;
 use App\Services\LanguageService;
 use App\Services\UserService;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -14,7 +15,7 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
 
     private $claimRepository;
@@ -37,7 +38,6 @@ class HomeController extends Controller
         return view('front/home', ['claims' => $claims]);
     }
 
-    //todo User model vymenit za Repository
     public function editProfile(int $id)
     {
         if(Auth::id() == $id) {

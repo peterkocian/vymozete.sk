@@ -37,8 +37,7 @@ class ClaimRepository extends BaseRepository implements ClaimRepositoryInterface
         return Claim::query();
     }
 
-//    todo zistit ktory interface predpisuje tuto funkciu
-    public function getRelatedData($data): array
+    public function getRelatedData($data): Collection
     {
         return $data->append([
             'amountWithCurrency',
@@ -46,6 +45,6 @@ class ClaimRepository extends BaseRepository implements ClaimRepositoryInterface
             'creditorFullName',
             'typeName',
             'statusName'
-        ])->toArray();
+        ]);
     }
 }

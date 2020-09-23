@@ -51,7 +51,7 @@ class NoteController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => __('general.Create failed') . ' ' . $e->getMessage(),
-                ], $e->getCode());
+                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
             } else {
                 return redirect()
                     ->route('admin.claims.notes.allByClaimId', $claim_id)
@@ -64,7 +64,7 @@ class NoteController extends Controller
                 'success' => true,
                 'id' => $result->id,
                 'message' => __('general.Created successfully'),
-            ], 200);
+            ], Response::HTTP_OK);
         } else {
             return back()
                 ->withSuccess(__('general.Created successfully'));
@@ -78,7 +78,6 @@ class NoteController extends Controller
         } catch (\Exception $e) {
             report($e);
 
-            //todo dopisat error message - vymysliet standard
             return back()
                 ->withFail($e->getMessage());
         }
@@ -88,7 +87,6 @@ class NoteController extends Controller
 
     public function update(NoteSaveRequest $request, int $claim_id, int $note_id)
     {
-
         $data = $request->all();
 
         try {
@@ -116,7 +114,7 @@ class NoteController extends Controller
                     'success' => true,
                     'id' => $note_id,
                     'message' => __('general.Deleted successfully'),
-                ], 200);
+                ], Response::HTTP_OK);
             } else {
                 return redirect()
                     ->route('admin.claims.notes.allByClaimId', $claim_id)

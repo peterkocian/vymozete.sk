@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -48,5 +49,8 @@ interface EloquentRepositoryInterface
      */
     public function update(array $attributes, int $id): Model;
 
+//    public function getData(Model $model): Builder;
     public function getTableData(Model $model);
+
+    public function getPagination();
 }

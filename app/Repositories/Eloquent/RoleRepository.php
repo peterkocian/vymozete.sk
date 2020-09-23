@@ -69,6 +69,6 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface
      */
     public function index()
     {
-        return $this->getTableData($this->model);
+        return $this->getData($this->model);
     }
 }

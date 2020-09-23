@@ -160,8 +160,7 @@ class UserService
             'name'      => 'required|max:191',
             'surname'   => 'required|max:191',
             'password'  => ['nullable','confirmed',new StrongPassword()],
-//            todo email nemoze byt nullebale ale required
-            'email'     => ['nullable','email',new EmailMustHaveTLD,'unique:users,email,'.$id],
+            'email'     => ['required','email',new EmailMustHaveTLD,'unique:users,email,'.$id],
             'roles'     => 'required_without:permissions',
             'permissions' => 'required_without:roles',
             'banned'    => 'nullable|boolean'

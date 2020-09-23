@@ -6,6 +6,7 @@ use App\Helpers\SimpleTable;
 use App\Models\Claim;
 use App\Models\Note;
 use App\Repositories\NoteRepositoryInterface;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,10 +27,10 @@ class NoteRepository extends BaseRepository implements NoteRepositoryInterface
      * Create an entity.
      *
      * @param array $attributes
-     * @param $claim_id
+     * @param int $claim_id
      * @return Model
      */
-    public function save(array $attributes, $claim_id): Model
+    public function save(array $attributes, int $claim_id): Model
     {
         $claim = Claim::findOrFail($claim_id);
         $attributes['claim_id'] = $claim->id;
@@ -47,44 +48,19 @@ class NoteRepository extends BaseRepository implements NoteRepositoryInterface
                 report($e);
                 throw new \Exception('Poznamku sa nepodarilo najst.'. $e->getMessage());
             }
-        }
 
-        if ($note) {
-            $note->update($attributes);
+            if ($note) {
+                $note->update($attributes);
 
-            return $note;
-        }
-    }
-
-    public function notesByClaimId(int $claim_id)
-    {
-        return $this->getTableDataa($this->model, $claim_id);
-    }
-
-    //todo
-    public function getTableDataa(Model $model, int $claim_id)
-    {
-        $pagination = request('pagination') ?? $model::INDEX_VIEW_PAGINATION;
-
-        if ($model)
-        {
-            $rows = request('rows') ? intval(request('rows')) : SimpleTable::NUMBER_OF_ROWS;
-            $sortKey = request('sortKey') ? request('sortKey') : SimpleTable::SORT_KEY;
-            $sortDirection = request('sortDirection') ? request('sortDirection') : SimpleTable::SORT_DIRECTION;
-
-            $data = $model::where('claim_id', $claim_id)->orderBy($sortKey, $sortDirection);
-
-            if ($pagination) {
-                $paginate = $data->paginate($rows);
-                $arr = $paginate->toArray();
-                $result['data'] = $arr['data'];
-                unset($arr['data']);  // z povodneho objektu paginate ktory vracia Laravel mazem data, aby mi v result['pagination'] posielalo na FE iba info o strankovani
-                $result['pagination'] = $arr;
-            } else {
-                $result = $data->get()->toArray();
+                return $note;
             }
-
-            return $result;
         }
+
+        throw new \Exception('Nezname id');
+    }
+
+    public function getData(int $claim_id): Builder
+    {
+        return Claim::find($claim_id)->notes()->getQuery();
     }
 }

@@ -37,12 +37,12 @@ class ClaimService
             $rows = request('rows') ? intval(request('rows')) : SimpleTable::NUMBER_OF_ROWS;
 
             $paginate = $query->paginate($rows);
-            $data['data'] = $this->claimRepository->getRelatedData($paginate);
+            $data['data'] = $this->claimRepository->getRelatedData($paginate)->toArray();
             $pag = $paginate->toArray();
             unset($pag['data']);  // z povodneho objektu paginate ktory vracia Laravel mazem data, aby mi v result['pagination'] posielalo na FE iba info o strankovani
             $data['pagination'] = $pag;
         } else {
-            $data = $this->claimRepository->getRelatedData($query->get());
+            $data = $this->claimRepository->getRelatedData($query->get())->toArray();
         }
 
         return $data;

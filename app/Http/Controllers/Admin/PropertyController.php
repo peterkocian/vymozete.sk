@@ -58,7 +58,7 @@ class PropertyController extends Controller
                     return response()->json([
                         'success' => false,
                         'message' => __('general.Create failed') . ' ' . $e->getMessage(),
-                    ], $e->getCode());
+                    ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
                 } else {
                     return redirect()
                         ->route('admin.claims.properties.allByClaimId', $claim_id)

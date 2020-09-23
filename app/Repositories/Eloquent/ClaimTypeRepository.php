@@ -22,6 +22,7 @@ class ClaimTypeRepository extends BaseRepository implements ClaimTypeRepositoryI
     public function translation(int $language_id): Collection
     {
         //todo
+        dd('claimTypeRepository:translation');
         return $this->model->translation(2);
     }
 }

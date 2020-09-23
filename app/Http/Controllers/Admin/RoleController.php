@@ -40,7 +40,6 @@ class RoleController extends Controller
         } catch (\Exception $e) {
             report($e);
 
-            //todo dopisat error message - vymysliet standard
             return back()
                 ->withFail($e->getMessage());
         }
@@ -86,7 +85,6 @@ class RoleController extends Controller
         } catch (\Exception $e) {
             report($e);
 
-            //todo dopisat error message - vymysliet standard
             return back()
                 ->withFail($e->getMessage());
         }
@@ -101,7 +99,6 @@ class RoleController extends Controller
         } catch (\Exception $e) {
             report($e);
 
-            //todo dopisat error message - vymysliet standard
             return back()
                 ->withFail($e->getMessage());
         }
@@ -141,7 +138,6 @@ class RoleController extends Controller
         } catch (\Exception $e) {
             report($e);
 
-            //todo dopisat error message - vymysliet standard
             return back()
                 ->withFail($e->getMessage());
         }

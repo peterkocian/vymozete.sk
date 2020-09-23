@@ -1,7 +1,7 @@
 <div class="form-group row">
     <label for="name" class="col-sm-2 col-form-label">{{__('user.Name')}}</label>
     <div class="col-sm-10">
-        <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" id="name" type="text" name="name" value="{{ old('name', $user->name ?? null) }}" required autofocus/>
+        <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" id="name" type="text" name="name" value="{{ old('name', $user->name ?? null) }}"  autofocus/>
         @error('name')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
@@ -10,7 +10,7 @@
 <div class="form-group row">
     <label for="surname" class="col-sm-2 col-form-label">{{__('user.Surname')}}</label>
     <div class="col-sm-10">
-        <input class="form-control {{ $errors->has('surname') ? 'is-invalid' : '' }}" id="surname" type="text" name="surname" value="{{ old('surname', $user->surname ?? null) }}" required/>
+        <input class="form-control {{ $errors->has('surname') ? 'is-invalid' : '' }}" id="surname" type="text" name="surname" value="{{ old('surname', $user->surname ?? null) }}" />
         @error('surname')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
@@ -19,7 +19,7 @@
 <div class="form-group row">
     <label for="email" class="col-sm-2 col-form-label">{{__('user.Email')}}</label>
     <div class="col-sm-10">
-        <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" type="email" name="email" value="{{ old('email', $user->email ?? null) }}" required/>
+        <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" type="email" name="email" value="{{ old('email', $user->email ?? null) }}" />
         @error('email')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
@@ -28,7 +28,7 @@
 <div class="form-group row">
     <label for="password" class="col-sm-2 col-form-label">{{__('user.Password')}}</label>
     <div class="col-sm-10">
-        <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" id="password" type="password" name="password" @if($requirePassword) value="{{ old('password', $user->password ?? null) }}" required @endif/>
+        <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" id="password" type="password" name="password" @if($requirePassword) value="{{ old('password', $user->password ?? null) }}"  @endif/>
         @foreach ($errors->get('password') as $message)
             <div class="invalid-feedback">{{ $message }}</div>
         @endforeach
@@ -37,7 +37,7 @@
 <div class="form-group row">
     <label for="password_confirmation" class="col-sm-2 col-form-label">{{__('user.Password confirmation')}}</label>
     <div class="col-sm-10">
-        <input class="form-control" id="password_confirmation" type="password" name="password_confirmation" @if($requirePassword) value="{{ old('password_confirmation') }}" required @endif/>
+        <input class="form-control" id="password_confirmation" type="password" name="password_confirmation" @if($requirePassword) value="{{ old('password_confirmation') }}"  @endif/>
     </div>
 </div>
 <div class="form-group row">

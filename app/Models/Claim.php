@@ -10,8 +10,8 @@ class Claim extends Model
 {
     use DateFormatTrait;
     const DEFAULT_STATE_ID = 1; //todo iba docasne
-    const INDEX_VIEW_PAGINATION = true;
-    const INDEX_VIEW_PER_PAGE_SELECT = true;
+    const INDEX_VIEW_PAGINATION = false;
+    const INDEX_VIEW_PER_PAGE_SELECT = false;
 
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable
@@ -55,7 +55,6 @@ class Claim extends Model
 
     public function getTypeNameAttribute()
     {
-        //todo prerobit asi do repository
         return $this->claimType->translation(\Illuminate\Support\Facades\Auth::user()->language_id)->firstOrFail()->name;
     }
 

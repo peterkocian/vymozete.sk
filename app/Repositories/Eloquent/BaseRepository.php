@@ -123,10 +123,10 @@ class BaseRepository implements EloquentRepositoryInterface
                 $rows = request('rows') ? intval(request('rows')) : SimpleTable::NUMBER_OF_ROWS;
 
                 $paginate = $data->paginate($rows);
-                $arr = $paginate->toArray();
-                $result['data'] = $arr['data'];
-                unset($arr['data']);  // z povodneho objektu paginate ktory vracia Laravel mazem data, aby mi v result['pagination'] posielalo na FE iba info o strankovani
-                $result['pagination'] = $arr;
+                $result['data'] = $paginate->items();
+                $pag = $paginate->toArray();
+                unset($pag['data']);  // z povodneho objektu paginate ktory vracia Laravel mazem data, aby mi v result['pagination'] posielalo na FE iba info o strankovani
+                $result['pagination'] = $pag;
             } else {
                 $result = $data->get()->toArray();
             }
@@ -134,6 +134,32 @@ class BaseRepository implements EloquentRepositoryInterface
             return $result;
         }
     }
+
+//    public function getData(Model $model)
+//    {
+//        $sortKey = request('sortKey') ? request('sortKey') : SimpleTable::SORT_KEY;
+//        $sortDirection = request('sortDirection') ? request('sortDirection') : SimpleTable::SORT_DIRECTION;
+//        $pagination = request('pagination') ?? $this->getPagination();
+//
+//        //sort data
+//        $query = $model::orderBy($sortKey,$sortDirection);
+//
+//        if ($pagination) {
+//            $rows = request('rows') ? intval(request('rows')) : SimpleTable::NUMBER_OF_ROWS;
+//
+//            $paginate = $query->paginate($rows);
+////            $data['data'] = $this->claimRepository->getRelatedData($paginate)->toArray();
+//            $data['data'] = $paginate->items();
+//            $pag = $paginate->toArray();
+//            unset($pag['data']);  // z povodneho objektu paginate ktory vracia Laravel mazem data, aby mi v result['pagination'] posielalo na FE iba info o strankovani
+//            $data['pagination'] = $pag;
+//        } else {
+////            $data = $this->claimRepository->getRelatedData($query->get())->toArray();
+//            $data = $query->get()->toArray();
+//        }
+//
+//        return $data;
+//    }
 
     public function getPagination()
     {

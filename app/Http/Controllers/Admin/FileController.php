@@ -23,7 +23,6 @@ class FileController extends Controller
 
     public function getAllByClaimId(int $claim_id)
     {
-//        $result = Claim::find($claim_id)->files()->get()->append(['showToCustomerName','fileTypeName'])->toArray();
         $result = $this->fileService->filesByClaimId($claim_id);
         $fileTypes = $this->fileTypeRepository->getDataForSelectbox();
 
@@ -32,7 +31,7 @@ class FileController extends Controller
         }
         return view('admin.claims.main', [
             'claim_id'  => $claim_id,
-            'data'      => $result,   //todo
+            'data'      => $result,
             'fileTypes' => $fileTypes,
             'tab'       => 'documents'
         ]);
@@ -76,7 +75,7 @@ class FileController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => $e->getMessage()
-                ], $e->getCode());
+                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
             }
         }
 
@@ -113,7 +112,7 @@ class FileController extends Controller
                     'success' => true,
                     'id' => $id,
                     'message' => __('file.File successfully deleted'),
-                ], 200);
+                ], Response::HTTP_OK);
             } else {
                 return response()->json([
                     'success' => false,
@@ -122,5 +121,7 @@ class FileController extends Controller
             }
         }
         //todo standard response
+        return back()
+            ->withFail('povoleny iba ajax request');
     }
 }

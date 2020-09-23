@@ -36,7 +36,6 @@ class PermissionController extends Controller
         } catch (\Exception $e) {
             report($e);
 
-            //todo dopisat error message - vymysliet standard
             return back()
                 ->withFail($e->getMessage());
         }
@@ -47,7 +46,7 @@ class PermissionController extends Controller
     /**
      * Store a new user.
      *
-     * @return Response todo
+     * @return
      */
     public function store()
     {
@@ -82,7 +81,6 @@ class PermissionController extends Controller
         } catch (\Exception $e) {
             report($e);
 
-            //todo dopisat error message - vymysliet standard
             return back()
                 ->withFail($e->getMessage());
         }
@@ -97,7 +95,6 @@ class PermissionController extends Controller
         } catch (\Exception $e) {
             report($e);
 
-            //todo dopisat error message - vymysliet standard
             return back()
                 ->withFail($e->getMessage());
         }
@@ -137,7 +134,6 @@ class PermissionController extends Controller
         } catch (\Exception $e) {
             report($e);
 
-            //todo dopisat error message - vymysliet standard
             return back()
                 ->withFail($e->getMessage());
         }

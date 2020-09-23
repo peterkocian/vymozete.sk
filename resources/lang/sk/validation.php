@@ -101,7 +101,7 @@ return [
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
     'required_with' => 'Pole :attribute je povinné, ak :values is present.',
     'required_with_all' => 'Pole :attribute je povinné, ak :values are present.',
-    'required_without' => 'Pole :attribute je povinné, ak :values is not present.',
+    'required_without' => 'Pole :attribute je povinné, ak pole :values nie je vyplnené.',
     'required_without_all' => 'Pole :attribute je povinné, ak none of :values are present.',
     'same' => 'The :attribute and :other must match.',
     'size' => [
@@ -168,6 +168,7 @@ return [
 
         'password' => 'heslo',
         'permissions' => 'oprávnenia',
+        'roles' => 'role',
         'phone' => 'telefónne číslo',
 
         'filename' => 'názov súboru',

@@ -1,16 +1,17 @@
 <?php
 namespace App\Repositories;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 interface NoteRepositoryInterface
 {
     /**
      * @param array $attributes
-     * @param $claim_id
+     * @param int $claim_id
      * @return Model
      */
-    public function save(array $attributes, $claim_id): Model;
+    public function save(array $attributes, int $claim_id): Model;
 
-    public function getTableDataa(Model $model, int $id);
+//    public function getData(int $claim_id): Builder;
 }

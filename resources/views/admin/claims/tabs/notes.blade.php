@@ -20,6 +20,7 @@
     $config = [
         'reloadUrl'     => "/admin/claims/{$claim_id}/notes",
         'showPagination' => \App\Models\Note::INDEX_VIEW_PAGINATION,
+        'showPerPageSelect' => \App\Models\Note::INDEX_VIEW_PER_PAGE_SELECT,
         'itemsPerPage'  => \App\Helpers\SimpleTable::ITEMS_PER_PAGE,
         'numberOfRows'  => \App\Helpers\SimpleTable::NUMBER_OF_ROWS,
         'sortKey'       => \App\Helpers\SimpleTable::SORT_KEY,

@@ -8,6 +8,7 @@ use App\Services\UserService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
@@ -56,7 +57,6 @@ class UserController extends Controller
         } catch (\Exception $e) {
             report($e);
 
-            //todo dopisat error message - vymysliet standard
             return back()
                 ->withFail($e->getMessage());
         }
@@ -102,12 +102,10 @@ class UserController extends Controller
     public function show(int $id)
     {
         try {
-//            $result = $this->find($id);
             $result = $this->userService->get($id);
         } catch (\Exception $e) {
             report($e);
 
-            //todo dopisat error message - vymysliet standard
             return back()
                 ->withFail($e->getMessage());
         }
@@ -118,12 +116,10 @@ class UserController extends Controller
     public function edit(int $id)
     {
         try {
-//            $result = $this->find($id);
             $result = $this->userService->get($id);
         } catch (\Exception $e) {
             report($e);
 
-            //todo dopisat error message - vymysliet standard
             return back()
                 ->withFail($e->getMessage());
         }
@@ -135,19 +131,17 @@ class UserController extends Controller
     {
         if(Auth::id() === $id) {
             try {
-//                $result = $this->find($id);
                 $result = $this->userService->get($id);
             } catch (\Exception $e) {
                 report($e);
 
-                //todo dopisat error message - vymysliet standard
                 return back()
                     ->withFail($e->getMessage());
             }
 
             return view('admin.users.editProfile', ['user' => $result]);
         }
-        return abort(403, __('general.Unauthorized'));
+        return abort(Response::HTTP_FORBIDDEN, __('general.Unauthorized'));
     }
 
     public function update(int $id)
@@ -195,7 +189,7 @@ class UserController extends Controller
                 ->route('admin.users.editProfile', $result->id)
                 ->withSuccess(__('general.Updated successfully'));
         }
-        return abort(403, __('general.Unauthorized'));
+        return abort(Response::HTTP_FORBIDDEN, __('general.Unauthorized'));
     }
 
     /**
@@ -204,12 +198,10 @@ class UserController extends Controller
      */
     public function destroy(int $id) {
         try {
-//            $result = $this->find($id);
             $result = $this->userService->get($id);
         } catch (\Exception $e) {
             report($e);
 
-            //todo dopisat error message - vymysliet standard
             return back()
                 ->withFail($e->getMessage());
         }

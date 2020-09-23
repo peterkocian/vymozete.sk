@@ -10,5 +10,5 @@ interface ClaimRepositoryInterface
 
     public function allByUser(int $id): Collection;
 
-    public function getData(): Builder;
+//    public function getData(): Builder;
 }

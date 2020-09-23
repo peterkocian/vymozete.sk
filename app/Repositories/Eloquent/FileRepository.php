@@ -6,6 +6,7 @@ use App\Models\Claim;
 use App\Models\File;
 use App\Repositories\FileRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class FileRepository extends BaseRepository implements FileRepositoryInterface
 {
@@ -24,11 +25,11 @@ class FileRepository extends BaseRepository implements FileRepositoryInterface
         return Claim::find($claim_id)->files()->getQuery();
     }
 
-    public function getRelatedData($data): array
+    public function getRelatedData($data): Collection
     {
         return $data->append([
             'showToCustomerName',
             'fileTypeName',
-        ])->toArray();
+        ]);
     }
 }
