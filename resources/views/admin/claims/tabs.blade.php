@@ -15,7 +15,7 @@
         <a class="nav-link @if($tab === 'properties') active @endif" href="{{route('admin.claims.properties.allByClaimId', $claim_id ?? "")}}">Majetok</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @if($tab === 'calculation') active @endif" href="{{route('admin.claims.calculations.allByClaimId', $claim_id ?? "")}}">Kalkulácia</a>
+        <a class="nav-link @if($tab === 'calculations') active @endif" href="{{route('admin.claims.calculations.allByClaimId', $claim_id ?? "")}}">Kalkulácia</a>
     </li>
     {{--    <li class="nav-item">--}}
     {{--        <a class="nav-link" href="{{route('admin.claims.lustration', $claim_id)}}">Lustrácia</a>--}}

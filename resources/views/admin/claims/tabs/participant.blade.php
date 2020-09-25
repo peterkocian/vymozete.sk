@@ -17,15 +17,15 @@
         @include('admin.claims.tabs.partials.address')
 
         <div class="form-group row">
-            <label for="created_at" class="col-sm-2 col-form-label col-form-label-sm">{{__('general.Created at')}}</label>
+            <label for="created_at" class="col-sm-2 col-form-label">{{__('general.Created at')}}</label>
             <div class="col-sm-10">
-                <input class="form-control form-control-sm" type="text" name="created_at" value="{{ \Carbon\Carbon::parse($data->created_at)->format('d.m.Y H:i:s') }}" disabled/>
+                <input class="form-control" type="text" name="created_at" value="{{ \Carbon\Carbon::parse($data->created_at)->format('d.m.Y H:i:s') }}" disabled/>
             </div>
         </div>
         <div class="form-group row">
-            <label for="updated_at" class="col-sm-2 col-form-label col-form-label-sm">{{__('general.Updated at')}}</label>
+            <label for="updated_at" class="col-sm-2 col-form-label">{{__('general.Updated at')}}</label>
             <div class="col-sm-10">
-                <input class="form-control form-control-sm" type="text" name="updated_at" value="{{ \Carbon\Carbon::parse($data->updated_at)->format('d.m.Y H:i:s') }}" disabled/>
+                <input class="form-control" type="text" name="updated_at" value="{{ \Carbon\Carbon::parse($data->updated_at)->format('d.m.Y H:i:s') }}" disabled/>
             </div>
         </div>
     </div>

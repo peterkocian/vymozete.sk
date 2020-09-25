@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Services\RoleService;
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
 class RoleController extends Controller
@@ -81,7 +82,7 @@ class RoleController extends Controller
     public function show(int $id)
     {
         try {
-            $result = $this->find($id);
+            $result = $this->roleService->get($id);
         } catch (\Exception $e) {
             report($e);
 
@@ -95,7 +96,7 @@ class RoleController extends Controller
     public function edit(int $id)
     {
         try {
-            $result = $this->find($id);
+            $result = $this->roleService->get($id);
         } catch (\Exception $e) {
             report($e);
 
@@ -132,36 +133,36 @@ class RoleController extends Controller
             ->withSuccess(__('general.Created successfully'));
     }
 
-    public function destroy(int $id) {
+    public function destroy(int $id)
+    {
         try {
-            $result = $this->find($id);
+            $result = $this->roleService->destroy($id);
+
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'id' => $id,
+                    'message' => __('general.Deleted successfully'),
+                ], Response::HTTP_OK);
+            } else {
+                return redirect()
+                    ->route('admin.roles.index')
+                    ->withSuccess(__('general.Deleted successfully'));
+            }
         } catch (\Exception $e) {
             report($e);
 
-            return back()
-                ->withFail($e->getMessage());
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'id' => $id,
+                    'message' => $e->getMessage(),
+                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+            } else {
+                return redirect()
+                    ->route('admin.roles.index')
+                    ->withFail(__('general.Delete failed'));
+            }
         }
-
-        if ($result->delete())
-        {
-            return redirect()
-                ->route('admin.roles.index')
-                ->withSuccess(__('general.Deleted successfully', [
-                    'name'      => $result->name,
-                    'surname'   => $result->surname,
-                    'id'        => $result->id
-                ]));
-        }
-        return back()
-            ->withFail(__('general.Delete failed', [
-                'name'      => $result->name,
-                'surname'   => $result->surname,
-                'id'        => $result->id
-            ]));
-    }
-
-    private function find(int $id)
-    {
-        return $this->roleService->getProjection()->findOrFail($id);
     }
 }

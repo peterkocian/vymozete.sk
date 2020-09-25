@@ -58,7 +58,7 @@ class NoteRepository extends BaseRepository implements NoteRepositoryInterface
         throw new \Exception('Nezname id');
     }
 
-    public function getData(int $claim_id): Builder
+    public function getData(int $claim_id = null): Builder // pretazena metoda z BaseRepository
     {
         return Claim::find($claim_id)->notes()->getQuery();
     }

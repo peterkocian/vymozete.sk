@@ -152,4 +152,11 @@ return [
 
     'attributes' => [],
 
+
+    'values' => [
+        'person_type' => [
+            '0' => 'person',
+            '1' => 'organizations',
+        ]
+    ]
 ];

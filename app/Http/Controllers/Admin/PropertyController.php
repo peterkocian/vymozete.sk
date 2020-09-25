@@ -5,20 +5,21 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PropertySaveRequest;
 use App\Repositories\Eloquent\CurrencyRepository;
-use App\Services\ClaimService;
 use App\Services\PropertyService;
 use Illuminate\Http\Response;
 
 class PropertyController extends Controller
 {
     protected $propertyService;
-    protected $claimService;
+//    protected $claimService; vymazat
     protected $currencyRepository;
 
-    public function __construct(PropertyService $propertyService, ClaimService $claimService, CurrencyRepository $currencyRepository)
+    public function __construct(PropertyService $propertyService, CurrencyRepository $currencyRepository
+//        , ClaimService $claimService vymazat
+    )
     {
         $this->propertyService = $propertyService;
-        $this->claimService = $claimService;
+//        $this->claimService = $claimService; vymazat
         $this->currencyRepository = $currencyRepository;
     }
 
@@ -81,33 +82,31 @@ class PropertyController extends Controller
 
     public function destroy(int $claim_id, int $property_id)
     {
-        if (request()->ajax()){
-            try {
-                $this->propertyService->destroy($property_id);
+        try {
+            $this->propertyService->destroy($property_id);
 
-                if (request()->ajax()) {
-                    return response()->json([
-                        'success' => true,
-                        'id' => $property_id,
-                        'message' => __('general.Deleted successfully'),
-                    ], 200);
-                } else {
-                    return redirect()
-                        ->route('admin.claims.properties.allByClaimId', $claim_id)
-                        ->withSuccess(__('general.Deleted successfully'));
-                }
-            } catch (\Exception $e) {
-                if (request()->ajax()) {
-                    return response()->json([
-                        'success' => false,
-                        'id' => $property_id,
-                        'message' => $e->getMessage(),
-                    ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
-                } else {
-                    return redirect()
-                        ->route('admin.claims.properties.allByClaimId', $claim_id)
-                        ->withFail(__('general.Delete failed') . ' ' . $e->getMessage());
-                }
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'id' => $property_id,
+                    'message' => __('general.Deleted successfully'),
+                ], 200);
+            } else {
+                return redirect()
+                    ->route('admin.claims.properties.allByClaimId', $claim_id)
+                    ->withSuccess(__('general.Deleted successfully'));
+            }
+        } catch (\Exception $e) {
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'id' => $property_id,
+                    'message' => $e->getMessage(),
+                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+            } else {
+                return redirect()
+                    ->route('admin.claims.properties.allByClaimId', $claim_id)
+                    ->withFail(__('general.Delete failed') . ' ' . $e->getMessage());
             }
         }
     }

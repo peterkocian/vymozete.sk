@@ -10,6 +10,10 @@ use Illuminate\Support\Str;
 class Permission extends Model
 {
     use DateFormatTrait;
+
+    const INDEX_VIEW_PAGINATION = false;
+    const INDEX_VIEW_PER_PAGE_SELECT = false;
+
     /**
      * Nazov tabulky v DB
      *

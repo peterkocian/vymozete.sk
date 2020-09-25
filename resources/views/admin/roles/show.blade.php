@@ -2,8 +2,9 @@
 @section ('content')
     @php
         $actionDelete =[
-            'url' => url(\App\Models\Role::ENTITY_ROUTE_PREFIX.'/'.$role->id),
-            'text' => __('general.Confirmation delete')
+            'url' => url(config('simple-table.route-prefix').'/'.\App\Models\Role::ENTITY_ROUTE_PREFIX.'/'.$role->id),
+            'text' => __('general.Confirmation delete'),
+            'requestMethod' => 'DELETE',
         ];
     @endphp
     <div class="form-group">

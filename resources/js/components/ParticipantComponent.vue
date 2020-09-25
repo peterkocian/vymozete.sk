@@ -76,7 +76,7 @@
                     name="id_number"
                     type="text"
                     pattern="^\d{6}\/\d{3,4}$"
-                    placeholder="rodné číslo zadajte aj s /"
+                    placeholder="rodné číslo zadajte aj so znakom /"
                     oninvalid="this.setCustomValidity('Zadajte RČ vo formáte 123456/1234')">
                 <span class="bar"></span>
                 <span v-if="this.config.validationErrors.id_number" class="validation-error">
@@ -121,7 +121,7 @@
                             <span class="option__small"> ({{ props.option.ico }})</span>
                         </div>
                     </template>
-                    <span slot="noResult">Ziadne vysledky</span>
+                    <span slot="noResult">Žiadne výsledky</span>
                 </multiselect>
                 <span v-if="this.config.validationErrors.name" class="validation-error">
                     <div v-for="message in this.config.validationErrors['name']">{{ message }}</div>
@@ -158,7 +158,7 @@
                             <span class="option__small"> ({{ props.option.name }})</span>
                         </div>
                     </template>
-                    <span slot="noResult">Ziadne vysledky</span> <!-- todo -->
+                    <span slot="noResult">Zadajte celé IČO</span> <!-- todo -->
                 </multiselect>
                 <span v-if="this.config.validationErrors.ico" class="validation-error">
                     <div v-for="message in this.config.validationErrors['ico']">{{ message }}</div>

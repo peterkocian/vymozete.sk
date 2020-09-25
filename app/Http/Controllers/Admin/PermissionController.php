@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Services\PermissionService;
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
 class PermissionController extends Controller
@@ -24,6 +25,10 @@ class PermissionController extends Controller
             report($e);
 
             request()->session()->now('fail', $e->getMessage());
+        }
+
+        if (request()->ajax()) {
+            return response()->json($result);
         }
 
         return view('admin.permissions.index', ['data' => $result]);
@@ -77,7 +82,7 @@ class PermissionController extends Controller
     public function show(int $id)
     {
         try {
-            $result = $this->find($id);
+            $result = $this->permissionService->get($id);
         } catch (\Exception $e) {
             report($e);
 
@@ -91,7 +96,7 @@ class PermissionController extends Controller
     public function edit(int $id)
     {
         try {
-            $result = $this->find($id);
+            $result = $this->permissionService->get($id);
         } catch (\Exception $e) {
             report($e);
 
@@ -128,36 +133,41 @@ class PermissionController extends Controller
             ->withSuccess(__('general.Created successfully'));
     }
 
-    public function destroy(int $id) {
+    public function destroy(int $id)
+    {
         try {
-            $result = $this->find($id);
+            $result = $this->permissionService->destroy($id);
+
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'id' => $id,
+                    'message' => __('general.Deleted successfully'),
+                ], Response::HTTP_OK);
+            } else {
+                return redirect()
+                    ->route('admin.permissions.index')
+                    ->withSuccess(__('general.Deleted successfully'));
+            }
         } catch (\Exception $e) {
             report($e);
 
-            return back()
-                ->withFail($e->getMessage());
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'id' => $id,
+                    'message' => $e->getMessage(),
+                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+            } else {
+                return redirect()
+                    ->route('admin.permissions.index')
+                    ->withFail($e->getMessage());
+            }
         }
-
-        if ($result->delete())
-        {
-            return redirect()
-                ->route('admin.permissions.index')
-                ->withSuccess(__('general.Deleted successfully', [
-                    'name'      => $result->name,
-                    'surname'   => $result->surname,
-                    'id'        => $result->id
-                ]));
-        }
-        return back()
-            ->withFail(__('general.Delete failed', [
-                'name'      => $result->name,
-                'surname'   => $result->surname,
-                'id'        => $result->id
-            ]));
     }
 
-    private function find(int $id)
-    {
-        return $this->permissionService->getProjection()->findOrFail($id);
-    }
+//    private function find(int $id)
+//    {
+//        return $this->permissionService->getProjection()->findOrFail($id);
+//    }
 }

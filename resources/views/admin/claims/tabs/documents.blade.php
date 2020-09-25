@@ -18,10 +18,9 @@
         ],
         [
             'label' => __('file.Show to customer'),
-            'key' => 'showToCustomerName',
+            'key' => 'showToCustomerLabel',
             'type' => 'text',
             'map' => 'show_to_customer',
-
         ],
         [
             'label' => __('general.Created at'),

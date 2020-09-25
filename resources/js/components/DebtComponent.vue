@@ -7,7 +7,7 @@
             <div class="group currency">
                 <label for="suma">dlžná suma (istina) *</label>
                 <input v-model="formData.amount" class="c-input" id="suma" name="amount" type="number" step="0.01">
-                <select class="c-selectbox" name="currency" v-model="formData.currency">
+                <select class="c-selectbox" name="currency_id" v-model="formData.currency_id">
                     <option v-for="currency in config.currencies" :value="currency.id">{{currency.code}}</option>
                 </select>
                 <span class="bar"></span>
@@ -39,15 +39,15 @@
             </div>
 
             <div class="group description">
-                <label for="desc">popíšte prosím škodovú udalosť</label>
+                <label for="desc">popíšte prosím vznik pohľadávky</label>
                 <textarea id="desc" v-model="formData.description" name="description"></textarea>
             </div>
 
             <p>nahrajte dokumenty</p>
 
-            <upload-component
-                :config="{multi:true}"
-            ></upload-component>
+<!--            <upload-component-->
+<!--                :config="{multi:true}"-->
+<!--            ></upload-component>-->
 
             <div class="group">
                 <div class="row">
@@ -67,7 +67,7 @@
             let stepData = this.config.stepData;
 
             return {
-                formData: { currency:1 },
+                formData: { currency_id:1 },
                 stepData,
                 lang: {
                     formatLocale: {

@@ -196,32 +196,37 @@ class UserController extends Controller
      * @param $id
      * @return mixed
      */
-    public function destroy(int $id) {
+    public function destroy(int $id)
+    {
         try {
-            $result = $this->userService->get($id);
+            $result = $this->userService->destroy($id);
+
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'id' => $id,
+                    'message' => __('general.Deleted successfully'),
+                ], Response::HTTP_OK);
+            } else {
+                return redirect()
+                    ->route('admin.users.index')
+                    ->withSuccess(__('general.Deleted successfully'));
+            }
         } catch (\Exception $e) {
             report($e);
 
-            return back()
-                ->withFail($e->getMessage());
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'id' => $id,
+                    'message' => $e->getMessage(),
+                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+            } else {
+                return redirect()
+                    ->route('admin.users.index')
+                    ->withFail($e->getMessage());
+            }
         }
-
-        if ($result->delete())
-        {
-            return redirect()
-                ->route('admin.users.index')
-                ->withSuccess(__('general.Deleted successfully', [
-                    'name'      => $result->name,
-                    'surname'   => $result->surname,
-                    'id'        => $result->id
-                ]));
-        }
-        return back()
-            ->withFail(__('general.Delete failed', [
-                'name'      => $result->name,
-                'surname'   => $result->surname,
-                'id'        => $result->id
-            ]));
     }
 
     public function ban(int $id)
@@ -293,8 +298,4 @@ class UserController extends Controller
             ->route('admin.users.index')
             ->withSuccess(__('general.Created successfully'));
     }
-//    private function find(int $id)
-//    {
-//        return $this->userService->getProjection()->findOrFail($id);
-//    }
 }

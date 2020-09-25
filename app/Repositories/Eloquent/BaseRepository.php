@@ -2,10 +2,10 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Helpers\SimpleTable;
 use App\Repositories\EloquentRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Builder;
 
 class BaseRepository implements EloquentRepositoryInterface
 {
@@ -32,17 +32,6 @@ class BaseRepository implements EloquentRepositoryInterface
     public function getProjection(): Model
     {
         return $this->model;
-    }
-
-    /**
-     * Set data to model object
-     *
-     * @param array $attributes
-     * @return Model
-     */
-    public function setProjection(array $attributes): Model
-    {
-        return $this->model->fill($attributes);
     }
 
     /**
@@ -102,68 +91,13 @@ class BaseRepository implements EloquentRepositoryInterface
         return $this->model->findOrFail($id)->update($attributes);
     }
 
-    /**
-     * Returns all entities formated for index view for SimpleTableComponent with sorting, searching, pagination.
-     *
-     * @param Model $model
-     * @return array
-     */
-    public function getTableData(Model $model)
+    public function getData(int $claim_id = null): Builder // tato funkcia musi mat vstupny parameter, lebo v ostatnych Repository classach pretazujem tuto metodu a tam posielam aj parameter
     {
-        $pagination = request('pagination') ?? $model::INDEX_VIEW_PAGINATION;
-
-        if ($model)
-        {
-            $sortKey = request('sortKey') ? request('sortKey') : SimpleTable::SORT_KEY;
-            $sortDirection = request('sortDirection') ? request('sortDirection') : SimpleTable::SORT_DIRECTION;
-
-            $data = $model::orderBy($sortKey, $sortDirection);
-
-            if ($pagination) {
-                $rows = request('rows') ? intval(request('rows')) : SimpleTable::NUMBER_OF_ROWS;
-
-                $paginate = $data->paginate($rows);
-                $result['data'] = $paginate->items();
-                $pag = $paginate->toArray();
-                unset($pag['data']);  // z povodneho objektu paginate ktory vracia Laravel mazem data, aby mi v result['pagination'] posielalo na FE iba info o strankovani
-                $result['pagination'] = $pag;
-            } else {
-                $result = $data->get()->toArray();
-            }
-
-            return $result;
-        }
+        return $this->model::query();
     }
-
-//    public function getData(Model $model)
-//    {
-//        $sortKey = request('sortKey') ? request('sortKey') : SimpleTable::SORT_KEY;
-//        $sortDirection = request('sortDirection') ? request('sortDirection') : SimpleTable::SORT_DIRECTION;
-//        $pagination = request('pagination') ?? $this->getPagination();
-//
-//        //sort data
-//        $query = $model::orderBy($sortKey,$sortDirection);
-//
-//        if ($pagination) {
-//            $rows = request('rows') ? intval(request('rows')) : SimpleTable::NUMBER_OF_ROWS;
-//
-//            $paginate = $query->paginate($rows);
-////            $data['data'] = $this->claimRepository->getRelatedData($paginate)->toArray();
-//            $data['data'] = $paginate->items();
-//            $pag = $paginate->toArray();
-//            unset($pag['data']);  // z povodneho objektu paginate ktory vracia Laravel mazem data, aby mi v result['pagination'] posielalo na FE iba info o strankovani
-//            $data['pagination'] = $pag;
-//        } else {
-////            $data = $this->claimRepository->getRelatedData($query->get())->toArray();
-//            $data = $query->get()->toArray();
-//        }
-//
-//        return $data;
-//    }
 
     public function getPagination()
     {
         return $this->model::INDEX_VIEW_PAGINATION;
     }
-
 }

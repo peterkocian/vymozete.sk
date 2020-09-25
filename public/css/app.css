@@ -14282,7 +14282,11 @@ span {
   color: gray;
 }
 
-.nav-tabs-custom .nav-link.active {
+.nav-tabs-custom .nav-link {
+  padding: 0.4rem 0.7rem;
+}
+
+.nav-tabs-custom .nav-link .active {
   color: #00ADEE;
 }
 

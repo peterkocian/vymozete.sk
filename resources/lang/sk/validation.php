@@ -179,5 +179,14 @@ return [
         'currency_id' => 'mena',
         'description' => 'popis',
 
+
+
     ],
+
+    'values' => [
+        'person_type' => [
+            '0' => 'fyzická osoba',
+            '1' => 'právnická osoba',
+        ]
+    ]
 ];

@@ -12,10 +12,12 @@ use Illuminate\Validation\ValidationException;
 class UserService
 {
     private $userRepository;
+    private $simpleTableService;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository, SimpleTableService $simpleTableService)
     {
         $this->userRepository = $userRepository;
+        $this->simpleTableService = $simpleTableService;
     }
 
     public function getProjection()
@@ -30,7 +32,7 @@ class UserService
 
     public function all()
     {
-        return $this->userRepository->index();
+        return $this->simpleTableService->processSimpleTableData($this->userRepository, null, false);
     }
 
     /**
@@ -88,6 +90,18 @@ class UserService
         } catch (Exception $e) {
             DB::rollBack();
 //            Log::info($e->getMessage());
+            throw new Exception($e->getMessage());
+        }
+
+        return $result;
+    }
+
+    public function destroy(int $id)
+    {
+        try {
+            $this->userRepository->get($id);
+            $result = $this->userRepository->delete($id);
+        } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
 

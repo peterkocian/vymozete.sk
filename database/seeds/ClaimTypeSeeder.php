@@ -19,11 +19,6 @@ class ClaimTypeSeeder extends Seeder
                 'created_at'    => \Carbon\Carbon::now(),
                 'updated_at'    => \Carbon\Carbon::now(),
             ],[
-                'key' => 'alimony',
-                'name' => 'nezaplatené výživné',
-                'created_at'    => \Carbon\Carbon::now(),
-                'updated_at'    => \Carbon\Carbon::now(),
-            ],[
                 'key' => 'loan',
                 'name' => 'nesplatená pôžička',
                 'created_at'    => \Carbon\Carbon::now(),

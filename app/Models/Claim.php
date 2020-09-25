@@ -26,12 +26,6 @@ class Claim extends Model
     protected $table = 'claim';
 
     /**
-     * Vsetky tieto atributy su automaticky priradene ku modelu, ked sa tahaju data z DB cez tento model.
-     *
-     * @var string[]
-     */
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -125,6 +119,14 @@ class Claim extends Model
     public function notes()
     {
         return $this->hasMany(Note::class);
+    }
+
+    /**
+     * A claim can have many calculations
+     */
+    public function calculations()
+    {
+        return $this->hasMany(Calculation::class);
     }
 
     /**

@@ -84,7 +84,7 @@ class NoteController extends Controller
                 ->withFail($e->getMessage());
         }
 
-        return view('admin.notes.edit', ['note' => $result, 'claim_id' => $claim_id]);
+        return view('admin.notes.edit', ['data' => $result, 'claim_id' => $claim_id]);
     }
 
     public function update(NoteSaveRequest $request, int $claim_id, int $note_id)

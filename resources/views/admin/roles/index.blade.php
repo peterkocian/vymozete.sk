@@ -20,6 +20,7 @@
     $config = [
         'reloadUrl'     => "/admin/roles",
         'showPagination' => \App\Models\Role::INDEX_VIEW_PAGINATION,
+        'showPerPageSelect' => \App\Models\Role::INDEX_VIEW_PER_PAGE_SELECT,
         'itemsPerPage'  => \App\Helpers\SimpleTable::ITEMS_PER_PAGE,
         'numberOfRows'  => \App\Helpers\SimpleTable::NUMBER_OF_ROWS,
         'sortKey'       => \App\Helpers\SimpleTable::SORT_KEY,

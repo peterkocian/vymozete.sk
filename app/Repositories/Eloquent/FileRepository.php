@@ -20,7 +20,7 @@ class FileRepository extends BaseRepository implements FileRepositoryInterface
         parent::__construct($model);
     }
 
-    public function getData(int $claim_id): Builder
+    public function getData(int $claim_id = null): Builder // pretazena metoda z BaseRepository
     {
         return Claim::find($claim_id)->files()->getQuery();
     }
@@ -28,7 +28,7 @@ class FileRepository extends BaseRepository implements FileRepositoryInterface
     public function getRelatedData($data): Collection
     {
         return $data->append([
-            'showToCustomerName',
+            'showToCustomerLabel',
             'fileTypeName',
         ]);
     }

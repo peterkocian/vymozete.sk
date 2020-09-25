@@ -2,53 +2,34 @@
 
 namespace App\Services;
 
-use App\Helpers\SimpleTable;
-use App\Repositories\NoteRepositoryInterface;
+use App\Repositories\CalculationRepositoryInterface;
 use Exception;
 
-class NoteService
+class CalculationService
 {
-    private $noteRepository;
+    private $calculationRepository;
+    private $simpleTableService; //todo
 
-    public function __construct(NoteRepositoryInterface $noteRepository)
+    public function __construct(CalculationRepositoryInterface $calculationRepository, SimpleTableService $simpleTableService)
     {
-        $this->noteRepository = $noteRepository;
+        $this->calculationRepository = $calculationRepository;
+        $this->simpleTableService = $simpleTableService;
     }
 
     public function get($id)
     {
-        return $this->noteRepository->get($id);
+        return $this->calculationRepository->get($id);
     }
 
-    public function notesByClaimId(int $claim_id)
+    public function calculationsByClaimId(int $claim_id)
     {
-        $sortKey = request('sortKey') ? request('sortKey') : SimpleTable::SORT_KEY;
-        $sortDirection = request('sortDirection') ? request('sortDirection') : SimpleTable::SORT_DIRECTION;
-        $pagination = request('pagination') ?? $this->noteRepository->getPagination();
-
-        //sort data
-        $query = $this->noteRepository->getData($claim_id)->orderBy($sortKey,$sortDirection);
-
-        if ($pagination) {
-            $rows = request('rows') ? intval(request('rows')) : SimpleTable::NUMBER_OF_ROWS;
-
-            $paginate = $query->paginate($rows);
-//            $data['data'] = $this->noteRepository->getRelatedData($paginate);
-            $data['data'] = $paginate->items();
-            $pag = $paginate->toArray();
-            unset($pag['data']);  // z povodneho objektu paginate ktory vracia Laravel mazem data, aby mi v result['pagination'] posielalo na FE iba info o strankovani
-            $data['pagination'] = $pag;
-        } else {
-            $data = $query->get();
-        }
-
-        return $data;
+        return $this->simpleTableService->processSimpleTableData($this->calculationRepository, $claim_id, true);
     }
 
-    public function saveNote(array $data, int $claim_id)
+    public function saveCalculation(array $data, int $claim_id)
     {
         try {
-            $result = $this->noteRepository->save($data, $claim_id);
+            $result = $this->calculationRepository->save($data, $claim_id);
         } catch (Exception $e) {
 //            Log::info($e->getMessage());
             throw new Exception($e->getMessage());
@@ -57,10 +38,10 @@ class NoteService
         return $result;
     }
 
-    public function updateNote($data, $id)
+    public function updateCalculation($data, $id)
     {
         try {
-            $result = $this->noteRepository->update($data, $id);
+            $result = $this->calculationRepository->update($data, $id);
         } catch (Exception $e) {
 //            Log::info($e->getMessage());
             throw new Exception($e->getMessage());
@@ -72,7 +53,8 @@ class NoteService
     public function destroy(int $id)
     {
         try {
-            $result = $this->noteRepository->delete($id);
+            $this->calculationRepository->get($id);
+            $result = $this->calculationRepository->delete($id);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }

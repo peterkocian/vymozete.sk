@@ -27,6 +27,11 @@
                 @include('admin.claims.tabs.properties')
             @endif
         </div>
+        <div class="tab-pane fade @if($tab === 'calculations') show active @endif" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            @if($tab === 'calculations')
+                @include('admin.claims.tabs.calculations')
+            @endif
+        </div>
         <div class="tab-pane fade @if($tab === 'notes') show active @endif" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
             @if($tab === 'notes')
                 @include('admin.claims.tabs.notes')

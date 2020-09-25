@@ -16,7 +16,7 @@ class CreatePropertyTable extends Migration
         Schema::create('property', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->integer('amount');
+            $table->float('amount', 10,2);
             $table->text('description')->nullable();
             $table->unsignedBigInteger('claim_id');
             $table->unsignedBigInteger('currency_id');

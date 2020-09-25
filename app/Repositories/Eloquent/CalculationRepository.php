@@ -2,23 +2,23 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Helpers\SimpleTable;
+use App\Models\Calculation;
 use App\Models\Claim;
-use App\Models\Note;
-use App\Repositories\NoteRepositoryInterface;
+use App\Repositories\CalculationRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
-// custom actions for note repository
-class NoteRepository extends BaseRepository implements NoteRepositoryInterface
+// custom actions for calculation repository
+class CalculationRepository extends BaseRepository implements CalculationRepositoryInterface
 {
     /**
      * NoteRepository constructor.
      *
-     * @param Note $model
+     * @param Calculation $model
      */
-    public function __construct(Note $model)
+    public function __construct(Calculation $model)
     {
         parent::__construct($model);
     }
@@ -59,8 +59,16 @@ class NoteRepository extends BaseRepository implements NoteRepositoryInterface
         throw new \Exception('Nezname id');
     }
 
-    public function getData(int $claim_id): Builder
+    public function getData(int $claim_id = null): Builder // pretazena metoda z BaseRepository
     {
-        return Claim::find($claim_id)->notes()->getQuery();
+        return Claim::find($claim_id)->calculations()->getQuery();
+    }
+
+    public function getRelatedData($data): Collection
+    {
+        return $data->append([
+            'amountWithCurrency',
+            'paidLabel'
+        ]);
     }
 }

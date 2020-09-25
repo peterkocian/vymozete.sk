@@ -1982,7 +1982,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var stepData = this.config.stepData;
     return {
       formData: {
-        currency: 1
+        currency_id: 1
       },
       stepData: stepData,
       lang: {
@@ -56082,87 +56082,134 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", {}, [
-    _c(
-      "div",
-      { staticClass: "form_box" },
-      [
-        _c("p", [_vm._v("Zadajte dlžnú sumu (istiny) bez úrokov.")]),
+    _c("div", { staticClass: "form_box" }, [
+      _c("p", [_vm._v("Zadajte dlžnú sumu (istiny) bez úrokov.")]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "group currency" }, [
+        _c("label", { attrs: { for: "suma" } }, [
+          _vm._v("dlžná suma (istina) *")
+        ]),
         _vm._v(" "),
-        _c("br"),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.formData.amount,
+              expression: "formData.amount"
+            }
+          ],
+          staticClass: "c-input",
+          attrs: { id: "suma", name: "amount", type: "number", step: "0.01" },
+          domProps: { value: _vm.formData.amount },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.formData, "amount", $event.target.value)
+            }
+          }
+        }),
         _vm._v(" "),
-        _c("div", { staticClass: "group currency" }, [
-          _c("label", { attrs: { for: "suma" } }, [
-            _vm._v("dlžná suma (istina) *")
-          ]),
-          _vm._v(" "),
-          _c("input", {
+        _c(
+          "select",
+          {
             directives: [
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.formData.amount,
-                expression: "formData.amount"
+                value: _vm.formData.currency_id,
+                expression: "formData.currency_id"
               }
             ],
-            staticClass: "c-input",
-            attrs: { id: "suma", name: "amount", type: "number", step: "0.01" },
-            domProps: { value: _vm.formData.amount },
+            staticClass: "c-selectbox",
+            attrs: { name: "currency_id" },
             on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.formData, "amount", $event.target.value)
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.$set(
+                  _vm.formData,
+                  "currency_id",
+                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                )
               }
+            }
+          },
+          _vm._l(_vm.config.currencies, function(currency) {
+            return _c("option", { domProps: { value: currency.id } }, [
+              _vm._v(_vm._s(currency.code))
+            ])
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c("span", { staticClass: "bar" }),
+        _vm._v(" "),
+        this.config.validationErrors.amount
+          ? _c(
+              "span",
+              { staticClass: "validation-error" },
+              _vm._l(this.config.validationErrors["amount"], function(message) {
+                return _c("div", [_vm._v(_vm._s(message))])
+              }),
+              0
+            )
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "Zadajte dátum splatnosti dlhu (kedy mal byť dlh najneskôr uhradený)."
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "group" },
+        [
+          _c("input", {
+            attrs: { type: "hidden", name: "paymentDueDate" },
+            domProps: { value: _vm.formData.paymentDueDate }
+          }),
+          _vm._v(" "),
+          _c("label", [_vm._v("dátum splatnosti *")]),
+          _vm._v(" "),
+          _c("date-picker", {
+            attrs: {
+              lang: _vm.lang,
+              format: "DD.MM.YYYY",
+              "value-type": "YYYY-MM-DD",
+              type: "date",
+              "input-class": "",
+              "input-attr": { name: "" },
+              placeholder: "DD.MM.RRRR",
+              "popup-style": { left: 0, top: "100%" },
+              "append-to-body": false
+            },
+            model: {
+              value: _vm.formData.paymentDueDate,
+              callback: function($$v) {
+                _vm.$set(_vm.formData, "paymentDueDate", $$v)
+              },
+              expression: "formData.paymentDueDate"
             }
           }),
           _vm._v(" "),
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.formData.currency,
-                  expression: "formData.currency"
-                }
-              ],
-              staticClass: "c-selectbox",
-              attrs: { name: "currency" },
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.$set(
-                    _vm.formData,
-                    "currency",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
-                }
-              }
-            },
-            _vm._l(_vm.config.currencies, function(currency) {
-              return _c("option", { domProps: { value: currency.id } }, [
-                _vm._v(_vm._s(currency.code))
-              ])
-            }),
-            0
-          ),
-          _vm._v(" "),
-          _c("span", { staticClass: "bar" }),
-          _vm._v(" "),
-          this.config.validationErrors.amount
+          this.config.validationErrors.paymentDueDate
             ? _c(
                 "span",
                 { staticClass: "validation-error" },
-                _vm._l(this.config.validationErrors["amount"], function(
+                _vm._l(this.config.validationErrors["paymentDueDate"], function(
                   message
                 ) {
                   return _c("div", [_vm._v(_vm._s(message))])
@@ -56170,98 +56217,41 @@ var render = function() {
                 0
               )
             : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "group description" }, [
+        _c("label", { attrs: { for: "desc" } }, [
+          _vm._v("popíšte prosím vznik pohľadávky")
         ]),
         _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "Zadajte dátum splatnosti dlhu (kedy mal byť dlh najneskôr uhradený)."
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "group" },
-          [
-            _c("input", {
-              attrs: { type: "hidden", name: "paymentDueDate" },
-              domProps: { value: _vm.formData.paymentDueDate }
-            }),
-            _vm._v(" "),
-            _c("label", [_vm._v("dátum splatnosti *")]),
-            _vm._v(" "),
-            _c("date-picker", {
-              attrs: {
-                lang: _vm.lang,
-                format: "DD.MM.YYYY",
-                "value-type": "YYYY-MM-DD",
-                type: "date",
-                "input-class": "",
-                "input-attr": { name: "" },
-                placeholder: "DD.MM.RRRR",
-                "popup-style": { left: 0, top: "100%" },
-                "append-to-body": false
-              },
-              model: {
-                value: _vm.formData.paymentDueDate,
-                callback: function($$v) {
-                  _vm.$set(_vm.formData, "paymentDueDate", $$v)
-                },
-                expression: "formData.paymentDueDate"
-              }
-            }),
-            _vm._v(" "),
-            this.config.validationErrors.paymentDueDate
-              ? _c(
-                  "span",
-                  { staticClass: "validation-error" },
-                  _vm._l(
-                    this.config.validationErrors["paymentDueDate"],
-                    function(message) {
-                      return _c("div", [_vm._v(_vm._s(message))])
-                    }
-                  ),
-                  0
-                )
-              : _vm._e()
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "group description" }, [
-          _c("label", { attrs: { for: "desc" } }, [
-            _vm._v("popíšte prosím škodovú udalosť")
-          ]),
-          _vm._v(" "),
-          _c("textarea", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.formData.description,
-                expression: "formData.description"
-              }
-            ],
-            attrs: { id: "desc", name: "description" },
-            domProps: { value: _vm.formData.description },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.formData, "description", $event.target.value)
-              }
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.formData.description,
+              expression: "formData.description"
             }
-          })
-        ]),
-        _vm._v(" "),
-        _c("p", [_vm._v("nahrajte dokumenty")]),
-        _vm._v(" "),
-        _c("upload-component", { attrs: { config: { multi: true } } }),
-        _vm._v(" "),
-        _vm._m(0)
-      ],
-      1
-    )
+          ],
+          attrs: { id: "desc", name: "description" },
+          domProps: { value: _vm.formData.description },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.formData, "description", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("p", [_vm._v("nahrajte dokumenty")]),
+      _vm._v(" "),
+      _vm._m(0)
+    ])
   ])
 }
 var staticRenderFns = [
@@ -56532,7 +56522,7 @@ var render = function() {
                 name: "id_number",
                 type: "text",
                 pattern: "^\\d{6}\\/\\d{3,4}$",
-                placeholder: "rodné číslo zadajte aj s /",
+                placeholder: "rodné číslo zadajte aj so znakom /",
                 oninvalid:
                   "this.setCustomValidity('Zadajte RČ vo formáte 123456/1234')"
               },
@@ -56676,7 +56666,7 @@ var render = function() {
                   _c(
                     "span",
                     { attrs: { slot: "noResult" }, slot: "noResult" },
-                    [_vm._v("Ziadne vysledky")]
+                    [_vm._v("Žiadne výsledky")]
                   )
                 ]
               ),
@@ -56781,7 +56771,7 @@ var render = function() {
                   _c(
                     "span",
                     { attrs: { slot: "noResult" }, slot: "noResult" },
-                    [_vm._v("Ziadne vysledky")]
+                    [_vm._v("Zadajte celé IČO")]
                   )
                 ]
               ),

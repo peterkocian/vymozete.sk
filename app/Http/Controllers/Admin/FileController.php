@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadAdminClaimFileRequest;
 use App\Models\File;
+use App\Repositories\Eloquent\ClaimRepository;
 use App\Services\FileService;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
@@ -13,11 +14,13 @@ use App\Repositories\Eloquent\FileTypeRepository;
 class FileController extends Controller
 {
     protected $fileTypeRepository;
+    protected $claimRepository;
     protected $fileService;
 
-    public function __construct(FileTypeRepository $fileTypeRepository, FileService $fileService)
+    public function __construct(FileTypeRepository $fileTypeRepository, FileService $fileService, ClaimRepository $claimRepository)
     {
         $this->fileTypeRepository = $fileTypeRepository;
+        $this->claimRepository = $claimRepository;
         $this->fileService = $fileService;
     }
 

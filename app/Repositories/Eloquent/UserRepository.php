@@ -5,8 +5,8 @@ namespace App\Repositories\Eloquent;
 use App\Models\Language;
 use App\Repositories\UserRepositoryInterface;
 use App\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 
 // custom actions for user repository
 class UserRepository extends BaseRepository implements UserRepositoryInterface
@@ -19,14 +19,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function __construct(User $model)
     {
         parent::__construct($model);
-    }
-
-    /**
-     * @return Collection
-     */
-    public function all(): Collection
-    {
-        return $this->model->all();
     }
 
     /**
@@ -77,11 +69,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         }
     }
 
-    /**
-     * @return array
-     */
-    public function index()
-    {
-        return $this->getTableData($this->model);
-    }
+//    public function getData(): Builder
+//    {
+//        return User::query();
+//    }
 }

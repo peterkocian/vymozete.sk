@@ -10,20 +10,27 @@ use Illuminate\Validation\ValidationException;
 class RoleService
 {
     private $roleRepository;
+    private $simpleTableService;
 
-    public function __construct(RoleRepositoryInterface $roleRepository)
+    public function __construct(RoleRepositoryInterface $roleRepository, SimpleTableService $simpleTableService)
     {
         $this->roleRepository = $roleRepository;
+        $this->simpleTableService = $simpleTableService;
     }
 
     public function all()
     {
-        return $this->roleRepository->index();
+        return $this->simpleTableService->processSimpleTableData($this->roleRepository, null, false);
     }
 
     public function getProjection()
     {
         return $this->roleRepository->getProjection();
+    }
+
+    public function get($id)
+    {
+        return $this->roleRepository->get($id);
     }
 
     /**
@@ -80,6 +87,18 @@ class RoleService
         } catch (Exception $e) {
             DB::rollBack();
 //            Log::info($e->getMessage());
+            throw new Exception($e->getMessage());
+        }
+
+        return $result;
+    }
+
+    public function destroy(int $id)
+    {
+        try {
+            $this->roleRepository->get($id);
+            $result = $this->roleRepository->delete($id);
+        } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
 

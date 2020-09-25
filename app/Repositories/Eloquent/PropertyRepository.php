@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Helpers\SimpleTable;
 use App\Models\Claim;
 use App\Models\Property;
 use App\Repositories\PropertyRepositoryInterface;
@@ -40,7 +39,7 @@ class PropertyRepository extends BaseRepository implements PropertyRepositoryInt
         return $this->model->create($attributes);
     }
 
-    public function getData(int $claim_id): Builder
+    public function getData(int $claim_id = null): Builder // pretazena metoda z BaseRepository
     {
         return Claim::find($claim_id)->properties()->getQuery();
     }

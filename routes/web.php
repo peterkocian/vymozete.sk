@@ -46,9 +46,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')
             Route::get('/file/{id}/download', 'FileController@download')->name('file.download');
             Route::delete('/file/{id}/delete', 'FileController@destroy')->name('file.delete');
 
-//            Route::get('/claims/{claim}/properties', 'ClaimController@properties')->name('claims.properties');
-//            Route::post('/claims/{claim}/properties', 'ClaimController@storeProperties')->name('claims.properties.store');
-
             Route::get('/claims/{claim}/properties', 'PropertyController@getAllByClaimId')->name('claims.properties.allByClaimId');
             Route::post('/claims/{claim}/properties', 'PropertyController@store')->name('claims.properties.store');
 //            Route::resource('properties', 'PropertyController')->only(['destroy']);
@@ -56,8 +53,16 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')
                 'destroy' => 'claims.properties.destroy'
             ]);
 
+            Route::get('/claims/{claim}/calculations', 'CalculationController@getAllByClaimId')->name('claims.calculations.allByClaimId');
+            Route::resource('/claims/{claim}/calculations', 'CalculationController')->only(['store', 'update', 'destroy', 'edit'])->names([
+                'store' => 'claims.calculations.store',
+                'update' => 'claims.calculations.update',
+                'destroy' => 'claims.calculations.destroy',
+                'edit' => 'claims.calculations.edit'
+            ]);
+
             Route::get('/claims/{claim}/notes', 'NoteController@getAllByClaimId')->name('claims.notes.allByClaimId');
-            Route::post('/claims/{claim}/notes', 'NoteController@store')->name('claims.notes.store');
+            Route::post('/claims/{claim}/notes', 'NoteController@store')->name('claims.notes.store'); // todo prepisat do resource
             Route::resource('/claims/{claim}/notes', 'NoteController')->only(['update', 'destroy', 'edit'])->names([
                 'update' => 'claims.notes.update',
                 'destroy' => 'claims.notes.destroy',

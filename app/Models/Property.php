@@ -27,7 +27,7 @@ class Property extends Model
      *
      * @var string[]
      */
-    protected $appends = ['amountWithCurrency'];
+//    protected $appends = ['amountWithCurrency'];
 
     /**
      * The attributes that are mass assignable.

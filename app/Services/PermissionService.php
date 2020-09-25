@@ -10,20 +10,27 @@ use Illuminate\Validation\ValidationException;
 class PermissionService
 {
     private $permissionRepository;
+    private $simpleTableService;
 
-    public function __construct(PermissionRepositoryInterface $permissionRepository)
+    public function __construct(PermissionRepositoryInterface $permissionRepository, SimpleTableService $simpleTableService)
     {
         $this->permissionRepository = $permissionRepository;
+        $this->simpleTableService = $simpleTableService;
     }
 
     public function all()
     {
-        return $this->permissionRepository->all();
+        return $this->simpleTableService->processSimpleTableData($this->permissionRepository, null, false);
     }
 
     public function getProjection()
     {
         return $this->permissionRepository->getProjection();
+    }
+
+    public function get($id)
+    {
+        return $this->permissionRepository->get($id);
     }
 
     /**
@@ -80,6 +87,18 @@ class PermissionService
         } catch (Exception $e) {
             DB::rollBack();
 //            Log::info($e->getMessage());
+            throw new Exception($e->getMessage());
+        }
+
+        return $result;
+    }
+
+    public function destroy(int $id)
+    {
+        try {
+            $this->permissionRepository->get($id);
+            $result = $this->permissionRepository->delete($id);
+        } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
 

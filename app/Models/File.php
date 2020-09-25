@@ -37,9 +37,9 @@ class File extends Model
         'name', 'filename', 'mime', 'ext', 'path', 'size', 'show_to_customer', 'fileable_id', 'fileable_type', 'file_type_id', 'user_id'
     ];
 
-    public function getShowToCustomerNameAttribute()
+    public function getShowToCustomerLabelAttribute()
     {
-        return $this->getShowToCustomerName();
+        return $this->getShowToCustomerLabel();
     }
 
     public function getFileTypeNameAttribute()
@@ -77,7 +77,7 @@ class File extends Model
         return $this->belongsTo(FileType::class);
     }
 
-    public function getShowToCustomerName()
+    public function getShowToCustomerLabel()
     {
         switch ($this->show_to_customer) {
             case self::SHOW_TO_CUSTOMER_TRUE:

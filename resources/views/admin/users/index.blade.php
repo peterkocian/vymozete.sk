@@ -55,8 +55,9 @@
             'url' => url(config('simple-table.route-prefix').'/'.\App\User::ENTITY_ROUTE_PREFIX.'/{id}'),
             'dataToggle' => 'modal',
             'dataTarget' => '#modalConfirm',
+            'modalText' => __('general.Confirmation delete'),
             'requestMethod' => 'DELETE',
-            'modalText' => __('general.Confirmation delete')
+            'ajax' => true
         ],
         [
             'label' => 'block',
@@ -66,8 +67,9 @@
             'url' => url(config('simple-table.route-prefix').'/'.\App\User::ENTITY_ROUTE_PREFIX.'/{id}/ban'),
             'dataToggle' => 'modal',
             'dataTarget' => '#modalConfirm',
+            'modalText' => __('general.Ban user'),
             'requestMethod' => 'POST',
-            'modalText' => __('general.Ban user')
+            'ajax' => true
         ],
         [
             'label' => 'refresh',
@@ -76,9 +78,10 @@
             'class' => 'btn btn-sm btn-outline-success mr-1',
             'url' => url(config('simple-table.route-prefix').'/'.\App\User::ENTITY_ROUTE_PREFIX.'/{id}/unban'),
             'dataToggle' => 'modal',
+            'modalText' => __('general.Unban user'),
             'dataTarget' => '#modalConfirm',
             'requestMethod' => 'POST',
-            'modalText' => __('general.Unban user')
+            'ajax' => true
         ],
         [
             'label' => 'email',
@@ -88,8 +91,9 @@
             'url' => url('password/email'),
             'dataToggle' => 'modal',
             'dataTarget' => '#modalConfirm',
+            'modalText' => __('general.Reset user password'),
             'requestMethod' => 'POST',
-            'modalText' => __('general.Reset user password')
+            'ajax' => true
         ]
     ];
 

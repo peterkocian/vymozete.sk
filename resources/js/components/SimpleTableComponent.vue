@@ -6,9 +6,9 @@
                 <div v-for="field in config.config.inlineNew.fields" :key="field.id"
                      :class="field.settings.divClass"
                 >
-                    <!-- ak field je input type = text, number, textarea -->
+                    <!-- ak field je input type = text, textarea -->
                     <input
-                        v-if="field.type === 'text' || field.type === 'number' || field.type === 'textarea'"
+                        v-if="field.type === 'text' || field.type === 'textarea'"
                         class="form-control form-control-sm"
                         :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
                         :type="field.type"
@@ -16,6 +16,18 @@
                         :name="field.key"
                         :id="field.key"
                         v-model="newEntry[field.key]"
+                    >
+                    <!-- ak field je input type = number -->
+                    <input
+                        v-if="field.type === 'number'"
+                        class="form-control form-control-sm"
+                        :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
+                        :type="field.type"
+                        :placeholder="field.label"
+                        :name="field.key"
+                        :id="field.key"
+                        v-model="newEntry[field.key]"
+                        step="0.01"
                     >
                     <!-- ak field je input type = file -->
                     <input
@@ -29,6 +41,17 @@
                         v-model="newEntry[field.key]"
                         @change="handleFilesUpload($event)"
                         multiple
+                    >
+                    <!-- ak field je input type = date -->
+                    <input
+                        v-if="field.type === 'date'"
+                        class="form-control form-control-sm"
+                        :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
+                        :type="field.type"
+                        :placeholder="field.label"
+                        :name="field.key+'[]'"
+                        :id="field.key"
+                        v-model="newEntry[field.key]"
                     >
                     <!-- ak field je select -->
                     <select
@@ -291,17 +314,19 @@
                 this.newEntry = {};
             },
             handleAjaxModalSubmit(url) {
+                console.log('handleAjaxModalSubmit',url);
                 axios.delete(url, {
                     // params: this.queryParams,
                     // paramsSerializer: function (params) {
                     //     return decodeURIComponent( $.param(params))
                     // }
                 }).then(res => {
-                    this.reloadData();
                     flash({text: res.data.message, type:'success', timer:3000 });
+                    this.reloadData();
                 }).catch(e => {
-                    console.log(e.response.data.message);
-                    flash({text: `handleAjaxModalSubmit: ${e.response.data.message}`, type:'error', timer:null });
+                    let message = e.response.data.errors ?? e;
+                    // console.log(message);
+                    flash({text: `reloadData: ${message}`, type:'error', timer:null });
                 });
             },
             handleFilesUpload(e) {

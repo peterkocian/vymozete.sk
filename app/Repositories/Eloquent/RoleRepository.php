@@ -65,10 +65,8 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface
         }
     }
 
-    /**
-     */
-    public function index()
-    {
-        return $this->getData($this->model);
-    }
+//    public function getData(): Builder // todo presunut do BaseRepository
+//    {
+//        return Role::query();
+//    }
 }

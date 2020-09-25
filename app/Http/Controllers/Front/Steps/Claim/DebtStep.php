@@ -129,7 +129,7 @@ dd($flattenWizardData);
             $model->creditor()->associate($participantCreditor);
             $model->debtor()->associate($participantDebtor);
 
-            dd($flattenWizardData['debt']);
+//            dd($flattenWizardData['debt']);
 
             $model->fill($flattenWizardData['debt'])->save();
 
@@ -160,10 +160,11 @@ dd($flattenWizardData);
     public function rules(Request $request)
     {
         return [
+            //todo opravit validacne pravidla
             'amount'         => 'required',
             'paymentDueDate' => 'required',
-            'currency'       => 'required',
-            'uploads'        => 'required',
+            'currency_id'       => 'required',
+//            'uploads'        => 'required|file',
         ];
     }
 

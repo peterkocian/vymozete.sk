@@ -79,7 +79,9 @@ class SimpleTable
                 'url' => url(config('simple-table.route-prefix').'/'.$this->entityRoutePrefix.'/{id}'),
                 'dataToggle' => 'modal',
                 'dataTarget' => '#modalConfirm',
-                'modalText' => __('general.Confirmation delete')
+                'modalText' => __('general.Confirmation delete'),
+                'requestMethod' => 'DELETE',
+                'ajax' => true
             ]
         ];
     }

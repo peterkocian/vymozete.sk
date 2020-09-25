@@ -42,10 +42,10 @@ class ClaimRepository extends BaseRepository implements ClaimRepositoryInterface
         return $this->model->all()->where('user_id', $id);
     }
 
-    public function getData(): Builder
-    {
-        return Claim::query();
-    }
+//    public function getData(): Builder
+//    {
+//        return Claim::query();
+//    }
 
     public function getRelatedData($data): Collection
     {

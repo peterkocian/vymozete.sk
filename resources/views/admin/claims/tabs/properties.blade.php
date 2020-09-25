@@ -94,6 +94,7 @@
             'dataToggle' => 'modal',
             'dataTarget' => '#modalConfirm',
             'modalText' => __('general.Confirmation delete'),
+            'requestMethod' => 'DELETE',
             'ajax' => true
         ]
     ];
@@ -101,22 +102,7 @@
     $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\Models\Property::ENTITY_ROUTE_PREFIX, $config, $actions);
 @endphp
 <div class="card">
-{{--    <div class="card-header">{{__('user.User list')}}</div>--}}
     <div class="card-body">
         <?= $gridview->render(); ?>
     </div>
 </div>
-
-{{--<div class="container">--}}
-{{--    <div class="row justify-content-center">--}}
-{{--        <div class="col-md-8">--}}
-{{--            <div class="card">--}}
-{{--                <div class="card-header">Add files</div>--}}
-
-{{--                <div class="card-body">--}}
-{{--                    <upload-component :input_name="'files[]'" :post_url="'documents/upload-file'"></upload-component>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
