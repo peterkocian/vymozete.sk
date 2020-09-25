@@ -9,4 +9,5 @@ return [
     'Type' => 'Typ',
     'Currency' => 'Mena',
     'Claim ID' => 'ID',
+    'Documents' => 'Dokumenty',
 ];

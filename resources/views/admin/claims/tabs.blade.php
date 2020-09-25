@@ -14,16 +14,16 @@
     <li class="nav-item">
         <a class="nav-link @if($tab === 'properties') active @endif" href="{{route('admin.claims.properties.allByClaimId', $claim_id ?? "")}}">Majetok</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link @if($tab === 'calculation') active @endif" href="{{route('admin.claims.calculations.allByClaimId', $claim_id ?? "")}}">Kalkulácia</a>
+    </li>
     {{--    <li class="nav-item">--}}
     {{--        <a class="nav-link" href="{{route('admin.claims.lustration', $claim_id)}}">Lustrácia</a>--}}
-    {{--    </li>--}}
-    {{--    <li class="nav-item">--}}
-    {{--        <a class="nav-link" href="{{route('admin.claims.calc', $claim_id)}}">Kalkulácia</a>--}}
     {{--    </li>--}}
     <li class="nav-item">
         <a class="nav-link @if($tab === 'notes') active @endif" href="{{route('admin.claims.notes.allByClaimId', $claim_id ?? "")}}">Poznámky</a>
     </li>
     {{--    <li class="nav-item">--}}
-    {{--        <a class="nav-link" href="{{route('admin.claims.cal', $claim_id)}}">Kalendár</a>--}}
+    {{--        <a class="nav-link @if($tab === 'calendar') active @endif" href="{{route('admin.claims.calendar', $claim_id)}}">Kalendár</a>--}}
     {{--    </li>--}}
 </ul>

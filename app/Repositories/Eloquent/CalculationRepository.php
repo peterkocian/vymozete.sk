@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Helpers\SimpleTable;
 use App\Models\Claim;
 use App\Models\Note;
 use App\Repositories\NoteRepositoryInterface;

@@ -49,16 +49,29 @@ class ClaimController extends Controller
     {
         $claim = $this->claimService->get($claim_id);
 
+        // get creditor
+        $creditor = $this->claimService->getCreditor($claim_id);
+        // get debtor
+        $debtor = $this->claimService->getDebtor($claim_id);
+        // get files
+        $files = $this->fileService->filesByClaimId($claim_id);
+
+//        dd($files);
+
         return view('admin.claims.main', [
             'claim_id'  => $claim_id,
             'claim'     => $claim,
+            'debtor'    => $debtor,
+            'creditor'  => $creditor,
+            'files'     => $files['data'], //todo fileservice vracia zle data
             'tab'       => 'overview'
         ]);
     }
 
     public function creditor(int $claim_id)
     {
-        $creditor = $this->claimService->get($claim_id)->creditor;   //todo
+        $creditor = $this->claimService->getCreditor($claim_id);
+
         return view('admin.claims.main', [
             'claim_id'  => $claim_id,
             'data'      => $creditor,
@@ -68,7 +81,8 @@ class ClaimController extends Controller
 
     public function debtor(int $claim_id)
     {
-        $debtor = $this->claimService->get($claim_id)->debtor;   //todo
+        $debtor = $this->claimService->getDebtor($claim_id);
+
         return view('admin.claims.main', [
             'claim_id'  => $claim_id,
             'data'      => $debtor,

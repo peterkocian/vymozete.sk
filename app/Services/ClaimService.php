@@ -14,9 +14,19 @@ class ClaimService
         $this->claimRepository = $claimRepository;
     }
 
-    public function get($id)
+    public function get(int $claim_id)
     {
-        return $this->claimRepository->get($id);
+        return $this->claimRepository->get($claim_id);
+    }
+
+    public function getDebtor(int $claim_id)
+    {
+        return $this->claimRepository->getDebtor($claim_id);
+    }
+
+    public function getCreditor(int $claim_id)
+    {
+        return $this->claimRepository->getCreditor($claim_id);
     }
 
     /**

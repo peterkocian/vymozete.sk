@@ -19,12 +19,22 @@ class ClaimRepository extends BaseRepository implements ClaimRepositoryInterface
         parent::__construct($model);
     }
 
-    /**
-     * @return Collection
-     */
-    public function all(): Collection
+//    /**
+//     * @return Collection
+//     */
+//    public function all(): Collection
+//    {
+//        return $this->model->with(['creditor.entity.fullname', 'debtor'])->get();
+//    }
+
+    public function getDebtor(int $claim_id)
     {
-        return $this->model->with(['creditor.entity.fullname', 'debtor'])->get();
+        return $this->get($claim_id)->debtor->entity;
+    }
+
+    public function getCreditor(int $claim_id)
+    {
+        return $this->get($claim_id)->creditor->entity;
     }
 
     public function allByUser(int $id): Collection
