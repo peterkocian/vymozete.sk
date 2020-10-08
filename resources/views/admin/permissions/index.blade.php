@@ -35,7 +35,7 @@
         <div class="card-header">{{__('permission.Permission list')}}</div>
         <div class="card-body">
             <div class="form-group form-row">
-                <a role="button" class="btn btn-primary btn-sm" href="{{ route('admin.permissions.create') }}">{{__('general.Create')}}</a>
+                <a role="button" title="@lang('general.Create')" class="btn btn-primary btn-sm" href="{{ route('admin.permissions.create') }}"><span class="material-icons">add</span></a>
             </div>
             <?= $gridview->render(); ?>
         </div>

@@ -32,6 +32,7 @@ Vue.component('modal-component', require('./components/ModalComponent.vue').defa
 Vue.component('side-menu-component', require('./components/SideMenuComponent').default);
 Vue.component('button-component', require('./components/ButtonComponent').default);
 Vue.component('flash', require('./components/Flash').default);
+Vue.component('calendar-component', require('./components/CalendarComponent').default);
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)

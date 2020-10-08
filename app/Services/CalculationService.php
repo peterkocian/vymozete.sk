@@ -61,4 +61,31 @@ class CalculationService
 
         return $result;
     }
+
+    public function getTrovy($claim): float
+    {
+        $fee = 0;
+        if ($claim['amount'] >= 0 && $claim['amount'] <= 165.97) {
+            $fee = 16.60;
+        } elseif ($claim['amount'] > 165.97 && $claim['amount'] <= 663.88) {
+            $fee = 16.60;
+            $fee += ceil(($claim['amount'] - 165.97) / 33.19) * 1.66;
+        } elseif ($claim['amount'] > 663.88 && $claim['amount'] <= 6638.78) {
+            $fee = 41.49;
+            $fee += ceil(($claim['amount'] - 663.88) / 331.94) * 9.96;
+        } elseif ($claim['amount'] > 6638.78 && $claim['amount'] <= 33193.92) {
+            $fee = 220.74;
+            $fee += ceil(($claim['amount'] - 6638.78) / 1659.70) * 16.60;
+        } elseif ($claim['amount'] > 33193.92) {
+            $fee = 486.29;
+            $fee += ceil(($claim['amount'] - 33193.92) / 3319.39) * 6.64;
+        }
+
+        return $fee;
+    }
+
+    public function summery($claim, $trovyDPH = 0, $urok = 0)
+    {
+        return $claim->amount + $trovyDPH + $urok;
+    }
 }

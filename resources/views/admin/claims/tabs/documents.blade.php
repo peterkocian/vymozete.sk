@@ -31,7 +31,8 @@
 
     $config = [
         'inlineNew' => [
-            'label' => __('general.Create'),
+            'label' => 'add',
+            'title' => __('general.Create'),
             'key' => 'store',
             'class' => 'btn btn-primary btn-sm mr-1',
             'action' => 'uploadFile',
@@ -114,8 +115,8 @@
 
     $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\Models\File::ENTITY_ROUTE_PREFIX, $config, $actions);
 @endphp
-<div class="card">
-    <div class="card-body">
+<div class="row">
+    <div class="col">
         <?= $gridview->render(); ?>
     </div>
 </div>

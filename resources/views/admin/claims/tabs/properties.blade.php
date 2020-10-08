@@ -33,7 +33,8 @@
         'sortDirection' => \App\Helpers\SimpleTable::SORT_DIRECTION,
 
         'inlineNew' => [
-            'label' => __('general.Create'),
+            'label' => 'add',
+            'title' => __('general.Create'),
             'key' => 'store',
             'class' => 'btn btn-primary btn-sm mr-1',
             'action' => 'createItem',
@@ -101,8 +102,8 @@
 
     $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\Models\Property::ENTITY_ROUTE_PREFIX, $config, $actions);
 @endphp
-<div class="card">
-    <div class="card-body">
+<div class="row">
+    <div class="col">
         <?= $gridview->render(); ?>
     </div>
 </div>

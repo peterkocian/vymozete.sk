@@ -30,7 +30,6 @@ class UploadAdminClaimFileRequest extends FormRequest
         return [
             'filename'      => 'required|max:191',
             'file_type_id'  => 'required',
-//            'uploads'       => 'required|mimes:txt,pdf,doc,docx,jpg,jpeg',
             'uploads'       => 'required|array|min:1',
             'uploads.*'     => 'required|mimes:txt,pdf,doc,docx,jpg,jpeg',
         ];
@@ -53,5 +52,5 @@ class UploadAdminClaimFileRequest extends FormRequest
 
         // Finally throw the HttpResponseException.
         throw new HttpResponseException(response()->json($response, Response::HTTP_UNPROCESSABLE_ENTITY));
-    }
+    } // todo v kazdom formrequest validatore mam taku istu funkciu failedValidation - zjednotit
 }

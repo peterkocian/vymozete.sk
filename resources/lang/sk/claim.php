@@ -10,4 +10,5 @@ return [
     'Currency' => 'Mena',
     'Claim ID' => 'ID',
     'Documents' => 'Dokumenty',
+    'amount' => 'suma',
 ];

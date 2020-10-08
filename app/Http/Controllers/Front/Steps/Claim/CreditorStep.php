@@ -66,12 +66,12 @@ class CreditorStep extends Step
             'surname' => 'required_if:person_type,0',
             'birthday' => 'required_if:person_type,0|date',
             'ico' => 'required_if:person_type,1',
+            'iban' => 'required',
             'street' => 'required',
             'house_number' => 'required',
             'town' => 'required',
             'zip' => 'required',
             'country' => 'required',
-//            'email' => 'regex:/^.+@.+$/i|nullable'
             'email' => 'email|nullable'
         ];
     }

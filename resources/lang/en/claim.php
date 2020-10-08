@@ -10,4 +10,5 @@ return [
     'Currency' => 'Currency',
     'Claim ID' => 'ID',
     'Documents' => 'Documents',
+    'amount' => 'amount',
 ];

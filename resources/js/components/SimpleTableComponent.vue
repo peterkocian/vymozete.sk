@@ -86,12 +86,13 @@
                 <a
                     class="btn btn-sm btn-outline-success"
                     role="button"
+                    :title="config.config.inlineNew.title"
                     style="height: max-content;"
                     href=""
                     v-if="config.config.inlineNew.action"
                     v-on:click="config.config.inlineNew.action ? handleActions(config.config.inlineNew.action, config.config.inlineNew.url) : null"
                     onclick="this.blur();"
-                >{{config.config.inlineNew.label}}</a>
+                ><span class="material-icons">{{config.config.inlineNew.label}}</span></a>
             </div>
         </form>
         <!-- ends inline new entry -->
@@ -274,7 +275,7 @@
                         flash({text: res.data.message, type:'success', timer:3000 });
                     }).catch(e => {
                         this.errors = e.response.data.errors;
-                        flash({text: `submitFiles: ${e.response.data.message}`, type:'error', timer:null });
+                        flash({text: `${e.response.data.message}`, type:'error', timer:null });
                     });
 
                 this.setDefaultValue();

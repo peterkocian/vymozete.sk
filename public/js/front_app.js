@@ -2276,6 +2276,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['config'],
@@ -56834,6 +56843,44 @@ var render = function() {
               : _vm._e()
           ])
         : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "group" }, [
+        _c("label", [_vm._v("IBAN *")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.formData.iban,
+              expression: "formData.iban"
+            }
+          ],
+          attrs: { name: "iban", type: "text" },
+          domProps: { value: _vm.formData.iban },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.formData, "iban", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "bar" }),
+        _vm._v(" "),
+        this.config.validationErrors.iban
+          ? _c(
+              "span",
+              { staticClass: "validation-error" },
+              _vm._l(this.config.validationErrors.iban, function(message) {
+                return _c("div", [_vm._v(_vm._s(message))])
+              }),
+              0
+            )
+          : _vm._e()
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "group" }, [
         _c("label", [_vm._v("ulica *")]),

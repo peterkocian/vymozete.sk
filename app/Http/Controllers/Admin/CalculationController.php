@@ -4,20 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CalculationSaveRequest;
-use App\Http\Requests\NoteSaveRequest;
 use App\Repositories\Eloquent\CurrencyRepository;
 use App\Services\CalculationService;
+use App\Services\ClaimService;
 use Illuminate\Http\Response;
 
 class CalculationController extends Controller
 {
     protected $calculationService;
     protected $currencyRepository;
+    protected $claimService;
 
-    public function __construct(CalculationService $calculationService, CurrencyRepository $currencyRepository)
+    public function __construct(CalculationService $calculationService, CurrencyRepository $currencyRepository, ClaimService $claimService)
     {
         $this->calculationService = $calculationService;
         $this->currencyRepository = $currencyRepository;
+        $this->claimService = $claimService;
     }
 
     public function index()
@@ -30,6 +32,10 @@ class CalculationController extends Controller
         $currencies = $this->currencyRepository->getDataForSelectbox();
         $result = $this->calculationService->calculationsByClaimId($claim_id);
 
+        $claim = $this->claimService->get($claim_id);
+        $trovy = $this->calculationService->getTrovy($claim);
+        $summary = $this->calculationService->summery($claim, $trovy * 1.2, 0);
+
         if (request()->ajax()) {
             return response()->json($result);
         }
@@ -37,7 +43,14 @@ class CalculationController extends Controller
             'claim_id' => $claim_id,
             'data' => $result,
             'currencies' => $currencies,
-            'tab' => 'calculations'
+            'tab' => 'calculations',
+
+            'payment_due_date' => $claim->paymentDueDate,
+            'amount_with_currency' => $claim->amountWithCurrency,
+            'trovy' => $trovy,
+            'trovyDPH' => $trovy * 1.2,
+            'summary' => $summary
+
         ]);
     }
 

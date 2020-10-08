@@ -156,6 +156,7 @@ return [
         'surname' => 'priezvisko',
         'birthday' => 'dátum narodenia',
         'ico' => 'IČO',
+        'iban' => 'IBAN',
         'street' => 'ulica',
         'house_number' => 'číslo',
         'town' => 'obec',
@@ -179,7 +180,11 @@ return [
         'currency_id' => 'mena',
         'description' => 'popis',
 
+        'dates' => 'dátumy',
+        'amounts' => 'sumy',
 
+        'dates.*' => 'dátum',
+        'amounts.*' => 'suma',
 
     ],
 

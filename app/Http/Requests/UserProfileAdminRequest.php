@@ -25,6 +25,7 @@ class UserProfileAdminRequest extends FormRequest
     public function rules()
     {
         $id = $this->route('user');
+        //todo nebolo by lepsie pouzit Auth::id()
 
         return [
             'name'      => 'required|max:191',

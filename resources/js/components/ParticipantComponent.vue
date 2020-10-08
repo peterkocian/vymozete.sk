@@ -175,6 +175,15 @@
             </div>
 
             <div class="group">
+                <label>IBAN *</label>
+                <input v-model="formData.iban" name="iban" type="text">
+                <span class="bar"></span>
+                <span v-if="this.config.validationErrors.iban" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.iban">{{ message }}</div> <!--todo prerobit podla iban validacie aj ostatne-->
+                </span>
+            </div>
+
+            <div class="group">
                 <label>ulica *</label>
                 <input v-model="formData.street" name="street" type="text">
                 <span class="bar"></span>

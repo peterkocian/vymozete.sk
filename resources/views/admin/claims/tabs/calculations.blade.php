@@ -39,7 +39,8 @@
         'sortDirection' => \App\Helpers\SimpleTable::SORT_DIRECTION,
 
         'inlineNew' => [
-            'label' => __('general.Create'),
+            'label' => 'add',
+            'title' => __('general.Create'),
             'key' => 'store',
             'class' => 'btn btn-sm btn-outline-primary mr-1',
             'action' => 'createItem',
@@ -124,8 +125,54 @@
 
     $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\Models\Calculation::ENTITY_ROUTE_PREFIX, $config, $actions);
 @endphp
-<div class="card">
-    <div class="card-body">
+<div class="row">
+    <div class="col">
         <?= $gridview->render(); ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col col-3">
+        <div class="card">
+            <div class="card-header">
+                Výpočet
+            </div>
+            <div class="card-body">
+                <div class="form-group-row">
+                    <label for="due_date" class="col-12 col-form-label">{{__('calculation.Due date')}}</label>
+                    <div class="col-12">
+                        <input class="form-control" type="text" name="due_date" value="{{$payment_due_date}}" disabled/>
+                    </div>
+                </div>
+                <div class="form-group-row">
+                    <label for="istina" class="col-12 col-form-label">{{__('calculation.Istina')}}</label>
+                    <div class="col-12">
+                        <input class="form-control" type="text" name="istina" value="{{$amount_with_currency}}" disabled/>
+                    </div>
+                </div>
+                <div class="form-group-row">
+                    <label for="trovy" class="col-12 col-form-label">{{__('calculation.Trovy')}}</label>
+                    <div class="col-12">
+                        <input class="form-control" type="text" name="trovy" value="{{$trovy}}" disabled/>
+                    </div>
+                </div>
+
+                <div class="form-group-row">
+                    <label for="trovy_s_dph" class="col-12 col-form-label">{{__('calculation.Trovy s DPH')}}</label>
+                    <div class="col-12">
+                        <input class="form-control" type="text" name="trovy_s_dph" value="{{$trovyDPH}}" disabled/>
+                    </div>
+                </div>
+                <div class="form-group-row">
+                    <label for="urok" class="col-12 col-form-label">{{__('calculation.Urok')}}</label>
+                    <div class="col-12">
+                        <input class="form-control" type="text" name="urok" value="" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Súčet: {{ $summary }}</small>
+            </div>
+        </div>
     </div>
 </div>

@@ -35,7 +35,7 @@ class NoteRepository extends BaseRepository implements NoteRepositoryInterface
         $attributes['claim_id'] = $claim->id;
         $attributes['user_id'] = Auth::id();
 
-        return $this->model->create($attributes);
+        return $this->model->insert($attributes);
     }
 
     public function update(array $attributes, int $id): Model

@@ -6,7 +6,13 @@
             <select name="claim_type">
                 <option value="">vyberte...</option>
                 @foreach ($step->getClaimTypes() as $option)
-                    <option value="{{ $option->id }}" @if($step->data('claim_type') == $option->id)selected="selected"@endif>{{ $option->translation(\Illuminate\Support\Facades\Auth::user()->language_id)->firstOrFail()->name }}</option>
+                    @if(request()->get('claim_type'))
+                        <!-- ak su data z query params pri presmerovani z homepage s prednastavenou value -->
+                        <option value="{{ $option->id }}" @if(request()->get('claim_type') == $option->id)selected="selected"@endif>{{ $option->translation(\Illuminate\Support\Facades\Auth::user()->language_id)->firstOrFail()->name }}</option>
+                    @else
+                        <!-- ak su data vramci cache form wizardu -->
+                        <option value="{{ $option->id }}" @if($step->data('claim_type') == $option->id)selected="selected"@endif>{{ $option->translation(\Illuminate\Support\Facades\Auth::user()->language_id)->firstOrFail()->name }}</option>
+                    @endif
                 @endforeach
             </select>
             @error('claim_type')

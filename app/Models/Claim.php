@@ -58,6 +58,16 @@ class Claim extends Model
     }
 
     /**
+     * Vzdy ked pristupime ku atributu paymentDueDate, tak sa automaticky naformatuje podla tohto formatu
+     *
+     * @param $value
+     * @return false|string
+     */
+    public function getPaymentDueDateAttribute($value) {
+        return date('d.m.Y', strtotime($value));
+    }
+
+    /**
      * Get the claim_type record associated with the claim.
      */
     public function claimType()
@@ -135,5 +145,13 @@ class Claim extends Model
     public function properties()
     {
         return $this->hasMany(Property::class);
+    }
+
+    /**
+     * A claim can have many calendar events / splatok
+     */
+    public function calendars()
+    {
+        return $this->hasMany(Calendar::class);
     }
 }

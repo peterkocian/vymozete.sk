@@ -14290,3 +14290,8 @@ span {
   color: #00ADEE;
 }
 
+.btn-disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+

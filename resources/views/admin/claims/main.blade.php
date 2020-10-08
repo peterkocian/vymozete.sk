@@ -37,5 +37,10 @@
                 @include('admin.claims.tabs.notes')
             @endif
         </div>
+        <div class="tab-pane fade @if($tab === 'calendar') show active @endif" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            @if($tab === 'calendar')
+                @include('admin.claims.tabs.calendar')
+            @endif
+        </div>
     </div>
 @endsection

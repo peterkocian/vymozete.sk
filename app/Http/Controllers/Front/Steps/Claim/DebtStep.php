@@ -162,7 +162,7 @@ dd($flattenWizardData);
         return [
             //todo opravit validacne pravidla
             'amount'         => 'required',
-            'paymentDueDate' => 'required',
+            'paymentDueDate' => 'required', //todo prepisat na snake_case
             'currency_id'       => 'required',
 //            'uploads'        => 'required|file',
         ];

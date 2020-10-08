@@ -44,21 +44,21 @@
             </div>
             <div class="card-body">
                 <div class="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label">{{__('claim.Amount')}}</label>
+                    <label for="amount" class="col-sm-2 col-form-label">{{__('claim.Amount')}}</label>
                     <div class="col-sm-10">
-                        <input class="form-control" type="text" name="name"  value="{{ $claim->amountWithCurrency }}" disabled/>
+                        <input class="form-control" type="text" name="amount"  value="{{ $claim->amountWithCurrency }}" disabled/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="surname" class="col-sm-2 col-form-label">{{__('claim.Typ pohladavky')}}</label>
+                    <label for="claim_type" class="col-sm-2 col-form-label">{{__('claim.Type')}}</label>
                     <div class="col-sm-10">
-                        <input class="form-control" type="text" name="surname" value="{{ $claim->type_name }}" disabled/>
+                        <input class="form-control" type="text" name="claim_type" value="{{ $claim->type_name }}" disabled/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="email" class="col-sm-2 col-form-label">{{__('claim.Stav')}}</label>
+                    <label for="claim_status" class="col-sm-2 col-form-label">{{__('claim.Status')}}</label>
                     <div class="col-sm-10">
-                        <input class="form-control" type="text" name="email" value="{{ $claim->status_name }}" disabled/>
+                        <input class="form-control" type="text" name="claim_status" value="{{ $claim->status_name }}" disabled/>
                     </div>
                 </div>
 
@@ -91,11 +91,25 @@
 </div>
 <div class="row">
     <div class="col">
-        @include('admin.claims.tabs.participant', ['data' => $creditor, 'title' => __('claim.Creditor')])
+        <div class="card">
+            <div class="card-header">
+                @lang('claim.Creditor')
+            </div>
+            <div class="card-body">
+                @include('admin.claims.tabs.participant', ['data' => $creditor, 'title' => __('claim.Creditor')])
+            </div>
+        </div>
     </div>
 
     <div class="col">
-        @include('admin.claims.tabs.participant', ['data' => $debtor, 'title' => __('claim.Debtor')])
+        <div class="card">
+            <div class="card-header">
+                @lang('claim.Debtor')
+            </div>
+            <div class="card-body">
+                @include('admin.claims.tabs.participant', ['data' => $debtor, 'title' => __('claim.Debtor')])
+            </div>
+        </div>
     </div>
 </div>
 <div class="row">

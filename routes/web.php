@@ -69,6 +69,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')
                 'edit' => 'claims.notes.edit'
             ]);
 
+            Route::get('/claims/{claim}/calendar', 'CalendarController@getAllByClaimId')->name('claims.calendar.allByClaimId');
+            Route::resource('/claims/{claim}/calendar', 'CalendarController')->only(['store'])->names([
+//                'create' => 'claims.calendar.create',
+                'store' => 'claims.calendar.store'
+            ]);
         });
 });
 
