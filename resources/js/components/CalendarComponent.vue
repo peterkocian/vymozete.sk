@@ -55,19 +55,11 @@
             </div>
         </div>
 
-<!--        <installments-component-->
-<!--            :splatkyPreset="config.splatky"-->
-<!--            :vyskaSplatky="vyskaSplatky"-->
-<!--            :pocetSplatok="pocetSplatok"-->
-<!--            :formPost = "`/admin/claims/${config.claim_id}/calendar`"-->
-<!--            :suma = "config.amount"-->
-<!--            :variant = "type"-->
-<!--        ></installments-component>-->
-
         <div class="row">
             <div class="col">
-                <form :action="`/admin/claims/${config.claim_id}/calendar`" method="POST">
-                    <input type="hidden" name="_token" :value="csrf">
+<!--                <form :action="`/admin/claims/${config.claim_id}/calendar`" method="POST">-->
+                <form>
+<!--                    <input type="hidden" name="_token" :value="csrf">-->
 
                     <table class="table table-striped table-hover table-sm">
                         <thead class="thead-dark">
@@ -86,13 +78,13 @@
                                         :key="i"
                                         type="date"
                                         class="form-control"
-                                        :class="config.validationErrors.hasOwnProperty('dates.'+i) ? 'is-invalid' : null"
+                                        :class="errors.hasOwnProperty('dates.'+i) ? 'is-invalid' : null"
                                         name="dates[]"
-                                        v-model="splatka.date">
-<!--                                        :disabled="type==='automatic'"-->
-<!--                                    >-->
-                                    <div v-if="config.validationErrors.hasOwnProperty('dates.'+i)" class="invalid-feedback">
-                                        <div v-for="message in config.validationErrors['dates.1']">{{ message }}</div>
+                                        v-model="splatka.date"
+                                        :disabled="type==='automatic'"
+                                    >
+                                    <div v-if="errors.hasOwnProperty('dates.'+i)" class="invalid-feedback">
+                                        <div v-for="message in errors['dates.'+i]">{{ message }}</div>
                                     </div>
                                 </td>
                                 <td class="align-middle">
@@ -100,18 +92,18 @@
                                         :key="i"
                                         type="number"
                                         class="form-control"
-                                        :class="config.validationErrors.hasOwnProperty('amounts.'+i) ? 'is-invalid' : null"
+                                        :class="errors.hasOwnProperty('amounts.'+i) ? 'is-invalid' : null"
                                         placeholder="Suma"
                                         name="amounts[]"
                                         min="0"
                                         step="0.01"
                                         :max="config.amount"
                                         v-model="splatka.amount"
-                                        @change="recompute()">
-<!--                                        :disabled="type==='automatic'"-->
-<!--                                    >-->
-                                    <div v-if="config.validationErrors.hasOwnProperty('amounts.'+i)" class="invalid-feedback">
-                                        <div v-for="message in config.validationErrors['amounts.'+i]">{{ message }}</div>
+                                        @change="recompute()"
+                                        :disabled="type==='automatic'"
+                                    >
+                                    <div v-if="errors.hasOwnProperty('amounts.'+i)" class="invalid-feedback">
+                                        <div v-for="message in errors['amounts.'+i]">{{ message }}</div>
                                     </div>
                                 </td>
                                 <td>
@@ -123,11 +115,13 @@
                         </tbody>
                     </table>
                     <button v-if="type === 'manual'" type="button" class="btn btn-primary btn-sm" @click="addElement">Add</button>
-                    <button
-                        type="submit"
+                    <a
+                        role="button"
                         class="btn btn-success btn-sm"
                         :class="this.disableSaveButton ? 'btn-disabled' : null"
-                    >Save</button>
+                        v-on:click="handleSubmit()"
+                        onclick="this.blur();"
+                    >Save</a>
                 </form>
             </div>
         </div>
@@ -137,17 +131,20 @@
 <script>
     export default {
         props: ['config'],
+        mounted() {
+            this.splatky = this.config.splatky;
+        },
         data() {
             return {
-                csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 type: 'automatic',
-                // elements: [{}],
-                // elements: this.config.splatky,
                 disableSaveButton: null,
                 amountDynamic: this.config.amount,
                 vyskaSplatky:this.config.amount,
                 pocetSplatok:1,
-                splatky: this.config.splatky,
+                splatky: [],
+                dates: [],
+                amounts: [],
+                errors: {}
             }
         },
         methods: {
@@ -160,27 +157,28 @@
                 } else {
                     flash({text: 'uz sa neda', type:'error', timer:null});
                 }
-
             },
             removeElement(index) {
                 this.splatky.splice(index, 1);
             },
             recompute(){
+                this.dates = [];
+                this.amounts = [];
+
                 let x = 0;
                 this.splatky.forEach(el => {
+                    this.dates.push(el.date);
+                    this.amounts.push(el.amount);
+
                     if (el && el.amount) {
 
                         x +=  Number(el.amount);
                     }
                 });
-                // console.log(x);
                 this.amountDynamic = this.config.amount - x;
             },
             vypocitajVyskuSplatky(){
                 this.vyskaSplatky = this.roundToTwo(this.config.amount / this.pocetSplatok)
-                // let result = this.config.amount / this.pocetSplatok;
-                // this.vyskaSplatky = result.toFixed(2);
-                // this.vyskaSplatky = Math.round(this.config.amount / this.pocetSplatok * 100) / 100;
             },
             vypocitajPocetSplatok(){
                 this.pocetSplatok = Math.ceil(this.config.amount / this.vyskaSplatky);
@@ -196,7 +194,6 @@
                     }
                 } else {
                     let last = this.config.amount - Number(this.vyskaSplatky*(this.pocetSplatok-1));
-                    // console.log('last',last.toFixed(2));
 
                     for (let i = 0; i < this.pocetSplatok-1; i++) {
                         this.splatky.push({date:'2020-10-01',amount:this.vyskaSplatky});
@@ -207,7 +204,20 @@
             },
             roundToTwo(num) {
                 return +(Math.round(num + "e+2")  + "e-2");
-            }
+            },
+            handleSubmit() {
+                axios.post(`/admin/claims/${this.config.claim_id}/calendar`, {
+                    'dates': this.dates,
+                    'amounts': this.amounts
+                })
+                    .then(res => {
+                        this.errors = {};
+                        flash({text: res.data.message, type:'success', timer:3000 });
+                    }).catch(e => {
+                        this.errors = e.response.data.errors;
+                        flash({text: e.response.data.message, type:'error', timer:null });
+                    });
+            },
         },
         watch: {
             splatky() {

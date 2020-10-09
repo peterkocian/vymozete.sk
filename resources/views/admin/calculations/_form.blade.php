@@ -28,7 +28,7 @@
 <div class="form-group row">
     <label for="paid" class="col-sm-2 col-form-label">{{__('calculation.Paid')}}</label>
     <div class="col-sm-10">
-        <input class="form-control {{ $errors->has('paid') ? 'is-invalid' : '' }}" type="checkbox" name="paid" id="paid" value="{{ old('name', $data->paid ?? null) }}" required/>
+        <input class="form-control {{ $errors->has('paid') ? 'is-invalid' : '' }}" type="checkbox" name="paid" id="paid" value="{{ old('name', $data->paid ?? null) }}"/>
         @error('paid')
         <div class="invalid-feedback">{{ $message }}</div>
         @enderror

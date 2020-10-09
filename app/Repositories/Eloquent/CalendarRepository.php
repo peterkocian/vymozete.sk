@@ -6,8 +6,6 @@ use App\Models\Calendar;
 use App\Models\Claim;
 use App\Repositories\CalendarRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class CalendarRepository extends BaseRepository implements CalendarRepositoryInterface
 {
@@ -30,7 +28,6 @@ class CalendarRepository extends BaseRepository implements CalendarRepositoryInt
      */
     public function save(array $attributes, int $claim_id): Collection
     {
-//        dd($attributes);
         $claim = Claim::findOrFail($claim_id);
 //        $attributes['claim_id'] = $claim->id;
 //        $attributes['user_id'] = Auth::id();
@@ -41,5 +38,14 @@ class CalendarRepository extends BaseRepository implements CalendarRepositoryInt
     public function claim(int $claim_id)
     {
         return Claim::find($claim_id);
+    }
+
+    public function deleteAllById(int $claim_id): int
+    {
+        $claim = Claim::findOrFail($claim_id);
+//        $attributes['claim_id'] = $claim->id;
+//        $attributes['user_id'] = Auth::id();
+
+        return $claim->calendars()->delete();
     }
 }

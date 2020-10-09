@@ -235,6 +235,8 @@
             createItem(url) {
                 axios.post(url, this.newEntry)
                     .then(res => {
+                        this.errors = {};
+                        this.setDefaultValue();
                         this.reloadData();
                         flash({text: res.data.message, type:'success', timer:3000 });
                     }).catch(e => {
@@ -242,8 +244,6 @@
                         this.errors = e.response.data.errors;
                         flash({text: `${e.response.data.message}`, type:'error', timer:null });
                     });
-
-                this.setDefaultValue();
             },
             submitFiles(url) {
                 let formData = new FormData();
@@ -271,6 +271,7 @@
                     .then(res => {
                         console.log(res.data)
                         this.errors = {};
+                        this.setDefaultValue();
                         this.reloadData();
                         flash({text: res.data.message, type:'success', timer:3000 });
                     }).catch(e => {
@@ -278,7 +279,7 @@
                         flash({text: `${e.response.data.message}`, type:'error', timer:null });
                     });
 
-                this.setDefaultValue();
+
             },
             loadSourceData(data){
                 //funkcia nacitava zdrojove data pre tabulku, struktura moze byt rozna, podla toho ci sa jedna o tabulku so strankovanim

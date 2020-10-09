@@ -53,35 +53,34 @@ class CalendarController extends Controller
 
     public function store(SplatkySaveRequest $request, int $claim_id)
     {
-        dd('validated', $request->validated());
-//        $data = $request->all();
-//
-//        try {
-//            $result = $this->calendarService->saveEvents($data, $claim_id);
-//        } catch (\Exception $e) {
-////            report($e);
-//
-//            if ($request->ajax()) {
-//                return response()->json([
-//                    'success' => false,
-//                    'message' => __('general.Create failed') . ' ' . $e->getMessage(),
-//                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
-//            } else {
-//                return redirect()
-//                    ->route('admin.claims.notes.allByClaimId', $claim_id)
-//                    ->withFail(__('general.Create failed') . ' ' . $e->getMessage());
-//            }
-//        }
-//
-//        if ($request->ajax()) {
-//            return response()->json([
-//                'success' => true,
-//                'id' => $result->id,
-//                'message' => __('general.Created successfully'),
-//            ], Response::HTTP_OK);
-//        } else {
-//            return back()
-//                ->withSuccess(__('general.Created successfully'));
-//        }
+        $data = $request->all();
+
+        try {
+            $result = $this->calendarService->saveEvents($data, $claim_id);
+        } catch (\Exception $e) {
+//            report($e);
+
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => __('general.Create failed') . ' ' . $e->getMessage(),
+                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+            } else {
+                return redirect()
+                    ->route('admin.claims.notes.allByClaimId', $claim_id)
+                    ->withFail(__('general.Create failed') . ' ' . $e->getMessage());
+            }
+        }
+
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'id' => null,
+                'message' => __('general.Created successfully'),
+            ], Response::HTTP_OK);
+        } else {
+            return back()
+                ->withSuccess(__('general.Created successfully'));
+        }
     }
 }

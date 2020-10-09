@@ -35,15 +35,21 @@ class SplatkySaveRequest extends FormRequest
     }
 
     /**
-     * Get custom attributes for validator errors.
+     * Handle a failed validation attempt.
      *
-     * @return array
+     * @param Validator $validator
+     * @return void
+     *
      */
-//    public function attributes()
-//    {
-//        return [
-//            'dates.*' => __('claim.amount'),
-//            'amounts.*' => __('claim.amount'),
-//        ];
-//    }
+    protected function failedValidation(Validator $validator)
+    {
+        $response = [
+            "success" => false,
+            "message" => __("general.The given data was invalid"),
+            "errors" => $validator->errors(),
+        ];
+
+        // Finally throw the HttpResponseException.
+        throw new HttpResponseException(response()->json($response, Response::HTTP_UNPROCESSABLE_ENTITY));
+    }
 }

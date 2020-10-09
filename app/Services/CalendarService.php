@@ -3,15 +3,19 @@
 namespace App\Services;
 
 use App\Repositories\CalendarRepositoryInterface;
+use App\Repositories\ClaimRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CalendarService
 {
     private $calendarRepository;
+    private $claimRepository;
 
-    public function __construct(CalendarRepositoryInterface $calendarRepository)
+    public function __construct(CalendarRepositoryInterface $calendarRepository, ClaimRepositoryInterface $claimRepository)
     {
         $this->calendarRepository = $calendarRepository;
+        $this->claimRepository = $claimRepository;
     }
 
     public function all()
@@ -23,27 +27,6 @@ class CalendarService
     {
         $claim = $this->calendarRepository->claim($claim_id);
         return $claim->calendars;
-//        $sortKey = request('sortKey') ? request('sortKey') : SimpleTable::SORT_KEY;
-//        $sortDirection = request('sortDirection') ? request('sortDirection') : SimpleTable::SORT_DIRECTION;
-//        $pagination = request('pagination') ?? $this->noteRepository->getPagination();
-//
-//        //sort data
-//        $query = $this->noteRepository->getData($claim_id)->orderBy($sortKey,$sortDirection);
-//
-//        if ($pagination) {
-//            $rows = request('rows') ? intval(request('rows')) : SimpleTable::NUMBER_OF_ROWS;
-//
-//            $paginate = $query->paginate($rows);
-////            $data['data'] = $this->noteRepository->getRelatedData($paginate);
-//            $data['data'] = $paginate->items();
-//            $pag = $paginate->toArray();
-//            unset($pag['data']);  // z povodneho objektu paginate ktory vracia Laravel mazem data, aby mi v result['pagination'] posielalo na FE iba info o strankovani
-//            $data['pagination'] = $pag;
-//        } else {
-//            $data = $query->get();
-//        }
-//
-//        return $data;
     }
 
     public function saveEvents(array $data, int $claim_id)
@@ -68,9 +51,16 @@ class CalendarService
             ]);
         }
 
+        DB::beginTransaction();
+
         try {
+            //vymaze vsetky existujuce zaznamy
+            $this->calendarRepository->deleteAllById($claim_id);
+            //ulozi nove, prave poslane requestom
             $result = $this->calendarRepository->save($events, $claim_id);
+            DB::commit();
         } catch (\Exception $e) {
+            DB::rollBack();
 //            Log::info($e->getMessage());
             throw new \Exception($e->getMessage());
         }
