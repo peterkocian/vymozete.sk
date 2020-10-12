@@ -1643,7 +1643,9 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
 }
 
 .multiselect .multiselect__select,
-.multiselect--active .multiselect__select {
+.multiselect .multiselect__spinner,
+.multiselect--active .multiselect__select,
+.multiselect--active .multiselect__spinner {
   z-index: 1;
 }
 
@@ -1671,6 +1673,7 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
   padding: 10px 10px 10px 5px !important;
   color: #115063;
   font-weight: 400;
+  font-size: 18px;
 }
 
 .multiselect .multiselect__input:hover,

@@ -237,31 +237,55 @@ class UserController extends Controller
                 $user = $this->userService->get($id);
 
                 if ($user->banned) {
-                    throw new \Exception('Uzivatel uz je zablokovany.');
+                    throw new \Exception(__('general.Already banned'));
                 }
 
                 $data['banned'] = 1; //true
 
                 $this->userService->updateUserBan($data, $id);
+
+                if (request()->ajax()) {
+                    return response()->json([
+                        'success' => true,
+                        'id' => $id,
+                        'message' => __('general.Banned successfully'),
+                    ], Response::HTTP_OK);
+                } else {
+                    return redirect()
+                        ->route('admin.users.index')
+                        ->withSuccess(__('general.Banned successfully'));
+                }
             }
         } catch (ValidationException $e) {
             report($e);
 
-            return back()
-                ->withFail(__('general.Create failed'))
-                ->withErrors($e->validator)
-                ->withInput();
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'id' => $id,
+                    'message' => __('general.Ban failed').' '.$e->getMessage(),
+                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+            } else {
+                return redirect()
+                    ->route('admin.users.index')
+                    ->withFail(__('general.Ban failed').' '.$e->getMessage())
+                    ->withErrors($e->validator);
+            }
         } catch (\Exception $e) {
             report($e);
 
-            return back()
-                ->withFail(__('general.Create failed').' '.$e->getMessage())
-                ->withInput();
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'id' => $id,
+                    'message' => __('general.Ban failed').' '.$e->getMessage(),
+                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+            } else {
+                return redirect()
+                    ->route('admin.users.index')
+                    ->withFail(__('general.Ban failed').' '.$e->getMessage());
+            }
         }
-
-        return redirect()
-            ->route('admin.users.index')
-            ->withSuccess(__('general.Created successfully'));
     }
 
     public function unBan(int $id)
@@ -276,26 +300,50 @@ class UserController extends Controller
 
                     $this->userService->updateUserBan($data, $id);
                 } else {
-                    throw new \Exception('Uzivatel uz je odblokovany.');
+                    throw new \Exception(__('general.Already unbanned'));
+                }
+
+                if (request()->ajax()) {
+                    return response()->json([
+                        'success' => true,
+                        'id' => $id,
+                        'message' => __('general.Unbanned successfully'),
+                    ], Response::HTTP_OK);
+                } else {
+                    return redirect()
+                        ->route('admin.users.index')
+                        ->withSuccess(__('general.Unbanned successfully'));
                 }
             }
         } catch (ValidationException $e) {
             report($e);
 
-            return back()
-                ->withFail(__('general.Create failed'))
-                ->withErrors($e->validator)
-                ->withInput();
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'id' => $id,
+                    'message' => __('general.Unban failed').' '.$e->getMessage(),
+                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+            } else {
+                return redirect()
+                    ->route('admin.users.index')
+                    ->withFail(__('general.Unban failed').' '.$e->getMessage())
+                    ->withErrors($e->validator);
+            }
         } catch (\Exception $e) {
             report($e);
 
-            return back()
-                ->withFail(__('general.Create failed').' '.$e->getMessage())
-                ->withInput();
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'id' => $id,
+                    'message' => __('general.Unban failed').' '.$e->getMessage(),
+                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+            } else {
+                return redirect()
+                    ->route('admin.users.index')
+                    ->withFail(__('general.Unban failed').' '.$e->getMessage());
+            }
         }
-
-        return redirect()
-            ->route('admin.users.index')
-            ->withSuccess(__('general.Created successfully'));
     }
 }

@@ -43,16 +43,16 @@ class CalculationRepository extends BaseRepository implements CalculationReposit
     {
         if ($id) {
             try {
-                $note = $this->model->findOrFail($id);
+                $calculation = $this->model->findOrFail($id);
             } catch (\Exception $e) {
                 report($e);
-                throw new \Exception('Poznamku sa nepodarilo najst.'. $e->getMessage());
+                throw new \Exception('calculation sa nepodarilo najst.'. $e->getMessage());
             }
 
-            if ($note) {
-                $note->update($attributes);
+            if ($calculation) {
+                $calculation->update($attributes);
 
-                return $note;
+                return $calculation;
             }
         }
 

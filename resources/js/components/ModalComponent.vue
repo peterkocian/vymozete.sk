@@ -25,15 +25,16 @@
         data() {
             return {
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                postData: {email: this.config.email}
             };
         },
         methods: {
             reset() {
-                console.log('reset'); //todo
+                console.log('submit no...todo'); //todo
             },
             submit() {
                 if (this.config.ajax) {
-                    this.$emit('ajaxModalSubmit', this.config.url);
+                    this.$emit('ajaxModalSubmit', this.config.url, this.config.requestMethod, {email: this.config.email});
                 } else {
                     this.$refs.form.submit()
                 }

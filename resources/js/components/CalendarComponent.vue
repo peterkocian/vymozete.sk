@@ -25,7 +25,18 @@
                     <div class="form-group row">
                         <label for="date" class="col-sm-2 col-form-label">Prvá splátka</label>
                         <div class="col-sm-10">
-                            <input type="date" class="form-control" name="date" id="date">
+                            <date-picker
+                                v-model="startDate"
+                                :lang="lang"
+                                format="DD.MM.YYYY"
+                                value-type="YYYY-MM-DD"
+                                type="date"
+                                name="date"
+                                id="date"
+                                input-class="form-control"
+                                :input-attr="{name: ''}"
+                                placeholder="DD.MM.RRRR"
+                            ></date-picker>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -57,10 +68,7 @@
 
         <div class="row">
             <div class="col">
-<!--                <form :action="`/admin/claims/${config.claim_id}/calendar`" method="POST">-->
                 <form>
-<!--                    <input type="hidden" name="_token" :value="csrf">-->
-
                     <table class="table table-striped table-hover table-sm">
                         <thead class="thead-dark">
                             <tr>
@@ -74,15 +82,21 @@
                             <tr v-for="(splatka,i) in splatky" :key="splatka.id">
                                 <td class="align-middle">{{i+1}}.</td>
                                 <td class="align-middle">
-                                    <input
+                                    <date-picker
+                                        v-model="splatka.date"
+                                        :lang="lang"
+                                        format="DD.MM.YYYY"
+                                        value-type="YYYY-MM-DD"
                                         :key="i"
                                         type="date"
-                                        class="form-control"
-                                        :class="errors.hasOwnProperty('dates.'+i) ? 'is-invalid' : null"
                                         name="dates[]"
-                                        v-model="splatka.date"
+                                        :class="errors.hasOwnProperty('dates.'+i) ? 'is-invalid' : null"
+                                        input-class="form-control"
+                                        :input-attr="{name: ''}"
+                                        placeholder="DD.MM.RRRR"
                                         :disabled="type==='automatic'"
-                                    >
+                                        @change="recompute()"
+                                    ></date-picker>
                                     <div v-if="errors.hasOwnProperty('dates.'+i)" class="invalid-feedback">
                                         <div v-for="message in errors['dates.'+i]">{{ message }}</div>
                                     </div>
@@ -129,10 +143,18 @@
 </template>
 
 <script>
+    import * as lang from "../datepicker_language";
+
     export default {
         props: ['config'],
         mounted() {
-            this.splatky = this.config.splatky;
+            this.dates = [];
+            this.amounts = [];
+
+            this.config.splatky.forEach(el => {
+                this.dates.push(el.date);
+                this.amounts.push(el.amount);
+            });
         },
         data() {
             return {
@@ -141,7 +163,9 @@
                 amountDynamic: this.config.amount,
                 vyskaSplatky:this.config.amount,
                 pocetSplatok:1,
-                splatky: [],
+                startDate: null,
+                lang: lang.slovak(),
+                splatky: this.config.splatky,
                 dates: [],
                 amounts: [],
                 errors: {}
@@ -162,6 +186,8 @@
                 this.splatky.splice(index, 1);
             },
             recompute(){
+                flash({text: 'Zmeny su zatial neulozene', type:'warning', timer:null })
+
                 this.dates = [];
                 this.amounts = [];
 

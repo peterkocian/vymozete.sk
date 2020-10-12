@@ -43,11 +43,15 @@
                 <textarea id="desc" v-model="formData.description" name="description"></textarea>
             </div>
 
-            <p>nahrajte dokumenty</p>
-
-<!--            <upload-component-->
-<!--                :config="{multi:true}"-->
-<!--            ></upload-component>-->
+            <div class="group description">
+                <label>nahrajte dokumenty *</label>
+                <span v-if="this.config.validationErrors.uploads" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['uploads']">{{ message }}</div>
+                </span>
+            </div>
+            <upload-component
+                :config="{multi:true}"
+            ></upload-component>
 
             <div class="group">
                 <div class="row">
@@ -58,6 +62,8 @@
     </div>
 </template>
 <script>
+    import * as lang from "../datepicker_language";
+
     export default {
         props: ['config'],
         mounted() {
@@ -69,11 +75,7 @@
             return {
                 formData: { currency_id:1 },
                 stepData,
-                lang: {
-                    formatLocale: {
-                        firstDayOfWeek: 1,
-                    }
-                },
+                lang: lang.slovak(),
             }
         },
         methods: {

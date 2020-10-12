@@ -57,7 +57,7 @@ class TypeStep extends Step
     /**
      * Validation rules.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function rules(Request $request)

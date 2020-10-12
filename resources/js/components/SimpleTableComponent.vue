@@ -43,16 +43,30 @@
                         multiple
                     >
                     <!-- ak field je input type = date -->
-                    <input
+<!--                    <input-->
+<!--                        v-if="field.type === 'date'"-->
+<!--                        class="form-control form-control-sm"-->
+<!--                        :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"-->
+<!--                        :type="field.type"-->
+<!--                        :placeholder="field.label"-->
+<!--                        :name="field.key+'[]'"-->
+<!--                        :id="field.key"-->
+<!--                        v-model="newEntry[field.key]"-->
+<!--                    >-->
+                    <date-picker
                         v-if="field.type === 'date'"
-                        class="form-control form-control-sm"
+                        v-model="newEntry[field.key]"
+                        :lang="lang"
+                        format="DD.MM.YYYY"
+                        value-type="YYYY-MM-DD"
                         :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
                         :type="field.type"
-                        :placeholder="field.label"
-                        :name="field.key+'[]'"
+                        :name="field.key"
                         :id="field.key"
-                        v-model="newEntry[field.key]"
-                    >
+                        input-class="form-control form-control-sm"
+                        :input-attr="{name: ''}"
+                        :placeholder="field.label"
+                    ></date-picker>
                     <!-- ak field je select -->
                     <select
                         v-else-if="field.type === 'select'"
@@ -170,12 +184,14 @@
         </b-overlay>
         <modal-component
             :config="{...modal}"
-            v-on:ajaxModalSubmit="handleAjaxModalSubmit(modal.url)"
+            v-on:ajaxModalSubmit="handleAjaxModalSubmit"
         ></modal-component>
     </div>
 </template>
 
 <script>
+    import * as lang from "../datepicker_language";
+
     export default {
         props: ['config'],
         data() {
@@ -185,6 +201,7 @@
                 rows: this.config.config.numberOfRows || null,
                 sortKey: this.config.config.sortKey || null,
                 sortDirection: this.config.config.sortDirection || null,
+                lang: lang.slovak(),
                 files: [],
                 newEntry: {},
                 overlay: false,
@@ -215,6 +232,7 @@
                 return resolvedUrl;
             },
             showModal(url, text, ajax, requestMethod, key, item) {
+                this.modal = {};
                 if (key === 'passwordReset') {
                     this.modal.email = item['email'];
                 }
@@ -315,9 +333,10 @@
                 //function for new entry in inline new mode
                 this.newEntry = {};
             },
-            handleAjaxModalSubmit(url) {
-                console.log('handleAjaxModalSubmit',url);
-                axios.delete(url, {
+            handleAjaxModalSubmit(url, method, data = {}) {
+                axios(url, {
+                    method: method,
+                    data
                     // params: this.queryParams,
                     // paramsSerializer: function (params) {
                     //     return decodeURIComponent( $.param(params))
@@ -326,9 +345,8 @@
                     flash({text: res.data.message, type:'success', timer:3000 });
                     this.reloadData();
                 }).catch(e => {
-                    let message = e.response.data.errors ?? e;
-                    // console.log(message);
-                    flash({text: `reloadData: ${message}`, type:'error', timer:null });
+                    let message = e.response.data.errors ?? e.response.data.message ?? e; //todo preverit ci toto funguje lepsie ako je to v reloadData()
+                    flash({text: message, type:'error', timer:null });
                 });
             },
             handleFilesUpload(e) {

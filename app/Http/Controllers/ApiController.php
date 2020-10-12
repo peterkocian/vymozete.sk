@@ -28,10 +28,14 @@ class ApiController extends Controller
         try {
             $res = $client->request('GET', self::GET_COMPANY_URL . $param . '&private_access_token=' . env('SLOVENSKO_DIGITAL_API_KEY'));
         } catch (GuzzleException $e) {
+            //todo catch exception ked nejde internet
             report($e);
         }
 
-        return json_decode($res->getBody(), true);
+        if (isset($res)) {
+            return json_decode($res->getBody(), true);
+        }
+        return response()->json([false]);
     }
 
     private function prepareData($companies)

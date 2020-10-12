@@ -21,7 +21,7 @@ class Organization extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'ico', 'vat', 'phone', 'email', 'street', 'house_number', 'town', 'zip', 'country'
+        'name', 'ico', 'vat', 'iban', 'phone', 'email', 'street', 'house_number', 'town', 'zip', 'country'
     ];
 
     /**
@@ -32,5 +32,13 @@ class Organization extends Model
     public function getFullNameAttribute()
     {
         return $this->name;
+    }
+
+    /**
+     * Get all of the company's participants.
+     */
+    public function participants()
+    {
+        return $this->morphMany(Participant::class, 'entity');
     }
 }

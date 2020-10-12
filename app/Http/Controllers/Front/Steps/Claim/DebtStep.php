@@ -16,6 +16,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Ycs77\LaravelWizard\Step;
@@ -68,7 +69,7 @@ class DebtStep extends Step
      */
     public function model(Request $request)
     {
-//        return new Claim();
+        return new Claim();
     }
 
     /**
@@ -82,16 +83,12 @@ class DebtStep extends Step
      */
     public function saveData(Request $request, $data = null, $model = null)
     {
-
         $wizardData = [];
         $wizardData = $this->getRepo()->original()->map(function ($step) use($wizardData) {
-            $wizardData[$step->slug()] = $step->data();
-            return $wizardData;
+            return $wizardData[$step->slug()] = $step->data();
         });
 
         $flattenWizardData = $this->flattenArray($wizardData);
-
-//        dd($flattenWizardData['debt']['uploads']);
 
         DB::beginTransaction();
 
@@ -109,6 +106,7 @@ class DebtStep extends Step
             } else {
                 throw new Exception('Vyskytol sa problem pri ziskavani udajov dlznika.');
             }
+
             $debtorModel->save();
             $creditorModel->save();
 
@@ -118,28 +116,34 @@ class DebtStep extends Step
             $participantDebtor = new Participant();
             $participantDebtor->user()->associate(Auth::id());
 
-dd($flattenWizardData);
             $debtorModel->participants()->save($participantDebtor);
             $creditorModel->participants()->save($participantCreditor);
 
-            $model->currency()->associate($flattenWizardData['debt']['currency']);
+            $model->currency()->associate($flattenWizardData['debt']['currency_id']);
             $model->claimStatus()->associate(Claim::DEFAULT_STATE_ID);
             $model->claimType()->associate($flattenWizardData['type']['claim_type']);
             $model->user()->associate(Auth::id());
             $model->creditor()->associate($participantCreditor);
             $model->debtor()->associate($participantDebtor);
 
-//            dd($flattenWizardData['debt']);
+            $files = $flattenWizardData['debt']['uploads'];
+
+            unset($flattenWizardData['debt']['uploads']);
 
             $model->fill($flattenWizardData['debt'])->save();
 
             //save file from form wizard
-
-//            if (isset($flattenWizardData['debt']['uploads'])){
-//                foreach ($flattenWizardData['debt']['uploads'] as $file) {
-//                    $this->fileService->saveFile($model, $flattenWizardData['debt']['uploads']);
-//                }
-//            }
+            if ($files) {
+                foreach($files as $file) {
+                    if ($file && $file->isValid()) {
+                        $saved = $this->fileService->saveFile($model, $file, $data);
+                    } else {
+                        throw new \Exception('Subor nie je validny');
+                    }
+                }
+            } else {
+                throw new \Exception('Requestom neprisiel ziadny subor na ulozenie');
+            }
 
             DB::commit();
         } catch (Exception $e) {
@@ -160,11 +164,11 @@ dd($flattenWizardData);
     public function rules(Request $request)
     {
         return [
-            //todo opravit validacne pravidla
-            'amount'         => 'required',
+            'amount'         => 'required|numeric',
+            'currency_id'    => 'required',
             'paymentDueDate' => 'required', //todo prepisat na snake_case
-            'currency_id'       => 'required',
-//            'uploads'        => 'required|file',
+            'uploads'        => 'required|array|min:1',
+            'uploads.*'      => 'required|mimes:txt,pdf,doc,docx,jpg,jpeg',
         ];
     }
 

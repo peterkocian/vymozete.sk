@@ -9,6 +9,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import {  BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+import DatePicker from 'vue2-datepicker';
 
 window.events = new Vue();
 
@@ -38,6 +39,8 @@ Vue.component('calendar-component', require('./components/CalendarComponent').de
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
+//vue2-datepicker
+Vue.use(DatePicker);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

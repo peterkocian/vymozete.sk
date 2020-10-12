@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front\Steps\Claim;
 
+use App\Rules\EmailMustHaveTLD;
 use Illuminate\Http\Request;
 use Ycs77\LaravelWizard\Step;
 
@@ -71,8 +72,7 @@ class DebtorStep extends Step
             'town' => 'required',
             'zip' => 'required',
             'country' => 'required',
-//            'email' => 'regex:/^.+@.+$/i|nullable'
-            'email' => 'email|nullable'
+            'email' => ['email',new EmailMustHaveTLD,'nullable']
         ];
     }
 }

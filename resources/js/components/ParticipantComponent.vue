@@ -107,7 +107,6 @@
                     placeholder="Začnite písať"
                     open-direction="bottom"
                     :showNoOptions="false"
-                    :showCaret="true"
                     :show-labels="false"
                     @search-change="query => debounceSearch(query, 'name')"
                     @select="setCompanyFormData"
@@ -174,7 +173,7 @@
                 </span>
             </div>
 
-            <div class="group">
+            <div v-if="this.config.slug === 'creditor'" class="group">
                 <label>IBAN *</label>
                 <input v-model="formData.iban" name="iban" type="text">
                 <span class="bar"></span>
@@ -247,8 +246,6 @@
                 <input
                     v-model="formData.email"
                     name="email" type="email"
-                    pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                    oninvalid="this.setCustomValidity('Nesprávna mailová adresa')"
                 >
                 <span class="bar"></span>
                 <span v-if="this.config.validationErrors.email" class="validation-error">
@@ -293,7 +290,7 @@
             setDefaultFormData() {
                 if (!Array.isArray(this.config.oldInputs)) {
                     delete this.config.oldInputs._token;
-                    this.formData = {...this.config.oldInputs};
+                    this.selectedCompany = this.formData = {...this.config.oldInputs};
                 } else if (this.config.stepData) {
                     this.formData = {...this.config.stepData};
                     if (this.config.stepData.name && this.config.stepData.ico) {
