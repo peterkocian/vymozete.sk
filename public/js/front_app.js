@@ -56191,8 +56191,8 @@ var render = function() {
           { staticClass: "group" },
           [
             _c("input", {
-              attrs: { type: "hidden", name: "paymentDueDate" },
-              domProps: { value: _vm.formData.paymentDueDate }
+              attrs: { type: "hidden", name: "payment_due_date" },
+              domProps: { value: _vm.formData.payment_due_date }
             }),
             _vm._v(" "),
             _c("label", [_vm._v("dátum splatnosti *")]),
@@ -56210,20 +56210,20 @@ var render = function() {
                 "append-to-body": false
               },
               model: {
-                value: _vm.formData.paymentDueDate,
+                value: _vm.formData.payment_due_date,
                 callback: function($$v) {
-                  _vm.$set(_vm.formData, "paymentDueDate", $$v)
+                  _vm.$set(_vm.formData, "payment_due_date", $$v)
                 },
-                expression: "formData.paymentDueDate"
+                expression: "formData.payment_due_date"
               }
             }),
             _vm._v(" "),
-            this.config.validationErrors.paymentDueDate
+            this.config.validationErrors.payment_due_date
               ? _c(
                   "span",
                   { staticClass: "validation-error" },
                   _vm._l(
-                    this.config.validationErrors["paymentDueDate"],
+                    this.config.validationErrors["payment_due_date"],
                     function(message) {
                       return _c("div", [_vm._v(_vm._s(message))])
                     }

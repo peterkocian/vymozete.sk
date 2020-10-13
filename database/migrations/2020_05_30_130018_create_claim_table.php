@@ -17,7 +17,7 @@ class CreateClaimTable extends Migration
             $table->id();
             $table->float('amount', 10, 2);
             $table->text('description')->nullable();
-            $table->dateTime('paymentDueDate');
+            $table->dateTime('payment_due_date');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });

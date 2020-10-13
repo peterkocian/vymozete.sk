@@ -25,7 +25,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')
         Route::get('/logout', 'LoginController@logout')->name('logout');
         Route::get('/password/reset', 'LoginController@passwordReset')->name('password.reset');
 
-        Route::middleware('auth')->group(function() {
+        Route::middleware('auth','role:super-admin')->group(function() {
             Route::resources([
                 'users'         => 'UserController',
                 'roles'         => 'RoleController',
@@ -48,7 +48,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')
 
             Route::get('/claims/{claim}/properties', 'PropertyController@getAllByClaimId')->name('claims.properties.allByClaimId');
             Route::post('/claims/{claim}/properties', 'PropertyController@store')->name('claims.properties.store');
-//            Route::resource('properties', 'PropertyController')->only(['destroy']);
             Route::resource('/claims/{claim}/properties', 'PropertyController')->only(['destroy'])->names([
                 'destroy' => 'claims.properties.destroy'
             ]);
@@ -62,18 +61,15 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')
             ]);
 
             Route::get('/claims/{claim}/notes', 'NoteController@getAllByClaimId')->name('claims.notes.allByClaimId');
-            Route::post('/claims/{claim}/notes', 'NoteController@store')->name('claims.notes.store'); // todo prepisat do resource
-            Route::resource('/claims/{claim}/notes', 'NoteController')->only(['update', 'destroy', 'edit'])->names([
+            Route::resource('/claims/{claim}/notes', 'NoteController')->only(['store', 'update', 'destroy', 'edit'])->names([
+                'store' => 'claims.notes.store',
                 'update' => 'claims.notes.update',
                 'destroy' => 'claims.notes.destroy',
                 'edit' => 'claims.notes.edit'
             ]);
 
             Route::get('/claims/{claim}/calendar', 'CalendarController@getAllByClaimId')->name('claims.calendar.allByClaimId');
-            Route::resource('/claims/{claim}/calendar', 'CalendarController')->only(['store'])->names([
-//                'create' => 'claims.calendar.create',
-                'store' => 'claims.calendar.store'
-            ]);
+            Route::post('/claims/{claim}/calendar', 'CalendarController@store')->name('claims.calendar.store');
         });
 });
 
@@ -100,7 +96,6 @@ Route::view('/vop', 'front.vop');
 Auth::routes();
 //hack to allow GET method for Laravel logout route
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-
 
 Route::fallback(function () {
     abort(404);

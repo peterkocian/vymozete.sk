@@ -64,9 +64,4 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface
             return $role;
         }
     }
-
-//    public function getData(): Builder // todo presunut do BaseRepository
-//    {
-//        return Role::query();
-//    }
 }

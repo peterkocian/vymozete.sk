@@ -163,7 +163,7 @@ return [
         'zip' => 'PSČ',
         'country' => 'štát',
         'person_type' => 'typ osoby',
-        'paymentDueDate' => 'dátum splatnosti',
+        'payment_due_date' => 'dátum splatnosti',
         'amount' => 'dlžná suma (istina)',
 //        'amount' => __('user.Roles'),
 

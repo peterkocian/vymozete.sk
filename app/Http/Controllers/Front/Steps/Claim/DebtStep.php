@@ -83,12 +83,18 @@ class DebtStep extends Step
      */
     public function saveData(Request $request, $data = null, $model = null)
     {
+//        dd($this->wizard());
+//        dd('here');
         $wizardData = [];
-        $wizardData = $this->getRepo()->original()->map(function ($step) use($wizardData) {
-            return $wizardData[$step->slug()] = $step->data();
+        $wizardData = $this->getRepo()->original()->map(function ($step) {
+            return [$step->slug() => $step->data()];
         });
+//        dd($wizardData);
 
         $flattenWizardData = $this->flattenArray($wizardData);
+
+//        dd($flattenWizardData['debt']);
+
 
         DB::beginTransaction();
 
@@ -121,7 +127,7 @@ class DebtStep extends Step
 
             $model->currency()->associate($flattenWizardData['debt']['currency_id']);
             $model->claimStatus()->associate(Claim::DEFAULT_STATE_ID);
-            $model->claimType()->associate($flattenWizardData['type']['claim_type']);
+            $model->claimType()->associate($flattenWizardData['type']['claim_type_id']);
             $model->user()->associate(Auth::id());
             $model->creditor()->associate($participantCreditor);
             $model->debtor()->associate($participantDebtor);
@@ -166,7 +172,7 @@ class DebtStep extends Step
         return [
             'amount'         => 'required|numeric',
             'currency_id'    => 'required',
-            'paymentDueDate' => 'required', //todo prepisat na snake_case
+            'payment_due_date'=> 'required',
             'uploads'        => 'required|array|min:1',
             'uploads.*'      => 'required|mimes:txt,pdf,doc,docx,jpg,jpeg',
         ];

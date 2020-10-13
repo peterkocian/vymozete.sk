@@ -62,9 +62,4 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
             return $permission;
         }
     }
-
-//    public function getData(): Builder // todo presunut do BaseRepository
-//    {
-//        return Permission::query();
-//    }
 }

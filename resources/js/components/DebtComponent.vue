@@ -19,10 +19,10 @@
             <p>Zadajte dátum splatnosti dlhu (kedy mal byť dlh najneskôr uhradený).</p>
 
             <div class="group">
-                <input type="hidden" name="paymentDueDate" :value="formData.paymentDueDate">
+                <input type="hidden" name="payment_due_date" :value="formData.payment_due_date">
                 <label>dátum splatnosti *</label>
                 <date-picker
-                    v-model="formData.paymentDueDate"
+                    v-model="formData.payment_due_date"
                     :lang="lang"
                     format="DD.MM.YYYY"
                     value-type="YYYY-MM-DD"
@@ -33,8 +33,8 @@
                     :popup-style="{left: 0, top: '100%'}"
                     :append-to-body="false"
                 ></date-picker>
-                <span v-if="this.config.validationErrors.paymentDueDate" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['paymentDueDate']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.payment_due_date" class="validation-error">
+                    <div v-for="message in this.config.validationErrors['payment_due_date']">{{ message }}</div>
                 </span>
             </div>
 

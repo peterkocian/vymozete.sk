@@ -30,7 +30,7 @@ class Claim extends Model
      *
      * @var array
      */
-    protected $fillable = ['amount', 'description', 'paymentDueDate'];
+    protected $fillable = ['amount', 'description', 'payment_due_date'];
 
     public function getAmountWithCurrencyAttribute()
     {
@@ -58,7 +58,7 @@ class Claim extends Model
     }
 
     /**
-     * Vzdy ked pristupime ku atributu paymentDueDate, tak sa automaticky naformatuje podla tohto formatu
+     * Vzdy ked pristupime ku atributu payment_due_date, tak sa automaticky naformatuje podla tohto formatu
      *
      * @param $value
      * @return false|string

@@ -63,7 +63,7 @@ class TypeStep extends Step
     public function rules(Request $request)
     {
         return [
-            'claim_type' => 'required',
+            'claim_type_id' => 'required',
         ];
     }
 

@@ -3,19 +3,19 @@
         <p>Vyberte zo zoznamu typ pohľadávky.</p>
         <div class="group">
             <label>typ pohľadávky *</label>
-            <select name="claim_type">
+            <select name="claim_type_id">
                 <option value="">vyberte...</option>
                 @foreach ($step->getClaimTypes() as $option)
-                    @if(request()->get('claim_type'))
+                    @if(request()->get('claim_type_id'))
                         <!-- ak su data z query params pri presmerovani z homepage s prednastavenou value -->
-                        <option value="{{ $option->id }}" @if(request()->get('claim_type') == $option->id)selected="selected"@endif>{{ $option->translation(\Illuminate\Support\Facades\Auth::user()->language_id)->firstOrFail()->name }}</option>
+                        <option value="{{ $option->id }}" @if(request()->get('claim_type_id') == $option->id)selected="selected"@endif>{{ $option->translation(\Illuminate\Support\Facades\Auth::user()->language_id)->firstOrFail()->name }}</option>
                     @else
                         <!-- ak su data vramci cache form wizardu -->
-                        <option value="{{ $option->id }}" @if($step->data('claim_type') == $option->id)selected="selected"@endif>{{ $option->translation(\Illuminate\Support\Facades\Auth::user()->language_id)->firstOrFail()->name }}</option>
+                        <option value="{{ $option->id }}" @if($step->data('claim_type_id') == $option->id)selected="selected"@endif>{{ $option->translation(\Illuminate\Support\Facades\Auth::user()->language_id)->firstOrFail()->name }}</option>
                     @endif
                 @endforeach
             </select>
-            @error('claim_type')
+            @error('claim_type_id')
                 <span class="validation-error">{{ $message }}</span>
             @enderror
         </div>
