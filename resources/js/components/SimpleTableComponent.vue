@@ -10,7 +10,7 @@
                     <input
                         v-if="field.type === 'text' || field.type === 'textarea'"
                         class="form-control form-control-sm"
-                        :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
+                        :class="{'is-invalid': errors.hasOwnProperty(field.key)}"
                         :type="field.type"
                         :placeholder="field.label"
                         :name="field.key"
@@ -21,7 +21,7 @@
                     <input
                         v-if="field.type === 'number'"
                         class="form-control form-control-sm"
-                        :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
+                        :class="{'is-invalid': errors.hasOwnProperty(field.key)}"
                         :type="field.type"
                         :placeholder="field.label"
                         :name="field.key"
@@ -33,7 +33,7 @@
                     <input
                         v-if="field.type === 'file'"
                         class="form-control form-control-sm"
-                        :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
+                        :class="{'is-invalid': errors.hasOwnProperty(field.key)}"
                         :type="field.type"
                         :placeholder="field.label"
                         :name="field.key+'[]'"
@@ -43,23 +43,13 @@
                         multiple
                     >
                     <!-- ak field je input type = date -->
-<!--                    <input-->
-<!--                        v-if="field.type === 'date'"-->
-<!--                        class="form-control form-control-sm"-->
-<!--                        :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"-->
-<!--                        :type="field.type"-->
-<!--                        :placeholder="field.label"-->
-<!--                        :name="field.key+'[]'"-->
-<!--                        :id="field.key"-->
-<!--                        v-model="newEntry[field.key]"-->
-<!--                    >-->
                     <date-picker
                         v-if="field.type === 'date'"
                         v-model="newEntry[field.key]"
                         :lang="lang"
                         format="DD.MM.YYYY"
                         value-type="YYYY-MM-DD"
-                        :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
+                        :class="{'is-invalid': errors.hasOwnProperty(field.key)}"
                         :type="field.type"
                         :name="field.key"
                         :id="field.key"
@@ -71,7 +61,7 @@
                     <select
                         v-else-if="field.type === 'select'"
                         class="form-control form-control-sm"
-                        :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
+                        :class="{'is-invalid': errors.hasOwnProperty(field.key)}"
                         v-model="newEntry[field.key]"
                         :required="field.settings['required']"
                     >
@@ -81,7 +71,7 @@
                     <div class="form-check" v-else-if="field.type === 'checkbox'">
                         <input
                             class="form-check-input"
-                            :class="errors.hasOwnProperty(field.key) ? 'is-invalid' : null"
+                            :class="{'is-invalid': errors.hasOwnProperty(field.key)}"
                             :type="field.type"
                             :name="field.key"
                             true-value="1"

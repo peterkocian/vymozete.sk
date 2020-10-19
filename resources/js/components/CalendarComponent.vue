@@ -90,7 +90,7 @@
                                         :key="i"
                                         type="date"
                                         name="dates[]"
-                                        :class="errors.hasOwnProperty('dates.'+i) ? 'is-invalid' : null"
+                                        :class="{'is-invalid': errors.hasOwnProperty('dates.'+i)}"
                                         input-class="form-control"
                                         :input-attr="{name: ''}"
                                         placeholder="DD.MM.RRRR"
@@ -106,7 +106,7 @@
                                         :key="i"
                                         type="number"
                                         class="form-control"
-                                        :class="errors.hasOwnProperty('amounts.'+i) ? 'is-invalid' : null"
+                                        :class="{'is-invalid': errors.hasOwnProperty('amounts.'+i)}"
                                         placeholder="Suma"
                                         name="amounts[]"
                                         min="0"
@@ -132,7 +132,7 @@
                     <a
                         role="button"
                         class="btn btn-success btn-sm"
-                        :class="this.disableSaveButton ? 'btn-disabled' : null"
+                        :class="{'btn-disabled': this.disableSaveButton }"
                         v-on:click="handleSubmit()"
                         onclick="this.blur();"
                     >Save</a>
