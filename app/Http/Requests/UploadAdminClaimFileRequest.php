@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Helpers\FormRequestHelper;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Response;
@@ -44,13 +45,6 @@ class UploadAdminClaimFileRequest extends FormRequest
      */
     protected function failedValidation(Validator $validator)
     {
-        $response = [
-            "success" => false,
-            "message" => __("general.The given data was invalid"),
-            "errors" => $validator->errors(),
-        ];
-
-        // Finally throw the HttpResponseException.
-        throw new HttpResponseException(response()->json($response, Response::HTTP_UNPROCESSABLE_ENTITY));
-    } // todo v kazdom formrequest validatore mam taku istu funkciu failedValidation - zjednotit
+        FormRequestHelper::failedValidation($validator->errors());
+    }
 }

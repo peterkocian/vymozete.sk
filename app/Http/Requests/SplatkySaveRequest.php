@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Helpers\FormRequestHelper;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -43,13 +44,6 @@ class SplatkySaveRequest extends FormRequest
      */
     protected function failedValidation(Validator $validator)
     {
-        $response = [
-            "success" => false,
-            "message" => __("general.The given data was invalid"),
-            "errors" => $validator->errors(),
-        ];
-
-        // Finally throw the HttpResponseException.
-        throw new HttpResponseException(response()->json($response, Response::HTTP_UNPROCESSABLE_ENTITY));
+        FormRequestHelper::failedValidation($validator->errors());
     }
 }
