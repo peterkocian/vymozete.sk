@@ -37,7 +37,7 @@ class SimpleTableService
         if ($relatedData) {
             $data['data'] = $this->processRelatedData($paginate, $repository);
         } else {
-            $data['data'] = collect($paginate->items())->toArray(); // todo items() vracia pole modelov a nie pole poli...opravit
+            $data['data'] = collect($paginate->items())->toArray();
         }
         $pag = $paginate->toArray();
         unset($pag['data']);  // z povodneho objektu paginate ktory vracia Laravel mazem data, aby mi v result['pagination'] posielalo na FE iba info o strankovani

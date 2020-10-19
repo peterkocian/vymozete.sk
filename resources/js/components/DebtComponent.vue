@@ -11,8 +11,8 @@
                     <option v-for="currency in config.currencies" :value="currency.id">{{currency.code}}</option>
                 </select>
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.amount" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['amount']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('amount')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.amount">{{ message }}</div>
                 </span>
             </div>
 
@@ -33,8 +33,8 @@
                     :popup-style="{left: 0, top: '100%'}"
                     :append-to-body="false"
                 ></date-picker>
-                <span v-if="this.config.validationErrors.payment_due_date" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['payment_due_date']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('payment_due_date')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.payment_due_date">{{ message }}</div>
                 </span>
             </div>
 
@@ -45,8 +45,8 @@
 
             <div class="group description">
                 <label>nahrajte dokumenty *</label>
-                <span v-if="this.config.validationErrors.uploads" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['uploads']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('uploads')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.uploads">{{ message }}</div>
                 </span>
             </div>
             <upload-component

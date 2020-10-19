@@ -2288,10 +2288,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['config'],
   mounted: function mounted() {
-    if (this.config.stepData || !Array.isArray(this.config.oldInputs)) {
-      this.setDefaultFormData();
-    } // prepisanie defaultnych hodnot vue-multiselect komponenty. by default je autocomplete = nope
-
+    this.setDefaultFormData(); // prepisanie defaultnych hodnot vue-multiselect komponenty. by default je autocomplete = nope
 
     var el = document.querySelectorAll('.multiselect__input');
     el.forEach(function (e) {
@@ -2311,17 +2308,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   methods: {
-    //todo prerobit tuto funkciu
     setDefaultFormData: function setDefaultFormData() {
-      if (!Array.isArray(this.config.oldInputs)) {
-        delete this.config.oldInputs._token;
-        this.selectedCompany = this.formData = _objectSpread({}, this.config.oldInputs);
-      } else if (this.config.stepData) {
-        this.formData = _objectSpread({}, this.config.stepData);
-
-        if (this.config.stepData.name && this.config.stepData.ico) {
-          this.selectedCompany = this.formData;
-        }
+      if (this.config.stepData instanceof Object) {
+        this.selectedCompany = this.formData = _objectSpread({}, this.config.stepData);
       }
     },
     getCompanyData: function getCompanyData(query, param) {
@@ -56166,13 +56155,11 @@ var render = function() {
           _vm._v(" "),
           _c("span", { staticClass: "bar" }),
           _vm._v(" "),
-          this.config.validationErrors.amount
+          this.config.validationErrors.hasOwnProperty("amount")
             ? _c(
                 "span",
                 { staticClass: "validation-error" },
-                _vm._l(this.config.validationErrors["amount"], function(
-                  message
-                ) {
+                _vm._l(this.config.validationErrors.amount, function(message) {
                   return _c("div", [_vm._v(_vm._s(message))])
                 }),
                 0
@@ -56218,12 +56205,12 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            this.config.validationErrors.payment_due_date
+            this.config.validationErrors.hasOwnProperty("payment_due_date")
               ? _c(
                   "span",
                   { staticClass: "validation-error" },
                   _vm._l(
-                    this.config.validationErrors["payment_due_date"],
+                    this.config.validationErrors.payment_due_date,
                     function(message) {
                       return _c("div", [_vm._v(_vm._s(message))])
                     }
@@ -56265,13 +56252,11 @@ var render = function() {
         _c("div", { staticClass: "group description" }, [
           _c("label", [_vm._v("nahrajte dokumenty *")]),
           _vm._v(" "),
-          this.config.validationErrors.uploads
+          this.config.validationErrors.hasOwnProperty("uploads")
             ? _c(
                 "span",
                 { staticClass: "validation-error" },
-                _vm._l(this.config.validationErrors["uploads"], function(
-                  message
-                ) {
+                _vm._l(this.config.validationErrors.uploads, function(message) {
                   return _c("div", [_vm._v(_vm._s(message))])
                 }),
                 0
@@ -56373,11 +56358,11 @@ var render = function() {
         _vm._v(" "),
         _c("span", { staticClass: "bar" }),
         _vm._v(" "),
-        this.config.validationErrors.person_type
+        this.config.validationErrors.hasOwnProperty("person_type")
           ? _c(
               "span",
               { staticClass: "validation-error" },
-              _vm._l(this.config.validationErrors["person_type"], function(
+              _vm._l(this.config.validationErrors.person_type, function(
                 message
               ) {
                 return _c("div", [_vm._v(_vm._s(message))])
@@ -56414,13 +56399,11 @@ var render = function() {
             _vm._v(" "),
             _c("span", { staticClass: "bar" }),
             _vm._v(" "),
-            this.config.validationErrors.name
+            this.config.validationErrors.hasOwnProperty("name")
               ? _c(
                   "span",
                   { staticClass: "validation-error" },
-                  _vm._l(this.config.validationErrors["name"], function(
-                    message
-                  ) {
+                  _vm._l(this.config.validationErrors.name, function(message) {
                     return _c("div", [_vm._v(_vm._s(message))])
                   }),
                   0
@@ -56456,11 +56439,11 @@ var render = function() {
             _vm._v(" "),
             _c("span", { staticClass: "bar" }),
             _vm._v(" "),
-            this.config.validationErrors.surname
+            this.config.validationErrors.hasOwnProperty("surname")
               ? _c(
                   "span",
                   { staticClass: "validation-error" },
-                  _vm._l(this.config.validationErrors["surname"], function(
+                  _vm._l(this.config.validationErrors.surname, function(
                     message
                   ) {
                     return _c("div", [_vm._v(_vm._s(message))])
@@ -56521,11 +56504,11 @@ var render = function() {
               _vm._v(" "),
               _c("span", { staticClass: "bar" }),
               _vm._v(" "),
-              this.config.validationErrors.birthday
+              this.config.validationErrors.hasOwnProperty("birthday")
                 ? _c(
                     "span",
                     { staticClass: "validation-error" },
-                    _vm._l(this.config.validationErrors["birthday"], function(
+                    _vm._l(this.config.validationErrors.birthday, function(
                       message
                     ) {
                       return _c("div", [_vm._v(_vm._s(message))])
@@ -56572,11 +56555,11 @@ var render = function() {
             _vm._v(" "),
             _c("span", { staticClass: "bar" }),
             _vm._v(" "),
-            this.config.validationErrors.id_number
+            this.config.validationErrors.hasOwnProperty("id_number")
               ? _c(
                   "span",
                   { staticClass: "validation-error" },
-                  _vm._l(this.config.validationErrors["id_number"], function(
+                  _vm._l(this.config.validationErrors.id_number, function(
                     message
                   ) {
                     return _c("div", [_vm._v(_vm._s(message))])
@@ -56703,11 +56686,11 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              this.config.validationErrors.name
+              this.config.validationErrors.hasOwnProperty("name")
                 ? _c(
                     "span",
                     { staticClass: "validation-error" },
-                    _vm._l(this.config.validationErrors["name"], function(
+                    _vm._l(this.config.validationErrors.name, function(
                       message
                     ) {
                       return _c("div", [_vm._v(_vm._s(message))])
@@ -56808,13 +56791,11 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              this.config.validationErrors.ico
+              this.config.validationErrors.hasOwnProperty("ico")
                 ? _c(
                     "span",
                     { staticClass: "validation-error" },
-                    _vm._l(this.config.validationErrors["ico"], function(
-                      message
-                    ) {
+                    _vm._l(this.config.validationErrors.ico, function(message) {
                       return _c("div", [_vm._v(_vm._s(message))])
                     }),
                     0
@@ -56852,13 +56833,11 @@ var render = function() {
             _vm._v(" "),
             _c("span", { staticClass: "bar" }),
             _vm._v(" "),
-            this.config.validationErrors.vat
+            this.config.validationErrors.hasOwnProperty("vat")
               ? _c(
                   "span",
                   { staticClass: "validation-error" },
-                  _vm._l(this.config.validationErrors["vat"], function(
-                    message
-                  ) {
+                  _vm._l(this.config.validationErrors.vat, function(message) {
                     return _c("div", [_vm._v(_vm._s(message))])
                   }),
                   0
@@ -56894,7 +56873,7 @@ var render = function() {
             _vm._v(" "),
             _c("span", { staticClass: "bar" }),
             _vm._v(" "),
-            this.config.validationErrors.iban
+            this.config.validationErrors.hasOwnProperty("iban")
               ? _c(
                   "span",
                   { staticClass: "validation-error" },
@@ -56933,11 +56912,11 @@ var render = function() {
         _vm._v(" "),
         _c("span", { staticClass: "bar" }),
         _vm._v(" "),
-        this.config.validationErrors.street
+        this.config.validationErrors.hasOwnProperty("street")
           ? _c(
               "span",
               { staticClass: "validation-error" },
-              _vm._l(this.config.validationErrors["street"], function(message) {
+              _vm._l(this.config.validationErrors.street, function(message) {
                 return _c("div", [_vm._v(_vm._s(message))])
               }),
               0
@@ -56971,11 +56950,11 @@ var render = function() {
         _vm._v(" "),
         _c("span", { staticClass: "bar" }),
         _vm._v(" "),
-        this.config.validationErrors.house_number
+        this.config.validationErrors.hasOwnProperty("house_number")
           ? _c(
               "span",
               { staticClass: "validation-error" },
-              _vm._l(this.config.validationErrors["house_number"], function(
+              _vm._l(this.config.validationErrors.house_number, function(
                 message
               ) {
                 return _c("div", [_vm._v(_vm._s(message))])
@@ -57011,11 +56990,11 @@ var render = function() {
         _vm._v(" "),
         _c("span", { staticClass: "bar" }),
         _vm._v(" "),
-        this.config.validationErrors.town
+        this.config.validationErrors.hasOwnProperty("town")
           ? _c(
               "span",
               { staticClass: "validation-error" },
-              _vm._l(this.config.validationErrors["town"], function(message) {
+              _vm._l(this.config.validationErrors.town, function(message) {
                 return _c("div", [_vm._v(_vm._s(message))])
               }),
               0
@@ -57053,11 +57032,11 @@ var render = function() {
         _vm._v(" "),
         _c("span", { staticClass: "bar" }),
         _vm._v(" "),
-        this.config.validationErrors.zip
+        this.config.validationErrors.hasOwnProperty("zip")
           ? _c(
               "span",
               { staticClass: "validation-error" },
-              _vm._l(this.config.validationErrors["zip"], function(message) {
+              _vm._l(this.config.validationErrors.zip, function(message) {
                 return _c("div", [_vm._v(_vm._s(message))])
               }),
               0
@@ -57091,13 +57070,11 @@ var render = function() {
         _vm._v(" "),
         _c("span", { staticClass: "bar" }),
         _vm._v(" "),
-        this.config.validationErrors.country
+        this.config.validationErrors.hasOwnProperty("country")
           ? _c(
               "span",
               { staticClass: "validation-error" },
-              _vm._l(this.config.validationErrors["country"], function(
-                message
-              ) {
+              _vm._l(this.config.validationErrors.country, function(message) {
                 return _c("div", [_vm._v(_vm._s(message))])
               }),
               0
@@ -57131,11 +57108,11 @@ var render = function() {
         _vm._v(" "),
         _c("span", { staticClass: "bar" }),
         _vm._v(" "),
-        this.config.validationErrors.phone
+        this.config.validationErrors.hasOwnProperty("phone")
           ? _c(
               "span",
               { staticClass: "validation-error" },
-              _vm._l(this.config.validationErrors["phone"], function(message) {
+              _vm._l(this.config.validationErrors.phone, function(message) {
                 return _c("div", [_vm._v(_vm._s(message))])
               }),
               0
@@ -57169,11 +57146,11 @@ var render = function() {
         _vm._v(" "),
         _c("span", { staticClass: "bar" }),
         _vm._v(" "),
-        this.config.validationErrors.email
+        this.config.validationErrors.hasOwnProperty("email")
           ? _c(
               "span",
               { staticClass: "validation-error" },
-              _vm._l(this.config.validationErrors["email"], function(message) {
+              _vm._l(this.config.validationErrors.email, function(message) {
                 return _c("div", [_vm._v(_vm._s(message))])
               }),
               0

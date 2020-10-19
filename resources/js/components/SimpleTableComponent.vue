@@ -46,15 +46,14 @@
                     <date-picker
                         v-if="field.type === 'date'"
                         v-model="newEntry[field.key]"
+                        :class="{'is-invalid': errors.hasOwnProperty(field.key)}"
                         :lang="lang"
                         format="DD.MM.YYYY"
                         value-type="YYYY-MM-DD"
-                        :class="{'is-invalid': errors.hasOwnProperty(field.key)}"
                         :type="field.type"
-                        :name="field.key"
                         :id="field.key"
-                        input-class="form-control form-control-sm"
-                        :input-attr="{name: ''}"
+                        :input-class="errors.hasOwnProperty(field.key) ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'"
+                        :input-attr="{name: field.key}"
                         :placeholder="field.label"
                     ></date-picker>
                     <!-- ak field je select -->
@@ -84,7 +83,7 @@
                         </label>
                     </div>
                     <!-- ak field je textarea -->
-                    <!--                    <textarea v-else-if="field.type === 'textarea'" class="form-control" rows="3"></textarea>-->
+                    <!-- <textarea v-else-if="field.type === 'textarea'" class="form-control" rows="3"></textarea>-->
                     <div v-if="errors.hasOwnProperty(field.key)" class="invalid-feedback">{{ errors[field.key][0] }}</div>
                 </div>
                 <a

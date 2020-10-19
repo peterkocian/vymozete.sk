@@ -1,10 +1,9 @@
 @php
     $config = [
         'subtitle' => 'Dlžník má voči vám (veriteľovi) dlh (neuhradený záväzok).',
-        'stepData' => $step->data(),
+        'stepData' => empty(session()->getOldInput()) ? $step->data() : session()->getOldInput(),
         'slug' => $step->slug(),
         'validationErrors' => $errors->messages(),
-        'oldInputs' => session()->getOldInput(),
         'person_type' => [
             [
                 'id' => 0,

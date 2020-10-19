@@ -26,8 +26,8 @@
                     </option>
                 </select>
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.person_type" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['person_type']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('person_type')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.person_type">{{ message }}</div>
                 </span>
             </div>
 
@@ -35,8 +35,8 @@
                 <label>meno *</label>
                 <input v-model="formData.name" name="name" type="text">
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.name" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['name']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('name')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.name">{{ message }}</div>
                 </span>
             </div>
 
@@ -44,8 +44,8 @@
                 <label>priezvisko *</label>
                 <input v-model="formData.surname" name="surname" type="text">
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.surname" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['surname']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('surname')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.surname">{{ message }}</div>
                 </span>
             </div>
 
@@ -64,8 +64,8 @@
                     :append-to-body="false"
                 ></date-picker>
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.birthday" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['birthday']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('birthday')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.birthday">{{ message }}</div>
                 </span>
             </div>
 
@@ -79,8 +79,8 @@
                     placeholder="rodné číslo zadajte aj so znakom /"
                     oninvalid="this.setCustomValidity('Zadajte RČ vo formáte 123456/1234')">
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.id_number" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['id_number']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('id_number')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.id_number">{{ message }}</div>
                 </span>
             </div>
 
@@ -122,8 +122,8 @@
                     </template>
                     <span slot="noResult">Žiadne výsledky</span>
                 </multiselect>
-                <span v-if="this.config.validationErrors.name" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['name']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('name')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.name">{{ message }}</div>
                 </span>
             </div>
 
@@ -157,10 +157,10 @@
                             <span class="option__small"> ({{ props.option.name }})</span>
                         </div>
                     </template>
-                    <span slot="noResult">Zadajte celé IČO</span> <!-- todo -->
+                    <span slot="noResult">Zadajte celé IČO</span>
                 </multiselect>
-                <span v-if="this.config.validationErrors.ico" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['ico']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('ico')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.ico">{{ message }}</div>
                 </span>
             </div>
 
@@ -168,8 +168,8 @@
                 <label>IČ DPH</label>
                 <input v-model="formData.vat" name="vat" type="text">
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.vat" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['vat']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('vat')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.vat">{{ message }}</div>
                 </span>
             </div>
 
@@ -177,8 +177,8 @@
                 <label>IBAN *</label>
                 <input v-model="formData.iban" name="iban" type="text">
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.iban" class="validation-error">
-                    <div v-for="message in this.config.validationErrors.iban">{{ message }}</div> <!--todo prerobit podla iban validacie aj ostatne-->
+                <span v-if="this.config.validationErrors.hasOwnProperty('iban')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.iban">{{ message }}</div>
                 </span>
             </div>
 
@@ -186,8 +186,8 @@
                 <label>ulica *</label>
                 <input v-model="formData.street" name="street" type="text">
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.street" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['street']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('street')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.street">{{ message }}</div>
                 </span>
             </div>
 
@@ -195,8 +195,8 @@
                 <label>číslo *</label>
                 <input v-model="formData.house_number" name="house_number" type="text">
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.house_number" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['house_number']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('house_number')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.house_number">{{ message }}</div>
                 </span>
             </div>
 
@@ -204,8 +204,8 @@
                 <label>obec *</label>
                 <input v-model="formData.town" name="town" type="text">
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.town" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['town']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('town')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.town">{{ message }}</div>
                 </span>
             </div>
 
@@ -218,8 +218,8 @@
                     oninvalid="this.setCustomValidity('Zadajte PSČ vo formáte 12345')"
                 >
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.zip" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['zip']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('zip')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.zip">{{ message }}</div>
                 </span>
             </div>
 
@@ -227,8 +227,8 @@
                 <label>štát *</label>
                 <input v-model="formData.country" name="country" type="text">
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.country" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['country']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('country')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.country">{{ message }}</div>
                 </span>
             </div>
 
@@ -236,8 +236,8 @@
                 <label>telefón</label>
                 <input v-model="formData.phone" name="phone" type="text">
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.phone" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['phone']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('phone')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.phone">{{ message }}</div>
                 </span>
             </div>
 
@@ -248,8 +248,8 @@
                     name="email" type="email"
                 >
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.email" class="validation-error">
-                    <div v-for="message in this.config.validationErrors['email']">{{ message }}</div>
+                <span v-if="this.config.validationErrors.hasOwnProperty('email')" class="validation-error">
+                    <div v-for="message in this.config.validationErrors.email">{{ message }}</div>
                 </span>
             </div>
 
@@ -267,9 +267,7 @@
     export default {
         props: ['config'],
         mounted() {
-            if (this.config.stepData || !Array.isArray(this.config.oldInputs)) {
-                this.setDefaultFormData();
-            }
+            this.setDefaultFormData();
 
             // prepisanie defaultnych hodnot vue-multiselect komponenty. by default je autocomplete = nope
             let el = document.querySelectorAll('.multiselect__input');
@@ -280,22 +278,15 @@
                 isLoading: [],
                 debounce:null,
                 companies: [],
-                formData: {person_type: 1},
+                formData: { person_type: 1 },
                 selectedCompany: null,
                 lang: lang.slovak(),
             }
         },
         methods: {
-            //todo prerobit tuto funkciu
             setDefaultFormData() {
-                if (!Array.isArray(this.config.oldInputs)) {
-                    delete this.config.oldInputs._token;
-                    this.selectedCompany = this.formData = {...this.config.oldInputs};
-                } else if (this.config.stepData) {
-                    this.formData = {...this.config.stepData};
-                    if (this.config.stepData.name && this.config.stepData.ico) {
-                        this.selectedCompany = this.formData;
-                    }
+                if (this.config.stepData instanceof Object) {
+                    this.selectedCompany = this.formData = {...this.config.stepData};
                 }
             },
             getCompanyData(query, param) {

@@ -1,10 +1,8 @@
 <div class="row">
     <div class="col">
         @if($data->getMorphClass() === \App\Models\Person::class )
-{{--        @if($data->person_type === 'FO') todo prepisat v celom kode person_type na entity_type -> morph attribute--}}
             @include('admin.claims.tabs.partials.person')
         @elseif($data->getMorphClass() === \App\Models\Organization::class )
-{{--        @elseif($data->person_type === 'PO')--}}
             @include('admin.claims.tabs.partials.organization')
         @endif
 

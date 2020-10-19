@@ -1,10 +1,9 @@
 @php
     $config = [
         'subtitle' => 'Vy (veriteľ) - zadajte údaje o vás alebo Vašej firme, ktorej má dlžník zaplatiť (vyrovnať neuhradený záväzok).',
-        'stepData' => $step->data(),
+        'stepData' => empty(session()->getOldInput()) ? $step->data() : session()->getOldInput(),
         'slug' => $step->slug(),
         'validationErrors' => $errors->messages(),
-        'oldInputs' => session()->getOldInput(),
         'person_type' => [
             [
                 'id' => 0,

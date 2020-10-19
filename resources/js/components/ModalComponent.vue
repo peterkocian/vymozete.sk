@@ -30,7 +30,7 @@
         },
         methods: {
             reset() {
-                console.log('submit no...todo'); //todo
+                console.log('close modal...todo'); //todo
             },
             submit() {
                 if (this.config.ajax) {

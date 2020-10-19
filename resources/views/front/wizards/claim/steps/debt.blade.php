@@ -1,6 +1,6 @@
 @php
     $config = [
-        'stepData' => empty(session()->getOldInput()) ? $step->data() : session()->getOldInput(), //todo aj pri ostatnych stepData vs oldInput
+        'stepData' => empty(session()->getOldInput()) ? $step->data() : session()->getOldInput(),
         'validationErrors' => $errors->messages(),
         'currencies' => $step->getCurrencies()
     ];
