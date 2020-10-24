@@ -53,14 +53,18 @@
                     </div>
 
                     <div class="form-group row">
-                        <button type="button" class="btn btn-primary btn-sm col-form-label" @click="generujSplatky()">Prepočítať</button>
+                        <button
+                            type="button"
+                            class="btn btn-primary btn-sm col-form-label"
+                            @click="generujSplatky()"
+                        >Prepočítať</button>
                     </div>
                 </div>
 
                 <div v-else-if="type === 'manual'" class="form-group row">
-                    <label for="amountDynamic" class="col-sm-2 col-form-label">amount dynamic</label>
+                    <label for="amountCheckSum" class="col-sm-2 col-form-label">Zostatok</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" name="amountDynamic" id="amountDynamic" :value="amountDynamic" disabled>
+                        <input type="number" class="form-control" name="amountCheckSum" id="amountCheckSum" :value="amountCheckSum" disabled>
                     </div>
                 </div>
             </div>
@@ -128,14 +132,14 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button v-if="type === 'manual'" type="button" class="btn btn-primary btn-sm" @click="addElement">Add</button>
+                    <button v-if="type === 'manual'" type="button" class="btn btn-primary btn-sm" @click="addElement">Pridať</button>
                     <a
                         role="button"
                         class="btn btn-success btn-sm"
-                        :class="{'btn-disabled': this.disableSaveButton }"
+                        :class="{'btn-disabled': this.disableSaveButton || this.amountCheckSum >= 1 }"
                         v-on:click="handleSubmit()"
                         onclick="this.blur();"
-                    >Save</a>
+                    >Uložiť</a>
                 </form>
             </div>
         </div>
@@ -160,7 +164,7 @@
             return {
                 type: 'automatic',
                 disableSaveButton: null,
-                amountDynamic: this.config.amount,
+                amountCheckSum: this.config.amount,
                 vyskaSplatky:this.config.amount,
                 pocetSplatok:1,
                 startDate: null,
@@ -176,17 +180,17 @@
                 this.disableSaveButton = state;
             },
             addElement() {
-                if (this.amountDynamic > 0) {
+                if (this.amountCheckSum > 0) {
                     this.splatky.push({});
                 } else {
-                    flash({text: 'uz sa neda', type:'error', timer:null});
+                    flash({text: 'Zostatok je 0. Už sa nedá pridať splátku.', type:'error', timer:null});
                 }
             },
             removeElement(index) {
                 this.splatky.splice(index, 1);
             },
             recompute(){
-                flash({text: 'Zmeny su zatial neulozene', type:'warning', timer:null })
+                flash({text: 'Zmeny zatiaľ nie sú uložené', type:'warning', timer:null})
 
                 this.dates = [];
                 this.amounts = [];
@@ -201,7 +205,7 @@
                         x +=  Number(el.amount);
                     }
                 });
-                this.amountDynamic = this.config.amount - x;
+                this.amountCheckSum = this.config.amount - x;
             },
             vypocitajVyskuSplatky(){
                 this.vyskaSplatky = this.roundToTwo(this.config.amount / this.pocetSplatok)
@@ -209,23 +213,59 @@
             vypocitajPocetSplatok(){
                 this.pocetSplatok = Math.ceil(this.config.amount / this.vyskaSplatky);
             },
-            generujSplatky(){
+            vypocitajDatumSplatky(cisloSplatky) { // todo prepisat tuto funkciu
+                const start = new Date(this.startDate);
+                const month = start.getMonth();
+                start.setMonth(start.getMonth() + Number(cisloSplatky));
+
+                cisloSplatky = cisloSplatky%12; // osetrenie, aby kazde cislo splatky malo poradove cislo mesiaca v roku...aby to neboli cisla 23 a podobne
+
+                let pokus = this.checkOverTheYear(start.getMonth(), month, cisloSplatky);
+                while (pokus - (month + Number(cisloSplatky)) >= 1 ) {
+                    start.setDate(start.getDate() - 1);
+                    pokus = this.checkOverTheYear(start.getMonth(), month, cisloSplatky);
+                }
+
+                if(start.getUTCHours() === 23) {
+                    start.setHours(start.getHours() + 1);
+                }
+
+                return start.toISOString();
+            },
+            checkOverTheYear(newMonth, originMonth, cisloSplatky) {
+                if(newMonth < (originMonth + Number(cisloSplatky))) {
+                    return newMonth + 12;
+                } else {
+                    return newMonth;
+                }
+            },
+            generujSplatky(){ // todo prepisat tuto funkciu
+                if (this.startDate === null) {
+                    return flash({text: 'Nedá sa generovať. Nie je nastavený dátum prvej splátky.', type:'error', timer:null});
+                }
                 this.splatky = [];
 
-                let controla = Math.floor(this.config.amount / this.pocetSplatok);
+                let remainder = this.config.amount % this.vyskaSplatky;
 
-                if(Number(controla*this.pocetSplatok) === Number(this.config.amount)){
+                if(remainder === 0){
                     for (let i = 0; i < this.pocetSplatok; i++) {
-                        this.splatky.push({date:'2020-10-01',amount:this.vyskaSplatky});
+                        this.splatky.push({
+                            date:this.vypocitajDatumSplatky(i),
+                            amount:this.vyskaSplatky
+                        });
                     }
                 } else {
-                    let last = this.config.amount - Number(this.vyskaSplatky*(this.pocetSplatok-1));
-
                     for (let i = 0; i < this.pocetSplatok-1; i++) {
-                        this.splatky.push({date:'2020-10-01',amount:this.vyskaSplatky});
+                        this.splatky.push({
+                            date:this.vypocitajDatumSplatky(i),
+                            amount:this.vyskaSplatky
+                        });
                     }
                     //posledna splatka custom
-                    this.splatky.push({date:'2020-10-01',amount:this.roundToTwo(last)});
+                    this.splatky.push({
+                        date:this.vypocitajDatumSplatky(this.pocetSplatok-1),
+                        amount:this.roundToTwo(remainder)
+                    });
                 }
             },
             roundToTwo(num) {
