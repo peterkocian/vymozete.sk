@@ -42,13 +42,13 @@
                     <div class="form-group row">
                         <label for="amount" class="col-sm-2 col-form-label">Výška splátky</label>
                         <div class="col-sm-10">
-                            <input @focusin="blockSave(true)" @focusout="blockSave(false)" class="form-control" type="number" step="0.01" v-model="vyskaSplatky" name="amount" id="amount" min="1" :max="config.amount" @input="vypocitajPocetSplatok()">
+                            <input @focusin="blockSave(true)" @focusout="blockSave(false)" class="form-control" type="number" step="0.01" v-model.number="vyskaSplatky" name="amount" id="amount" min="1" :max="config.amount" @input="vypocitajPocetSplatok()">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="pocetSplatok" class="col-sm-2 col-form-label">Počet splátok</label>
                         <div class="col-sm-10">
-                            <input @focusin="blockSave(true)" @focusout="blockSave(false)" class="form-control" type="number" v-model="pocetSplatok" name="pocetSplatok" id="pocetSplatok" min="1" @input="vypocitajVyskuSplatky()">
+                            <input @focusin="blockSave(true)" @focusout="blockSave(false)" class="form-control" type="number" v-model.number="pocetSplatok" name="pocetSplatok" id="pocetSplatok" min="1" @input="vypocitajVyskuSplatky()">
                         </div>
                     </div>
 
@@ -76,9 +76,9 @@
                     <table class="table table-striped table-hover table-sm">
                         <thead class="thead-dark">
                             <tr>
-                                <th>Pc.</th>
-                                <th>Datum</th>
-                                <th>Splatka</th>
+                                <th>Pč.</th>
+                                <th>Dátum</th>
+                                <th>Splátka</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -116,7 +116,7 @@
                                         min="0"
                                         step="0.01"
                                         :max="config.amount"
-                                        v-model="splatka.amount"
+                                        v-model.number="splatka.amount"
                                         @change="recompute()"
                                         :disabled="type==='automatic'"
                                     >
@@ -165,7 +165,7 @@
                 type: 'automatic',
                 disableSaveButton: null,
                 amountCheckSum: this.config.amount,
-                vyskaSplatky:this.config.amount,
+                vyskaSplatky: this.config.amount,
                 pocetSplatok:1,
                 startDate: null,
                 lang: lang.slovak(),
@@ -195,35 +195,34 @@
                 this.dates = [];
                 this.amounts = [];
 
-                let x = 0;
+                let checkSum = 0;
                 this.splatky.forEach(el => {
                     this.dates.push(el.date);
                     this.amounts.push(el.amount);
 
                     if (el && el.amount) {
-
-                        x +=  Number(el.amount);
+                        checkSum +=  Number(el.amount);
                     }
                 });
-                this.amountCheckSum = this.config.amount - x;
+                this.amountCheckSum = this.config.amount - checkSum;
             },
             vypocitajVyskuSplatky(){
-                this.vyskaSplatky = this.roundToTwo(this.config.amount / this.pocetSplatok)
+                this.vyskaSplatky = this.roundToTwo(this.config.amount / this.pocetSplatok);
             },
             vypocitajPocetSplatok(){
                 this.pocetSplatok = Math.ceil(this.config.amount / this.vyskaSplatky);
             },
-            vypocitajDatumSplatky(cisloSplatky) { // todo prepisat tuto funkciu
+            vypocitajDatumSplatky(cisloSplatky) {
                 const start = new Date(this.startDate);
                 const month = start.getMonth();
                 start.setMonth(start.getMonth() + Number(cisloSplatky));
 
-                cisloSplatky = cisloSplatky%12; // osetrenie, aby kazde cislo splatky malo poradove cislo mesiaca v roku...aby to neboli cisla 23 a podobne
+                cisloSplatky = cisloSplatky % 12; // osetrenie, aby kazde cislo splatky malo poradove cislo mesiaca v roku...aby to neboli cisla 23 a podobne
 
-                let pokus = this.checkOverTheYear(start.getMonth(), month, cisloSplatky);
-                while (pokus - (month + Number(cisloSplatky)) >= 1 ) {
+                let newMonth = this.checkOverTheYear(start.getMonth(), month, cisloSplatky);
+                while (newMonth - (month + Number(cisloSplatky)) >= 1 ) {
                     start.setDate(start.getDate() - 1);
-                    pokus = this.checkOverTheYear(start.getMonth(), month, cisloSplatky);
+                    newMonth = this.checkOverTheYear(start.getMonth(), month, cisloSplatky);
                 }
 
                 if(start.getUTCHours() === 23) {
@@ -239,37 +238,37 @@
                     return newMonth;
                 }
             },
-            generujSplatky(){ // todo prepisat tuto funkciu
+            generujSplatky(){
                 if (this.startDate === null) {
                     return flash({text: 'Nedá sa generovať. Nie je nastavený dátum prvej splátky.', type:'error', timer:null});
                 }
                 this.splatky = [];
-
                 let remainder = this.config.amount % this.vyskaSplatky;
 
                 if(remainder === 0){
                     for (let i = 0; i < this.pocetSplatok; i++) {
-                        this.splatky.push({
-                            date:this.vypocitajDatumSplatky(i),
-                            amount:this.vyskaSplatky
-                        });
+                        this.pridajSplatku(i,this.vyskaSplatky)
                     }
                 } else {
                     for (let i = 0; i < this.pocetSplatok-1; i++) {
-                        this.splatky.push({
-                            date:this.vypocitajDatumSplatky(i),
-                            amount:this.vyskaSplatky
-                        });
+                        this.pridajSplatku(i,this.vyskaSplatky)
                     }
                     //posledna splatka custom
-                    this.splatky.push({
-                        date:this.vypocitajDatumSplatky(this.pocetSplatok-1),
-                        amount:this.roundToTwo(remainder)
-                    });
+                    if (remainder < 1) {
+                        remainder = this.vyskaSplatky+remainder;
+                    }
+                    this.pridajSplatku(this.pocetSplatok-1,remainder)
                 }
             },
+            pridajSplatku(i, amount) {
+                this.splatky.push({
+                    date:this.vypocitajDatumSplatky(i),
+                    amount:this.roundToTwo(amount)
+                });
+            },
             roundToTwo(num) {
-                return +(Math.round(num + "e+2")  + "e-2");
+                // return +(Math.round(num + "e+2")  + "e-2");
+                return parseFloat(num.toFixed(2));
             },
             handleSubmit() {
                 axios.post(`/admin/claims/${this.config.claim_id}/calendar`, {
@@ -288,6 +287,11 @@
         watch: {
             splatky() {
                 this.recompute();
+                if (this.amountCheckSum < 0) {
+                    this.amountCheckSum = 0;
+                } else {
+                    this.amountCheckSum = this.amountCheckSum.toFixed(2);
+                }
             }
         }
     }
