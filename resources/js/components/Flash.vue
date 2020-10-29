@@ -21,14 +21,14 @@ export default {
         return {
             type: '',
             show: false,
-            body: ''
+            body: '',
         }
     },
     created() {
         if(this.message && this.message.text && this.message.type) {
-            this.flash(this.message)
+            this.flash(this.message);
         }
-        window.events.$on('flash',(message) => this.flash(message))
+        window.events.$on('flash',(message) => this.flash(message));
     },
     methods: {
         flash(message) {
@@ -39,11 +39,11 @@ export default {
             if (message.timer) {
                 setTimeout(() => {
                     this.hide()
-                },3000)
+                }, message.timer);
             }
         },
         hide() {
-            this.show = false
+            this.show = false;
             this.reset();
         },
         reset() {
@@ -53,11 +53,3 @@ export default {
     }
 }
 </script>
-
-<style>
-.spacing {
-    position: fixed;
-    right: 25px;
-    bottom: 25px;
-}
-</style>

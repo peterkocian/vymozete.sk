@@ -32,10 +32,7 @@
             @include('admin.navigation.top-nav')
 
             <main class="container-fluid main-container">
-                @include('admin.flash-message')
-                <flash messsage=""></flash>
-
-
+                @include('flash-message')
                 @yield('content')
             </main>
         </div>

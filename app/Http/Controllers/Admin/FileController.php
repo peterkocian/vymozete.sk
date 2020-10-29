@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadAdminClaimFileRequest;
-use App\Models\File;
 use App\Repositories\Eloquent\ClaimRepository;
 use App\Services\FileService;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Storage;
 use App\Repositories\Eloquent\FileTypeRepository;
 
 class FileController extends Controller
@@ -41,39 +39,20 @@ class FileController extends Controller
     }
 
     public function storeDocument(UploadAdminClaimFileRequest $request, int $claim_id)
-//    public function storeDocument(\Illuminate\Http\Request $request, int $claim_id)
     {
         if ($request->ajax())
         {
-            $data = $request->all();
+            $data = $request->validated();
             $files = $request->file('uploads');
 
-            $claim = $this->claimRepository->get($claim_id);
-
             try {
-                if ($files) {
-                    foreach($files as $file) {
-                        if ($file && $file->isValid()) {
-                            $saved = $this->fileService->saveFile($claim, $file, $data);
+                $this->fileService->save($files, $data, $claim_id);
 
-//                            return response()->json([
-//                                'success' => true,
-//                                'id' => $saved->id,
-//                                'message' => __('file.File successfully uploaded'),
-//                            ], Response::HTTP_CREATED);
-                        } else {
-                            throw new \Exception('Subor nie je validny');
-                        }
-                    }
-
-                    return response()->json([
-                        'success' => true,
-                        'id' => $saved->id,
-                        'message' => __('file.File successfully uploaded'),
-                    ], Response::HTTP_CREATED);
-                } else {
-                    throw new \Exception('Requestom neprisiel ziadny subor na ulozenie');
-                }
+                return response()->json([
+                    'success' => true,
+//                    'id' => $saved->id,
+                    'message' => __('file.File successfully uploaded'),
+                ], Response::HTTP_CREATED);
             } catch (\Exception $e) {
                 return response()->json([
                     'success' => false,
@@ -86,44 +65,36 @@ class FileController extends Controller
             ->withFail('povoleny iba ajax request');
     }
 
-    public function download($id)
+    public function download(int $id)
     {
-        $file = File::findOrFail($id);
-
-        if (Storage::disk('uploads')->exists("/claim/{$file->fileable_id}/{$file->filename}")) {
-            return response()->download(
-                Storage::disk('uploads')->path("claim/{$file->fileable_id}/{$file->filename}")
-            );
+        try {
+            $res = $this->fileService->download($id);
+            return response()->download($res);
+        } catch (\Exception $e) {
+            return back()
+                ->withFail(__('file.File cannot be downloaded') .' '. $e->getMessage());
         }
-
-        return back()
-            ->withFail('Subor sa neda stiahnut, subor uz neexistuje');
-        //todo ohandlovat stav, ze subor na disku neexistuje, ale v DB zaznam ano
     }
 
-    public function destroy($id)
+    public function destroy(int $id)
     {
         if (request()->ajax()) {
-            $file = File::findOrFail($id);
-
-            if (Storage::disk('uploads')->exists("/claim/{$file->fileable_id}/{$file->filename}")) {
-                Storage::disk('uploads')->delete("claim/{$file->fileable_id}/{$file->filename}");
-
-                $file->delete();
+            try {
+                $this->fileService->delete($id);
 
                 return response()->json([
                     'success' => true,
                     'id' => $id,
                     'message' => __('file.File successfully deleted'),
                 ], Response::HTTP_OK);
-            } else {
+            } catch (\Exception $e) {
                 return response()->json([
                     'success' => false,
-                    'message' => __('file.File doesnt exists')
+                    'message' => __('file.File delete failed') .' '. $e->getMessage()
                 ], Response::HTTP_VERSION_NOT_SUPPORTED);
             }
         }
-        //todo standard response
+
         return back()
             ->withFail('povoleny iba ajax request');
     }

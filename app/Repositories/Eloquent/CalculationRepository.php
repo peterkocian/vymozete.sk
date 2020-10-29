@@ -39,7 +39,7 @@ class CalculationRepository extends BaseRepository implements CalculationReposit
         return $this->model->create($attributes);
     }
 
-    public function update(array $attributes, int $id): Model
+    public function update(array $attributes, int $id): Model // todo je mozne pouzit update metodu z BaseRepository
     {
         if ($id) {
             try {

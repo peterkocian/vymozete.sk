@@ -778,26 +778,29 @@ a .button {
     }
 //}
 
-.add-files button {
-    padding: 10px 0px 5px 5px;
-    min-width: 75px;
-    margin: 5px 0 0;
-    display: inline;
-    border-radius: 25px;
-}
-
 .add-files {
+    .file-list .item {
+        display: flex;
+        justify-content: space-between;
+    }
     div {
-        /*margin-bottom: 5px;*/
         font-size: 14px;
         font-weight: 400;
         margin-left: 5px;
-        //margin-bottom: 10px;
     }
-}
-
-.add-files input {
-    margin-bottom: 5px;
+    input {
+        margin-bottom: 5px;
+    }
+    button {
+        padding: 10px 0px 5px 5px;
+        min-width: 75px;
+        margin: 5px 0 0;
+        display: inline;
+        border-radius: 25px;
+    }
+    .material-icons{
+        cursor: pointer;
+    }
 }
 
 /* INPUT   */
@@ -1261,7 +1264,7 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
 }
 
 .autocomplete-suggestions {
-    text-align: left; cursor: default; border: 1px solid #ccc; border-top: 0; background: $white; box-shadow: -1px 1px 3px rgba(0,0,0,.1);
+    text-align: left; cursor: default; border: 1px solid #cccccc; border-top: 0; background: $white; box-shadow: -1px 1px 3px rgba(0,0,0,.1);
     /* core styles should not be changed */
     /*position: absolute; display: none; z-index: 9999; max-height: 254px; overflow: hidden; overflow-y: auto; box-sizing: border-box;*/
 }
@@ -1304,13 +1307,16 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
         display: none;
     }
     .multiselect__input{
+        height: 100%;
+        min-height: inherit;
         width: 100% !important;
-        border-bottom: 1px solid $primary;
         padding: 9px 50px 9px 5px !important;
         top: 2px;
+        border-bottom: 1px solid $primary;
     }
     .multiselect__single{
-        padding: 10px 10px 10px 5px !important;
+        border-radius: 0;
+        padding: 10px 50px 10px 5px !important;
         color: $primary;
         font-weight: 400;
         font-size: 18px;
@@ -1319,7 +1325,6 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
         border-color: $primary;
     }
     .multiselect__content-wrapper {
-        //border-top: 1px solid $primary;
         border-top: none;
         top: 41px;
         z-index: -1;
@@ -1401,13 +1406,66 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
     }
 }
 
-.flashMessage {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 200px;
-    height: 100px;
-    background: beige;
+//flash-message
+.alert {
     z-index: 2020;
-    opacity: 0.7;
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    &.alert-block {
+        width: 250px;
+        border-radius: 5px;
+        padding: 15px;
+    }
+    &.alert-danger {
+        background: #f8d7da;
+        color: #721c24;
+    }
+    &.alert-success{
+        background: darkorange;
+        color: white;
+    }
+    &.alert-warning{
+        background: #fff3cd;
+        color: #856404;
+    }
+    &.alert-info{
+        background: #cce5ff;
+        color: #004085;
+    }
+    button.close {
+        padding: 0;
+        margin: 0;
+        box-shadow: none;
+        background: none;
+        position: relative;
+        left: 205px;
+        top: -10px;
+        min-width: auto;
+        font-size: 20px;
+    }
 }
+
+// detail pohladavky
+.nav-tabs-container{
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    .tab-item{
+        .tab-link{
+            padding: 15px;
+            display: block;
+            color: $primary;
+            &.active{
+                color: darkorange;
+                border-bottom: 1px solid darkorange;
+            }
+        }
+    }
+}
+
+//[v-cloak] {
+//    display: none;
+//}

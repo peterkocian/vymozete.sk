@@ -139,17 +139,7 @@ class DebtStep extends Step
             $model->fill($flattenWizardData['debt'])->save();
 
             //save file from form wizard
-            if ($files) {
-                foreach($files as $file) {
-                    if ($file && $file->isValid()) {
-                        $saved = $this->fileService->saveFile($model, $file, $data);
-                    } else {
-                        throw new \Exception('Subor nie je validny');
-                    }
-                }
-            } else {
-                throw new \Exception('Requestom neprisiel ziadny subor na ulozenie');
-            }
+            $this->fileService->save($files, $data, $model->id);
 
             DB::commit();
         } catch (Exception $e) {

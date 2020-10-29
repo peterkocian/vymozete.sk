@@ -1,5 +1,11 @@
 <template>
     <div class="group add-files">
+        <div v-if="config.multi" class="file-list">
+            <div v-for="(file, key) in files" class="item">
+                <div class="name">{{ file.name }}</div>
+                <i class="material-icons" v-on:click="removeFile(file.id, key)">clear</i>
+            </div>
+        </div>
         <input
             v-for="i in counter"
             ref="files"
@@ -19,12 +25,7 @@
 <!--            :multiple="config.multi ? 'multiple' : null"-->
 <!--            @change="handleChange($event, 'file')"-->
 <!--        >-->
-<!--        <div v-if="config.multi" class="file-list">-->
-<!--            <div v-for="(file, key) in files" class="item">-->
-<!--                <div class="name">{{ file.name }}</div>-->
-<!--                <i class="material-icons" v-on:click="removeFile( key )">clear</i>-->
-<!--            </div>-->
-<!--        </div>-->
+
         <button v-if="config.multi" type="button" title="Pridať súbor" v-on:click="addFiles()"><i class="material-icons">playlist_add</i></button>
     </div>
 </template>
@@ -35,7 +36,7 @@
         data() {
             return {
                 counter: 1,
-                files: [],
+                files: this.config.files ? this.config.files.data : [],
                 errors: {}
             }
         },
@@ -52,9 +53,16 @@
             //         }
             //     }
             // },
-            // removeFile( key ){
-            //     this.files.splice(key, 1);
-            // }
+            removeFile(id,key){
+                // this.files.splice(key, 1);
+                axios.delete(`/file/${id}/delete`)
+                    .then(res => {
+                        flash({text: res.data.message, type:'success', timer:3000 });
+                        this.files.splice(key, 1);
+                    }).catch(e => {
+                        flash({text: `${e.response.data.message}`, type:'error', timer:null });
+                    });
+            }
         },
     };
 </script>

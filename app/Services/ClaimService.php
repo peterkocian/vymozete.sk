@@ -57,4 +57,16 @@ class ClaimService
 
         return $data;
     }
+
+    public function updateBaseData(array $data, int $claim_id)
+    {
+        try {
+            $result = $this->claimRepository->update($data, $claim_id);
+        } catch (\Exception $e) {
+//            Log::info($e->getMessage());
+            throw new \Exception($e->getMessage());
+        }
+
+        return $result;
+    }
 }

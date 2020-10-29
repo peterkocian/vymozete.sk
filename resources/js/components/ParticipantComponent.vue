@@ -3,7 +3,6 @@
         <div class="form_box">
             <p>{{ config.subtitle }}</p>
             <br>
-
 <!--            nacitanie dlznika z predoslych pohladavok-->
 <!--            <div class="group" style="<?= count($participantsList) == 0 ? 'display: none;' : '' ?>">-->
 <!--                <select class="subjekt" name="debtor[id]">-->
@@ -98,7 +97,6 @@
                     :options="companies"
                     label="name"
                     track-by="id"
-
                     :loading="isLoading.includes('name')"
                     :searchable="true"
                     :internal-search="false"

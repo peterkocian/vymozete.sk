@@ -25,7 +25,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')
         Route::get('/logout', 'LoginController@logout')->name('logout');
         Route::get('/password/reset', 'LoginController@passwordReset')->name('password.reset');
 
-        Route::middleware('auth','role:super-admin')->group(function() {
+        Route::middleware(['auth','role:super-admin'])->group(function() {
             Route::resources([
                 'users'         => 'UserController',
                 'roles'         => 'RoleController',
@@ -76,6 +76,15 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')
 /* Front routes */
 Route::namespace('Front')->name('front.')->middleware('auth')->group(function() {
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/claims/{claim}/overview', 'ClaimController@overview')->name('claims.overview');
+    Route::put('/claims/{claim}/overview', 'ClaimController@updateBaseData')->name('claims.updateBaseData');
+    Route::get('/claims/{claim}/creditor', 'ClaimController@creditor')->name('claims.creditor');
+    Route::put('/claims/{claim}/creditor', 'ClaimController@updateCreditor')->name('claims.updateCreditor');
+    Route::get('/claims/{claim}/debtor', 'ClaimController@debtor')->name('claims.debtor');
+    Route::put('/claims/{claim}/debtor', 'ClaimController@updateDebtor')->name('claims.updateDebtor');
+    Route::get('/claims/{claim}/documents', 'ClaimController@documents')->name('claims.documents.allByClaimId');
+    Route::put('/claims/{claim}/documents', 'ClaimController@uploadDocuments')->name('claims.uploadDocuments');
+    Route::delete('/file/{id}/delete', 'ClaimController@destroyFile')->name('file.delete');
     Route::get('/users/{user}/editProfile', 'HomeController@editProfile')->name('users.editProfile');
     Route::put('/users/{user}/updateProfile', 'HomeController@updateProfile')->name('users.updateProfile');
     Wizard::routes('/claim', 'ClaimWizardController', 'claim');

@@ -8,7 +8,6 @@ use Illuminate\Support\Collection;
 
 class ClaimTypeRepository extends BaseRepository implements ClaimTypeRepositoryInterface
 {
-
     /**
      * ClaimTypeRepository constructor.
      *
@@ -19,10 +18,14 @@ class ClaimTypeRepository extends BaseRepository implements ClaimTypeRepositoryI
         parent::__construct($model);
     }
 
-    public function translation(int $language_id): Collection
+    public function translation(int $language_id)
     {
-        //todo
-        dd('claimTypeRepository:translation');
-        return $this->model->translation(2);
+        $claimTypes = $this->all();
+        $array = [];
+        foreach ($claimTypes as $claimType) {
+            $item =  $claimType->translation($language_id)->firstOrFail()->name;
+            array_push($array, [ 'id' => $claimType->id, 'value' => $item]);
+        }
+        return $array;
     }
 }

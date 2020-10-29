@@ -8,7 +8,6 @@ use App\Services\CalculationService;
 use App\Services\CalendarService;
 use App\Services\ClaimService;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 class CalendarController extends Controller
 {
@@ -25,23 +24,13 @@ class CalendarController extends Controller
 
     public function index(int $claim_id)
     {
-        // return all();
-//        $claim = $this->claimService->get($claim_id);
-//        $events = $this->calendarService->all();
-//
-//        return view('admin.claims.main', [
-//            'claim_id' => $claim_id,
-//            'amount'   => $claim['amount'],
-//            'events'   => $events,
-//            'tab'      => 'calendar',
-//        ]);
+        //
     }
 
     public function getAllByClaimId(int $claim_id)
     {
         $claim = $this->claimService->get($claim_id);
         $events = $this->calendarService->eventsByClaimId($claim_id);
-
 
         return view('admin.claims.main', [
             'claim_id' => $claim_id,
@@ -53,13 +42,12 @@ class CalendarController extends Controller
 
     public function store(SplatkySaveRequest $request, int $claim_id)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         try {
             $result = $this->calendarService->saveEvents($data, $claim_id);
         } catch (\Exception $e) {
 //            report($e);
-
             if ($request->ajax()) {
                 return response()->json([
                     'success' => false,

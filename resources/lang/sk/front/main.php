@@ -13,4 +13,6 @@ return [
     'actions' => 'akcie',
     'no claims created' => 'nemáte vytvorenú žiadnu pohľadávku',
     'create' => 'vytvoriť',
+
+    'Claim detail' => 'vytvoriť',
 ];

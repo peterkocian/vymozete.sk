@@ -41,13 +41,13 @@
             <h2 style="text-align: center; color: black;">Pre zobrazenie stránky je nutné mať povolený JavaScript.</h2>
             <style>.content { display:none; }</style>
         </noscript>
-        <div id="app" class="content">
+        <div v-cloak id="app" class="content">
             <div class="main-menu">
                 @include('front.partials.navigation.mobile_nav')
                 @include('front.partials.navigation.main')
             </div>
 
-            @include('front.flash-message')
+            @include('flash-message')
 
             @yield('content')
 

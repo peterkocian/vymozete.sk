@@ -11,6 +11,11 @@ window.Vue = require('vue');
 import DatePicker from 'vue2-datepicker';
 import Multiselect from 'vue-multiselect';
 
+window.events = new Vue();
+
+window.flash = function(message) {
+    window.events.$emit('flash', message);
+}
 
 /**
  * The following block of code may be used to automatically register your
@@ -26,6 +31,8 @@ import Multiselect from 'vue-multiselect';
 Vue.component('participant-component', require('./components/ParticipantComponent').default);
 Vue.component('debt-component', require('./components/DebtComponent').default)
 Vue.component('upload-component', require('./components/UploadComponent').default)
+Vue.component('claim-base-data-component', require('./components/ClaimBaseDataComponent').default)
+Vue.component('flash', require('./components/Flash').default);
 Vue.use(DatePicker);
 Vue.component('multiselect', Multiselect);
 

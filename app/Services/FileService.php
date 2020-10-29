@@ -20,6 +20,23 @@ class FileService
         $this->claimRepository = $claimRepository;
     }
 
+    public function save($files, array $data, int $claim_id)
+    {
+        $claim = $this->claimRepository->get($claim_id);
+
+        if ($files) {
+            foreach($files as $file) {
+                if ($file && $file->isValid()) {
+                    $this->saveFile($claim, $file, $data);
+                } else {
+                    throw new \Exception(__('file.File is invalid'));
+                }
+            }
+        } else {
+            throw new \Exception(__('file.No file to save'));
+        }
+    }
+
     public function saveFile(Model $model, $file, $data = [])
     {
         $size = $file->getSize();
@@ -80,5 +97,40 @@ class FileService
         }
 
         return $data;
+    }
+
+    public function download(int $id)
+    {
+        $file = $this->fileRepository->get($id);
+        if (!$file) {
+            throw new \Exception('Súbor neexistuje v DB.');
+        }
+
+        if ($this->checkFileOnDisk("/claim/{$file->fileable_id}/{$file->filename}")) {
+            return Storage::disk('uploads')->path("claim/{$file->fileable_id}/{$file->filename}");
+        } else {
+            throw new \Exception(__('file.File doesnt exists'));
+        }
+    }
+
+    public function delete(int $id)
+    {
+        $file = $this->fileRepository->get($id);
+        if (!$file) {
+            throw new \Exception(__('file.File doesnt exists'));
+        }
+
+        if ($this->checkFileOnDisk("/claim/{$file->fileable_id}/{$file->filename}")) {
+            Storage::disk('uploads')->delete("claim/{$file->fileable_id}/{$file->filename}");
+
+            $file->delete();
+        } else {
+            throw new \Exception(__('file.File doesnt exists'));
+        }
+    }
+
+    private function checkFileOnDisk(string $path)
+    {
+        return Storage::disk('uploads')->exists($path);
     }
 }

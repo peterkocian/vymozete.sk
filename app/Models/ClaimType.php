@@ -34,7 +34,7 @@ class ClaimType extends Model
 
     public function translation($language = null)
     {
-//        if ($language == null) {
+//        if ($language == null) { //todo zvazit ci treba
 //            $language = App::getLocale();
 //        }
 

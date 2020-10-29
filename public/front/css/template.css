@@ -1117,6 +1117,21 @@ a.button:hover {
   background-color: orange;
 }
 
+.add-files .file-list .item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-files div {
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 5px;
+}
+
+.add-files input {
+  margin-bottom: 5px;
+}
+
 .add-files button {
   padding: 10px 0px 5px 5px;
   min-width: 75px;
@@ -1125,15 +1140,8 @@ a.button:hover {
   border-radius: 25px;
 }
 
-.add-files div {
-  /*margin-bottom: 5px;*/
-  font-size: 14px;
-  font-weight: 400;
-  margin-left: 5px;
-}
-
-.add-files input {
-  margin-bottom: 5px;
+.add-files .material-icons {
+  cursor: pointer;
 }
 
 /* INPUT   */
@@ -1593,7 +1601,7 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
 .autocomplete-suggestions {
   text-align: left;
   cursor: default;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border-top: 0;
   background: #fff;
   box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.1);
@@ -1662,15 +1670,18 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
 
 .multiselect .multiselect__input,
 .multiselect--active .multiselect__input {
+  height: 100%;
+  min-height: inherit;
   width: 100% !important;
-  border-bottom: 1px solid #115063;
   padding: 9px 50px 9px 5px !important;
   top: 2px;
+  border-bottom: 1px solid #115063;
 }
 
 .multiselect .multiselect__single,
 .multiselect--active .multiselect__single {
-  padding: 10px 10px 10px 5px !important;
+  border-radius: 0;
+  padding: 10px 50px 10px 5px !important;
   color: #115063;
   font-weight: 400;
   font-size: 18px;
@@ -1775,14 +1786,67 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
   padding: 20px;
 }
 
-.flashMessage {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 200px;
-  height: 100px;
-  background: beige;
+.alert {
   z-index: 2020;
-  opacity: 0.7;
+  position: fixed;
+  top: 90px;
+  right: 20px;
+}
+
+.alert.alert-block {
+  width: 250px;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.alert.alert-danger {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.alert.alert-success {
+  background: darkorange;
+  color: white;
+}
+
+.alert.alert-warning {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.alert.alert-info {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.alert button.close {
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  background: none;
+  position: relative;
+  left: 205px;
+  top: -10px;
+  min-width: auto;
+  font-size: 20px;
+}
+
+.nav-tabs-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.nav-tabs-container .tab-item .tab-link {
+  padding: 15px;
+  display: block;
+  color: #115063;
+}
+
+.nav-tabs-container .tab-item .tab-link.active {
+  color: darkorange;
+  border-bottom: 1px solid darkorange;
 }
 

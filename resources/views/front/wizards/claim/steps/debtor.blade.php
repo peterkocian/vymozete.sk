@@ -16,7 +16,7 @@
         ],
     ];
     if($step->data('birthday')){
-        $config['stepData']['birthday'] = \Carbon\Carbon::parse($config['stepData']['birthday'])->format('Y-m-d');
+        $config['stepData']['birthday'] = \Carbon\Carbon::parse($step->data('birthday'))->format('Y-m-d');
     }
 @endphp
 <participant-component :config="{{ json_encode($config) }}"></participant-component>

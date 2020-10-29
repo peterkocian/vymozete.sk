@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="mainbox mainbox_white">
-
         <div class="row"><h1>@lang('front/main.My claims')</h1></div>
         <div class="row"><p>
             <a href="{{ route('front.claim') }}"><b>@lang('front/main.Add new claim')</b></a>
@@ -32,7 +31,7 @@
                         <td>{{ $claim->debtor->entity_type === \App\Models\Person::class ? $claim->debtor->entity->fullName : $claim->debtor->entity->name  }}</td>
                         <td>{{ $claim->amount }}</td>
                         <td>{{ $claim->claimStatus->name }}</td>
-                        <td>Detail</td>
+                        <td><a href="{{ route('front.claims.overview', $claim->id) }}">Detail</a></td>
                     </tr>
                 @empty
                     <tr class="no-content">

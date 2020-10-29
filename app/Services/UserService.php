@@ -116,7 +116,7 @@ class UserService
      * @return mixed
      * @throws Exception
      */
-    public function updateUserProfile($data, $id = null)
+    public function updateUserProfile(array $data, $id = null)
     {
         DB::beginTransaction();
 

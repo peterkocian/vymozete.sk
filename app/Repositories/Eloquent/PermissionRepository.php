@@ -45,7 +45,7 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
         return $this->model->fresh();
     }
 
-    public function update(array $attributes, int $id): Model
+    public function update(array $attributes, int $id): Model //todo je mozne pouzit update metodu z BaseRepository
     {
         if ($id) {
             try {

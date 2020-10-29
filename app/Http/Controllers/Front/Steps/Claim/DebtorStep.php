@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front\Steps\Claim;
 
+use App\Http\Requests\ParticipantRequest;
 use App\Rules\EmailMustHaveTLD;
 use Illuminate\Http\Request;
 use Ycs77\LaravelWizard\Step;
@@ -61,18 +62,6 @@ class DebtorStep extends Step
      */
     public function rules(Request $request)
     {
-        return [
-            'person_type' => 'required',
-            'name' => 'required',
-            'surname' => 'required_if:person_type,0',
-            'birthday' => 'required_if:person_type,0|date',
-            'ico' => 'required_if:person_type,1',
-            'street' => 'required',
-            'house_number' => 'required',
-            'town' => 'required',
-            'zip' => 'required',
-            'country' => 'required',
-            'email' => ['email',new EmailMustHaveTLD,'nullable']
-        ];
+        return ParticipantRequest::rules();
     }
 }

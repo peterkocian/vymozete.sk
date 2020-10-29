@@ -56,7 +56,7 @@ class CalculationController extends Controller
 
     public function store(CalculationSaveRequest $request, int $claim_id)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         try {
             $result = $this->calculationService->saveCalculation($data, $claim_id);
@@ -103,7 +103,7 @@ class CalculationController extends Controller
 
     public function update(CalculationSaveRequest $request, int $claim_id, int $calculation_id)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         try {
             $this->calculationService->updateCalculation($data, $calculation_id);
