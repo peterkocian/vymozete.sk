@@ -4,7 +4,6 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Permission;
 use App\Repositories\PermissionRepositoryInterface;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Exception;

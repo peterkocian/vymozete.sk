@@ -75,7 +75,6 @@ class BaseRepository implements EloquentRepositoryInterface
      */
     public function delete(int $id): bool
     {
-//        dd($this->model->findOrFail($id));
         return $this->model->destroy($id);
     }
 
@@ -91,9 +90,17 @@ class BaseRepository implements EloquentRepositoryInterface
         return $this->model->findOrFail($id)->update($attributes);
     }
 
-    public function getData(int $claim_id = null): Builder // tato funkcia musi mat vstupny parameter, lebo v ostatnych Repository classach pretazujem tuto metodu a tam posielam aj parameter
+    public function getData(int $claim_id = null, array $searchParams = []): Builder // tato funkcia musi mat vstupny parameter, lebo v ostatnych Repository classach pretazujem tuto metodu a tam posielam aj parameter
     {
-        return $this->model::query();
+        if (!empty($searchParams)) {
+            return $this->model->query()->where(function($q) use($searchParams) {
+                foreach ($searchParams as $col => $value) {
+                    $q->where($col, 'LIKE' , '%' . $value . '%');
+                }
+            });
+        } else {
+            return $this->model::query();
+        }
     }
 
     public function getPagination()

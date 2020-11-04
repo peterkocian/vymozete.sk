@@ -274,7 +274,7 @@
         data() {
             return {
                 isLoading: [],
-                debounce:null,
+                debounce: null,
                 companies: [],
                 formData: { person_type: 1 },
                 selectedCompany: null,

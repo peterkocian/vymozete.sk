@@ -122,6 +122,22 @@
                         </th>
                         <th style="width: 140px" v-if="config.actions.length > 0">{{config.actionColumnLabel}}</th>
                     </tr>
+                    <tr v-if="config.config.searchable">
+                        <th
+                            v-for="column in config.columns"
+                            :key="column.key"
+                        >
+                            <input
+                                v-if="column.type !== 'select'"
+                                class="form-control form-control-sm"
+                                :type="column.type"
+                                v-model="search[column.key]"
+                                :placeholder="column.settings.placeholder"
+                                @input="debounceSearch(column.key)"
+                            >
+                        </th>
+                        <th v-if="config.actions.length > 0"></th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr v-for="item in source" :key="item.id">
@@ -200,7 +216,9 @@
                     ajax: false,
                     requestMethod: '',
                 },
-                errors: {}
+                errors: {},
+                search: {},
+                debounce: null,
             }
         },
         mounted() {
@@ -247,7 +265,7 @@
                         this.reloadData();
                         flash({text: res.data.message, type:'success', timer:3000 });
                     }).catch(e => {
-                        console.log(e.response.data.errors);
+                        // console.log(e.response.data.errors);
                         this.errors = e.response.data.errors;
                         flash({text: `${e.response.data.message}`, type:'error', timer:null });
                     });
@@ -276,7 +294,7 @@
                         }
                     })
                     .then(res => {
-                        console.log(res.data)
+                        // console.log(res.data)
                         this.errors = {};
                         this.setDefaultValue();
                         this.reloadData();
@@ -305,6 +323,7 @@
                         sortKey: this.sortKey,
                         sortDirection: this.sortDirection,
                         rows: this.rows,
+                        search: this.search
                     },
                     paramsSerializer: function (params) {
                         return decodeURIComponent( $.param(params))
@@ -354,6 +373,12 @@
             hideOverlay: function() {
                 // skryt loading
                 this.overlay = false;
+            },
+            debounceSearch(key) {
+                clearTimeout(this.debounce);
+                this.debounce = setTimeout(() => {
+                    this.reloadData();
+                }, 600);
             },
         },
     };

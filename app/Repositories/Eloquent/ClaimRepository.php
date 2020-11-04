@@ -8,7 +8,6 @@ use App\Models\Currency;
 use App\Models\Organization;
 use App\Models\Person;
 use App\Repositories\ClaimRepositoryInterface;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -23,14 +22,6 @@ class ClaimRepository extends BaseRepository implements ClaimRepositoryInterface
     {
         parent::__construct($model);
     }
-
-//    /**
-//     * @return Collection
-//     */
-//    public function all(): Collection
-//    {
-//        return $this->model->with(['creditor.entity.fullname', 'debtor'])->get();
-//    }
 
     public function getDebtor(int $claim_id)
     {
@@ -80,7 +71,6 @@ class ClaimRepository extends BaseRepository implements ClaimRepositoryInterface
             $updateDebtor = true;
             $debtorModel = $attributes['person_type'] == 1 ? Organization::find($attributes['debtor_id']) : Person::find($attributes['debtor_id']);
         }
-
 
         if ($result) {
             $result->update($attributes);

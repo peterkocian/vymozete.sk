@@ -10,10 +10,13 @@ class SimpleTableService
     {
         $sortKey = request('sortKey') ? request('sortKey') : SimpleTable::SORT_KEY;
         $sortDirection = request('sortDirection') ? request('sortDirection') : SimpleTable::SORT_DIRECTION;
+        $searchParams = request('search') ? request('search') : [];
         $pagination = request('pagination') ?? $repository->getPagination();
 
         //get and sort data
-        $query = $repository->getData($parent_id)->orderBy($sortKey,$sortDirection);
+        $query = $repository->getData($parent_id, $searchParams)->orderBy($sortKey,$sortDirection);
+
+//        dd('here',$query);
 
         if ($pagination) {
             $data = $this->processPagination($query, $repository, $relatedData);

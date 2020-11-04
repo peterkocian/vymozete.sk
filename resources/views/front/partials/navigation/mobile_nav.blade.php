@@ -1,5 +1,5 @@
 <div id="mySidenav" class="mobile-menu">
-    <a href="#" type="button" class="closebtn">&times;</a>
+    <a type="button" class="closebtn">&times;</a>
     <a href="/">vymôžete.sk</a>
     <a href="{{ Request::is('/') ? '#o_sluzbe' : url('/#o_sluzbe') }}">o službe</a>
     <a href="{{ Request::is('/') ? '#nasa_ponuka' : url('/#nasa_ponuka') }}">naša ponuka</a>

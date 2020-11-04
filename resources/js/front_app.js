@@ -32,6 +32,7 @@ Vue.component('participant-component', require('./components/ParticipantComponen
 Vue.component('debt-component', require('./components/DebtComponent').default)
 Vue.component('upload-component', require('./components/UploadComponent').default)
 Vue.component('claim-base-data-component', require('./components/ClaimBaseDataComponent').default)
+Vue.component('smooth-scrolling-component', require('./components/SmoothScrollingComponent').default)
 Vue.component('flash', require('./components/Flash').default);
 Vue.use(DatePicker);
 Vue.component('multiselect', Multiselect);

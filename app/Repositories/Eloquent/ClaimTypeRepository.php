@@ -4,7 +4,6 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\ClaimType;
 use App\Repositories\ClaimTypeRepositoryInterface;
-use Illuminate\Support\Collection;
 
 class ClaimTypeRepository extends BaseRepository implements ClaimTypeRepositoryInterface
 {

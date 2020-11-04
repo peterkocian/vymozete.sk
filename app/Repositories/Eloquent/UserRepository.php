@@ -53,11 +53,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             }
         }
 
-//        if (isset($attributes['password'])) {
-//            $attributes['password'] = bcrypt($attributes['password']);
-//        } else {
-//            $attributes['password'] = $user->password;
-//        }
         $attributes['password'] = isset($attributes['password']) ? bcrypt($attributes['password']) : $user->password;
 
         if ($user) {
@@ -68,9 +63,4 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             return $user;
         }
     }
-
-//    public function getData(): Builder
-//    {
-//        return User::query();
-//    }
 }

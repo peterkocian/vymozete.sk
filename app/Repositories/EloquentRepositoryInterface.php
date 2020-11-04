@@ -49,7 +49,7 @@ interface EloquentRepositoryInterface
      */
     public function update(array $attributes, int $id): Model;
 
-    public function getData(int $id = null): Builder;
+    public function getData(int $id = null, array $searchParams = []): Builder;
 
     public function getPagination();
 }

@@ -35,5 +35,5 @@
         </p>
     </div>
     <div class="row"><p>vymozete.sk &copy; 2017 - {{ @now()->year }}</p></div>
-    <a id="toTop" href="javascript:void(0);" style="display: none;"><img src="{{ asset('front/images/up-arrow-white.svg') }}" alt=""></a>
+    <smooth-scrolling-component :src="{{ json_encode(asset('front/images/up-arrow-white.svg')) }}"/>
 </div>

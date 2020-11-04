@@ -33,8 +33,6 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/front_app.js') }}" defer></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    {{--    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>--}}
     </head>
     <body>
         <noscript>
@@ -54,5 +52,4 @@
             @include('front.partials.footer')
         </div>
     </body>
-    <script src="{{ asset('front/js/custom.js') }}"></script>
 </html>

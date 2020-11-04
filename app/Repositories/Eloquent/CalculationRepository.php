@@ -59,7 +59,7 @@ class CalculationRepository extends BaseRepository implements CalculationReposit
         throw new \Exception('Nezname id');
     }
 
-    public function getData(int $claim_id = null): Builder // pretazena metoda z BaseRepository
+    public function getData(int $claim_id = null, array $searchParams = []): Builder // pretazena metoda z BaseRepository
     {
         return Claim::find($claim_id)->calculations()->getQuery();
     }

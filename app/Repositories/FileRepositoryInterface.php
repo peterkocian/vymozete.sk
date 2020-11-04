@@ -1,7 +1,6 @@
 <?php
 namespace App\Repositories;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 interface FileRepositoryInterface
@@ -12,5 +11,4 @@ interface FileRepositoryInterface
      * @param int $claim_id
      * @return Collection
      */
-//    public function getData(int $claim_id): Builder;
 }

@@ -1422,9 +1422,12 @@ a.alogin:hover {
   /* Disable horizontal scroll */
   padding-top: 60px;
   /* Place content 60px from the top */
-  transition: 0.5s;
-  /* 0.5 second transition effect to slide in the mobile-menu */
   z-index: 10;
+  transition: margin 500ms;
+}
+
+.mobile-menu.open {
+  margin-left: 0;
 }
 
 /* The navigation menu links */

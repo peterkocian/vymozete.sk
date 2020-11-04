@@ -3,22 +3,38 @@
         [
             'label' => __('user.Name'),
             'key' => 'name',
-            'type' => 'text'
+            'type' => 'text',
+            'settings' => [
+                'searchable' => true,
+                'placeholder' => __('table-component.settings.placeholder')
+            ]
         ],
         [
             'label' => __('user.Surname'),
             'key' => 'surname',
             'type' => 'text',
+            'settings' => [
+                'searchable' => true,
+                'placeholder' => __('table-component.settings.placeholder')
+            ]
         ],
         [
             'label' => __('user.Email'),
             'key' => 'email',
-            'type' => 'text'
+            'type' => 'text',
+            'settings' => [
+                'searchable' => true,
+                'placeholder' => __('table-component.settings.placeholder')
+            ]
         ],
         [
             'label' => __('general.Created at'),
             'key' => 'created_at',
-            'type' => 'date'
+            'type' => 'date',
+            'settings' => [
+                'searchable' => true,
+                'placeholder' => __('table-component.settings.placeholder')
+            ]
         ],
     ];
 
@@ -30,6 +46,7 @@
         'numberOfRows'  => \App\Helpers\SimpleTable::NUMBER_OF_ROWS,
         'sortKey'       => \App\Helpers\SimpleTable::SORT_KEY,
         'sortDirection' => \App\Helpers\SimpleTable::SORT_DIRECTION,
+        'searchable'    => true,
     ];
 
     $actions = [
