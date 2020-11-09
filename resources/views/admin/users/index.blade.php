@@ -6,7 +6,7 @@
             'type' => 'text',
             'settings' => [
                 'searchable' => true,
-                'placeholder' => __('table-component.settings.placeholder')
+                'placeholder' => __('general.Search placeholder')
             ]
         ],
         [
@@ -15,7 +15,7 @@
             'type' => 'text',
             'settings' => [
                 'searchable' => true,
-                'placeholder' => __('table-component.settings.placeholder')
+                'placeholder' => __('general.Search placeholder')
             ]
         ],
         [
@@ -24,7 +24,7 @@
             'type' => 'text',
             'settings' => [
                 'searchable' => true,
-                'placeholder' => __('table-component.settings.placeholder')
+                'placeholder' => __('general.Search placeholder')
             ]
         ],
         [
@@ -33,7 +33,7 @@
             'type' => 'date',
             'settings' => [
                 'searchable' => true,
-                'placeholder' => __('table-component.settings.placeholder')
+                'placeholder' => __('general.Search placeholder')
             ]
         ],
     ];

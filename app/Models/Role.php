@@ -27,7 +27,7 @@ class Role extends Model
      *
      * @var string[]
      */
-//    protected $touches = ['users'];
+    protected $touches = ['users'];
 
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable

@@ -93,9 +93,7 @@
             <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
                 <div class="box_mini_title">Nezaplatená faktúra</div>
-                @auth()
-                    <a class="small_btn" href="/claim/type?claim_type=1">+ pridať</a>
-                @endauth
+                <a class="small_btn" href="/claim/type?claim_type_id=1">+ pridať</a>
             </div>
         </div>
 
@@ -104,7 +102,7 @@
 {{--            <div class="box_mini">--}}
 {{--                <div class="box_mini_title">Nezaplatené výživné</div>--}}
 {{--                @auth()--}}
-{{--                    <a class="small_btn" href="/claim/type?claim_type=2">+ pridať</a>--}}
+{{--                    <a class="small_btn" href="/claim/type?claim_type_id=2">+ pridať</a>--}}
 {{--                @endauth--}}
 {{--            </div>--}}
 {{--        </div>--}}
@@ -113,9 +111,7 @@
             <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
                 <div class="box_mini_title">Nevrátená pôžička</div>
-                @auth()
-                    <a class="small_btn" href="/claim/type?claim_type=3">+ pridať</a>
-                @endauth
+                <a class="small_btn" href="/claim/type?claim_type_id=3">+ pridať</a>
             </div>
         </div>
 
@@ -123,9 +119,7 @@
             <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
                 <div class="box_mini_title">Nevyplatená zmenka</div>
-                @auth()
-                    <a class="small_btn" href="/claim/type?claim_type=4">+ pridať</a>
-                @endauth
+                <a class="small_btn" href="/claim/type?claim_type_id=4">+ pridať</a>
             </div>
         </div>
 
@@ -133,9 +127,7 @@
             <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
                 <div class="box_mini_title">Nevyplatené nájomné</div>
-                @auth()
-                    <a class="small_btn" href="/claim/type?claim_type=5">+ pridať</a>
-                @endauth
+                <a class="small_btn" href="/claim/type?claim_type_id=5">+ pridať</a>
             </div>
         </div>
 
@@ -143,9 +135,7 @@
             <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
                 <div class="box_mini_title">Nevyplatená mzda</div>
-                @auth()
-                    <a class="small_btn" href="/claim/type?claim_type=6">+ pridať</a>
-                @endauth
+                <a class="small_btn" href="/claim/type?claim_type_id=6">+ pridať</a>
             </div>
         </div>
 
@@ -153,9 +143,7 @@
             <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
                 <div class="box_mini_title">Nevyplatené poistné plnenie</div>
-                @auth()
-                    <a class="small_btn" href="/claim/type?claim_type=7">+ pridať</a>
-                @endauth
+                <a class="small_btn" href="/claim/type?claim_type_id=7">+ pridať</a>
             </div>
         </div>
 
@@ -163,9 +151,7 @@
             <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
                 <div class="box_mini_title">Náhrada škody</div>
-                @auth()
-                    <a class="small_btn" href="/claim/type?claim_type=8">+ pridať</a>
-                @endauth
+                <a class="small_btn" href="/claim/type?claim_type_id=8">+ pridať</a>
             </div>
         </div>
     </div>

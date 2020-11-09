@@ -78,7 +78,7 @@ return [
     ],
     'max' => [
         'numeric' => 'The :attribute may not be greater than :max.',
-        'file' => 'The :attribute may not be greater than :max kilobytes.',
+        'file' => 'Pole :attribute musí byť menšie ako :max kilobytes.',
         'string' => 'The :attribute may not be greater than :max characters.',
         'array' => 'The :attribute may not have more than :max items.',
     ],
@@ -175,6 +175,7 @@ return [
         'filename' => 'názov súboru',
         'file_type_id' => 'typ súboru',
         'uploads' => 'súbor',
+        'uploads.*' => 'súbor',
 
         'title' => 'názov',
         'currency_id' => 'mena',

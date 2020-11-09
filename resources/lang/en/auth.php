@@ -15,5 +15,6 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'user banned' => 'Your account is banned. For more information please contact us on support@vymozete.sk.',
 
 ];

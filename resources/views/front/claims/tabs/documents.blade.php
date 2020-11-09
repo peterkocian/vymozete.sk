@@ -1,6 +1,7 @@
 @php
     $config = [
         'files' => $data,
+        'validationErrors' => $errors->messages(),
         'multi' => true
     ];
 @endphp
@@ -8,8 +9,10 @@
     @csrf
     @method('put')
     <div class="form_box">
-        <p></p>
         <upload-component :config="{{ json_encode($config) }}"></upload-component>
+        @error('uploads*')
+            <div class="validation-error">{{ $message }}</div>
+        @enderror
         <div class="group">
             <div class="row">
                 <button type="submit" class="big_btn">

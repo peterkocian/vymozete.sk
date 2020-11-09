@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\DateFormatTrait;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Calendar extends Model
@@ -33,7 +34,7 @@ class Calendar extends Model
     }
 
     /**
-     * Get the currency record associated with the claim.
+     * Get the currency record associated with the calendar.
      */
     public function currency()
     {
@@ -41,20 +42,18 @@ class Calendar extends Model
     }
 
     /**
-     * Vzdy ked pristupime ku atributu created_at, tak sa automaticky naformatuje podla tohto formatu
-     *
-     * @param $value
-     * @return false|string
-     */
-//    public function getDateAttribute($value) {
-//        return date('d.m.Y', strtotime($value));
-//    }
-
-    /**
-     * Get the claim_status record associated with the claim.
+     * Get the claim_status record associated with the calendar.
      */
     public function claim()
     {
         return $this->belongsTo(Claim::class);
+    }
+
+    /**
+     * Get the user that owns the calendar.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

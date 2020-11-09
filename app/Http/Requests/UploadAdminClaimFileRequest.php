@@ -28,12 +28,13 @@ class UploadAdminClaimFileRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'filename'      => 'required|max:191',
             'file_type_id'  => 'required',
-            'uploads'       => 'required|array|min:1',
-            'uploads.*'     => 'required|mimes:txt,pdf,doc,docx,jpg,jpeg',
         ];
+
+        $rules = array_merge($rules,UploadFileRequestGeneral::rules());
+        return $rules;
     }
 
     /**

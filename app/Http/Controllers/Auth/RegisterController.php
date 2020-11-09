@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\WelcomeMail;
 use App\Models\Language;
+use App\Models\Role;
 use App\Providers\RouteServiceProvider;
 use App\Rules\EmailMustHaveTLD;
 use App\Rules\StrongPassword;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -35,7 +37,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::FRONTEND_HOME;
 
     /**
      * Create a new controller instance.
@@ -71,6 +73,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $language = Language::where('default', 1)->firstOrFail();
+        $public_user_role = Role::where('slug', User::PUBLIC_USER_DEFAULT_ROLE)->firstOrFail();
 
         $user = User::create([
 //            'name' => $data['name'],
@@ -80,6 +83,10 @@ class RegisterController extends Controller
             'language_id' => $language->id,
         ]);
 
+        if ($user) {
+            $user->roles()->sync($public_user_role->id);
+        }
+
         Mail::to($data['email'])->send(new WelcomeMail($user));
 
         return $user;
@@ -88,5 +95,10 @@ class RegisterController extends Controller
     protected function guard()
     {
         return Auth::guard('web');
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        $request->session()->flash('success','Vitajte, registrácia bola úspešná.');
     }
 }

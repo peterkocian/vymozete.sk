@@ -2084,6 +2084,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['config'],
@@ -2605,6 +2607,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -56679,11 +56685,11 @@ var render = function() {
           _vm._v(" "),
           _c("span", { staticClass: "bar" }),
           _vm._v(" "),
-          this.config.validationErrors.hasOwnProperty("amount")
+          _vm.config.validationErrors.hasOwnProperty("amount")
             ? _c(
                 "span",
                 { staticClass: "validation-error" },
-                _vm._l(this.config.validationErrors.amount, function(message) {
+                _vm._l(_vm.config.validationErrors.amount, function(message) {
                   return _c("div", [_vm._v(_vm._s(message))])
                 }),
                 0
@@ -56729,16 +56735,15 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            this.config.validationErrors.hasOwnProperty("payment_due_date")
+            _vm.config.validationErrors.hasOwnProperty("payment_due_date")
               ? _c(
                   "span",
                   { staticClass: "validation-error" },
-                  _vm._l(
-                    this.config.validationErrors.payment_due_date,
-                    function(message) {
-                      return _c("div", [_vm._v(_vm._s(message))])
-                    }
-                  ),
+                  _vm._l(_vm.config.validationErrors.payment_due_date, function(
+                    message
+                  ) {
+                    return _c("div", [_vm._v(_vm._s(message))])
+                  }),
                   0
                 )
               : _vm._e()
@@ -56776,19 +56781,34 @@ var render = function() {
         _c("div", { staticClass: "group description" }, [
           _c("label", [_vm._v("nahrajte dokumenty *")]),
           _vm._v(" "),
-          this.config.validationErrors.hasOwnProperty("uploads")
+          Object.keys(_vm.config.validationErrors).find(function(q) {
+            return /upload*/gi.test(q)
+          })
             ? _c(
                 "span",
                 { staticClass: "validation-error" },
-                _vm._l(this.config.validationErrors.uploads, function(message) {
-                  return _c("div", [_vm._v(_vm._s(message))])
-                }),
+                _vm._l(
+                  _vm.config.validationErrors[
+                    Object.keys(_vm.config.validationErrors).find(function(q) {
+                      return /upload*/gi.test(q)
+                    })
+                  ],
+                  function(message) {
+                    return _c("div", [_vm._v(_vm._s(message))])
+                  }
+                ),
                 0
               )
             : _vm._e()
         ]),
         _vm._v(" "),
-        _c("upload-component", { attrs: { config: { multi: true } } }),
+        _c("upload-component", {
+          attrs: {
+            config: {
+              multi: true
+            }
+          }
+        }),
         _vm._v(" "),
         _vm._m(0)
       ],
@@ -57817,31 +57837,50 @@ var render = function() {
     "div",
     { staticClass: "group add-files" },
     [
-      _vm.config.multi
-        ? _c(
-            "div",
-            { staticClass: "file-list" },
-            _vm._l(_vm.files, function(file, key) {
-              return _c("div", { staticClass: "item" }, [
-                _c("div", { staticClass: "name" }, [_vm._v(_vm._s(file.name))]),
-                _vm._v(" "),
-                _c(
-                  "i",
-                  {
-                    staticClass: "material-icons",
-                    on: {
-                      click: function($event) {
-                        return _vm.removeFile(file.id, key)
+      _vm.config.files
+        ? _c("article", [
+            _c("p", [_vm._v("Zoznam uložených súborov")]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "file-list" },
+              _vm._l(_vm.files, function(file, key) {
+                return _c("div", { staticClass: "item" }, [
+                  _c("div", { staticClass: "name" }, [
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          href:
+                            "http://vymozete.local/file/" +
+                            file.id +
+                            "/download"
+                        }
+                      },
+                      [_vm._v(_vm._s(file.name))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "i",
+                    {
+                      staticClass: "material-icons",
+                      on: {
+                        click: function($event) {
+                          return _vm.removeFile(file.id, key)
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("clear")]
-                )
-              ])
-            }),
-            0
-          )
+                    },
+                    [_vm._v("clear")]
+                  )
+                ])
+              }),
+              0
+            )
+          ])
         : _vm._e(),
+      _vm._v(" "),
+      _vm.config.files ? _c("p", [_vm._v("Pridať ďalšie súbory")]) : _vm._e(),
       _vm._v(" "),
       _vm._l(_vm.counter, function(i) {
         return _c("input", {

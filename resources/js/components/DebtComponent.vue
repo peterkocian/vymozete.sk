@@ -11,8 +11,8 @@
                     <option v-for="currency in config.currencies" :value="currency.id">{{currency.code}}</option>
                 </select>
                 <span class="bar"></span>
-                <span v-if="this.config.validationErrors.hasOwnProperty('amount')" class="validation-error">
-                    <div v-for="message in this.config.validationErrors.amount">{{ message }}</div>
+                <span v-if="config.validationErrors.hasOwnProperty('amount')" class="validation-error">
+                    <div v-for="message in config.validationErrors.amount">{{ message }}</div>
                 </span>
             </div>
 
@@ -33,8 +33,8 @@
                     :popup-style="{left: 0, top: '100%'}"
                     :append-to-body="false"
                 ></date-picker>
-                <span v-if="this.config.validationErrors.hasOwnProperty('payment_due_date')" class="validation-error">
-                    <div v-for="message in this.config.validationErrors.payment_due_date">{{ message }}</div>
+                <span v-if="config.validationErrors.hasOwnProperty('payment_due_date')" class="validation-error">
+                    <div v-for="message in config.validationErrors.payment_due_date">{{ message }}</div>
                 </span>
             </div>
 
@@ -45,12 +45,14 @@
 
             <div class="group description">
                 <label>nahrajte dokumenty *</label>
-                <span v-if="this.config.validationErrors.hasOwnProperty('uploads')" class="validation-error">
-                    <div v-for="message in this.config.validationErrors.uploads">{{ message }}</div>
+                <span v-if="Object.keys(config.validationErrors).find(q => /upload*/gi.test(q))" class="validation-error">
+                    <div v-for="message in config.validationErrors[Object.keys(config.validationErrors).find(q => /upload*/gi.test(q))]">{{ message }}</div>
                 </span>
             </div>
             <upload-component
-                :config="{multi:true}"
+                :config="{
+                    multi:true,
+                }"
             ></upload-component>
 
             <div class="group">
@@ -83,7 +85,7 @@
                 if (this.stepData instanceof Object) {
                     this.formData = {...this.stepData};
                 }
-            },
-        }
+            }
+        },
     };
 </script>

@@ -54,7 +54,7 @@ class Claim extends Model
 
     public function getStatusNameAttribute()
     {
-        return $this->claimStatus->name;
+        return $this->claimStatus->translation(\Illuminate\Support\Facades\Auth::user()->language_id)->firstOrFail()->name;
     }
 
     /**

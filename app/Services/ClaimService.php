@@ -2,16 +2,17 @@
 
 namespace App\Services;
 
-use App\Helpers\SimpleTable;
 use App\Repositories\ClaimRepositoryInterface;
 
 class ClaimService
 {
     protected $claimRepository;
+    private $simpleTableService;
 
-    public function __construct(ClaimRepositoryInterface $claimRepository)
+    public function __construct(ClaimRepositoryInterface $claimRepository, SimpleTableService $simpleTableService)
     {
         $this->claimRepository = $claimRepository;
+        $this->simpleTableService = $simpleTableService;
     }
 
     public function get(int $claim_id)
@@ -34,28 +35,9 @@ class ClaimService
      *
      * @return array
      */
-    public function index()
+    public function all()
     {
-        $sortKey = request('sortKey') ? request('sortKey') : SimpleTable::SORT_KEY;
-        $sortDirection = request('sortDirection') ? request('sortDirection') : SimpleTable::SORT_DIRECTION;
-        $pagination = request('pagination') ?? $this->claimRepository->getPagination();
-
-        //sort data
-        $query = $this->claimRepository->getData()->orderBy($sortKey,$sortDirection);
-
-        if ($pagination) {
-            $rows = request('rows') ? intval(request('rows')) : SimpleTable::NUMBER_OF_ROWS;
-
-            $paginate = $query->paginate($rows);
-            $data['data'] = $this->claimRepository->getRelatedData($paginate)->toArray();
-            $pag = $paginate->toArray();
-            unset($pag['data']);  // z povodneho objektu paginate ktory vracia Laravel mazem data, aby mi v result['pagination'] posielalo na FE iba info o strankovani
-            $data['pagination'] = $pag;
-        } else {
-            $data = $this->claimRepository->getRelatedData($query->get())->toArray();
-        }
-
-        return $data;
+        return $this->simpleTableService->processSimpleTableData($this->claimRepository, null, true);
     }
 
     public function updateBaseData(array $data, int $claim_id)

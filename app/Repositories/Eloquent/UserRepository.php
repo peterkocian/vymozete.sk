@@ -44,6 +44,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function update(array $attributes, int $id): Model
     {
+        $user = null;
         if ($id) {
             try {
                 $user = $this->model->findOrFail($id);

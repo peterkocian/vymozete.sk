@@ -2,24 +2,18 @@
     <flash
         :message="{{ json_encode(['text' => $message, 'type' => 'success', 'timer' => 3000]) }}"
     ></flash>
-@endif
-
-@if ($message = Session::get('fail'))   {{-- red --}}
+@elseif ($message = Session::get('fail'))   {{-- red --}}
     <flash
         :message="{{ json_encode(['text' => $message, 'type' => 'error', 'timer' => null]) }}"
     ></flash>
-@endif
-
-@if ($message = Session::get('warning'))    {{-- yellow --}}
+@elseif ($message = Session::get('warning'))    {{-- yellow --}}
     <flash
         :message="{{ json_encode(['text' => $message, 'type' => 'warning', 'timer' => null]) }}"
     ></flash>
-@endif
-
-@if ($message = Session::get('info'))   {{-- blue --}}
+@elseif ($message = Session::get('info'))   {{-- blue --}}
     <flash
         :message="{{ json_encode(['text' => $message, 'type' => 'info', 'timer' => null]) }}"
     ></flash>
+@else
+    <flash></flash> {{--for ajax response--}}
 @endif
-
-<flash></flash> {{-- musi tu byt komponenta pre ajaxove responsy--}}

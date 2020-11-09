@@ -22,7 +22,7 @@ class ClaimController extends Controller
 
     public function index()
     {
-        $result = $this->claimService->index();
+        $result = $this->claimService->all();
         if (request()->ajax()) {
             return response()->json($result);
         }

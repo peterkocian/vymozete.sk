@@ -7,16 +7,16 @@
                 @include('admin.claims.tabs.overview')
             @endif
         </div>
-        <div class="tab-pane fade @if($tab === 'creditor') show active @endif" role="tabpanel" aria-labelledby="nav-profile-tab">
-            @if($tab === 'creditor')
-                @include('admin.claims.tabs.participant')
-            @endif
-        </div>
-        <div class="tab-pane fade @if($tab === 'debtor') show active @endif" role="tabpanel" aria-labelledby="nav-contact-tab">
-            @if($tab === 'debtor')
-                @include('admin.claims.tabs.participant')
-            @endif
-        </div>
+{{--        <div class="tab-pane fade @if($tab === 'creditor') show active @endif" role="tabpanel" aria-labelledby="nav-profile-tab">--}}
+{{--            @if($tab === 'creditor')--}}
+{{--                @include('admin.claims.tabs.participant')--}}
+{{--            @endif--}}
+{{--        </div>--}}
+{{--        <div class="tab-pane fade @if($tab === 'debtor') show active @endif" role="tabpanel" aria-labelledby="nav-contact-tab">--}}
+{{--            @if($tab === 'debtor')--}}
+{{--                @include('admin.claims.tabs.participant')--}}
+{{--            @endif--}}
+{{--        </div>--}}
         <div class="tab-pane fade @if($tab === 'documents') show active @endif" role="tabpanel" aria-labelledby="nav-contact-tab">
             @if($tab === 'documents')
                 @include('admin.claims.tabs.documents')

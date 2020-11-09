@@ -18,6 +18,9 @@ class File extends Model
     const INDEX_VIEW_PAGINATION = true;
     const INDEX_VIEW_PER_PAGE_SELECT = false;
 
+    const OVERVIEW_VIEW_PAGINATION = false;
+    const OVERVIEW_VIEW_PER_PAGE_SELECT = false;
+
     const SHOW_TO_CUSTOMER_TRUE = '1';
     const SHOW_TO_CUSTOMER_FALSE = '0';
 

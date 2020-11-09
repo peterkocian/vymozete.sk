@@ -17,9 +17,8 @@ use Ycs77\LaravelWizard\Facades\Wizard;
 
 /* Admin routes */
 Route::namespace('Admin')->prefix('admin')->name('admin.')
-//    ->middleware('authAdmin')
     ->group(function() {
-        Route::get('/', 'HomeController@index')->name('home')->middleware('auth','role:super-admin');
+        Route::get('/', 'HomeController@index')->name('home')->middleware(['auth','role:super-admin']);
         Route::get('/login', 'LoginController@showLoginForm')->name('loginForm')->middleware('guest');
         Route::post('/login', 'LoginController@login')->name('login')->middleware('guest');
         Route::get('/logout', 'LoginController@logout')->name('logout');
@@ -92,6 +91,7 @@ Route::namespace('Front')->name('front.')->middleware('auth')->group(function() 
 
 Route::middleware('auth')->group(function() {
     Route::get('/api/company-data', 'ApiController@getCompanyData');
+    Route::get('/file/{id}/download', 'Admin\FileController@download')->name('file.download');//todo zjednotit download link
 });
 
 //instead of this

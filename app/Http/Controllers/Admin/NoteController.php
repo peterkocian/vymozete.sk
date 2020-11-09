@@ -21,11 +21,6 @@ class NoteController extends Controller
 //        $this->claimService = $claimService;
     }
 
-    public function index()
-    {
-        // return Note::all();
-    }
-
     public function getAllByClaimId(int $claim_id)
     {
         $result = $this->noteService->notesByClaimId($claim_id);

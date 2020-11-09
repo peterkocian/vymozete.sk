@@ -21,7 +21,15 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const FRONTEND_HOME = '/home';
+
+    /**
+     * The path to the "home" route for backend application.
+     *
+     * @var string
+     */
+    public const BACKEND_HOME = '/admin';
+
 
     /**
      * Define your route model bindings, pattern filters, etc.

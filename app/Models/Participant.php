@@ -10,6 +10,17 @@ class Participant extends Model
 {
     use DateFormatTrait;
 
+    const PERSON_TYPE = [
+        [
+            'id' => 0,
+            'value' => 'fyzická osoba (nepodnikateľ)'
+        ],
+        [
+            'id' => 1,
+            'value' => 'podnikateľ (živnostník, s.r.o., ...)'
+        ]
+    ];
+
     /**
      * Nazov tabulky v DB
      *

@@ -4,27 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SplatkySaveRequest;
-use App\Services\CalculationService;
+//use App\Services\CalculationService;
 use App\Services\CalendarService;
 use App\Services\ClaimService;
 use Illuminate\Http\Response;
 
 class CalendarController extends Controller
 {
-    protected $calculationService;
+//    protected $calculationService;
     protected $calendarService;
     protected $claimService;
 
-    public function __construct(CalculationService $calculationService, ClaimService $claimService, CalendarService $calendarService)
+    public function __construct(ClaimService $claimService, CalendarService $calendarService)
     {
-        $this->calculationService = $calculationService;
+//        $this->calculationService = $calculationService;
         $this->calendarService = $calendarService;
         $this->claimService = $claimService;
-    }
-
-    public function index(int $claim_id)
-    {
-        //
     }
 
     public function getAllByClaimId(int $claim_id)

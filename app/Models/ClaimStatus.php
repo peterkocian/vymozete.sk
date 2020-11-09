@@ -21,7 +21,7 @@ class ClaimStatus extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'task', 'sms_ntf', 'email_ntf', 'next_step', 'schedule_ntf', 'timeout'
+        'name', 'next_step', 'schedule_ntf', 'timeout'
     ];
 
     /**
@@ -30,5 +30,14 @@ class ClaimStatus extends Model
     public function claims()
     {
         return $this->hasMany(Claim::class);
+    }
+
+    public function translation($language = null)
+    {
+//        if ($language == null) { //todo zvazit ci treba
+//            $language = App::getLocale();
+//        }
+
+        return $this->hasMany(ClaimStatusTranslation::class, 'claim_status_id', 'id')->where('language_id','=', $language);
     }
 }

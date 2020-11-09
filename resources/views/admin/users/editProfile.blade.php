@@ -7,8 +7,8 @@
                 @csrf
                 @method('put')
                 <div class="form-group row">
-                    <label for="email" class="col-sm-2 col-form-label">{{__('user.Email')}}</label>
-                    <div class="col-sm-10">
+                    <label for="email" class="col-sm-3 col-form-label">{{__('user.Email')}}</label>
+                    <div class="col-sm-9">
                         <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" id="email" value="{{ $user->email }}" disabled/>
                         @error('email')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -16,8 +16,8 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label">{{__('user.Name')}}</label>
-                    <div class="col-sm-10">
+                    <label for="name" class="col-sm-3 col-form-label">{{__('user.Name')}}</label>
+                    <div class="col-sm-9">
                         <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ $user->name }}" />
                         @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -25,8 +25,8 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="surname" class="col-sm-2 col-form-label">{{__('user.Surname')}}</label>
-                    <div class="col-sm-10">
+                    <label for="surname" class="col-sm-3 col-form-label">{{__('user.Surname')}}</label>
+                    <div class="col-sm-9">
                         <input class="form-control {{ $errors->has('surname') ? 'is-invalid' : '' }}" type="text" name="surname" id="surname" value="{{ $user->surname }}" />
                         @error('surname')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -34,8 +34,8 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="password" class="col-sm-2 col-form-label">{{__('user.Password')}}</label>
-                    <div class="col-sm-10">
+                    <label for="password" class="col-sm-3 col-form-label">{{__('user.Password')}}</label>
+                    <div class="col-sm-9">
                         <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="password" name="password" id="password"/>
                         @foreach ($errors->get('password') as $message)
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -43,8 +43,8 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="password_confirmation" class="col-sm-2 col-form-label">{{__('user.Password confirmation')}}</label>
-                    <div class="col-sm-10">
+                    <label for="password_confirmation" class="col-sm-3 col-form-label">{{__('user.Password confirmation')}}</label>
+                    <div class="col-sm-9">
                         <input class="form-control {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}" type="password" name="password_confirmation" id="password_confirmation"/>
                     </div>
                 </div>

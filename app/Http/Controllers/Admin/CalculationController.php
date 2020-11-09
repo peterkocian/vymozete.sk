@@ -22,11 +22,6 @@ class CalculationController extends Controller
         $this->claimService = $claimService;
     }
 
-    public function index()
-    {
-        // return Note::all();
-    }
-
     public function getAllByClaimId(int $claim_id)
     {
         $currencies = $this->currencyRepository->getDataForSelectbox();

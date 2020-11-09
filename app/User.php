@@ -21,6 +21,7 @@ class User extends Authenticatable
 
     const INDEX_VIEW_PAGINATION = true;
     const INDEX_VIEW_PER_PAGE_SELECT = false;
+    const PUBLIC_USER_DEFAULT_ROLE = 'public-user';
 
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable

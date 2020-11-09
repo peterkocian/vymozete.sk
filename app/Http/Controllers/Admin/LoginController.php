@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    protected $redirectTo = RouteServiceProvider::BACKEND_HOME;
 
     /**
      * Show the backoffice application's login form.
@@ -39,22 +40,6 @@ class LoginController extends Controller
     public function passwordReset()
     {
         return view('admin.passwords.email');
-    }
-
-    /**
-     * Handle a login request to the backoffice application.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function login(Request $request)
-    {
-        $this->performLogin($request);
-        return redirect()
-            ->route('admin.home')
-            ->with('success',__('general.User has been logged in!'));
     }
 
     /**
@@ -79,6 +64,7 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
+        $request->session()->flash('success',__('general.User has been logged in!'));
         Auth::logoutOtherDevices($request->get('password'));
     }
 }

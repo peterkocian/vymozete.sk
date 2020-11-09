@@ -30,18 +30,23 @@
                         step="0.01"
                     >
                     <!-- ak field je input type = file -->
-                    <input
-                        v-if="field.type === 'file'"
-                        class="form-control form-control-sm"
-                        :class="{'is-invalid': errors.hasOwnProperty(field.key)}"
-                        :type="field.type"
-                        :placeholder="field.label"
-                        :name="field.key+'[]'"
-                        :id="field.key"
-                        v-model="newEntry[field.key]"
-                        @change="handleFilesUpload($event)"
-                        multiple
-                    >
+                    <div v-if="field.type === 'file'">
+                        <input
+                            class="form-control form-control-sm"
+                            :class="{'is-invalid': Object.keys(errors).find(q => /upload*/gi.test(q))}"
+                            :type="field.type"
+                            :placeholder="field.label"
+                            :name="field.key+'[]'"
+                            :id="field.key"
+                            v-model="newEntry[field.key]"
+                            @change="handleFilesUpload($event)"
+                            multiple
+                        >
+                        <span v-if="Object.keys(errors).find(q => /upload*/gi.test(q))" class="invalid-feedback">
+                            <div v-for="message in errors[Object.keys(errors).find(q => /upload*/gi.test(q))]">{{ message }}</div>
+                        </span>
+                    </div>
+
                     <!-- ak field je input type = date -->
                     <date-picker
                         v-if="field.type === 'date'"

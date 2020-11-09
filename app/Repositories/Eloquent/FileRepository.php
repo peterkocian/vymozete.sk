@@ -32,4 +32,12 @@ class FileRepository extends BaseRepository implements FileRepositoryInterface
             'fileTypeName',
         ]);
     }
+
+    public function getPagination(string $fromPage = null)
+    {
+        if ($fromPage === 'overview') {
+            return $this->model::OVERVIEW_VIEW_PAGINATION;
+        }
+        return $this->model::INDEX_VIEW_PAGINATION;
+    }
 }

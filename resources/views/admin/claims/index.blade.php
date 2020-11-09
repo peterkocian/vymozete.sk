@@ -3,42 +3,70 @@
         [
             'label' => __('claim.Claim ID'),
             'key' => 'id',
-            'type' => 'number'
+            'type' => 'number',
+            'settings' => [
+                'searchable' => true,
+                'placeholder' => __('general.Search placeholder')
+            ]
         ],
         [
             'label' => __('claim.Creditor'),
             'key' => 'creditorFullName',
             'type' => 'text',
-            'map' => 'creditor_id'
+            'map' => 'creditor_id',
+            'settings' => [
+                'searchable' => true,
+                'placeholder' => __('general.Search placeholder')
+            ]
         ],
         [
             'label' => __('claim.Debtor'),
             'key' => 'debtorFullName',
             'type' => 'text',
-            'map' => 'debtor_id'
+            'map' => 'debtor_id',
+            'settings' => [
+                'searchable' => true,
+                'placeholder' => __('general.Search placeholder')
+            ]
         ],
         [
             'label' => __('claim.Amount'),
             'key' => 'amountWithCurrency',
             'type' => 'text',
-            'map' => 'amount'
+            'map' => 'amount',
+            'settings' => [
+                'searchable' => true,
+                'placeholder' => __('general.Search placeholder')
+            ]
         ],
         [
             'label' => __('claim.Status'),
             'key' => 'statusName',
             'type' => 'text',
-            'map' => 'claim_status_id'
+            'map' => 'claim_status_id',
+            'settings' => [
+                'searchable' => true,
+                'placeholder' => __('general.Search placeholder')
+            ]
         ],
         [
             'label' => __('claim.Type'),
             'key' => 'typeName',
             'type' => 'text',
-            'map' => 'claim_type_id'
+            'map' => 'claim_type_id',
+            'settings' => [
+                'searchable' => true,
+                'placeholder' => __('general.Search placeholder')
+            ]
         ],
         [
             'label' => __('general.Created at'),
             'key' => 'created_at',
-            'type' => 'date'
+            'type' => 'date',
+            'settings' => [
+                'searchable' => true,
+                'placeholder' => __('general.Search placeholder')
+            ]
         ],
     ];
 
@@ -50,6 +78,7 @@
         'numberOfRows'  => \App\Helpers\SimpleTable::NUMBER_OF_ROWS,
         'sortKey'       => \App\Helpers\SimpleTable::SORT_KEY,
         'sortDirection' => \App\Helpers\SimpleTable::SORT_DIRECTION,
+        'searchable'    => true,
     ];
 
     $actions = [

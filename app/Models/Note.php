@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\DateFormatTrait;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
@@ -26,4 +27,20 @@ class Note extends Model
      * @var array
      */
     protected $fillable = ['title', 'description', 'claim_id', 'user_id'];
+
+    /**
+     * Get the claim that owns the note.
+     */
+    public function claim()
+    {
+        return $this->belongsTo(Claim::class);
+    }
+
+    /**
+     * Get the user that owns the note.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -29,8 +29,8 @@
                         <td>{{ $claim->created_at }}</td>
                         <td>{{ $claim->creditor->entity_type === \App\Models\Person::class ? $claim->creditor->entity->fullName : $claim->creditor->entity->name  }}</td>
                         <td>{{ $claim->debtor->entity_type === \App\Models\Person::class ? $claim->debtor->entity->fullName : $claim->debtor->entity->name  }}</td>
-                        <td>{{ $claim->amount }}</td>
-                        <td>{{ $claim->claimStatus->name }}</td>
+                        <td>{{ $claim->amountWithCurrency }}</td>
+                        <td>{{ $claim->status_name }}</td>
                         <td><a href="{{ route('front.claims.overview', $claim->id) }}">Detail</a></td>
                     </tr>
                 @empty

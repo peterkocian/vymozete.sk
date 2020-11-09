@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\DateFormatTrait;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Calculation extends Model
@@ -38,7 +39,17 @@ class Calculation extends Model
     }
 
     /**
-     * Get the currency record associated with the claim.
+     * Vzdy ked pristupime ku atributu date, tak sa automaticky naformatuje podla tohto formatu
+     *
+     * @param $value
+     * @return false|string
+     */
+    public function getDateAttribute($value) {
+        return date('d.m.Y', strtotime($value));
+    }
+
+    /**
+     * Get the currency record associated with the calculation.
      */
     public function currency()
     {
@@ -46,13 +57,19 @@ class Calculation extends Model
     }
 
     /**
-     * Vzdy ked pristupime ku atributu created_at, tak sa automaticky naformatuje podla tohto formatu
-     *
-     * @param $value
-     * @return false|string
+     * Get the claim that owns the calculation.
      */
-    public function getDateAttribute($value) {
-        return date('d.m.Y', strtotime($value));
+    public function claim()
+    {
+        return $this->belongsTo(Claim::class);
+    }
+
+    /**
+     * Get the user that owns the calculation.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function getPaidLabelAttribute()

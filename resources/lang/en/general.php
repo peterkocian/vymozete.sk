@@ -18,6 +18,7 @@ return [
     'No' => 'No',
     'Reset Password' => 'Reset Password',
     'Set new password' => 'Set new password',
+    'Search placeholder' => 'Search',
 
     'Company name' => 'Company',
     'ICO' => 'ID',
@@ -27,6 +28,7 @@ return [
     'Birthday' => 'Birthday',
     'ID number' => 'ID number',
     'Citizenship' => 'Citizenship',
+    'IBAN' => 'IBAN',
     'Phone' => 'Mobil',
     'Email' => 'Email',
     'Street' => 'Street',

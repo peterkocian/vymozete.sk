@@ -18,6 +18,7 @@ return [
     'No' => 'Nie',
     'Reset Password' => 'Nastavenie nového hesla',
     'Set new password' => 'Nastaviť nové heslo',
+    'Search placeholder' => 'Hľadať',
 
     'Company name' => 'Názov',
     'ICO' => 'IČO',
@@ -27,6 +28,7 @@ return [
     'Birthday' => 'Dátum narodenia',
     'ID number' => 'Rodné číslo',
     'Citizenship' => 'Národnosť',
+    'IBAN' => 'IBAN',
     'Phone' => 'Mobil',
     'Email' => 'Email',
     'Street' => 'Ulica',

@@ -19,16 +19,16 @@ class CheckBanned
         if (auth()->check() && auth()->user()->banned) {
             auth()->logout();
 
-            if(Request::is('admin/*')){
+            if(Request::is('admin*')){
                 return redirect()
                     ->route('admin.loginForm')
                     ->withInput()
-                    ->withFail('Smola, si zabanovany');
+                    ->withFail(__('auth.user banned'));
             } else {
                 return redirect()
                     ->route('login')
                     ->withInput()
-                    ->withFail('Smola, si zabanovany');
+                    ->withFail(__('auth.user banned'));
             }
         }
 

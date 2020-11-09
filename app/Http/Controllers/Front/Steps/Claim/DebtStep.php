@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front\Steps\Claim;
 
+use App\Http\Requests\UploadFileRequestGeneral;
 use App\Models\Claim;
 use App\Models\Currency;
 use App\Models\File;
@@ -16,7 +17,6 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Ycs77\LaravelWizard\Step;
@@ -33,8 +33,6 @@ class DebtStep extends Step
         //todo hack
         $file = new File();
         $claim = new Claim();
-//        $fileRepository = new FileRepository($file);
-//        $this->uploadService = new UploadService($fileRepository);
         $fileRepository = new FileRepository($file);
         $claimRepository = new ClaimRepository($claim);
         $this->fileService = new FileService($fileRepository, $claimRepository);
@@ -139,7 +137,7 @@ class DebtStep extends Step
             $model->fill($flattenWizardData['debt'])->save();
 
             //save file from form wizard
-            $this->fileService->save($files, $data, $model->id);
+            $this->fileService->save($files, $model->id);
 
             DB::commit();
         } catch (Exception $e) {
@@ -159,13 +157,14 @@ class DebtStep extends Step
      */
     public function rules(Request $request)
     {
-        return [
+        $rules = [
             'amount'         => 'required|numeric',
             'currency_id'    => 'required',
-            'payment_due_date'=> 'required',
-            'uploads'        => 'required|array|min:1',
-            'uploads.*'      => 'required|mimes:txt,pdf,doc,docx,jpg,jpeg',
+            'payment_due_date'=> 'required|date',
         ];
+
+        $rules = array_merge($rules,UploadFileRequestGeneral::rules());
+        return $rules;
     }
 
     public function flattenArray($stepData) {

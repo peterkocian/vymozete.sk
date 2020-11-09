@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClaimBaseDataFrontRequest;
 use App\Http\Requests\ParticipantRequest;
+use App\Http\Requests\UploadFileRequestGeneral;
 use App\Repositories\ClaimTypeRepositoryInterface;
 use App\Services\ClaimService;
 use App\Services\CurrencyService;
@@ -32,11 +33,6 @@ class ClaimController extends Controller
         $this->currencyService = $currencyService;
         $this->claimTypeRepository = $claimTypeRepository;
     }
-
-//    public function index()
-//    {
-//        return $this->claimService->all();
-//    }
 
     public function find($id)
     {
@@ -146,17 +142,13 @@ class ClaimController extends Controller
         ]);
     }
 
-    public function uploadDocuments(Request $request, int $claim_id)
+    public function uploadDocuments(UploadFileRequestGeneral $request, int $claim_id)
     {
-//        dd(request()->files);
-        $data = $request->validate([
-            'uploads'       => 'required|array|min:1',
-            'uploads.*'     => 'required|mimes:txt,pdf,doc,docx,jpg,jpeg',
-        ]);
         $files = $request->file('uploads');
 
+
         try {
-            $this->fileService->save($files, $data, $claim_id);
+            $this->fileService->save($files, $claim_id);
             return back()
                 ->withSuccess(__('general.Updated successfully'));
         } catch (\Exception $e) {

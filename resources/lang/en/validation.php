@@ -150,7 +150,11 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'uploads.*' => 'upload',
+        'dates.*' => 'date',
+        'amounts.*' => 'amount',
+    ],
 
 
     'values' => [

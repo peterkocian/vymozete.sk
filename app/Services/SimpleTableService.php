@@ -6,7 +6,7 @@ use App\Helpers\SimpleTable;
 
 class SimpleTableService
 {
-    public function processSimpleTableData($repository, $parent_id, $relatedData): array
+    public function processSimpleTableData($repository, $parent_id, bool $relatedData): array
     {
         $sortKey = request('sortKey') ? request('sortKey') : SimpleTable::SORT_KEY;
         $sortDirection = request('sortDirection') ? request('sortDirection') : SimpleTable::SORT_DIRECTION;
@@ -15,8 +15,6 @@ class SimpleTableService
 
         //get and sort data
         $query = $repository->getData($parent_id, $searchParams)->orderBy($sortKey,$sortDirection);
-
-//        dd('here',$query);
 
         if ($pagination) {
             $data = $this->processPagination($query, $repository, $relatedData);

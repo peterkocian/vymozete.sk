@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\DateFormatTrait;
-use App\Models\Currency;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Property extends Model
@@ -47,10 +47,26 @@ class Property extends Model
     }
 
     /**
-     * Get the claim_status record associated with the claim.
+     * Get the currency record associated with the property.
      */
     public function currency()
     {
         return $this->belongsTo(Currency::class);
+    }
+
+    /**
+     * Get the claim that owns the property.
+     */
+    public function claim()
+    {
+        return $this->belongsTo(Claim::class);
+    }
+
+    /**
+     * Get the user that owns the property.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

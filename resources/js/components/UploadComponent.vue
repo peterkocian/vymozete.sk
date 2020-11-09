@@ -1,11 +1,15 @@
 <template>
     <div class="group add-files">
-        <div v-if="config.multi" class="file-list">
-            <div v-for="(file, key) in files" class="item">
-                <div class="name">{{ file.name }}</div>
-                <i class="material-icons" v-on:click="removeFile(file.id, key)">clear</i>
+        <article v-if="config.files">
+            <p>Zoznam uložených súborov</p>
+            <div class="file-list">
+                <div v-for="(file, key) in files" class="item">
+                    <div class="name"><a :href="`http://vymozete.local/file/${file.id}/download`">{{ file.name }}</a></div>
+                    <i class="material-icons" v-on:click="removeFile(file.id, key)">clear</i>
+                </div>
             </div>
-        </div>
+        </article>
+        <p v-if="config.files">Pridať ďalšie súbory</p>
         <input
             v-for="i in counter"
             ref="files"

@@ -20,7 +20,7 @@ class FileService
         $this->claimRepository = $claimRepository;
     }
 
-    public function save($files, array $data, int $claim_id)
+    public function save($files, int $claim_id, array $data = null)
     {
         $claim = $this->claimRepository->get($claim_id);
 
@@ -79,7 +79,7 @@ class FileService
     {
         $sortKey = request('sortKey') ? request('sortKey') : SimpleTable::SORT_KEY;
         $sortDirection = request('sortDirection') ? request('sortDirection') : SimpleTable::SORT_DIRECTION;
-        $pagination = request('pagination') ?? $this->fileRepository->getPagination();
+        $pagination = request('pagination') ?? $this->fileRepository->getPagination(request('fromPage'));
 
         //sort data
         $query = $this->fileRepository->getData($claim_id)->orderBy($sortKey,$sortDirection);

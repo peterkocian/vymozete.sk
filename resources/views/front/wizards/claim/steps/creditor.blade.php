@@ -4,16 +4,7 @@
         'stepData' => empty(session()->getOldInput()) ? $step->data() : session()->getOldInput(),
         'slug' => $step->slug(),
         'validationErrors' => $errors->messages(),
-        'person_type' => [
-            [
-                'id' => 0,
-                'value' => 'fyzická osoba (nepodnikateľ)'
-            ],
-            [
-                'id' => 1,
-                'value' => 'podnikateľ (živnostník, s.r.o., ...)'
-            ]
-        ],
+        'person_type' => \App\Models\Participant::PERSON_TYPE,
     ];
     if($step->data('birthday')){
         $config['stepData']['birthday'] = \Carbon\Carbon::parse($step->data('birthday'))->format('Y-m-d');
