@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Rules\EmailMustHaveTLD;
 use App\Rules\StrongPassword;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Facades\Auth;
@@ -49,7 +50,7 @@ class ResetPasswordController extends Controller
     {
         return [
             'token' => 'required',
-            'email' => 'required|email',
+            'email' => ['required', new EmailMustHaveTLD()],
             'password'  => ['required','confirmed',new StrongPassword()],
         ];
     }

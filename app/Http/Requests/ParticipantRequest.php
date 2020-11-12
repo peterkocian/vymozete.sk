@@ -37,7 +37,7 @@ class ParticipantRequest extends FormRequest
             'zip' => 'required',
             'phone' => 'string|nullable',
             'country' => 'required',
-            'email' => ['email',new EmailMustHaveTLD,'nullable']
+            'email' => [new EmailMustHaveTLD,'nullable']
         ];
 
         //ak ma url path() na konci 'creditor', tak pridaj rules na iban => required
