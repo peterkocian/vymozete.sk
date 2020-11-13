@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header">{{__('permission.Title')}}</div>
         <div class="card-body">
-            <form method="post" action="{{route('admin.permissions.update', $permission->id)}}">
+            <form method="post" action="{{route('admin.permissions.update', $data['id'])}}">
                 @csrf
                 @method('put')
                 @include('admin.permissions._form', [])

@@ -36,16 +36,7 @@ class PermissionController extends Controller
 
     public function create()
     {
-        try {
-            $result = $this->permissionService->getProjection();
-        } catch (\Exception $e) {
-            report($e);
-
-            return back()
-                ->withFail($e->getMessage());
-        }
-
-        return view('admin.permissions.create', ['permission' => $result]);
+        return view('admin.permissions.create');
     }
 
     /**
@@ -96,7 +87,7 @@ class PermissionController extends Controller
     public function edit(int $id)
     {
         try {
-            $result = $this->permissionService->get($id);
+            $data = $this->permissionService->get($id);
         } catch (\Exception $e) {
             report($e);
 
@@ -104,7 +95,7 @@ class PermissionController extends Controller
                 ->withFail($e->getMessage());
         }
 
-        return view('admin.permissions.edit', ['permission' => $result]);
+        return view('admin.permissions.edit', ['data' => $data]);
     }
 
     public function update(int $id)
@@ -165,9 +156,4 @@ class PermissionController extends Controller
             }
         }
     }
-
-//    private function find(int $id)
-//    {
-//        return $this->permissionService->getProjection()->findOrFail($id);
-//    }
 }

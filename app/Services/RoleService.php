@@ -23,11 +23,6 @@ class RoleService
         return $this->simpleTableService->processSimpleTableData($this->roleRepository, null, false);
     }
 
-    public function getProjection()
-    {
-        return $this->roleRepository->getProjection();
-    }
-
     public function get($id)
     {
         return $this->roleRepository->get($id);

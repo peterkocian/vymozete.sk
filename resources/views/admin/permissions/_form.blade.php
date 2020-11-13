@@ -1,7 +1,7 @@
 <div class="form-group row">
     <label for="name" class="col-sm-3 col-form-label">{{__('permission.Name')}}</label>
     <div class="col-sm-9">
-        <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $permission->name ?? null) }}" required/>
+        <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $data->name ?? null) }}" required/>
         @error('name')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror

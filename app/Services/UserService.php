@@ -20,11 +20,6 @@ class UserService
         $this->simpleTableService = $simpleTableService;
     }
 
-    public function getProjection()
-    {
-        return $this->userRepository->getProjection();
-    }
-
     public function get($id)
     {
         return $this->userRepository->get($id);

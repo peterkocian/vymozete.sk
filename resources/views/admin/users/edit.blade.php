@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header">{{__('user.Title')}}</div>
         <div class="card-body">
-            <form method="post" action="{{route('admin.users.update', $user->id)}}">
+            <form method="post" action="{{route('admin.users.update', $data['id'])}}">
                 @csrf
                 @method('put')
                 @include('admin.users._form', ['requirePassword' => false])

@@ -23,11 +23,6 @@ class PermissionService
         return $this->simpleTableService->processSimpleTableData($this->permissionRepository, null, false);
     }
 
-    public function getProjection()
-    {
-        return $this->permissionRepository->getProjection();
-    }
-
     public function get($id)
     {
         return $this->permissionRepository->get($id);

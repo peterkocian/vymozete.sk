@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header">{{__('role.Title')}}</div>
         <div class="card-body">
-            <form method="post" action="{{route('admin.roles.update', $role->id)}}">
+            <form method="post" action="{{route('admin.roles.update', $data['id'])}}">
                 @csrf
                 @method('put')
                 @include('admin.roles._form', [])

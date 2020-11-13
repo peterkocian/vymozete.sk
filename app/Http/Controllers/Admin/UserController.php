@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserProfileAdminRequest;
+use App\Repositories\PermissionRepositoryInterface;
+use App\Repositories\RoleRepositoryInterface;
 use App\Services\UserService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -16,10 +18,18 @@ use Illuminate\View\View;
 class UserController extends Controller
 {
     private $userService;
+    private $roleRepository;
+    private $permissionRepository;
 
-    public function __construct(UserService $userService)
+    public function __construct(
+        UserService $userService,
+        RoleRepositoryInterface $roleRepository,
+        PermissionRepositoryInterface $permissionRepository
+    )
     {
         $this->userService = $userService;
+        $this->roleRepository = $roleRepository;
+        $this->permissionRepository = $permissionRepository;
     }
 
     /**
@@ -53,7 +63,8 @@ class UserController extends Controller
     public function create()
     {
         try {
-            $result = $this->userService->getProjection();
+            $roles = $this->roleRepository->all();
+            $permissions = $this->permissionRepository->all();
         } catch (\Exception $e) {
             report($e);
 
@@ -61,7 +72,12 @@ class UserController extends Controller
                 ->withFail($e->getMessage());
         }
 
-        return view('admin.users.create', ['user' => $result]);
+        $data = [
+            'roleList' => $roles,
+            'permissionList' => $permissions,
+        ];
+
+        return view('admin.users.create', ['data' => $data]);
     }
 
     /**
@@ -116,7 +132,9 @@ class UserController extends Controller
     public function edit(int $id)
     {
         try {
-            $result = $this->userService->get($id);
+            $data = $this->userService->get($id);
+            $roles = $this->roleRepository->all();
+            $permissions = $this->permissionRepository->all();
         } catch (\Exception $e) {
             report($e);
 
@@ -124,7 +142,10 @@ class UserController extends Controller
                 ->withFail($e->getMessage());
         }
 
-        return view('admin.users.edit', ['user' => $result]);
+        $data['roleList'] = $roles;
+        $data['permissionList'] = $permissions;
+
+        return view('admin.users.edit', ['data' => $data]);
     }
 
     public function editProfile(int $id)

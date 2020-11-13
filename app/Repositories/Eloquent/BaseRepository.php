@@ -25,16 +25,6 @@ class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
-     * Get empty model object
-     *
-     * @return Model
-     */
-    public function getProjection(): Model
-    {
-        return $this->model;
-    }
-
-    /**
      * Create an entity.
      *
      * @param array $attributes

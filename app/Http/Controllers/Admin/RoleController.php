@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\PermissionRepositoryInterface;
 use App\Services\RoleService;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -10,10 +11,15 @@ use Illuminate\Validation\ValidationException;
 class RoleController extends Controller
 {
     private $roleService;
+    private $permissionRepository;
 
-    public function __construct(RoleService $roleService)
+    public function __construct(
+        RoleService $roleService,
+        PermissionRepositoryInterface $permissionRepository
+    )
     {
         $this->roleService = $roleService;
+        $this->permissionRepository = $permissionRepository;
     }
 
     public function index()
@@ -37,15 +43,18 @@ class RoleController extends Controller
     public function create()
     {
         try {
-            $result = $this->roleService->getProjection();
+            $permissions = $this->permissionRepository->all();
         } catch (\Exception $e) {
             report($e);
-
             return back()
                 ->withFail($e->getMessage());
         }
 
-        return view('admin.roles.create', ['role' => $result]);
+        $data = [
+            'permissionList' => $permissions,
+        ];
+
+        return view('admin.roles.create', ['data' => $data]);
     }
 
     /**
@@ -96,15 +105,17 @@ class RoleController extends Controller
     public function edit(int $id)
     {
         try {
-            $result = $this->roleService->get($id);
+            $data = $this->roleService->get($id);
+            $permissions = $this->permissionRepository->all();
         } catch (\Exception $e) {
             report($e);
 
             return back()
                 ->withFail($e->getMessage());
         }
+        $data['permissionList'] = $permissions;
 
-        return view('admin.roles.edit', ['role' => $result]);
+        return view('admin.roles.edit', ['data' => $data]);
     }
 
     public function update(int $id)
