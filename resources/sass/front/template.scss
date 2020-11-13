@@ -217,10 +217,6 @@ a:hover {
         color: $white;
         background-color: $primary;
     }
-    &.wrapper{
-        padding-left: 20px;
-        padding-right: 20px;
-    }
 }
 
 /* content boxes */
@@ -1036,6 +1032,19 @@ form#pridanie-pohladavky .mainbox_white .group[data-type="1"] {
         }
     }
 }
+
+.vop_container{
+    margin: 0 40px;
+    .vop_ul {
+        margin: 0;
+        li {
+            font-weight: 300;
+            list-style: none;
+            padding-top: 15px;
+        }
+    }
+}
+
 
 //[v-cloak] {
 //    display: none;

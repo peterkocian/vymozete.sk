@@ -37,6 +37,9 @@
 
 <div class="row">
     <div class="col col-12 col-lg-6">
+        <a class="btn btn-primary btn-sm" href="{{ url("admin/claims/$claim_id/export?export=pu") }}">Export PU</a>
+        <a class="btn btn-primary btn-sm" href="{{ url("admin/claims/$claim_id/export?export=sk_fo") }}">Export SK FO</a>
+        <a class="btn btn-primary btn-sm" href="{{ url("admin/claims/$claim_id/export?export=pz_ff") }}">Export PZ FF</a>
         <div class="card">
             <div class="card-header">
                 Všeobecné informácie

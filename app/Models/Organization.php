@@ -41,4 +41,14 @@ class Organization extends Model
     {
         return $this->morphMany(Participant::class, 'entity');
     }
+
+    /**
+     * Function returns company's full address
+     *
+     * @return string
+     */
+    public function getFullAddressAttribute()
+    {
+        return $this->street . ' ' . $this->house_number . ', ' . $this->zip . ' ' . $this->town;
+    }
 }

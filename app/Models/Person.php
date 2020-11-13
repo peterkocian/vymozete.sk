@@ -25,7 +25,7 @@ class Person extends Model
     ];
 
     /**
-     * Function returns user's full name
+     * Function returns person's full name
      *
      * @return string
      */
@@ -51,5 +51,15 @@ class Person extends Model
     public function participants()
     {
         return $this->morphMany(Participant::class, 'entity');
+    }
+
+    /**
+     * Function returns person's full address
+     *
+     * @return string
+     */
+    public function getFullAddressAttribute()
+    {
+        return $this->street . ' ' . $this->house_number . ', ' . $this->zip . ' ' . $this->town;
     }
 }

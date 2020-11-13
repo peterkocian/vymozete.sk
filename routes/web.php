@@ -37,6 +37,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')
 
             Route::get('/claims/', 'ClaimController@index')->name('claims.index');
             Route::get('/claims/{claim}/overview', 'ClaimController@overview')->name('claims.overview');
+            Route::get('/claims/{claim}/export', 'ClaimController@export')->name('claims.export');
             Route::get('/claims/{claim}/creditor', 'ClaimController@creditor')->name('claims.creditor');
             Route::get('/claims/{claim}/debtor', 'ClaimController@debtor')->name('claims.debtor');
             Route::get('/claims/{claim}/documents', 'FileController@getAllByClaimId')->name('claims.documents.allByClaimId');
