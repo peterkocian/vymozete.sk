@@ -64,13 +64,13 @@
                 <div class="form-group row">
                     <label for="created_at" class="col-12 col-sm-3 col-form-label">{{__('general.Created at')}}</label>
                     <div class="col-12 col-sm-9">
-                        <input class="form-control" type="text" name="created_at" value="{{ \Carbon\Carbon::parse($claim->created_at)->format('d.m.Y H:i:s') }}" disabled/>
+                        <input class="form-control" type="text" name="created_at" value="{{ $claim->created_at }}" disabled/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="updated_at" class="col-12 col-sm-3 col-form-label">{{__('general.Updated at')}}</label>
                     <div class="col-12 col-sm-9">
-                        <input class="form-control" type="text" name="updated_at" value="{{ \Carbon\Carbon::parse($claim->updated_at)->format('d.m.Y H:i:s') }}" disabled/>
+                        <input class="form-control" type="text" name="updated_at" value="{{ $claim->updated_at }}" disabled/>
                     </div>
                 </div>
             </div>
@@ -137,13 +137,13 @@
                 <div class="form-group row">
                     <label for="created_at" class="col-12 col-sm-3 col-form-label">{{__('general.Created at')}}</label>
                     <div class="col-12 col-sm-9">
-                        <input class="form-control" type="text" name="created_at" value="{{ \Carbon\Carbon::parse($claim->created_at)->format('d.m.Y H:i:s') }}" disabled/>
+                        <input class="form-control" type="text" name="created_at" value="{{ $claim->created_at }}" disabled/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="updated_at" class="col-12 col-sm-3 col-form-label">{{__('general.Updated at')}}</label>
                     <div class="col-12 col-sm-9">
-                        <input class="form-control" type="text" name="updated_at" value="{{ \Carbon\Carbon::parse($claim->updated_at)->format('d.m.Y H:i:s') }}" disabled/>
+                        <input class="form-control" type="text" name="updated_at" value="{{ $claim->updated_at }}" disabled/>
                     </div>
                 </div>
             </div>

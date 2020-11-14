@@ -65,13 +65,13 @@
             <div class="form-group row">
                 <label for="created_at" class="col-sm-3 col-form-label">{{__('general.Created at')}}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="text" name="created_at" value="{{ \Carbon\Carbon::parse($user->created_at)->format('d.m.Y H:i:s') }}" disabled/>
+                    <input class="form-control" type="text" name="created_at" value="{{ $user->created_at }}" disabled/>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="updated_at" class="col-sm-3 col-form-label">{{__('general.Updated at')}}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="text" name="updated_at" value="{{ \Carbon\Carbon::parse($user->updated_at)->format('d.m.Y H:i:s') }}" disabled/>
+                    <input class="form-control" type="text" name="updated_at" value="{{ $user->updated_at }}" disabled/>
                 </div>
             </div>
         </div>
