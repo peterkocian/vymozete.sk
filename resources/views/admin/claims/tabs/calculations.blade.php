@@ -51,7 +51,7 @@
                     'key' => 'date',
                     'type' => 'date',
                     'settings' => [
-                        'divClass' => 'col-2  pl-0',
+                        'divClass' => 'col col-6 col-sm-2  pl-0',
                         'required' => true,
                         'searchable' => true
                     ]
@@ -61,7 +61,7 @@
                     'key' => 'amount',
                     'type' => 'number',
                     'settings' => [
-                        'divClass' => 'col-2 pl-0',
+                        'divClass' => 'col col-6 col-sm-2  pl-0',
                         'required' => true,
                         'searchable' => true
                     ]
@@ -71,7 +71,7 @@
                     'key' => 'currency_id',
                     'type' => 'select',
                     'settings' => [
-                        'divClass' => '',
+                        'divClass' => 'col pl-0',
                         'required' => true,
                         'searchable' => true
                     ],
@@ -82,7 +82,7 @@
                     'key' => 'paid',
                     'type' => 'checkbox',
                     'settings' => [
-                        'divClass' => 'col-sm-2',
+                        'divClass' => 'col col-6 col-sm-2  pl-0',
                         'required' => true,
                         'searchable' => true
                     ]
@@ -92,7 +92,7 @@
                     'key' => 'description',
                     'type' => 'textarea',
                     'settings' => [
-                        'divClass' => 'col-4',
+                        'divClass' => 'col col-12 col-sm-4  pl-0',
                         'required' => true,
                         'searchable' => true
                     ]
@@ -132,7 +132,7 @@
 </div>
 
 <div class="row">
-    <div class="col col-3">
+    <div class="col col-12 col-sm-6">
         <div class="card">
             <div class="card-header">
                 Výpočet

@@ -47,11 +47,11 @@
             @foreach($data['roleList'] as $role)
                 <option value="{{ $role['id'] }}"
                     @if(isset($data['roles']))
-                        @foreach(old('roles', $data['roles'] ?? null) as $selectedRole)
+                        @foreach(old('roles', $data['roles'] ?? null) as $selected)
                             @if(old('roles'))
-                                @if($selectedRole == $role['id'])selected="selected"@endif
+                                @if($selected == $role['id'])selected="selected"@endif
                             @else
-                                @if($selectedRole['id'] == $role['id'])selected="selected"@endif
+                                @if($selected['id'] == $role['id'])selected="selected"@endif
                             @endif
                         @endforeach
                     @endif
@@ -72,11 +72,11 @@
             @foreach($data['permissionList'] as $permission)
                 <option value="{{ $permission['id'] }}"
                     @if(isset($data['permissions']))
-                        @foreach(old('permissions', $data['permissions'] ?? null) as $selectedPermission)
+                        @foreach(old('permissions', $data['permissions'] ?? null) as $selected)
                             @if(old('permissions'))
-                                @if($selectedPermission == $permission['id'])selected="selected"@endif
+                                @if($selected == $permission['id'])selected="selected"@endif
                             @else
-                                @if($selectedPermission['id'] == $permission['id'])selected="selected"@endif
+                                @if($selected['id'] == $permission['id'])selected="selected"@endif
                             @endif
                         @endforeach
                     @endif

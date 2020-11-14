@@ -85,6 +85,7 @@ class CalculationController extends Controller
     public function edit(int $claim_id, int $calculation_id)
     {
         try {
+            $currencies = $this->currencyRepository->getDataForSelectbox();
             $result = $this->calculationService->get($calculation_id);
         } catch (\Exception $e) {
             report($e);
@@ -93,7 +94,11 @@ class CalculationController extends Controller
                 ->withFail($e->getMessage());
         }
 
-        return view('admin.calculations.edit', ['data' => $result, 'claim_id' => $claim_id]);
+        return view('admin.calculations.edit', [
+            'data' => $result,
+            'claim_id' => $claim_id,
+            'currencies' => $currencies,
+        ]);
     }
 
     public function update(CalculationSaveRequest $request, int $claim_id, int $calculation_id)

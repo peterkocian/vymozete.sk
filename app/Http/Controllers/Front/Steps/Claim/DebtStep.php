@@ -81,18 +81,12 @@ class DebtStep extends Step
      */
     public function saveData(Request $request, $data = null, $model = null)
     {
-//        dd($this->wizard());
-//        dd('here');
         $wizardData = [];
         $wizardData = $this->getRepo()->original()->map(function ($step) {
             return [$step->slug() => $step->data()];
         });
-//        dd($wizardData);
 
         $flattenWizardData = $this->flattenArray($wizardData);
-
-//        dd($flattenWizardData['debt']);
-
 
         DB::beginTransaction();
 

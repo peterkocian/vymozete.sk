@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'Title' => 'Splátka',
     'Date' => 'Date',
     'Amount' => 'Amount',
     'Paid' => 'Paid',

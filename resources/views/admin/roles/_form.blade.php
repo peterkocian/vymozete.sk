@@ -23,11 +23,11 @@
             @foreach($data['permissionList'] as $permission)
                 <option value="{{ $permission['id'] }}"
                     @if(isset($data['permissions']))
-                        @foreach(old('permissions', $data['permissions'] ?? null) as $selectedPermission)
+                        @foreach(old('permissions', $data['permissions'] ?? null) as $selected)
                             @if(old('permissions'))
-                                @if($selectedPermission == $permission['id'])selected="selected"@endif
+                                @if($selected == $permission['id'])selected="selected"@endif
                             @else
-                                @if($selectedPermission['id'] == $permission['id'])selected="selected"@endif
+                                @if($selected['id'] == $permission['id'])selected="selected"@endif
                             @endif
                         @endforeach
                     @endif

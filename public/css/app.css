@@ -14303,6 +14303,10 @@ span {
   margin-bottom: 0;
 }
 
+.inline-button-create {
+  margin: 14px 0;
+}
+
 .mx-icon-left:before,
 .mx-icon-right:before,
 .mx-icon-double-left:before,

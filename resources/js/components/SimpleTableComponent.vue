@@ -92,7 +92,7 @@
                     <div v-if="errors.hasOwnProperty(field.key)" class="invalid-feedback">{{ errors[field.key][0] }}</div>
                 </div>
                 <a
-                    class="btn btn-sm btn-outline-success"
+                    class="btn btn-sm btn-outline-success inline-button-create"
                     role="button"
                     :title="config.config.inlineNew.title"
                     style="height: max-content;"

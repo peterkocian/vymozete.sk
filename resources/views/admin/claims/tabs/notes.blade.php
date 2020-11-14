@@ -39,7 +39,7 @@
                     'key' => 'title',
                     'type' => 'text',
                     'settings' => [
-                        'divClass' => 'col-3  pl-0',
+                        'divClass' => 'col col-12 col-sm-4  pl-0',
                         'required' => true,
                         'searchable' => true
                     ]
@@ -49,7 +49,7 @@
                     'key' => 'description',
                     'type' => 'textarea',
                     'settings' => [
-                        'divClass' => 'col-6',
+                        'divClass' => 'col col-12 col-sm-6  pl-0',
                         'required' => true,
                         'searchable' => true
                     ]

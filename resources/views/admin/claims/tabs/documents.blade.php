@@ -43,7 +43,7 @@
                     'key' => 'filename',
                     'type' => 'text',
                     'settings' => [
-                        'divClass' => 'col-sm-2 pl-0',
+                        'divClass' => 'col col-6 col-sm-2  pl-0',
                         'required' => true,
                         'searchable' => true
                     ]
@@ -53,7 +53,7 @@
                     'key' => 'file_type_id',
                     'type' => 'select',
                     'settings' => [
-                        'divClass' => '',
+                        'divClass' => 'col col-6 col-sm-2  pl-0',
                         'required' => true,
                         'searchable' => true
                     ],
@@ -64,7 +64,7 @@
                     'key' => 'show_to_customer',
                     'type' => 'checkbox',
                     'settings' => [
-                        'divClass' => 'col-sm-3',
+                        'divClass' => 'col col-6 col-sm-3  pl-0',
                         'required' => true,
                         'searchable' => true
                     ]
@@ -74,7 +74,7 @@
                     'key' => 'uploads',
                     'type' => 'file',
                     'settings' => [
-                        'divClass' => 'col-sm-3',
+                        'divClass' => 'col col-6 col-sm-3  pl-0',
                         'required' => true,
                         'searchable' => true
                     ]
