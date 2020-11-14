@@ -7,30 +7,29 @@ use App\Http\Requests\ClaimBaseDataFrontRequest;
 use App\Http\Requests\ParticipantRequest;
 use App\Http\Requests\UploadFileRequestGeneral;
 use App\Repositories\ClaimTypeRepositoryInterface;
+use App\Repositories\CurrencyRepositoryInterface;
 use App\Services\ClaimService;
-use App\Services\CurrencyService;
 use App\Services\FileService;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class ClaimController extends Controller
 {
-    protected $claimService;
-    protected $fileService;
-    protected $currencyService;
-    protected $claimTypeRepository;
+    private $claimService;
+    private $fileService;
+    private $currencyRepository;
+    private $claimTypeRepository;
 
     public function __construct(
         ClaimService $claimService,
         FileService $fileService,
-        CurrencyService $currencyService,
+        CurrencyRepositoryInterface $currencyRepository,
         ClaimTypeRepositoryInterface $claimTypeRepository
     )
     {
         $this->claimService = $claimService;
         $this->fileService = $fileService;
-        $this->currencyService = $currencyService;
+        $this->currencyRepository = $currencyRepository;
         $this->claimTypeRepository = $claimTypeRepository;
     }
 
@@ -42,7 +41,7 @@ class ClaimController extends Controller
     public function overview(int $claim_id)
     {
         $claim = $this->claimService->get($claim_id)->toArray();
-        $currencies = $this->currencyService->all();
+        $currencies = $this->currencyRepository->getDataForSelectbox();
         $claimTypes = $this->claimTypeRepository->translation(Auth::user()->language_id);
 
         return view('front.claims.main', [
@@ -145,7 +144,6 @@ class ClaimController extends Controller
     public function uploadDocuments(UploadFileRequestGeneral $request, int $claim_id)
     {
         $files = $request->file('uploads');
-
 
         try {
             $this->fileService->save($files, $claim_id);

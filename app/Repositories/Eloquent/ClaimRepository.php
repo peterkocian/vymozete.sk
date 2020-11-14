@@ -35,7 +35,7 @@ class ClaimRepository extends BaseRepository implements ClaimRepositoryInterface
 
     public function allByUser(int $id): Collection
     {
-        return $this->model->all()->where('user_id', $id);
+        return $this->all()->where('user_id', $id);
     }
 
     public function update(array $attributes, int $id): Model //todo prepisat funkcionalitu do service
@@ -85,11 +85,6 @@ class ClaimRepository extends BaseRepository implements ClaimRepositoryInterface
         }
         throw new \Exception('Update pohladavky sa nepodaril.');
     }
-
-//    public function getData(): Builder
-//    {
-//        return Claim::query();
-//    }
 
     public function getRelatedData($data): Collection
     {

@@ -15,7 +15,10 @@ class FileController extends Controller
 //    protected $claimRepository;
     protected $fileService;
 
-    public function __construct(FileTypeRepository $fileTypeRepository, FileService $fileService)
+    public function __construct(
+        FileTypeRepository $fileTypeRepository,
+        FileService $fileService
+    )
     {
         $this->fileTypeRepository = $fileTypeRepository;
 //        $this->claimRepository = $claimRepository;

@@ -39,26 +39,6 @@ class CalculationRepository extends BaseRepository implements CalculationReposit
         return $this->model->create($attributes);
     }
 
-    public function update(array $attributes, int $id): Model // todo je mozne pouzit update metodu z BaseRepository
-    {
-        if ($id) {
-            try {
-                $calculation = $this->model->findOrFail($id);
-            } catch (\Exception $e) {
-                report($e);
-                throw new \Exception('calculation sa nepodarilo najst.'. $e->getMessage());
-            }
-
-            if ($calculation) {
-                $calculation->update($attributes);
-
-                return $calculation;
-            }
-        }
-
-        throw new \Exception('Nezname id');
-    }
-
     public function getData(int $claim_id = null, array $searchParams = []): Builder // pretazena metoda z BaseRepository
     {
         return Claim::find($claim_id)->calculations()->getQuery();

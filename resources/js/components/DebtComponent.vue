@@ -8,7 +8,7 @@
                 <label for="suma">dlžná suma (istina) *</label>
                 <input v-model="formData.amount" class="c-input" id="suma" name="amount" type="number" step="0.01">
                 <select class="c-selectbox" name="currency_id" v-model="formData.currency_id">
-                    <option v-for="currency in config.currencies" :value="currency.id">{{currency.code}}</option>
+                    <option v-for="currency in config.currencies" :value="currency.id">{{currency.value}}</option>
                 </select>
                 <span class="bar"></span>
                 <span v-if="config.validationErrors.hasOwnProperty('amount')" class="validation-error">

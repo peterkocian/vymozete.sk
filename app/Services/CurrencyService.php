@@ -13,8 +13,8 @@ class CurrencyService
         $this->currencyRepository = $currencyRepository;
     }
 
-    public function all()
+    public function all() //todo na getDataForSelectbox
     {
-        return $this->currencyRepository->all();
+        return $this->currencyRepository->getDataForSelectbox();
     }
 }

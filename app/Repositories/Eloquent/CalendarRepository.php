@@ -29,22 +29,18 @@ class CalendarRepository extends BaseRepository implements CalendarRepositoryInt
     public function save(array $attributes, int $claim_id): Collection
     {
         $claim = Claim::findOrFail($claim_id);
-//        $attributes['claim_id'] = $claim->id;
-//        $attributes['user_id'] = Auth::id();
-
         return $claim->calendars()->createMany($attributes);
     }
 
-    public function claim(int $claim_id)
+    public function findByClaimId(int $claim_id)
     {
-        return Claim::find($claim_id);
+        $claim = Claim::findOrFail($claim_id);
+        return $claim->calendars;
     }
 
     public function deleteAllById(int $claim_id): int
     {
         $claim = Claim::findOrFail($claim_id);
-//        $attributes['claim_id'] = $claim->id;
-//        $attributes['user_id'] = Auth::id();
 
         return $claim->calendars()->delete();
     }

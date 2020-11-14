@@ -38,26 +38,6 @@ class NoteRepository extends BaseRepository implements NoteRepositoryInterface
         return $this->model->create($attributes);
     }
 
-    public function update(array $attributes, int $id): Model // todo je mozne pouzit update metodu z BaseRepository
-    {
-        if ($id) {
-            try {
-                $note = $this->model->findOrFail($id);
-            } catch (\Exception $e) {
-                report($e);
-                throw new \Exception('Poznamku sa nepodarilo najst.'. $e->getMessage());
-            }
-
-            if ($note) {
-                $note->update($attributes);
-
-                return $note;
-            }
-        }
-
-        throw new \Exception('Nezname id');
-    }
-
     public function getData(int $claim_id = null, array $searchParams = []): Builder // pretazena metoda z BaseRepository
     {
         return Claim::find($claim_id)->notes()->getQuery();

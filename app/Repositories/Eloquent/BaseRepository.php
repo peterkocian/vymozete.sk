@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\EloquentRepositoryInterface;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
@@ -74,10 +75,26 @@ class BaseRepository implements EloquentRepositoryInterface
      * @param int $id
      * @param array $attributes
      * @return Model
+     * @throws Exception
      */
     public function update(array $attributes, int $id): Model
     {
-        return $this->model->findOrFail($id)->update($attributes);
+        if ($id) {
+            try {
+                $data = $this->model->findOrFail($id);
+            } catch (Exception $e) {
+                report($e);
+                throw new Exception('Udaje sa nepodarilo najst.'. $e->getMessage());
+            }
+
+            if ($data) {
+                $data->update($attributes);
+
+                return $data;
+            }
+        }
+
+        throw new Exception('Nezname id');
     }
 
     public function getData(int $claim_id = null, array $searchParams = []): Builder // tato funkcia musi mat vstupny parameter, lebo v ostatnych Repository classach pretazujem tuto metodu a tam posielam aj parameter

@@ -4,28 +4,31 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SplatkySaveRequest;
-//use App\Services\CalculationService;
 use App\Services\CalendarService;
 use App\Services\ClaimService;
 use Illuminate\Http\Response;
 
 class CalendarController extends Controller
 {
-//    protected $calculationService;
     protected $calendarService;
     protected $claimService;
 
     public function __construct(ClaimService $claimService, CalendarService $calendarService)
     {
-//        $this->calculationService = $calculationService;
         $this->calendarService = $calendarService;
         $this->claimService = $claimService;
     }
 
     public function getAllByClaimId(int $claim_id)
     {
-        $claim = $this->claimService->get($claim_id);
-        $events = $this->calendarService->eventsByClaimId($claim_id);
+        try {
+            $claim = $this->claimService->get($claim_id);
+            $events = $this->calendarService->eventsByClaimId($claim_id);
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->withFail(__('general.Find failed') . ' ' . $e->getMessage());
+        }
 
         return view('admin.claims.main', [
             'claim_id' => $claim_id,

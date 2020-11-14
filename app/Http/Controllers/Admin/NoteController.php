@@ -4,21 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NoteSaveRequest;
-//use App\Services\ClaimService;
 use App\Services\NoteService;
 use Illuminate\Http\Response;
 
 class NoteController extends Controller
 {
     protected $noteService;
-//    protected $claimService;
 
-    public function __construct(NoteService $noteService
-//                                ,ClaimService $claimService
+    public function __construct(
+        NoteService $noteService
     )
     {
         $this->noteService = $noteService;
-//        $this->claimService = $claimService;
     }
 
     public function getAllByClaimId(int $claim_id)

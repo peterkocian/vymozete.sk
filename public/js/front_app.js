@@ -56409,7 +56409,7 @@ var render = function() {
           },
           _vm._l(_vm.config.currencies, function(currency) {
             return _c("option", { domProps: { value: currency.id } }, [
-              _vm._v(_vm._s(currency.code))
+              _vm._v(_vm._s(currency.value))
             ])
           }),
           0
@@ -56677,7 +56677,7 @@ var render = function() {
             },
             _vm._l(_vm.config.currencies, function(currency) {
               return _c("option", { domProps: { value: currency.id } }, [
-                _vm._v(_vm._s(currency.code))
+                _vm._v(_vm._s(currency.value))
               ])
             }),
             0

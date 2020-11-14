@@ -180,6 +180,6 @@ class DebtStep extends Step
     public function getCurrencies() {
         $currency = new Currency();
         $currencyRepository = new CurrencyRepository($currency);
-        return $currencyRepository->all();
+        return $currencyRepository->getDataForSelectbox();
     }
 }

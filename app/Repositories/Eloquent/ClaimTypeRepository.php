@@ -20,11 +20,11 @@ class ClaimTypeRepository extends BaseRepository implements ClaimTypeRepositoryI
     public function translation(int $language_id)
     {
         $claimTypes = $this->all();
-        $array = [];
+        $claimTypeList = [];
         foreach ($claimTypes as $claimType) {
             $item =  $claimType->translation($language_id)->firstOrFail()->name;
-            array_push($array, [ 'id' => $claimType->id, 'value' => $item]);
+            array_push($claimTypeList, [ 'id' => $claimType->id, 'value' => $item]);
         }
-        return $array;
+        return $claimTypeList;
     }
 }

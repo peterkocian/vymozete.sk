@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\CalendarRepositoryInterface;
 use App\Repositories\ClaimRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -25,8 +26,13 @@ class CalendarService
 
     public function eventsByClaimId(int $claim_id)
     {
-        $claim = $this->calendarRepository->claim($claim_id);
-        return $claim->calendars;
+        try {
+            $events = $this->calendarRepository->findByClaimId($claim_id);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+
+        return $events;
     }
 
     public function saveEvents(array $data, int $claim_id)
@@ -43,7 +49,7 @@ class CalendarService
             }
 
             array_push($events,[
-                'date' => $date,
+                'date' => Carbon::parse($date)->toDate(),
                 'amount' => $amount,
                 'claim_id' => $claim_id,
                 'currency_id' => 1,

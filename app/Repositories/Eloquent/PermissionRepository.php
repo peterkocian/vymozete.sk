@@ -6,7 +6,6 @@ use App\Models\Permission;
 use App\Repositories\PermissionRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Exception;
 
 // custom actions for permission repository
 class PermissionRepository extends BaseRepository implements PermissionRepositoryInterface
@@ -42,23 +41,5 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
         $this->model->save();
 
         return $this->model->fresh();
-    }
-
-    public function update(array $attributes, int $id): Model //todo je mozne pouzit update metodu z BaseRepository
-    {
-        if ($id) {
-            try {
-                $permission = $this->model->findOrFail($id);
-            } catch (Exception $e) {
-                report($e);
-                throw new Exception('Opravnenie sa nepodarilo najst.'. $e->getMessage());
-            }
-        }
-
-        if ($permission) {
-            $permission->update($attributes);
-
-            return $permission;
-        }
     }
 }
