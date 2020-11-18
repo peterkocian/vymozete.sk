@@ -164,7 +164,7 @@
             return {
                 type: 'automatic',
                 disableSaveButton: null,
-                amountCheckSum: this.config.amount,
+                amountCheckSum: this.setCheckSum(),
                 vyskaSplatky: this.config.amount,
                 pocetSplatok:1,
                 startDate: null,
@@ -282,6 +282,9 @@
                         this.errors = e.response.data.errors;
                         flash({text: e.response.data.message, type:'error', timer:null });
                     });
+            },
+            setCheckSum(){
+                return this.config.sum ? (this.config.amount-this.config.sum) : this.config.amount;
             },
         },
         watch: {

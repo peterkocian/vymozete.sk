@@ -27,12 +27,15 @@ class CalendarService
     public function eventsByClaimId(int $claim_id)
     {
         try {
-            $events = $this->calendarRepository->findByClaimId($claim_id);
+            $result = $this->calendarRepository->findByClaimId($claim_id);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
 
-        return $events;
+        return [
+            'events' => $result['events'],
+            'sum' => $result['sum']
+        ];
     }
 
     public function saveEvents(array $data, int $claim_id)

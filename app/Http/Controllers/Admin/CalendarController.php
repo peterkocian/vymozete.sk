@@ -23,7 +23,7 @@ class CalendarController extends Controller
     {
         try {
             $claim = $this->claimService->get($claim_id);
-            $events = $this->calendarService->eventsByClaimId($claim_id);
+            $data = $this->calendarService->eventsByClaimId($claim_id);
         } catch (\Exception $e) {
             return redirect()
                 ->back()
@@ -33,7 +33,9 @@ class CalendarController extends Controller
         return view('admin.claims.main', [
             'claim_id' => $claim_id,
             'amount'   => $claim['amount'],
-            'events'   => $events,
+            'currency' => $claim['currency']['symbol'],
+            'events'   => $data['events'],
+            'sum'      => round($data['sum'],2),
             'tab'      => 'calendar',
         ]);
     }

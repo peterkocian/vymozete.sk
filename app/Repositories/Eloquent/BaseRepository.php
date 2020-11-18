@@ -40,12 +40,13 @@ class BaseRepository implements EloquentRepositoryInterface
     /**
      * Return an entity by id.
      *
-     * @param $id
+     * @param int $id
+     * @param array $relations
      * @return Model
      */
-    public function get(int $id): ?Model
+    public function get(int $id, array $relations = []): ?Model
     {
-        return $this->model->findOrFail($id);
+        return $this->model->with($relations)->findOrFail($id);
     }
 
     /**

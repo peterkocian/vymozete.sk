@@ -35,7 +35,10 @@ class CalendarRepository extends BaseRepository implements CalendarRepositoryInt
     public function findByClaimId(int $claim_id)
     {
         $claim = Claim::findOrFail($claim_id);
-        return $claim->calendars;
+        return [
+            'events' => $claim->calendars,
+            'sum' => $claim->calendars->sum('amount')
+        ];
     }
 
     public function deleteAllById(int $claim_id): int

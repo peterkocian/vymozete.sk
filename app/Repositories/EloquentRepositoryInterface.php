@@ -21,9 +21,10 @@ interface EloquentRepositoryInterface
      * Get's an entity by it's ID.
      *
      * @param int $id
+     * @param array $relations
      * @return Model
      */
-    public function get(int $id): ?Model;
+    public function get(int $id, array $relations): ?Model;
 
     /**
      * Get's all entities.

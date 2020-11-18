@@ -17,7 +17,7 @@ class ClaimService
 
     public function get(int $claim_id)
     {
-        return $this->claimRepository->get($claim_id);
+        return $this->claimRepository->get($claim_id, ['currency']);
     }
 
     public function getDebtor(int $claim_id)
