@@ -156,7 +156,6 @@
                         <input class="form-control" type="text" name="trovy" value="{{$trovy}}" disabled/>
                     </div>
                 </div>
-
                 <div class="form-group-row">
                     <label for="trovy_s_dph" class="col-12 col-form-label">{{__('calculation.Trovy s DPH')}}</label>
                     <div class="col-12">
@@ -166,12 +165,35 @@
                 <div class="form-group-row">
                     <label for="urok" class="col-12 col-form-label">{{__('calculation.Urok')}}</label>
                     <div class="col-12">
-                        <input class="form-control" type="text" name="urok" value="" disabled/>
+                        <input class="form-control" type="text" name="urok" value="{{$urok}}" disabled/>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
-                <small class="text-muted">Súčet: {{ $summary }}</small>
+                <small class="text-muted">{{__('calculation.Summary')}} {{ $summary }}</small>
+            </div>
+            <div class="card-body">
+                <div class="form-group-row">
+                    <label for="vymozene" class="col-12 col-form-label">{{__('calculation.Vymozene')}}</label>
+                    <div class="col-12">
+                        <input class="form-control" type="text" name="vymozene" value="{{$vymozene}}" disabled/>
+                    </div>
+                </div>
+                <div class="form-group-row">
+                    <label for="provizia" class="col-12 col-form-label">{{__('calculation.Provizia')}}</label>
+                    <div class="col-12">
+                        <input class="form-control" type="text" name="provizia" value="{{$provizia}}" disabled/>
+                    </div>
+                </div>
+                <div class="form-group-row">
+                    <label for="clientCashBack" class="col-12 col-form-label">{{__('calculation.Vratit klientovi')}}</label>
+                    <div class="col-12">
+                        <input class="form-control" type="text" name="clientCashBack" value="{{ $clientCashBack }}" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">{{__('calculation.Vymoct')}} {{ $vymoct }}</small>
             </div>
         </div>
     </div>

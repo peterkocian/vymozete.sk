@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Helpers\DateFormatTrait;
 use App\User;
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
 
 class Claim extends Model
@@ -154,4 +155,64 @@ class Claim extends Model
     {
         return $this->hasMany(Calendar::class);
     }
+
+    public function getUrok(): float
+    {
+        $debtor = $this->debtor;
+
+        $rates = self::INTEREST_RATES;
+        $rate = 0;
+        $date = 0;
+
+        foreach ($rates[$debtor['entity_type']] as $d => $r) {
+            if (strtotime($this['payment_due_date']) >= strtotime($d)) {
+                $rate = $r;
+                $date = $d;
+            }
+        }
+
+        if ($rate == 0) {
+            return 0;
+        }
+
+        return $this['amount']
+            * ($rate / 100) / 365
+            * date_diff(new DateTime($this['payment_due_date']), new DateTime($date), true)->days;
+    }
+
+    const INTEREST_RATES = [
+        Person::class => [
+            '2013-02-01' => 5.75,
+            '2013-05-08' => 5.50,
+            '2013-11-13' => 5.25,
+            '2014-06-11' => 5.15,
+            '2014-09-10' => 5.05,
+            '2015-12-09' => 5.05,
+            '2016-03-16' => 5.00,
+            '2017-01-01' => 5.00
+        ],
+        Organization::class => [
+            '2009-01-01' => 12.50,
+            '2009-01-15' => 10.50,
+            '2009-01-21' => 10.00,
+            '2009-03-11' => 9.50,
+            '2009-04-08' => 9.25,
+            '2009-05-13' => 9.00,
+            '2011-04-13' => 9.25,
+            '2011-07-13' => 9.50,
+            '2011-11-09' => 9.25,
+            '2011-12-14' => 9.00,
+            '2012-07-11' => 8.75,
+            '2013-02-01' => 9.75,
+            '2013-05-08' => 9.50,
+            '2013-11-13' => 9.25,
+            '2014-06-11' => 9.15,
+            '2014-09-10' => 9.05,
+            '2015-01-01' => 8.05,
+            '2015-07-01' => 8.05,
+            '2016-01-01' => 8.05,
+            '2016-03-16' => 8.00,
+            '2017-01-01' => 8.00
+        ]
+    ];
 }

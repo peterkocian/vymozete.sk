@@ -45,6 +45,8 @@ class CalculationSaveRequest extends FormRequest
      */
     protected function failedValidation(Validator $validator)
     {
-        FormRequestHelper::failedValidation($validator->errors());
+        if (request()->ajax()) {
+            FormRequestHelper::failedValidation($validator->errors());
+        }
     }
 }

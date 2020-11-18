@@ -41,6 +41,7 @@ class CalculationService
     public function updateCalculation($data, $id)
     {
         try {
+            $data['paid'] = $data['paid'] ?? 0;
             $result = $this->calculationRepository->update($data, $id);
         } catch (Exception $e) {
 //            Log::info($e->getMessage());
@@ -80,12 +81,16 @@ class CalculationService
             $fee = 486.29;
             $fee += ceil(($claim['amount'] - 33193.92) / 3319.39) * 6.64;
         }
-
         return $fee;
     }
 
-    public function summery($claim, $trovyDPH = 0, $urok = 0)
+    public function summary($claim, $trovyDPH = 0, $urok = 0)
     {
-        return $claim->amount + $trovyDPH + $urok;
+        return $claim['amount'] + $trovyDPH + $urok;
+    }
+
+    public function getVymozete($claim_id)
+    {
+        return $this->calculationRepository->getVymozene($claim_id);
     }
 }

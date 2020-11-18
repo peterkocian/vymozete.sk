@@ -51,4 +51,9 @@ class CalculationRepository extends BaseRepository implements CalculationReposit
             'paidLabel'
         ]);
     }
+
+    public function getVymozene($claim_id): float
+    {
+        return Claim::find($claim_id)->calculations->where('paid',1)->sum('amount');
+    }
 }

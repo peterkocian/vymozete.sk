@@ -12,4 +12,9 @@ return [
     'Trovy' => 'Trovy',
     'Trovy s DPH' => 'Trovy s DPH',
     'Urok' => 'Úrok',
+    'Summary' => 'Summary:',
+    'Vymozene' => 'Vymožené',
+    'Provizia' => 'Provízia',
+    'Vratit klientovi' => 'Vrátiť klientovi',
+    'Vymoct' => 'Vymôcť:',
 ];
