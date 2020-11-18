@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CurrencySeeder::class);
         $this->call(LanguageSeeder::class);
         $this->call(ClaimTypeTranslationSeeder::class);
+        $this->call(InterestRateSeeder::class);
     }
 }
