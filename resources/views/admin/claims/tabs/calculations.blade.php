@@ -107,14 +107,14 @@
             'title' => __('general.Edit'),
             'key' => 'edit',
             'class' => 'btn btn-sm btn-outline-primary mr-1',
-            'url' => url(config('simple-table.route-prefix')."/claims/{$claim_id}/calculations/{id}/edit")
+            'url' => url(config('simple-table.route-prefix')."/".\App\Models\Calculation::ENTITY_ROUTE_PREFIX."/{$claim_id}/calculations/{id}/edit") //todo string claims replacnut konstantou z modelu
         ],
         [
             'label' => 'delete',
             'title' => __('general.Delete'),
             'key' => 'delete',
             'class' => 'btn btn-sm btn-outline-danger',
-            'url' => url(config('simple-table.route-prefix')."/claims/{$claim_id}/calculations/{id}"),
+            'url' => url(config('simple-table.route-prefix')."/".\App\Models\Calculation::ENTITY_ROUTE_PREFIX."/{$claim_id}/calculations/{id}"),// todo @lang
             'dataToggle' => 'modal',
             'dataTarget' => '#modalConfirm',
             'modalText' => __('general.Confirmation delete'),

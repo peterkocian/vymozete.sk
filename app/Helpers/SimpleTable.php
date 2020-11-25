@@ -86,11 +86,6 @@ class SimpleTable
         ];
     }
 
-    public function orderBy($sort_key, $order_by)
-    {
-        $this->data->orderBy();
-    }
-
     /**
      * Sends data to blade template, which contains Vue component => SimpleTableComponent
      *
