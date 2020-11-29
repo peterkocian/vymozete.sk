@@ -128,20 +128,20 @@ class RoleController extends Controller
             report($e);
 
             return back()
-                ->withFail(__('general.Create failed'))
+                ->withFail(__('general.Update failed'))
                 ->withErrors($e->validator)
                 ->withInput();
         } catch (\Exception $e) {
             report($e);
 
             return back()
-                ->withFail(__('general.Create failed'). ' ' .$e->getMessage())
+                ->withFail(__('general.Update failed'). ' ' .$e->getMessage())
                 ->withInput();
         }
 
         return redirect()
             ->route('admin.roles.show', $result->id)
-            ->withSuccess(__('general.Created successfully'));
+            ->withSuccess(__('general.Updated successfully'));
     }
 
     public function destroy(int $id)

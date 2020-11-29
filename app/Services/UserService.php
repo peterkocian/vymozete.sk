@@ -71,6 +71,7 @@ class UserService
      */
     public function updateUser($data, $id = null)
     {
+        dd($data, $id);
         $validator = $this->validator($data, $id);
 
         if ($validator->fails()) {
@@ -178,10 +179,9 @@ class UserService
 
     /**
      * @param array $all
-     * @param $id
      * @return mixed
      */
-    private function banValidator(array $all, $id = null)
+    private function banValidator(array $all)
     {
         return \Validator::make($all, [
             'banned'    => 'nullable|boolean'

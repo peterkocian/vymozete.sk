@@ -22,11 +22,11 @@ class Permission extends Model
     protected $table = 'permission';
 
     /**
-     * Pri update opravneni pouzivatela v pivot tabulkach (M:N) updatne timestamp updated_at aj v modeli users resp. roles (parentov)
+     * Pri update opravneni pouzivatela v pivot tabulkach (M:N) updatne timestamp updated_at aj v modeli users
      *
      * @var string[]
      */
-    protected $touches = ['users','roles'];
+    protected $touches = ['users'];
 
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable

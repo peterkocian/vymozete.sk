@@ -8,7 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import {  BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import DatePicker from 'vue2-datepicker';
 
 window.events = new Vue();
