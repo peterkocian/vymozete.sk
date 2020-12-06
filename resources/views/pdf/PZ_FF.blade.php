@@ -179,7 +179,7 @@
             <h2 class="align-center">1. PREDMET ZMLUVY</h2>
             <ol class="pl-0 nested-counter">
                 <li>Príkazník sa zaväzuje v mene  príkazcu a na jeho účet robiť úkony smerujúce k vymoženiu pohľadávky, ktorá je špecifikovaná v prílohe č. 1 tejto zmluvy, vrátane jej príslušenstva a prípadných zmluvných sankcií (ďalej len "Pohľadávka").</li>
-                <li>Advokát sa zaväzuje poskytnúť príkazcovi právne služby spočívajúce v zastupovaní príkazcu pri uplatňovaní jeho nároku, predmetom ktorého je zaplatenie Pohľadávky a jej príslušenstva, a to až do jej úplného zaplatenia, vrátane uplatnenia nároku v súdnom aj exekučnom konaní, pričom právne služby sa advokát zaväzuje poskytnúť podľa zákona č. 586/2003 Z. z. o advokácii v znení neskorších predpisov, bližšie špecifikované v bode 1.4 tohto článku.</li>
+                <li>Advokát sa zaväzuje poskytnúť príkazcovi právne služby spočívajúce v zastupovaní príkazcu pri uplatňovaní jeho nároku, predmetom ktorého je zaplatenie Pohľadávky a jej príslušenstva, a to až do jej úplného zaplatenia, vrátane uplatnenia nároku v súdnom aj exekučnom konaní, pričom právne služby sa advokát zaväzuje poskytnúť podľa zákona č. 586/2003 Z. z. o advokácii v znení neskorších predpisov.</li>
                 <li>Príkazca výslovne požaduje poskytovanie služieb podľa tejto Zmluvy od okamihu uzavretia tejto zmluvy.</li>
             </ol>
         </li>
@@ -213,18 +213,18 @@
         <li class="none">
             <h2 class="align-center">4. ODMENA PRÍKAZNÍKA</h2>
             <ol class="pl-0 nested-counter">
-                <li>Príkazníkovi vzniká nárok na odmenu až momentom vymoženia Pohľadávky alebo jej časti. Odmena príkazníka za obstaranie záležitosti podľa článku 1. tejto zmluvy je 20% plus daň z pridanej hodnoty, účtovaná v zmysle platných predpisov, z vymoženej Pohľadávky alebo jej časti. Príkazca berie na vedomie, že od okamihu uzavretia tejto zmluvy sa akékoľvek platby dlžníka považujú za vymožené na základe tejto zmluvy.</li>
+                <li><b>Príkazníkovi vzniká nárok na odmenu až momentom vymoženia Pohľadávky alebo jej časti.</b> Odmena príkazníka za obstaranie záležitosti podľa článku 1. tejto zmluvy je 20% plus daň z pridanej hodnoty, účtovaná v zmysle platných predpisov, z vymoženej Pohľadávky alebo jej časti. Príkazca berie na vedomie, že od okamihu uzavretia tejto zmluvy sa akékoľvek platby dlžníka považujú za vymožené na základe tejto zmluvy.</li>
                 <li>Príkazca výslovne splnomocňuje príkazníka, aby inkasoval platby od dlžníka na vymáhanú Pohľadávku. Trovy právneho zastúpenia inkasuje advokát. Po vymožení Pohľadávky alebo jej časti, je príkazník povinný ju príkazcovi bez zbytočného odkladu vyúčtovať po odčítaní odmeny príkazníka podľa bodu 4.1 tejto zmluvy.</li>
                 <li>Ak je Pohľadávka, alebo jej časť uhradená dlžníkom priamo príkazcovi, príkazca je povinný o tom bezodkladne informovať príkazníka a zároveň je príkazca povinný uhradiť príkazníkovi odmenu podľa bodu 4.1 tejto zmluvy do piatich (5) pracovných dní odo dňa obdržania úhrady.</li>
                 <li>Zmluvné strany sa dohodli, že príkazca je povinný v prípade zmarenia účelu tejto zmluvy a/alebo porušenia povinností podľa tejto zmluvy zo strany príkazcu uhradiť advokátovi tarifnú odmenu za vykonané úkony právnej služby, náhradu hotových výdavkov náhradu za stratu času a náhradu výdavkov na miestne telekomunikačné výdavky a miestne prepravné sumu vo výške jednej stotiny výpočtového základu za každý úkon právnej služby (režijný paušál)v zmysle  vyhlášky Ministerstva spravodlivosti Slovenskej republiky č. 655/2004 Z. z., o odmenách a náhradách advokátov za poskytovanie právnych služieb. Príkazca je povinný v prípade zmarenia účelu tejto zmluvy uhradiť príkazníkovi zmluvnú pokutu vo výške 10% z Pohľadávky. Zmarením účelu tejto zmluvy sa pre účely tejto zmluvy rozumie:</li>
                 <ol class="alphabet">
                     <li>neuhradenie súdneho poplatku, preddavku na vykonanie dôkazov, znalecký posudok či nákladov mediácie príkazcom, alebo</li>
-                    <li>neúčasť príkazcu na súdom nariadenej mediácii po písomnej výzve advokáta, alebo</li>
+                    <li>neospravedlnená neúčasť príkazcu na súdom nariadenej mediácii po písomnej výzve advokáta, alebo</li>
                     <li>ak vyjde najavo v súdnom alebo inom konaní, že Pohľadávka neexistuje, alebo</li>
                     <li>porušenie povinnosti informovať o akýchkoľvek platbách príkazcovi poskytnutých na vymáhanú Pohľadávku, vrátane akýchkoľvek zápočtov na ňu podľa bodu 3.1 tejto zmluvy, alebo</li>
                     <li>porušenie povinností príkazcu v zmysle tejto zmluvy, najmä v zmysle článku 3 tejto zmluvy</li>
                 </ol>
-                4.5. Príkazca je povinný v prípade rozhodnutia príkazcu nepokračovať vo vymáhaní Pohľadávky na základe tejto zmluvy, vrátane rozhodnutia nepokračovať vo vymáhaní Pohľadávky v exekučnom konaní po vydaní právoplatného rozhodnutia uhradiť  príkazníkovi paušálnu náhradu výdavkov vo výške  vo výške 20% z Pohľadávky.
+                4.5. Príkazca je povinný v prípade rozhodnutia príkazcu nepokračovať vo vymáhaní Pohľadávky na základe tejto zmluvy po 14 dňoch od jej uzavretia, vrátane rozhodnutia nepokračovať vo vymáhaní Pohľadávky v exekučnom konaní po vydaní právoplatného rozhodnutia uhradiť príkazníkovi paušálnu náhradu výdavkov vo výške vo výške 20% z Pohľadávky.
             </ol>
         </li>
 
@@ -425,6 +425,12 @@
 <p>Splnomocniteľ súhlasí, aby splnomocnenec ustanovil za seba zástupcu, ktorý je oprávnený konať v celom rozsahu tejto plnej moci.</p>
 <p>Svojím podpisom splnomocniteľ ako klient potvrdzuje, že bol splnomocnencom ako advokátom informovaný o výške tarifnej odmeny za úkony právnej služby poskytovanej splnomocnencom ako advokátom, a to ešte pred začatím poskytovania právnych služieb. Splnomocniteľ bol zároveň oboznámený o potrebe všetkých predpokladaných úkonov právnej služby, ktoré bude musieť splnomocnenec v budúcnosti vykonať v predmetnej právnej veci, ako aj o predpokladanom časovom rozpätí potrebnom na vykonanie jednotlivých úkonov právnej služby.</p>
 <p>V Bratislave dňa {{date('d.m.Y')}}</p>
+<br><br><br><br><br>
+<p>
+    ....................................<br>
+    {{$claim->creditor->entity->fullName}}<br>
+    Príkazca
+</p>
 
 </body>
 </html>

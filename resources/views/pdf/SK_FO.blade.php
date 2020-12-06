@@ -125,8 +125,8 @@
             <li>Dlžník zároveň berie na vedomie, že v prípade nesplnenia ktorejkoľvek splátky stáva sa splatným celý dlh a dlžník stráca výhodu splátok, pričom veriteľ je oprávnený požadovať úhradu celého neuhradeného zostatku pohľadávky.</li>
             <li>V prípade, že dlžník bude mať dostatok finančných prostriedkov, je oprávnený splniť dlh, príp. jednotlivú splátku vo vyššej sume ako aj v skoršom termíne.</li>
             <li>Pokiaľ dlžník poruší dohodnutý splátkový kalendár, veriteľ je oprávnený žiadať od dlžníka zaplatenie úrokov z omeškania, ktoré vzniknú odo dňa porušenia splátkového kalendára, pričom dlžník je povinný tieto úroky veriteľovi uhradiť.  </li>
-            <li>Dlžník bude uhrádzať jednotlivé splátky podľa dohodnutého splátkového kalendára bankovým prevodom na bankový účet mandatára: iVymáhanie s.r.o., Zámocká 30, 811 01 Bratislava IBAN: <b>{iban}</b></li>
-            <li>Jednotlivé  splátky podľa splátkového kalendára sa považujú za splnené dňom pripísania uhradenej sumy na účet právneho veriteľa.</li>
+            <li>Dlžník bude uhrádzať jednotlivé splátky podľa dohodnutého splátkového kalendára bankovým prevodom na bankový účet: iVymáhanie s.r.o., Zámocká 30, 811 01 Bratislava IBAN: <b>{iban}</b></li>
+            <li>Jednotlivé  splátky podľa splátkového kalendára sa považujú za splnené dňom pripísania uhradenej sumy na účet.</li>
         </ol>
 
         <h2 style="text-align: center">Čl. V</h2>
