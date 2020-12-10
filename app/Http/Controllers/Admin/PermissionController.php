@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePermissionRequest;
 use App\Services\PermissionService;
 use Illuminate\Http\Response;
-use Illuminate\Validation\ValidationException;
 
 class PermissionController extends Controller
 {
@@ -42,21 +42,15 @@ class PermissionController extends Controller
     /**
      * Store a new user.
      *
-     * @return
+     * @param StorePermissionRequest $request
+     * @return mixed
      */
-    public function store()
+    public function store(StorePermissionRequest $request)
     {
-        $data = request()->all();
+        $data = $request->validated();
 
         try {
             $result = $this->permissionService->savePermission($data);
-        } catch (ValidationException $e) {
-            report($e);
-
-            return back()
-                ->withFail(__('general.Create failed'))
-                ->withErrors($e->validator)
-                ->withInput();
         } catch (\Exception $e) {
             report($e);
 
@@ -98,36 +92,29 @@ class PermissionController extends Controller
         return view('admin.permissions.edit', ['data' => $data]);
     }
 
-    public function update(int $id)
+    public function update(StorePermissionRequest $request, int $id)
     {
-        $data = request()->except('_token', '_method');
+        $data = $request->validated();
 
         try {
             $result = $this->permissionService->updatePermission($data, $id);
-        } catch (ValidationException $e) {
-            report($e);
-
-            return back()
-                ->withFail(__('general.Create failed'))
-                ->withErrors($e->validator)
-                ->withInput();
         } catch (\Exception $e) {
             report($e);
 
             return back()
-                ->withFail(__('general.Create failed') . ' ' . $e->getMessage())
+                ->withFail(__('general.Update failed') . ' ' . $e->getMessage())
                 ->withInput();
         }
 
         return redirect()
             ->route('admin.permissions.show', $result->id)
-            ->withSuccess(__('general.Created successfully'));
+            ->withSuccess(__('general.Updated successfully'));
     }
 
     public function destroy(int $id)
     {
         try {
-            $result = $this->permissionService->destroy($id);
+            $this->permissionService->destroy($id);
 
             if (request()->ajax()) {
                 return response()->json([

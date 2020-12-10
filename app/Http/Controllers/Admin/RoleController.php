@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreRoleRequest;
 use App\Repositories\PermissionRepositoryInterface;
 use App\Services\RoleService;
 use Illuminate\Http\Response;
-use Illuminate\Validation\ValidationException;
 
 class RoleController extends Controller
 {
@@ -29,7 +29,6 @@ class RoleController extends Controller
             $result = $this->roleService->all();
         } catch (\Exception $e) {
             report($e);
-
             request()->session()->now('fail', $e->getMessage());
         }
 
@@ -60,21 +59,15 @@ class RoleController extends Controller
     /**
      * Store a new role.
      *
+     * @param StoreRoleRequest $request
      * @return Response
      */
-    public function store()
+    public function store(StoreRoleRequest $request)
     {
-        $data = request()->all();
+        $data = $request->validated();
 
         try {
             $result = $this->roleService->saveRole($data);
-        } catch (ValidationException $e) {
-            report($e);
-
-            return back()
-                ->withFail(__('general.Create failed'))
-                ->withErrors($e->validator)
-                ->withInput();
         } catch (\Exception $e) {
             report($e);
 
@@ -118,19 +111,12 @@ class RoleController extends Controller
         return view('admin.roles.edit', ['data' => $data]);
     }
 
-    public function update(int $id)
+    public function update(StoreRoleRequest $request, int $id)
     {
-        $data = request()->except('_token', '_method');
+        $data = $request->validated();
 
         try {
             $result = $this->roleService->updateRole($data, $id);
-        } catch (ValidationException $e) {
-            report($e);
-
-            return back()
-                ->withFail(__('general.Update failed'))
-                ->withErrors($e->validator)
-                ->withInput();
         } catch (\Exception $e) {
             report($e);
 
@@ -147,7 +133,7 @@ class RoleController extends Controller
     public function destroy(int $id)
     {
         try {
-            $result = $this->roleService->destroy($id);
+            $this->roleService->destroy($id);
 
             if (request()->ajax()) {
                 return response()->json([

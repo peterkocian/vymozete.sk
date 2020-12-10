@@ -14,7 +14,10 @@ class FileService
     private $fileRepository;
     private $claimRepository;
 
-    public function __construct(FileRepositoryInterface $fileRepository,ClaimRepositoryInterface $claimRepository)
+    public function __construct(
+        FileRepositoryInterface $fileRepository,
+        ClaimRepositoryInterface $claimRepository
+    )
     {
         $this->fileRepository  = $fileRepository;
         $this->claimRepository = $claimRepository;
@@ -75,7 +78,7 @@ class FileService
         ]);
     }
 
-    public function filesByClaimId(int $claim_id)
+    public function filesByClaimId(int $claim_id) //todo prerobit na $simpleTableService->processSimpleTableData
     {
         $sortKey = request('sortKey') ? request('sortKey') : SimpleTable::SORT_KEY;
         $sortDirection = request('sortDirection') ? request('sortDirection') : SimpleTable::SORT_DIRECTION;

@@ -19,6 +19,6 @@ class FileTypeRepository extends BaseRepository implements FileTypeRepositoryInt
 
     public function getDataForSelectbox()
     {
-        return FileType::get(['id', 'name as value'])->toArray();
+        return $this->model->get(['id', 'name as value'])->toArray();
     }
 }

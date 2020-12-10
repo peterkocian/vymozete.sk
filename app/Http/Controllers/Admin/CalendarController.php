@@ -13,7 +13,10 @@ class CalendarController extends Controller
     protected $calendarService;
     protected $claimService;
 
-    public function __construct(ClaimService $claimService, CalendarService $calendarService)
+    public function __construct(
+        ClaimService $claimService,
+        CalendarService $calendarService
+    )
     {
         $this->calendarService = $calendarService;
         $this->claimService = $claimService;
@@ -47,7 +50,7 @@ class CalendarController extends Controller
         try {
             $result = $this->calendarService->saveEvents($data, $claim_id);
         } catch (\Exception $e) {
-//            report($e);
+            report($e);
             if ($request->ajax()) {
                 return response()->json([
                     'success' => false,
@@ -63,7 +66,7 @@ class CalendarController extends Controller
         if ($request->ajax()) {
             return response()->json([
                 'success' => true,
-                'id' => null,
+                'id' => $result->id,
                 'message' => __('general.Created successfully'),
             ], Response::HTTP_OK);
         } else {

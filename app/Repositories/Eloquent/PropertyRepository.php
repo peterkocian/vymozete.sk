@@ -41,7 +41,7 @@ class PropertyRepository extends BaseRepository implements PropertyRepositoryInt
 
     public function getData(int $claim_id = null, array $searchParams = []): Builder // pretazena metoda z BaseRepository
     {
-        return Claim::find($claim_id)->properties()->getQuery();
+        return Claim::findOrFail($claim_id)->properties()->getQuery();
     }
 
     public function getRelatedData($data): Collection

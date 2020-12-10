@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CalculationSaveRequest;
-use App\Models\Claim;
 use App\Repositories\Eloquent\CurrencyRepository;
 use App\Services\CalculationService;
 use App\Services\ClaimService;
@@ -16,7 +15,11 @@ class CalculationController extends Controller
     protected $currencyRepository;
     protected $claimService;
 
-    public function __construct(CalculationService $calculationService, CurrencyRepository $currencyRepository, ClaimService $claimService)
+    public function __construct(
+        CalculationService $calculationService,
+        CurrencyRepository $currencyRepository,
+        ClaimService $claimService
+    )
     {
         $this->calculationService = $calculationService;
         $this->currencyRepository = $currencyRepository;
@@ -33,9 +36,6 @@ class CalculationController extends Controller
         $urok = $claim->getUrok();
         $summary = $this->calculationService->summary($claim, $trovy * 1.2, $urok);
         $vymozene = $this->calculationService->getVymozete($claim['id']);
-
-//        dd($claim->getUrok());
-//        dd($claim->payment_due_date);
 
         if (request()->ajax()) {
             return response()->json($result);
@@ -114,8 +114,6 @@ class CalculationController extends Controller
     public function update(CalculationSaveRequest $request, int $claim_id, int $calculation_id)
     {
         $data = $request->validated();
-
-//        dd($data);
 
         try {
             $this->calculationService->updateCalculation($data, $calculation_id);

@@ -8,12 +8,14 @@ class CurrencyService
 {
     private $currencyRepository;
 
-    public function __construct(CurrencyRepositoryInterface $currencyRepository)
+    public function __construct(
+        CurrencyRepositoryInterface $currencyRepository
+    )
     {
         $this->currencyRepository = $currencyRepository;
     }
 
-    public function all() //todo na getDataForSelectbox
+    public function all()
     {
         return $this->currencyRepository->getDataForSelectbox();
     }

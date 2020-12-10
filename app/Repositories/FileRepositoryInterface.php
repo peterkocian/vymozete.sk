@@ -1,14 +1,8 @@
 <?php
-namespace App\Repositories;
 
-use Illuminate\Support\Collection;
+namespace App\Repositories;
 
 interface FileRepositoryInterface
 {
-    /**
-     * Get's all entities.
-     *
-     * @param int $claim_id
-     * @return Collection
-     */
+    //
 }

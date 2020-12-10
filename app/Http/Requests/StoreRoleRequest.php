@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\StrongPassword;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class UserProfileAdminRequest extends FormRequest
+class StoreRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +24,9 @@ class UserProfileAdminRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'      => 'required|max:191',
-            'surname'   => 'required|max:191',
-            'password'  => ['nullable','confirmed',new StrongPassword()],
-            'email'     => 'nullable|email|unique:users,email,'.Auth::id(),
+            'name' => 'required|max:255',
+//            'slug' => 'required|max:255',    nastavuje mutator,
+            'permissions' => 'required|array'
         ];
     }
 }

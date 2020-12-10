@@ -34,7 +34,7 @@ class NoteController extends Controller
 
     public function store(NoteSaveRequest $request, int $claim_id)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         try {
             $result = $this->noteService->saveNote($data, $claim_id);
@@ -81,7 +81,7 @@ class NoteController extends Controller
 
     public function update(NoteSaveRequest $request, int $claim_id, int $note_id)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         try {
             $this->noteService->updateNote($data, $note_id);

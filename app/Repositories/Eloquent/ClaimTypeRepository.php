@@ -23,7 +23,7 @@ class ClaimTypeRepository extends BaseRepository implements ClaimTypeRepositoryI
         $claimTypeList = [];
         foreach ($claimTypes as $claimType) {
             $item =  $claimType->translation($language_id)->firstOrFail()->name;
-            array_push($claimTypeList, [ 'id' => $claimType->id, 'value' => $item]);
+            array_push($claimTypeList, ['id' => $claimType->id, 'value' => $item]);
         }
         return $claimTypeList;
     }

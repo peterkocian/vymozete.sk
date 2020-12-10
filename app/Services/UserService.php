@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Repositories\UserRepositoryInterface;
-use App\Rules\EmailMustHaveTLD;
-use App\Rules\StrongPassword;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -35,25 +33,18 @@ class UserService
      *
      * @param $data
      * @return mixed
-     * @throws ValidationException
+     * @throws Exception
      */
     public function saveUser($data)
     {
-        $validator = $this->validator($data);
         $data['password'] = $data['password'] ? bcrypt($data['password']) : null;
 
-        if ($validator->fails()) {
-            throw new ValidationException($validator->errors());
-        }
-
         DB::beginTransaction();
-
         try {
             $result = $this->userRepository->save($data);
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
-//            Log::info($e->getMessage());
             throw new Exception($e->getMessage());
         }
 
@@ -66,20 +57,11 @@ class UserService
      * @param $data
      * @param null $id
      * @return mixed
-     * @throws ValidationException
      * @throws Exception
      */
     public function updateUser($data, $id = null)
     {
-        dd($data, $id);
-        $validator = $this->validator($data, $id);
-
-        if ($validator->fails()) {
-            throw new ValidationException($validator->errors());
-        }
-
         DB::beginTransaction();
-
         try {
             $result = $this->userRepository->update($data, $id);
             DB::commit();
@@ -96,12 +78,10 @@ class UserService
     {
         try {
             $this->userRepository->get($id);
-            $result = $this->userRepository->delete($id);
+            return  $this->userRepository->delete($id);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
-
-        return $result;
     }
 
     /**
@@ -139,7 +119,7 @@ class UserService
      */
     public function updateUserBan($data, $id = null)
     {
-        $validator = $this->banValidator($data, $id);
+        $validator = $this->banValidator($data);
 
         if ($validator->fails()) {
             throw new ValidationException($validator->errors());
@@ -157,24 +137,6 @@ class UserService
         }
 
         return $result;
-    }
-
-    /**
-     * @param array $all
-     * @param $id
-     * @return mixed
-     */
-    private function validator(array $all, $id = null)
-    {
-        return \Validator::make($all, [
-            'name'      => 'required|max:191',
-            'surname'   => 'required|max:191',
-            'password'  => ['nullable','confirmed',new StrongPassword()],
-            'email'     => ['required','email',new EmailMustHaveTLD,'unique:users,email,'.$id],
-            'roles'     => 'required_without:permissions',
-            'permissions' => 'required_without:roles',
-            'banned'    => 'nullable|boolean'
-        ]);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UserProfileAdminRequest;
 use App\Repositories\PermissionRepositoryInterface;
 use App\Repositories\RoleRepositoryInterface;
@@ -83,11 +84,12 @@ class UserController extends Controller
     /**
      * Store a new user into DB.
      *
+     * @param StoreUserRequest $request
      * @return mixed
      */
-    public function store()
+    public function store(StoreUserRequest $request)
     {
-        $data = request()->all();
+        $data = $request->validated();
 
         try {
             $result = $this->userService->saveUser($data);
@@ -220,7 +222,7 @@ class UserController extends Controller
     public function destroy(int $id)
     {
         try {
-            $result = $this->userService->destroy($id);
+            $this->userService->destroy($id);
 
             if (request()->ajax()) {
                 return response()->json([

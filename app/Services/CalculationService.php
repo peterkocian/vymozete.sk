@@ -10,7 +10,10 @@ class CalculationService
     private $calculationRepository;
     private $simpleTableService; //todo
 
-    public function __construct(CalculationRepositoryInterface $calculationRepository, SimpleTableService $simpleTableService)
+    public function __construct(
+        CalculationRepositoryInterface $calculationRepository,
+        SimpleTableService $simpleTableService
+    )
     {
         $this->calculationRepository = $calculationRepository;
         $this->simpleTableService = $simpleTableService;
@@ -29,38 +32,32 @@ class CalculationService
     public function saveCalculation(array $data, int $claim_id)
     {
         try {
-            $result = $this->calculationRepository->save($data, $claim_id);
+            return $this->calculationRepository->save($data, $claim_id);
         } catch (Exception $e) {
 //            Log::info($e->getMessage());
             throw new Exception($e->getMessage());
         }
-
-        return $result;
     }
 
     public function updateCalculation($data, $id)
     {
         try {
             $data['paid'] = $data['paid'] ?? 0;
-            $result = $this->calculationRepository->update($data, $id);
+            return $this->calculationRepository->update($data, $id);
         } catch (Exception $e) {
 //            Log::info($e->getMessage());
             throw new Exception($e->getMessage());
         }
-
-        return $result;
     }
 
     public function destroy(int $id)
     {
         try {
             $this->calculationRepository->get($id);
-            $result = $this->calculationRepository->delete($id);
+            return $this->calculationRepository->delete($id);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
-
-        return $result;
     }
 
     public function getTrovy($claim): float

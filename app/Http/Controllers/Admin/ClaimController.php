@@ -8,6 +8,10 @@ use App\Services\FileService;
 
 class ClaimController extends Controller
 {
+    const TAB_OVERVIEW = 'overview';
+    const TAB_CREDITOR = 'creditor';
+    const TAB_DEBTOR = 'debtor';
+
     private $claimService;
     private $fileService;
 
@@ -31,11 +35,10 @@ class ClaimController extends Controller
 
     public function overview(int $claim_id)
     {
-        $claim = $this->claimService->get($claim_id);
-
+        $claim    = $this->claimService->get($claim_id);
         $creditor = $this->claimService->getCreditor($claim_id);
-        $debtor = $this->claimService->getDebtor($claim_id);
-        $files = $this->fileService->filesByClaimId($claim_id);
+        $debtor   = $this->claimService->getDebtor($claim_id);
+        $files    = $this->fileService->filesByClaimId($claim_id);
 
         return view('admin.claims.main', [
             'claim_id'  => $claim_id,
@@ -43,7 +46,7 @@ class ClaimController extends Controller
             'debtor'    => $debtor,
             'creditor'  => $creditor,
             'files'     => $files['data'], //todo fileservice vracia zle data
-            'tab'       => 'overview'
+            'tab'       => self::TAB_OVERVIEW
         ]);
     }
 
@@ -54,7 +57,7 @@ class ClaimController extends Controller
         return view('admin.claims.main', [
             'claim_id'  => $claim_id,
             'data'      => $creditor,
-            'tab'       => 'creditor'
+            'tab'       => self::TAB_CREDITOR
         ]);
     }
 
@@ -65,7 +68,7 @@ class ClaimController extends Controller
         return view('admin.claims.main', [
             'claim_id'  => $claim_id,
             'data'      => $debtor,
-            'tab'       => 'debtor'
+            'tab'       => self::TAB_DEBTOR
         ]);
     }
 }

@@ -2,17 +2,21 @@
 
 namespace App\Services;
 
-use App\Helpers\SimpleTable;
 use App\Repositories\NoteRepositoryInterface;
 use Exception;
 
 class NoteService
 {
     private $noteRepository;
+    private $simpleTableService;
 
-    public function __construct(NoteRepositoryInterface $noteRepository)
+    public function __construct(
+        NoteRepositoryInterface $noteRepository,
+        SimpleTableService $simpleTableService
+    )
     {
         $this->noteRepository = $noteRepository;
+        $this->simpleTableService = $simpleTableService;
     }
 
     public function get($id)
@@ -22,27 +26,7 @@ class NoteService
 
     public function notesByClaimId(int $claim_id)
     {
-        $sortKey = request('sortKey') ? request('sortKey') : SimpleTable::SORT_KEY;
-        $sortDirection = request('sortDirection') ? request('sortDirection') : SimpleTable::SORT_DIRECTION;
-        $pagination = request('pagination') ?? $this->noteRepository->getPagination();
-
-        //sort data
-        $query = $this->noteRepository->getData($claim_id)->orderBy($sortKey,$sortDirection);
-
-        if ($pagination) {
-            $rows = request('rows') ? intval(request('rows')) : SimpleTable::NUMBER_OF_ROWS;
-
-            $paginate = $query->paginate($rows);
-//            $data['data'] = $this->noteRepository->getRelatedData($paginate);
-            $data['data'] = $paginate->items();
-            $pag = $paginate->toArray();
-            unset($pag['data']);  // z povodneho objektu paginate ktory vracia Laravel mazem data, aby mi v result['pagination'] posielalo na FE iba info o strankovani
-            $data['pagination'] = $pag;
-        } else {
-            $data = $query->get();
-        }
-
-        return $data;
+        return $this->simpleTableService->processSimpleTableData($this->noteRepository, $claim_id, false);
     }
 
     public function saveNote(array $data, int $claim_id)

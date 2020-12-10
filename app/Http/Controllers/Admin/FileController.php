@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadAdminClaimFileRequest;
-//use App\Repositories\Eloquent\ClaimRepository;
 use App\Services\FileService;
 use Illuminate\Http\Response;
 use App\Repositories\Eloquent\FileTypeRepository;
 
 class FileController extends Controller
 {
+    const TAB_DOCUMENTS = 'documents';
+
     protected $fileTypeRepository;
-//    protected $claimRepository;
     protected $fileService;
 
     public function __construct(
@@ -21,7 +21,6 @@ class FileController extends Controller
     )
     {
         $this->fileTypeRepository = $fileTypeRepository;
-//        $this->claimRepository = $claimRepository;
         $this->fileService = $fileService;
     }
 
@@ -37,7 +36,7 @@ class FileController extends Controller
             'claim_id'  => $claim_id,
             'data'      => $result,
             'fileTypes' => $fileTypes,
-            'tab'       => 'documents'
+            'tab'       => self::TAB_DOCUMENTS,
         ]);
     }
 
@@ -53,7 +52,6 @@ class FileController extends Controller
 
                 return response()->json([
                     'success' => true,
-//                    'id' => $saved->id,
                     'message' => __('file.File successfully uploaded'),
                 ], Response::HTTP_CREATED);
             } catch (\Exception $e) {

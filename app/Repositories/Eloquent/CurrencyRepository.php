@@ -8,7 +8,7 @@ use App\Repositories\CurrencyRepositoryInterface;
 class CurrencyRepository extends BaseRepository implements CurrencyRepositoryInterface
 {
     /**
-     * CurrencyTypeRepository constructor.
+     * CurrencyRepository constructor.
      *
      * @param Currency $model
      */
@@ -19,6 +19,6 @@ class CurrencyRepository extends BaseRepository implements CurrencyRepositoryInt
 
     public function getDataForSelectbox()
     {
-        return Currency::get(['id', 'code as value'])->toArray();
+        return $this->model->get(['id', 'code as value'])->toArray();
     }
 }

@@ -11,21 +11,20 @@ use Illuminate\Http\Response;
 class PropertyController extends Controller
 {
     protected $propertyService;
-//    protected $claimService; vymazat
     protected $currencyRepository;
 
-    public function __construct(PropertyService $propertyService, CurrencyRepository $currencyRepository
-//        , ClaimService $claimService vymazat
+    public function __construct(
+        PropertyService $propertyService,
+        CurrencyRepository $currencyRepository
     )
     {
         $this->propertyService = $propertyService;
-//        $this->claimService = $claimService; vymazat
         $this->currencyRepository = $currencyRepository;
     }
 
     public function index()
     {
-        // return Property::all();
+        //
     }
 
     public function getAllByClaimId(int $claim_id)
@@ -48,7 +47,7 @@ class PropertyController extends Controller
     {
         if ($request->ajax())
         {
-            $data = $request->all();
+            $data = $request->validated();
 
             try {
                 $result = $this->propertyService->saveProperty($data, $claim_id);

@@ -64,12 +64,12 @@ class ClaimRepository extends BaseRepository implements ClaimRepositoryInterface
         if (isset($attributes['creditor_id']))
         {
             $updateCreditor = true;
-            $creditorModel = $attributes['person_type'] == 1 ? Organization::find($attributes['creditor_id']) : Person::find($attributes['creditor_id']);
+            $creditorModel = $attributes['person_type'] == 1 ? Organization::findOrFail($attributes['creditor_id']) : Person::findOrFail($attributes['creditor_id']);
         }
         if (isset($attributes['debtor_id']))
         {
             $updateDebtor = true;
-            $debtorModel = $attributes['person_type'] == 1 ? Organization::find($attributes['debtor_id']) : Person::find($attributes['debtor_id']);
+            $debtorModel = $attributes['person_type'] == 1 ? Organization::findOrFail($attributes['debtor_id']) : Person::findOrFail($attributes['debtor_id']);
         }
 
         if ($result) {

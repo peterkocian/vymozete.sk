@@ -13,7 +13,10 @@ class CalendarService
     private $calendarRepository;
     private $claimRepository;
 
-    public function __construct(CalendarRepositoryInterface $calendarRepository, ClaimRepositoryInterface $claimRepository)
+    public function __construct(
+        CalendarRepositoryInterface $calendarRepository,
+        ClaimRepositoryInterface $claimRepository
+    )
     {
         $this->calendarRepository = $calendarRepository;
         $this->claimRepository = $claimRepository;

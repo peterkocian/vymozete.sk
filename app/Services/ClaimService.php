@@ -9,7 +9,10 @@ class ClaimService
     protected $claimRepository;
     private $simpleTableService;
 
-    public function __construct(ClaimRepositoryInterface $claimRepository, SimpleTableService $simpleTableService)
+    public function __construct(
+        ClaimRepositoryInterface $claimRepository,
+        SimpleTableService $simpleTableService
+    )
     {
         $this->claimRepository = $claimRepository;
         $this->simpleTableService = $simpleTableService;
@@ -43,12 +46,10 @@ class ClaimService
     public function updateBaseData(array $data, int $claim_id)
     {
         try {
-            $result = $this->claimRepository->update($data, $claim_id);
+            return $this->claimRepository->update($data, $claim_id);
         } catch (\Exception $e) {
 //            Log::info($e->getMessage());
             throw new \Exception($e->getMessage());
         }
-
-        return $result;
     }
 }

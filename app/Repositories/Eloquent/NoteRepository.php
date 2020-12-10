@@ -40,6 +40,6 @@ class NoteRepository extends BaseRepository implements NoteRepositoryInterface
 
     public function getData(int $claim_id = null, array $searchParams = []): Builder // pretazena metoda z BaseRepository
     {
-        return Claim::find($claim_id)->notes()->getQuery();
+        return Claim::findOrFail($claim_id)->notes()->getQuery();
     }
 }

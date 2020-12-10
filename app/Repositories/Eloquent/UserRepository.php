@@ -5,7 +5,6 @@ namespace App\Repositories\Eloquent;
 use App\Models\Language;
 use App\Repositories\UserRepositoryInterface;
 use App\User;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 // custom actions for user repository

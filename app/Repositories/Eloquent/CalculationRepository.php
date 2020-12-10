@@ -41,7 +41,7 @@ class CalculationRepository extends BaseRepository implements CalculationReposit
 
     public function getData(int $claim_id = null, array $searchParams = []): Builder // pretazena metoda z BaseRepository
     {
-        return Claim::find($claim_id)->calculations()->getQuery();
+        return Claim::findOrFail($claim_id)->calculations()->getQuery();
     }
 
     public function getRelatedData($data): Collection
@@ -54,6 +54,6 @@ class CalculationRepository extends BaseRepository implements CalculationReposit
 
     public function getVymozene($claim_id): float
     {
-        return Claim::find($claim_id)->calculations->where('paid',1)->sum('amount');
+        return Claim::findOrFail($claim_id)->calculations->where('paid',1)->sum('amount');
     }
 }

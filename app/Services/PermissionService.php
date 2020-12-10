@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Repositories\PermissionRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\ValidationException;
 
 class PermissionService
 {
@@ -33,28 +32,16 @@ class PermissionService
      *
      * @param $data
      * @return mixed
-     * @throws ValidationException
+     * @throws Exception
      */
     public function savePermission($data)
     {
-        $validator = $this->validator($data);
-
-        if ($validator->fails()) {
-            throw new ValidationException($validator->errors());
-        }
-
-        DB::beginTransaction();
-
         try {
-            $result = $this->permissionRepository->save($data);
-            DB::commit();
+            return $this->permissionRepository->save($data);
         } catch (Exception $e) {
-            DB::rollBack();
 //            Log::info($e->getMessage());
             throw new Exception($e->getMessage());
         }
-
-        return $result;
     }
 
     /**
@@ -63,19 +50,11 @@ class PermissionService
      * @param $data
      * @param null $id
      * @return mixed
-     * @throws ValidationException
      * @throws Exception
      */
     public function updatePermission($data, $id)
     {
-        $validator = $this->validator($data);
-
-        if ($validator->fails()) {
-            throw new ValidationException($validator->errors());
-        }
-
         DB::beginTransaction();
-
         try {
             $result = $this->permissionRepository->update($data, $id);
             DB::commit();
@@ -92,23 +71,9 @@ class PermissionService
     {
         try {
             $this->permissionRepository->get($id);
-            $result = $this->permissionRepository->delete($id);
+            return $this->permissionRepository->delete($id);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
-
-        return $result;
-    }
-
-    /**
-     * @param array $all
-     * @return mixed
-     */
-    private function validator(array $all)
-    {
-        return \Validator::make($all, [
-            'name' => 'required|max:191',
-//            'slug' => 'required|max:191',    nastavuje mutator
-        ]);
     }
 }
