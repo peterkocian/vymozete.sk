@@ -840,13 +840,17 @@ a:hover {
   background-color: #115063;
 }
 
+.mainbox.wrapper {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 /* content boxes */
 
 .box_left {
   max-width: 400px;
   align-items: flex-start;
   padding: 20px;
-  /*!*box-sizing: border-box;*!*/
 }
 
 .box_right {
@@ -858,7 +862,6 @@ a:hover {
   display: flex;
   flex-wrap: wrap;
   padding: 20px;
-  /*!*box-sizing: border-box;*!*/
 }
 
 .box_grey,
@@ -868,7 +871,6 @@ a:hover {
   display: flex;
   margin: 10px;
   padding: 20px;
-  /*!*box-sizing: border-box;*!*/
   border-radius: 50px;
 }
 
@@ -880,8 +882,6 @@ a:hover {
   width: 100px;
   height: 100px;
   padding: 10px;
-  /*	display: flex; */
-  /*box-sizing: border-box;*/
 }
 
 .box_center {
@@ -890,7 +890,6 @@ a:hover {
   display: flex;
   flex-direction: column;
   padding: 30px;
-  /*box-sizing: border-box;*/
 }
 
 .box_center p {
@@ -902,7 +901,6 @@ a:hover {
   max-width: 80%;
   align-items: flex-start;
   padding: 30px;
-  /*box-sizing: border-box;*/
 }
 
 .box_mini {
@@ -922,12 +920,7 @@ a:hover {
 
 .form_box {
   width: 400px;
-  /*max-width: 100%;*/
-  /*height: auto;*/
-  /*align-items: flex-start;*/
-  /*margin: 10px;*/
   padding: 20px;
-  /*box-sizing: border-box;*/
 }
 
 /* media corrections */
@@ -946,7 +939,6 @@ a:hover {
     align-items: center;
     display: flex;
     flex-basis: auto;
-    /*box-sizing: border-box;*/
     margin: 10px 0;
     padding: 20px;
   }
@@ -956,7 +948,6 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  /*box-sizing: border-box;*/
   flex-wrap: wrap;
   width: 100%;
   padding: 0 20px;
@@ -967,10 +958,6 @@ a:hover {
 .row.done {
   padding: 50px;
   text-align: center;
-}
-
-.pohladavka {
-  /*box-sizing: border-box;*/
 }
 
 /* END css V2 */
@@ -986,8 +973,6 @@ a:hover {
 .main-menu {
   width: 100%;
   height: 70px;
-  /*padding-top: 10px;*/
-  /*padding-bottom: 10px;*/
   padding: 10px;
   background-color: #115063;
   position: fixed;
@@ -1004,7 +989,6 @@ a:hover {
   background-color: #fff;
   padding-bottom: 50px;
   padding-top: 50px;
-  /*box-sizing: border-box;*/
   overflow: hidden;
 }
 
@@ -1012,7 +996,6 @@ a:hover {
 
 .logo_block {
   display: flex;
-  /*box-sizing: border-box;*/
   justify-content: center;
   align-items: center;
   max-width: 600px;
@@ -1021,7 +1004,6 @@ a:hover {
 .logo_svg {
   width: 100%;
   display: flex;
-  /*box-sizing: border-box;*/
   padding: 20px;
 }
 
@@ -1030,7 +1012,6 @@ a:hover {
   align-items: flex-start;
   margin: 10px;
   padding: 0px;
-  /* background-color: rgb(0, 0, 0); */
 }
 
 .row_black {
@@ -1038,7 +1019,6 @@ a:hover {
   height: 3px;
   margin-left: 35%;
   margin-right: 35%;
-  /* background-color: rgb(140, 198, 63); */
   background-color: black;
 }
 
@@ -1053,14 +1033,7 @@ a:hover {
 }
 
 .icon {
-  /*
-  max-width: 150px;
-  width: 100%; */
-  /* width: 8em; */
-  /*width: 100px;*/
-  /*height: 100px;*/
   padding: 10px;
-  /*box-sizing: border-box;*/
   display: flex;
 }
 
@@ -1081,8 +1054,7 @@ a:hover {
   line-height: 50px;
 }
 
-/* Buttons
-*/
+/* Buttons */
 
 a .button {
   -webkit-appearance: button;
@@ -1164,11 +1136,7 @@ input[type=number] {
 /* form starting stylings ------------------------------- */
 
 .group {
-  /*position:relative;*/
-  /*margin-bottom:45px;*/
   margin-bottom: 20px;
-  /*width: 100%;*/
-  /*box-sizing: border-box;*/
 }
 
 input,
@@ -1177,13 +1145,8 @@ textarea {
   padding: 10px 10px 10px 5px;
   display: block;
   width: 100%;
-  /*width:300px;*/
-  /*max-width: 100%;*/
   border: none;
   border-bottom: 1px solid #115063;
-  /*-webkit-box-sizing: border-box;*/
-  /*-moz-box-sizing: border-box;*/
-  /*box-sizing: border-box;*/
 }
 
 input[type=file] {
@@ -1242,9 +1205,7 @@ input[type=checkbox] {
 label {
   color: #115063;
   font-size: 14px;
-  /*font-size: 18px;*/
   font-weight: normal;
-  /*position:absolute;*/
   pointer-events: none;
   left: 5px;
   top: 10px;
@@ -1355,10 +1316,7 @@ input:focus ~ .highlight {
   font-weight: 300;
   text-align: right;
   color: #fff;
-  /*padding-right:10px;
-  padding-top: 16px;*/
   text-decoration: none;
-  /*cursor: pointer;*/
 }
 
 a.alogin:hover {
@@ -1384,8 +1342,6 @@ a.alogin:hover {
   direction: ltr;
   border-radius: 25px;
   padding: 5px;
-  /*  position: fixed; */
-  /* z-index: 9;  */
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
   /* Support for Safari and Chrome. */
@@ -1481,14 +1437,10 @@ a.alogin:hover {
   }
 
   .infoblock {
-    /*max-width: 300px;*/
     width: 100%;
-    /* max-width: 80%; */
-    /*justify-content: flex-start; */
     align-items: center;
     display: flex;
     flex-basis: auto;
-    /*box-sizing: border-box;*/
     margin: 10px 0;
     padding: 20px;
   }

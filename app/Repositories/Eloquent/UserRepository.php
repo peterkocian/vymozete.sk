@@ -43,24 +43,23 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function update(array $attributes, int $id): Model
     {
-        $user = null;
-        if ($id) {
-            try {
-                $user = $this->model->findOrFail($id);
-            } catch (\Exception $e) {
-                report($e);
-                throw new \Exception('Uzivatela sa nepodarilo najst z neznamych dovod.'. $e->getMessage());
-            }
+        try {
+            $user = $this->get($id);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
 
         $attributes['password'] = isset($attributes['password']) ? bcrypt($attributes['password']) : $user->password;
 
-        if ($user) {
-            $user->update($attributes);
-            $user->roles()->sync($attributes['roles'] ?? $user->roles);
-            $user->permissions()->sync($attributes['permissions'] ?? $user->permissions);
+        $user->update($attributes);
+        $user->roles()->sync($attributes['roles']);
+        $user->permissions()->sync($attributes['permissions']);
 
-            return $user;
-        }
+        return $user;
+    }
+
+    public function updateBanned(Model $user): bool
+    {
+        return $user->update($user->getAttributes());
     }
 }

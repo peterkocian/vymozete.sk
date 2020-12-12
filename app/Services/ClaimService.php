@@ -48,7 +48,6 @@ class ClaimService
         try {
             return $this->claimRepository->update($data, $claim_id);
         } catch (\Exception $e) {
-//            Log::info($e->getMessage());
             throw new \Exception($e->getMessage());
         }
     }

@@ -39,7 +39,6 @@ class PermissionService
         try {
             return $this->permissionRepository->save($data);
         } catch (Exception $e) {
-//            Log::info($e->getMessage());
             throw new Exception($e->getMessage());
         }
     }
@@ -54,17 +53,11 @@ class PermissionService
      */
     public function updatePermission($data, $id)
     {
-        DB::beginTransaction();
         try {
-            $result = $this->permissionRepository->update($data, $id);
-            DB::commit();
+            return $this->permissionRepository->update($data, $id);
         } catch (Exception $e) {
-            DB::rollBack();
-//            Log::info($e->getMessage());
             throw new Exception($e->getMessage());
         }
-
-        return $result;
     }
 
     public function destroy(int $id)

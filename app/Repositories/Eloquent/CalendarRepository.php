@@ -3,20 +3,26 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Calendar;
-use App\Models\Claim;
 use App\Repositories\CalendarRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class CalendarRepository extends BaseRepository implements CalendarRepositoryInterface
 {
+    private $claimRepository;
+
     /**
      * CalendarRepository constructor.
      *
      * @param Calendar $model
+     * @param ClaimRepository $claimRepository
      */
-    public function __construct(Calendar $model)
+    public function __construct(
+        Calendar $model,
+        ClaimRepository $claimRepository
+    )
     {
         parent::__construct($model);
+        $this->claimRepository = $claimRepository;
     }
 
     /**
@@ -28,13 +34,13 @@ class CalendarRepository extends BaseRepository implements CalendarRepositoryInt
      */
     public function save(array $attributes, int $claim_id): Collection
     {
-        $claim = Claim::findOrFail($claim_id);
+        $claim = $this->claimRepository->get($claim_id);
         return $claim->calendars()->createMany($attributes);
     }
 
     public function findByClaimId(int $claim_id)
     {
-        $claim = Claim::findOrFail($claim_id);
+        $claim = $this->claimRepository->get($claim_id);
         return [
             'events' => $claim->calendars,
             'sum' => $claim->calendars->sum('amount')
@@ -43,7 +49,8 @@ class CalendarRepository extends BaseRepository implements CalendarRepositoryInt
 
     public function deleteAllById(int $claim_id): int
     {
-        $claim = Claim::findOrFail($claim_id);
+
+        $claim = $this->claimRepository->get($claim_id);
 
         return $claim->calendars()->delete();
     }

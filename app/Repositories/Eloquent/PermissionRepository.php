@@ -5,7 +5,6 @@ namespace App\Repositories\Eloquent;
 use App\Models\Permission;
 use App\Repositories\PermissionRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 
 // custom actions for permission repository
 class PermissionRepository extends BaseRepository implements PermissionRepositoryInterface
@@ -18,14 +17,6 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
     public function __construct(Permission $model)
     {
         parent::__construct($model);
-    }
-
-    /**
-     * @return Collection
-     */
-    public function all(): Collection
-    {
-        return $this->model->all();
     }
 
     /**

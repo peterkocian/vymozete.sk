@@ -32,35 +32,27 @@ class NoteService
     public function saveNote(array $data, int $claim_id)
     {
         try {
-            $result = $this->noteRepository->save($data, $claim_id);
+            return $result = $this->noteRepository->save($data, $claim_id);
         } catch (Exception $e) {
-//            Log::info($e->getMessage());
             throw new Exception($e->getMessage());
         }
-
-        return $result;
     }
 
     public function updateNote($data, $id)
     {
         try {
-            $result = $this->noteRepository->update($data, $id);
+            return $this->noteRepository->update($data, $id);
         } catch (Exception $e) {
-//            Log::info($e->getMessage());
             throw new Exception($e->getMessage());
         }
-
-        return $result;
     }
 
     public function destroy(int $id)
     {
         try {
-            $result = $this->noteRepository->delete($id);
+            return $this->noteRepository->delete($id);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
-
-        return $result;
     }
 }

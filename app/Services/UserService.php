@@ -5,14 +5,16 @@ namespace App\Services;
 use App\Repositories\UserRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\ValidationException;
 
 class UserService
 {
     private $userRepository;
     private $simpleTableService;
 
-    public function __construct(UserRepositoryInterface $userRepository, SimpleTableService $simpleTableService)
+    public function __construct(
+        UserRepositoryInterface $userRepository,
+        SimpleTableService $simpleTableService
+    )
     {
         $this->userRepository = $userRepository;
         $this->simpleTableService = $simpleTableService;
@@ -61,13 +63,15 @@ class UserService
      */
     public function updateUser($data, $id = null)
     {
+        $data['roles'] = $this->setRoles($data['roles'] ?? null, $id);
+        $data['permissions'] = $this->setPermissions($data['permissions'] ?? null, $id);
+
         DB::beginTransaction();
         try {
             $result = $this->userRepository->update($data, $id);
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
-//            Log::info($e->getMessage());
             throw new Exception($e->getMessage());
         }
 
@@ -101,7 +105,6 @@ class UserService
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
-//            Log::info($e->getMessage());
             throw new Exception($e->getMessage());
         }
 
@@ -111,42 +114,53 @@ class UserService
     /**
      * Update user ban state in DB.
      *
-     * @param $data
      * @param null $id
      * @return mixed
-     * @throws ValidationException
      * @throws Exception
      */
-    public function updateUserBan($data, $id = null)
+    public function updateUserBan($id, $action)
     {
-        $validator = $this->banValidator($data);
+        $user = $this->get($id);
 
-        if ($validator->fails()) {
-            throw new ValidationException($validator->errors());
+        if ($action === 'ban' ) {
+            if ($user->banned) {
+                throw new \Exception(__('general.Already banned'));
+            } else {
+                $user['banned'] = 1; //true
+            }
+        } else {
+            if ($user->banned) {
+                $user['banned'] = 0; //false
+            } else {
+                throw new \Exception(__('general.Already unbanned'));
+            }
         }
-
-        DB::beginTransaction();
 
         try {
-            $result = $this->userRepository->update($data, $id);
-            DB::commit();
+            return $this->userRepository->updateBanned($user);
         } catch (Exception $e) {
-            DB::rollBack();
-//            Log::info($e->getMessage());
             throw new Exception($e->getMessage());
         }
-
-        return $result;
     }
 
-    /**
-     * @param array $all
-     * @return mixed
-     */
-    private function banValidator(array $all)
+
+    private function setRoles(?array $roles, $id): array
     {
-        return \Validator::make($all, [
-            'banned'    => 'nullable|boolean'
-        ]);
+        if (request()->is('admin/users/*/updateProfile')) {
+            return $roles ?? $this->get($id)->roles;
+        } else if (request()->is('admin/users/*')) {
+            return $roles ?? [];
+        }
+        return [];
+    }
+
+    private function setPermissions(?array $permissions, $id): array
+    {
+        if (request()->is('admin/users/*/updateProfile')) {
+            return $permissions ?? $this->get($id)->permissions;
+        } else if (request()->is('admin/users/*')) {
+            return $permissions ?? [];
+        }
+        return [];
     }
 }

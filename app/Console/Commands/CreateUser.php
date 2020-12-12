@@ -1,10 +1,12 @@
 <?php
 
-namespace KornerBI\UserManagement\Commands;
+namespace App\Console\Commands;
 
 use App\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUser extends Command
 {
@@ -42,57 +44,63 @@ class CreateUser extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
-        $details = $this->getDetails();
-
-        $user = $this->createUser($details);
-
+        $data = $this->getUserData();
+        $user = $this->createUser($data);
         $this->display($user);
     }
 
     /**
-     * Ask for user details.
+     * Ask for user data.
      *
      * @return array
      */
-    private function getDetails() : array
+    private function getUserData() : array
     {
-        $details['name']    = $this->ask('Enter name', 'Admin');
-        $details['surname'] = $this->ask('Enter surname', 'Korner');
-        $details['email']   = $this->ask('Enter email/login', 'admin@korner.bi');
-        $details['password'] = $this->secret('Enter '.$details["email"].' password');
-        $details['confirm_password'] = $this->secret('Confirm password');
+        $user['name']    = $this->ask('Enter name', 'Admin_name');
+        $user['surname'] = $this->ask('Enter surname', 'Admin_surname');
+        $user['email']   = $this->ask('Enter email/login', 'admin@vymozete.sk');
+        $user['password'] = $this->secret('Enter '.$user["email"].' password') ?? '';
+        $user['confirm_password'] = $this->secret('Confirm password') ?? '';
 
-        while (!$this->isValidPassword($details['password'], $details['confirm_password'])) {
-            if (!$this->isRequiredLength($details['password'])) {
+        while (!$this->isValidPassword($user['password'], $user['confirm_password'])) {
+            if (!$this->isRequiredLength($user['password'])) {
                 $this->error('Password must be longer or equals to 6 characters');
             }
 
-            if (! $this->isMatch($details['password'], $details['confirm_password'])) {
+            if (!$this->isMatch($user['password'], $user['confirm_password'])) {
                 $this->error('Password and Confirm password do not match');
             }
 
-            $details['password'] = $this->secret('Enter password again');
-            $details['confirm_password'] = $this->secret('Confirm password');
+            $user['password'] = $this->secret('Enter password again') ?? '';
+            $user['confirm_password'] = $this->secret('Confirm password') ?? '';
         }
 
-        return $details;
+        return $user;
     }
 
     /**
      * Save user to DB
      *
-     * @param array $details
+     * @param array $data
      * @return User|bool
      */
-    private function createUser(array $details)
+    private function createUser(array $data)
     {
-        $user = new User($details);
-        $user->password = bcrypt($details['password']);
+        // Test DB connection and table
+        try {
+            DB::connection()->getPdo();
+            if (!Schema::hasTable('users')) {
+                die("Neexistuje tabulka users, pravdepodobne treba spustit migracie.");
+            }
+        } catch (\Exception $e) {
+            die("Could not connect to the database. Please check your configuration. error:" . $e );
+        }
+
+        $user = new User($data);
+        $user->password = bcrypt($data['password']);
 
         if (!$user->save()) {
             $this->error('Something went wrong!');
@@ -118,7 +126,7 @@ class CreateUser extends Command
             'email'     => $user->email
         ];
 
-        $this->info('User created successfully');
+        $this->info('User successfully created');
         $this->table($headers, [$fields]);
     }
 

@@ -13,7 +13,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -93,13 +92,6 @@ class UserController extends Controller
 
         try {
             $result = $this->userService->saveUser($data);
-        } catch (ValidationException $e) {
-            report($e);
-
-            return back()
-                ->withFail(__('general.Create failed'))
-                ->withErrors($e->validator)
-                ->withInput();
         } catch (\Exception $e) {
             report($e);
 
@@ -167,19 +159,12 @@ class UserController extends Controller
         return abort(Response::HTTP_FORBIDDEN, __('general.Unauthorized'));
     }
 
-    public function update(int $id)
+    public function update(StoreUserRequest $request, int $id)
     {
-        $data = request()->except('_token', '_method');
+        $data = $request->validated();
 
         try {
             $result = $this->userService->updateUser($data, $id);
-        } catch (ValidationException $e) {
-            report($e);
-
-            return back()
-                ->withFail(__('general.Create failed'))
-                ->withErrors($e->validator)
-                ->withInput();
         } catch (\Exception $e) {
             report($e);
 
@@ -255,44 +240,18 @@ class UserController extends Controller
     public function ban(int $id)
     {
         try {
-            if ($id) {
-                //check if exist
-                $user = $this->userService->get($id);
-
-                if ($user->banned) {
-                    throw new \Exception(__('general.Already banned'));
-                }
-
-                $data['banned'] = 1; //true
-
-                $this->userService->updateUserBan($data, $id);
-
-                if (request()->ajax()) {
-                    return response()->json([
-                        'success' => true,
-                        'id' => $id,
-                        'message' => __('general.Banned successfully'),
-                    ], Response::HTTP_OK);
-                } else {
-                    return redirect()
-                        ->route('admin.users.index')
-                        ->withSuccess(__('general.Banned successfully'));
-                }
-            }
-        } catch (ValidationException $e) {
-            report($e);
+            $this->userService->updateUserBan($id, 'ban');
 
             if (request()->ajax()) {
                 return response()->json([
-                    'success' => false,
+                    'success' => true,
                     'id' => $id,
-                    'message' => __('general.Ban failed').' '.$e->getMessage(),
-                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+                    'message' => __('general.Banned successfully'),
+                ], Response::HTTP_OK);
             } else {
                 return redirect()
                     ->route('admin.users.index')
-                    ->withFail(__('general.Ban failed').' '.$e->getMessage())
-                    ->withErrors($e->validator);
+                    ->withSuccess(__('general.Banned successfully'));
             }
         } catch (\Exception $e) {
             report($e);
@@ -311,47 +270,21 @@ class UserController extends Controller
         }
     }
 
-    public function unBan(int $id)
+    public function unban(int $id)
     {
         try {
-            if ($id) {
-                //check if exist
-                $user = $this->userService->get($id);
-
-                if ($user->banned) {
-                    $data['banned'] = 0; //false
-
-                    $this->userService->updateUserBan($data, $id);
-                } else {
-                    throw new \Exception(__('general.Already unbanned'));
-                }
-
-                if (request()->ajax()) {
-                    return response()->json([
-                        'success' => true,
-                        'id' => $id,
-                        'message' => __('general.Unbanned successfully'),
-                    ], Response::HTTP_OK);
-                } else {
-                    return redirect()
-                        ->route('admin.users.index')
-                        ->withSuccess(__('general.Unbanned successfully'));
-                }
-            }
-        } catch (ValidationException $e) {
-            report($e);
+            $this->userService->updateUserBan($id, 'unban');
 
             if (request()->ajax()) {
                 return response()->json([
-                    'success' => false,
+                    'success' => true,
                     'id' => $id,
-                    'message' => __('general.Unban failed').' '.$e->getMessage(),
-                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+                    'message' => __('general.Unbanned successfully'),
+                ], Response::HTTP_OK);
             } else {
                 return redirect()
                     ->route('admin.users.index')
-                    ->withFail(__('general.Unban failed').' '.$e->getMessage())
-                    ->withErrors($e->validator);
+                    ->withSuccess(__('general.Unbanned successfully'));
             }
         } catch (\Exception $e) {
             report($e);

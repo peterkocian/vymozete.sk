@@ -34,7 +34,6 @@ class CalculationService
         try {
             return $this->calculationRepository->save($data, $claim_id);
         } catch (Exception $e) {
-//            Log::info($e->getMessage());
             throw new Exception($e->getMessage());
         }
     }
@@ -45,7 +44,6 @@ class CalculationService
             $data['paid'] = $data['paid'] ?? 0;
             return $this->calculationRepository->update($data, $id);
         } catch (Exception $e) {
-//            Log::info($e->getMessage());
             throw new Exception($e->getMessage());
         }
     }

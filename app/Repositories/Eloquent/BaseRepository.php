@@ -80,22 +80,14 @@ class BaseRepository implements EloquentRepositoryInterface
      */
     public function update(array $attributes, int $id): Model
     {
-        if ($id) {
-            try {
-                $data = $this->model->findOrFail($id);
-            } catch (Exception $e) {
-                report($e);
-                throw new Exception('Udaje sa nepodarilo najst.'. $e->getMessage());
-            }
-
-            if ($data) {
-                $data->update($attributes);
-
-                return $data;
-            }
+        try {
+            $data = $this->model->findOrFail($id);
+        } catch (Exception $e) {
+            throw new Exception('Udaje sa nepodarilo najst.'. $e->getMessage()); //todo prelozit exception
         }
 
-        throw new Exception('Nezname id');
+        $data->update($attributes);
+        return $data;
     }
 
     public function getData(int $claim_id = null, array $searchParams = []): Builder // tato funkcia musi mat vstupny parameter, lebo v ostatnych Repository classach pretazujem tuto metodu a tam posielam aj parameter

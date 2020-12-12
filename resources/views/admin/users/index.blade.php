@@ -51,36 +51,10 @@
 
     $actions = [
         [
-            'label' => 'visibility',
-            'title' => __('general.Detail'),
-            'key' => 'detail',
-            'class' => 'btn btn-outline-primary btn-sm mr-1',
-            'url' => url(config('simple-table.route-prefix').'/'.\App\User::ENTITY_ROUTE_PREFIX.'/{id}')
-        ],
-        [
-            'label' => 'edit',
-            'title' => __('general.Edit'),
-            'key' => 'edit',
-            'class' => 'btn btn-outline-primary btn-sm mr-1',
-            'url' => url(config('simple-table.route-prefix').'/'.\App\User::ENTITY_ROUTE_PREFIX.'/{id}/edit')
-        ],
-        [
-            'label' => 'delete',
-            'title' => __('general.Delete'),
-            'key' => 'delete',
-            'class' => 'btn btn-sm btn-outline-danger mr-1',
-            'url' => url(config('simple-table.route-prefix').'/'.\App\User::ENTITY_ROUTE_PREFIX.'/{id}'),
-            'dataToggle' => 'modal',
-            'dataTarget' => '#modalConfirm',
-            'modalText' => __('general.Confirmation delete'),
-            'requestMethod' => 'DELETE',
-            'ajax' => true
-        ],
-        [
             'label' => 'block',
             'title' => __('general.Ban'),
             'key' => 'ban',
-            'class' => 'btn btn-sm btn-outline-danger mr-1',
+            'class' => 'btn btn-sm btn-outline-danger mr-1 ml-1',
             'url' => url(config('simple-table.route-prefix').'/'.\App\User::ENTITY_ROUTE_PREFIX.'/{id}/ban'),
             'dataToggle' => 'modal',
             'dataTarget' => '#modalConfirm',
@@ -114,7 +88,7 @@
         ]
     ];
 
-    $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\User::ENTITY_ROUTE_PREFIX, $config, $actions);
+    $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\User::ENTITY_ROUTE_PREFIX, $config, $actions, true);
 @endphp
 @extends ('admin.layouts.app')
 @section ('content')

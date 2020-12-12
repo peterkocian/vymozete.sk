@@ -34,8 +34,9 @@ class SimpleTable
      * @param $entityRoutePrefix String define base url link for action button
      * @param array $config array of config table view (pagination, items par page, inline new ...atd)
      * @param null $actions array of action buttons
+     * @param bool $mergeActions if is set TRUE, than $actions props are merged with getDefaultActions()
      */
-    public function __construct($columns = [], $data = [], $entityRoutePrefix = '', $config = [], $actions = null)
+    public function __construct($columns = [], $data = [], $entityRoutePrefix = '', $config = [], $actions = null, $mergeActions = false)
     {
         $this->data = $data;
         $this->columns = $columns;
@@ -45,6 +46,9 @@ class SimpleTable
         if (is_null($actions)) {
             $this->entityRoutePrefix = $entityRoutePrefix;
             $this->actions = $this->getDefaultActions();
+        } elseif ($mergeActions) {
+            $this->entityRoutePrefix = $entityRoutePrefix;
+            $this->actions = array_merge($this->getDefaultActions(), $actions);
         } else {
             $this->actions = $actions;
         }

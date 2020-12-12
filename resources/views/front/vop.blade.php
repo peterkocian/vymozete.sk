@@ -1,7 +1,6 @@
 @extends('front.layout')
-
 @section('content')
-<div class="container_flex_white">
+<div class="mainbox mainbox_white wrapper">
     <article>
         <h2>VŠEOBECNÉ OBCHODNÉ PODMIENKY</h2>
         <p>

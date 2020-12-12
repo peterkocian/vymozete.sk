@@ -140,6 +140,9 @@
                                 :placeholder="column.settings.placeholder"
                                 @input="debounceSearch(column.key)"
                             >
+                            <select v-else class="form-control form-control-sm" v-model="search[column.map]" @change="debounceSearch(column.key)">
+                                <option v-for="(option, index) in column.options" :key="index" :value="option.id">{{option.value}}</option>
+                            </select>
                         </th>
                         <th v-if="config.actions.length > 0"></th>
                     </tr>

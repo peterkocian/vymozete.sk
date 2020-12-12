@@ -12,8 +12,9 @@
         [
             'label' => __('claim.Creditor'),
             'key' => 'creditorFullName',
-            'type' => 'text',
             'map' => 'creditor_id',
+            'type' => 'select',
+            'options' => [],
             'settings' => [
                 'searchable' => true,
                 'placeholder' => __('general.Search placeholder')
@@ -22,7 +23,7 @@
         [
             'label' => __('claim.Debtor'),
             'key' => 'debtorFullName',
-            'type' => 'text',
+            'type' => 'select',
             'map' => 'debtor_id',
             'settings' => [
                 'searchable' => true,

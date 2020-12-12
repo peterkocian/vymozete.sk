@@ -4,7 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use KornerBI\UserManagement\Commands\CreateUser;
+use App\Console\Commands\CreateUser;
 
 class Kernel extends ConsoleKernel
 {
