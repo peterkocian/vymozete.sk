@@ -14,7 +14,7 @@
             'key' => 'creditorFullName',
             'map' => 'creditor_id',
             'type' => 'select',
-            'options' => [],
+            'options' => $creditors,
             'settings' => [
                 'searchable' => true,
                 'placeholder' => __('general.Search placeholder')
@@ -23,8 +23,9 @@
         [
             'label' => __('claim.Debtor'),
             'key' => 'debtorFullName',
-            'type' => 'select',
             'map' => 'debtor_id',
+            'type' => 'select',
+            'options' => $debtors,
             'settings' => [
                 'searchable' => true,
                 'placeholder' => __('general.Search placeholder')
@@ -43,8 +44,9 @@
         [
             'label' => __('claim.Status'),
             'key' => 'statusName',
-            'type' => 'text',
             'map' => 'claim_status_id',
+            'type' => 'select',
+            'options' => $claimStatus,
             'settings' => [
                 'searchable' => true,
                 'placeholder' => __('general.Search placeholder')
@@ -53,8 +55,9 @@
         [
             'label' => __('claim.Type'),
             'key' => 'typeName',
-            'type' => 'text',
             'map' => 'claim_type_id',
+            'type' => 'select',
+            'options' => $claimTypes,
             'settings' => [
                 'searchable' => true,
                 'placeholder' => __('general.Search placeholder')

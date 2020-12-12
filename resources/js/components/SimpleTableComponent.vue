@@ -141,6 +141,7 @@
                                 @input="debounceSearch(column.key)"
                             >
                             <select v-else class="form-control form-control-sm" v-model="search[column.map]" @change="debounceSearch(column.key)">
+                                <option :value="undefined">Choose Option</option>
                                 <option v-for="(option, index) in column.options" :key="index" :value="option.id">{{option.value}}</option>
                             </select>
                         </th>
@@ -337,11 +338,15 @@
                         return decodeURIComponent( $.param(params))
                     }
                 }).then(res => {
-                    this.loadSourceData(res.data);
+                    this.loadSourceData(res.data.data);
+                    console.log(res.data); //todo doplnit nacitanie dat res.data.debtors a res.data.creditors
                     this.hideOverlay();
                 }).catch(e => {
+                    //todo napisat funkciu, ktora by formatovala error message
                     this.hideOverlay();
-                    let message = e.response.data.errors ?? e;
+                    let message = e.response.data.errors ??
+                                  e.response.data.message ??
+                                  e;
                     flash({text: `reloadData: ${message}`, type:'error', timer:null });
                 });
             },

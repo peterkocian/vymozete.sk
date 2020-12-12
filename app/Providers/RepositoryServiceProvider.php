@@ -5,10 +5,12 @@ namespace App\Providers;
 use App\Repositories\CalculationRepositoryInterface;
 use App\Repositories\CalendarRepositoryInterface;
 use App\Repositories\ClaimRepositoryInterface;
+use App\Repositories\ClaimStatusRepositoryInterface;
 use App\Repositories\CurrencyRepositoryInterface;
 use App\Repositories\Eloquent\CalculationRepository;
 use App\Repositories\Eloquent\CalendarRepository;
 use App\Repositories\Eloquent\ClaimRepository;
+use App\Repositories\Eloquent\ClaimStatusRepository;
 use App\Repositories\Eloquent\ClaimTypeRepository;
 use App\Repositories\ClaimTypeRepositoryInterface;
 use App\Repositories\Eloquent\BaseRepository;
@@ -43,6 +45,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(EloquentRepositoryInterface::class, BaseRepository::class);
         $this->app->bind(ClaimTypeRepositoryInterface::class, ClaimTypeRepository::class);
+        $this->app->bind(ClaimStatusRepositoryInterface::class, ClaimStatusRepository::class);
         $this->app->bind(ClaimRepositoryInterface::class, ClaimRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
