@@ -48,9 +48,8 @@ class CalendarController extends Controller
         $data = $request->validated();
 
         try {
-            $result = $this->calendarService->saveEvents($data, $claim_id);
+            $this->calendarService->saveEvents($data, $claim_id);
         } catch (\Exception $e) {
-            report($e);
             if ($request->ajax()) {
                 return response()->json([
                     'success' => false,
@@ -66,7 +65,6 @@ class CalendarController extends Controller
         if ($request->ajax()) {
             return response()->json([
                 'success' => true,
-                'id' => $result->id,
                 'message' => __('general.Created successfully'),
             ], Response::HTTP_OK);
         } else {

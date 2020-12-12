@@ -39,7 +39,7 @@ class Organization extends Model
      */
     public function participants()
     {
-        return $this->morphMany(Participant::class, 'entity');
+        return $this->morphOne(Participant::class, 'entity');
     }
 
     /**

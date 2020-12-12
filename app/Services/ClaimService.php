@@ -51,4 +51,34 @@ class ClaimService
             throw new \Exception($e->getMessage());
         }
     }
+
+    public function getAllDebtors($data): array
+    {
+        $debtors = [];
+        foreach ($data as $c) {
+            $c['debtor']['fullName'] = $c['debtorFullName'];
+            array_push($debtors,$c['debtor']);
+        }
+        return $this->formatForSelectbox($debtors);;
+    }
+
+    public function getAllCreditors($data): array
+    {
+        $creditors = [];
+        foreach ($data as $c) {
+            $c['creditor']['fullName'] = $c['creditorFullName'];
+            array_push($creditors,$c['creditor']);
+        }
+        return $this->formatForSelectbox($creditors);
+    }
+
+    private function formatForSelectbox($data): array
+    {
+        return  array_map(function ($d) {
+            return [
+                'id'   => $d['id'],
+                'value' => $d['fullName'],
+            ];
+        }, $data);
+    }
 }

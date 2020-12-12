@@ -76,7 +76,14 @@
             Bratislava, dátum: {{date('d.m.Y')}}
         </div>
         <h1>Predžalobná upomienka</h1>
-        <p>V právnej veci veriteľa: {{$claim->creditor->entity->fullName}} (ďalej len "veriteľ"), proti dlžníkovi: {{$claim->debtor->entity->fullName}} (ďalej len "dlžník"), o zaplatenie pohľadávky vo výške {{$claim->amount}} {{$claim->currency->code}}  s príslušenstvom, z titulu {{$claim->typeName}}, Vám týmto oznamujeme, že sme prevzali právne zastúpenie veriteľa a uvádzame nasledovné:</p>
+        <p>V právnej veci veriteľa:
+{{--            if veritel is FO--}}
+            {{$claim->creditor->entity->fullName}},
+            dátum narodenia: {{$claim->creditor->entity->birthday}},
+            rodné číslo: {{$claim->creditor->entity->id_number}},
+            trvalý pobyt: {{$claim->creditor->entity->fullAddress}},
+            št. občianstvo: {{$claim->creditor->entity->citizenship}},
+            (ďalej len "veriteľ"), proti dlžníkovi: {{$claim->debtor->entity->fullName}} (ďalej len "dlžník"), o zaplatenie pohľadávky vo výške {{$claim->amount}} {{$claim->currency->code}}  s príslušenstvom, z titulu {{$claim->typeName}}, Vám týmto oznamujeme, že sme prevzali právne zastúpenie veriteľa a uvádzame nasledovné:</p>
         <p>Veriteľ voči Vám k dnešnému eviduje peňažnú pohľadávku v nasledovnej výške:</p>
         <ul>
             <li>Istina vo výške {{$claim->amount}} {{ $claim->currency->code }},</li>

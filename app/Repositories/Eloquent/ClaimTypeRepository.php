@@ -16,15 +16,4 @@ class ClaimTypeRepository extends BaseRepository implements ClaimTypeRepositoryI
     {
         parent::__construct($model);
     }
-
-    public function translation(int $language_id) // todo napisat samostatnu service pre tuto funkciu, mozu ju pouzivat
-    {
-        $claimTypes = $this->all();
-        $claimTypeList = [];
-        foreach ($claimTypes as $claimType) {
-            $item =  $claimType->translation($language_id)->firstOrFail()->name;
-            array_push($claimTypeList, ['id' => $claimType->id, 'value' => $item]);
-        }
-        return $claimTypeList;
-    }
 }
