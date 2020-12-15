@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front\Steps\Claim;
 
 use App\Models\ClaimType;
 use App\Repositories\Eloquent\ClaimTypeRepository;
+use App\Services\ClaimTypeService;
 use Illuminate\Http\Request;
 use Ycs77\LaravelWizard\Step;
 
@@ -71,6 +72,7 @@ class TypeStep extends Step
     {
         $claimType = new ClaimType();
         $claimTypeRepository = new ClaimTypeRepository($claimType);
-        return $claimTypeRepository->all();
+        $claimTypeService = new ClaimTypeService($claimTypeRepository);
+        return $claimTypeService->getDataForSelectbox();
     }
 }

@@ -30,7 +30,9 @@ class FileController extends Controller
         $fileTypes = $this->fileTypeRepository->getDataForSelectbox();
 
         if (request()->ajax()) {
-            return response()->json($result);
+            return response()->json([
+                'data' => $result
+            ]);
         }
         return view('admin.claims.main', [
             'claim_id'  => $claim_id,

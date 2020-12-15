@@ -45,7 +45,7 @@
                     'key' => 'title',
                     'type' => 'text',
                     'settings' => [
-                        'divClass' => 'col col-6 col-sm-2  pl-0',
+                        'divClass' => 'col col-12 col-sm-4 col-md-2 pl-0',
                         'required' => true,
                         'searchable' => true
                     ]
@@ -55,7 +55,7 @@
                     'key' => 'amount',
                     'type' => 'number',
                     'settings' => [
-                        'divClass' => 'col col-6 col-sm-2  pl-0',
+                        'divClass' => 'col col-6 col-sm-2 pl-0',
                         'required' => true,
                         'searchable' => true
                     ]
@@ -65,7 +65,7 @@
                     'key' => 'currency_id',
                     'type' => 'select',
                     'settings' => [
-                        'divClass' => 'col col-6 col-sm-2  pl-0',
+                        'divClass' => 'col col-6 col-sm-2 pl-0',
                         'required' => true,
                         'searchable' => true
                     ],
@@ -76,7 +76,7 @@
                     'key' => 'description',
                     'type' => 'textarea',
                     'settings' => [
-                        'divClass' => 'col col-12 col-sm-4  pl-0',
+                        'divClass' => 'col col-12 col-sm-4 pl-0',
                         'required' => true,
                         'searchable' => true
                     ]

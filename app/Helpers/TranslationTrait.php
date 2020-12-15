@@ -8,8 +8,12 @@ trait TranslationTrait
     {
         $translations = [];
         foreach ($data as $d) {
-            $item = $d->translation($language_id)->firstOrFail();
-            array_push($translations, ['id' => $d->id, 'value' => $item->name]);
+            if($d->available_translation($language_id)->exists()){
+                $item = $d->available_translation($language_id)->firstOrFail();
+                array_push($translations, ['id' => $d->id, 'value' => $item->name]);
+            } else {
+                array_push($translations, ['id' => $d->id, 'value' => $d->key]);
+            }
         }
         return $translations;
     }

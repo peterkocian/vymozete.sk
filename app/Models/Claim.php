@@ -6,6 +6,7 @@ use App\Helpers\DateFormatTrait;
 use App\User;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Claim extends Model
 {
@@ -50,12 +51,16 @@ class Claim extends Model
 
     public function getTypeNameAttribute()
     {
-        return $this->claimType->translation(\Illuminate\Support\Facades\Auth::user()->language_id)->firstOrFail()->name;
+        return $this->claimType->available_translation(Auth::user()->language_id)->exists()
+            ? $this->claimType->available_translation(Auth::user()->language_id)->firstOrFail()->name
+            : $this->claimType->key;
     }
 
     public function getStatusNameAttribute()
     {
-        return $this->claimStatus->translation(\Illuminate\Support\Facades\Auth::user()->language_id)->firstOrFail()->name;
+        return $this->claimStatus->available_translation(Auth::user()->language_id)->exists()
+            ? $this->claimStatus->available_translation(Auth::user()->language_id)->firstOrFail()->name
+            : $this->claimStatus->key;
     }
 
     /**

@@ -38,8 +38,11 @@ class CalculationController extends Controller
         $vymozene = $this->calculationService->getVymozete($claim['id']);
 
         if (request()->ajax()) {
-            return response()->json($result);
+            return response()->json([
+                'data' => $result
+            ]);
         }
+
         return view('admin.claims.main', [
             'claim_id' => $claim_id,
             'data' => $result,

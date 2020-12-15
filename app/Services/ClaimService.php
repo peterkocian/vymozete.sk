@@ -3,18 +3,22 @@
 namespace App\Services;
 
 use App\Repositories\ClaimRepositoryInterface;
+use App\Repositories\CurrencyRepositoryInterface;
 
 class ClaimService
 {
     protected $claimRepository;
+    protected $currencyRepository;
     private $simpleTableService;
 
     public function __construct(
         ClaimRepositoryInterface $claimRepository,
+        CurrencyRepositoryInterface $currencyRepository,
         SimpleTableService $simpleTableService
     )
     {
         $this->claimRepository = $claimRepository;
+        $this->currencyRepository = $currencyRepository;
         $this->simpleTableService = $simpleTableService;
     }
 
@@ -70,6 +74,11 @@ class ClaimService
             array_push($creditors,$c['creditor']);
         }
         return $this->formatForSelectbox($creditors);
+    }
+
+    public function getCurrencyList()
+    {
+        return $this->currencyRepository->getDataForSelectbox();
     }
 
     private function formatForSelectbox($data): array

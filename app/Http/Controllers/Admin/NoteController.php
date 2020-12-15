@@ -23,7 +23,9 @@ class NoteController extends Controller
         $result = $this->noteService->notesByClaimId($claim_id);
 
         if (request()->ajax()) {
-            return response()->json($result);
+            return response()->json([
+                'data' => $result
+            ]);
         }
         return view('admin.claims.main', [
             'claim_id' => $claim_id,

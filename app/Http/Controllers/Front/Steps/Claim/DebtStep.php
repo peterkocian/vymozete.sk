@@ -33,8 +33,8 @@ class DebtStep extends Step
         //todo hack
         $file = new File();
         $claim = new Claim();
-        $fileRepository = new FileRepository($file);
         $claimRepository = new ClaimRepository($claim);
+        $fileRepository = new FileRepository($file,$claimRepository);
         $this->fileService = new FileService($fileRepository, $claimRepository);
     }
 
@@ -124,14 +124,14 @@ class DebtStep extends Step
             $model->creditor()->associate($participantCreditor);
             $model->debtor()->associate($participantDebtor);
 
-            $files = $flattenWizardData['debt']['uploads'];
-
-            unset($flattenWizardData['debt']['uploads']);
+            if (isset($flattenWizardData['debt']['uploads'])) {
+                $files = $flattenWizardData['debt']['uploads'];
+                unset($flattenWizardData['debt']['uploads']);
+                //save file from form wizard
+                $this->fileService->save($files, $model->id);
+            }
 
             $model->fill($flattenWizardData['debt'])->save();
-
-            //save file from form wizard
-            $this->fileService->save($files, $model->id);
 
             DB::commit();
         } catch (Exception $e) {

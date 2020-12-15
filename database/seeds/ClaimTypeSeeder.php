@@ -15,37 +15,37 @@ class ClaimTypeSeeder extends Seeder
         DB::table('claim_type')->insert([
             [
                 'key' => 'invoice',
-                'name' => 'nezaplatená faktúra',
+//                'name' => 'nezaplatená faktúra',
                 'created_at'    => \Carbon\Carbon::now(),
                 'updated_at'    => \Carbon\Carbon::now(),
             ],[
                 'key' => 'loan',
-                'name' => 'nesplatená pôžička',
+//                'name' => 'nesplatená pôžička',
                 'created_at'    => \Carbon\Carbon::now(),
                 'updated_at'    => \Carbon\Carbon::now(),
             ],[
                 'key' => 'bill',
-                'name' => 'nevyplatené zmenky',
+//                'name' => 'nevyplatené zmenky',
                 'created_at'    => \Carbon\Carbon::now(),
                 'updated_at'    => \Carbon\Carbon::now(),
             ],[
                 'key' => 'rent',
-                'name' => 'nevyplatené nájomné',
+//                'name' => 'nevyplatené nájomné',
                 'created_at'    => \Carbon\Carbon::now(),
                 'updated_at'    => \Carbon\Carbon::now(),
             ],[
                 'key' => 'salary',
-                'name' => 'nevyplatené mzdy',
+//                'name' => 'nevyplatené mzdy',
                 'created_at'    => \Carbon\Carbon::now(),
                 'updated_at'    => \Carbon\Carbon::now(),
             ],[
                 'key' => 'insurance',
-                'name' => 'nevyplatené poistné plnenie',
+//                'name' => 'nevyplatené poistné plnenie',
                 'created_at'    => \Carbon\Carbon::now(),
                 'updated_at'    => \Carbon\Carbon::now(),
             ],[
                 'key' => 'indemnity',
-                'name' => 'náhrada škody',
+//                'name' => 'náhrada škody',
                 'created_at'    => \Carbon\Carbon::now(),
                 'updated_at'    => \Carbon\Carbon::now(),
             ]

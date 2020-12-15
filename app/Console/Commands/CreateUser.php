@@ -102,6 +102,8 @@ class CreateUser extends Command
         $user = new User($data);
         $user->password = bcrypt($data['password']);
 
+        $user->language_id = 2; // defaultny jazyk SK
+
         if (!$user->save()) {
             $this->error('Something went wrong!');
             return false;

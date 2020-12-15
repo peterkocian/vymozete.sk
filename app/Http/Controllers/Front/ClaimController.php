@@ -6,31 +6,26 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ClaimBaseDataFrontRequest;
 use App\Http\Requests\ParticipantRequest;
 use App\Http\Requests\UploadFileRequestGeneral;
-use App\Repositories\ClaimTypeRepositoryInterface;
-use App\Repositories\CurrencyRepositoryInterface;
 use App\Services\ClaimService;
+use App\Services\ClaimTypeService;
 use App\Services\FileService;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 class ClaimController extends Controller
 {
     private $claimService;
     private $fileService;
-    private $currencyRepository;
-    private $claimTypeRepository;
+    private $claimTypeService;
 
     public function __construct(
         ClaimService $claimService,
         FileService $fileService,
-        CurrencyRepositoryInterface $currencyRepository,
-        ClaimTypeRepositoryInterface $claimTypeRepository
+        ClaimTypeService $claimTypeService
     )
     {
         $this->claimService = $claimService;
         $this->fileService = $fileService;
-        $this->currencyRepository = $currencyRepository;
-        $this->claimTypeRepository = $claimTypeRepository;
+        $this->claimTypeService = $claimTypeService;
     }
 
     public function find($id)
@@ -41,8 +36,8 @@ class ClaimController extends Controller
     public function overview(int $claim_id)
     {
         $claim = $this->claimService->get($claim_id)->toArray();
-        $currencies = $this->currencyRepository->getDataForSelectbox();
-        $claimTypes = $this->claimTypeRepository->translation(Auth::user()->language_id);
+        $currencies = $this->claimService->getCurrencyList();
+        $claimTypes = $this->claimTypeService->getDataForSelectbox();
 
         return view('front.claims.main', [
             'claim_id'  => $claim_id,

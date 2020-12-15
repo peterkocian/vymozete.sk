@@ -33,7 +33,9 @@ class PropertyController extends Controller
         $result = $this->propertyService->propertyByClaimId($claim_id);
 
         if (request()->ajax()) {
-            return response()->json($result);
+            return response()->json([
+                'data' => $result
+            ]);
         }
         return view('admin.claims.main', [
             'claim_id'  => $claim_id,

@@ -32,12 +32,17 @@ class ClaimStatus extends Model
         return $this->hasMany(Claim::class);
     }
 
-    public function translation($language = null)
+    public function translations()
+    {
+        return $this->hasMany(ClaimStatusTranslation::class, 'claim_status_id', 'id');
+    }
+
+    public function available_translation($language_id = null)
     {
 //        if ($language == null) { //todo zvazit ci treba
 //            $language = App::getLocale();
 //        }
 
-        return $this->hasMany(ClaimStatusTranslation::class, 'claim_status_id', 'id')->where('language_id','=', $language);
+        return $this->translations()->where('language_id', $language_id);
     }
 }
