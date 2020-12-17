@@ -4,8 +4,7 @@
         <div class="group">
             <label>typ pohľadávky *</label>
             <select name="claim_type_id">
-                <option value="">vyberte...</option>
-
+                <option value="">@lang('general.Choose')</option>
                 @foreach ($step->getClaimTypes() as $option)
                     @if(request()->get('claim_type_id'))
                         <!-- ak su data z query params pri presmerovani z homepage s prednastavenou value -->

@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Helpers\SimpleTable;
 use App\Repositories\ClaimRepositoryInterface;
 use App\Repositories\FileRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -13,14 +12,17 @@ class FileService
 {
     private $fileRepository;
     private $claimRepository;
+    private $simpleTableService;
 
     public function __construct(
         FileRepositoryInterface $fileRepository,
-        ClaimRepositoryInterface $claimRepository
+        ClaimRepositoryInterface $claimRepository,
+        SimpleTableService $simpleTableService
     )
     {
         $this->fileRepository  = $fileRepository;
         $this->claimRepository = $claimRepository;
+        $this->simpleTableService = $simpleTableService;
     }
 
     public function save($files, int $claim_id, array $data = null)
@@ -57,8 +59,6 @@ class FileService
         if(Storage::disk('uploads')->put($filePath.'/'.$filename,  \Illuminate\Support\Facades\File::get($file))) {
             return $this->saveFileToDatabase($file, $filename, $model, $size, $filePath, $data);
         }
-
-        return false;
     }
 
     public function saveFileToDatabase($file, $filename, $model, $size, $filePath, $data)
@@ -78,30 +78,11 @@ class FileService
         ]);
     }
 
-    public function filesByClaimId(int $claim_id) //todo prerobit na $simpleTableService->processSimpleTableData
+    public function filesByClaimId(int $claim_id)
     {
-        $sortKey = request('sortKey') ? request('sortKey') : SimpleTable::SORT_KEY;
-        $sortDirection = request('sortDirection') ? request('sortDirection') : SimpleTable::SORT_DIRECTION;
-        $pagination = request('pagination') ?? $this->fileRepository->getPagination(request('fromPage'));
-
-        //sort data
-        $query = $this->fileRepository->getData($claim_id)->orderBy($sortKey,$sortDirection);
-
-        if ($pagination) {
-            $rows = request('rows') ? intval(request('rows')) : SimpleTable::NUMBER_OF_ROWS;
-
-            $paginate = $query->paginate($rows);
-            $data['data'] = $this->fileRepository->getRelatedData($paginate)->toArray();
-            $pag = $paginate->toArray();
-            unset($pag['data']);  // z povodneho objektu paginate ktory vracia Laravel mazem data, aby mi v result['pagination'] posielalo na FE iba info o strankovani
-            $data['pagination'] = $pag;
-        } else {
-            $data = $this->fileRepository->getRelatedData($query->get())->toArray();
-        }
-
-        return $data;
+        return $this->simpleTableService->processSimpleTableData($this->fileRepository, $claim_id, true);
     }
-
+    
     public function download(int $id)
     {
         $file = $this->fileRepository->get($id);

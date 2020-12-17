@@ -135,7 +135,7 @@ class PermissionController extends Controller
                     'success' => false,
                     'id' => $id,
                     'message' => $e->getMessage(),
-                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED); // todo opravit v celom kode, nie je to bezpecne
             } else {
                 return redirect()
                     ->route('admin.permissions.index')

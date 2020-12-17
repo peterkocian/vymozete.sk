@@ -11,7 +11,7 @@ class SimpleTableService
         $sortKey = request('sortKey') ? request('sortKey') : SimpleTable::SORT_KEY;
         $sortDirection = request('sortDirection') ? request('sortDirection') : SimpleTable::SORT_DIRECTION;
         $searchParams = request('search') ? request('search') : [];
-        $pagination = request('pagination') ?? $repository->getPagination();
+        $pagination = request('pagination') ?? $repository->getPagination(request('fromPage'));
 
         //get and sort data
         $query = $repository->getData($parent_id, $searchParams)->orderBy($sortKey,$sortDirection);

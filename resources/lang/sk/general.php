@@ -19,6 +19,7 @@ return [
     'Reset Password' => 'Nastavenie nového hesla',
     'Set new password' => 'Nastaviť nové heslo',
     'Search placeholder' => 'Hľadať',
+    'Choose' => 'vyberte',
 
     'Company name' => 'Názov',
     'ICO' => 'IČO',

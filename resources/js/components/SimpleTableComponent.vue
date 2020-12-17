@@ -335,11 +335,11 @@
                         search: this.search
                     },
                     paramsSerializer: function (params) {
-                        return decodeURIComponent( $.param(params))
+                        return decodeURIComponent($.param(params))
                     }
                 }).then(res => {
-                    this.loadSourceData(res.data.data);
                     console.log(res.data); //todo doplnit nacitanie dat res.data.debtors a res.data.creditors
+                    this.loadSourceData(res.data.data);
                     this.hideOverlay();
                 }).catch(e => {
                     //todo napisat funkciu, ktora by formatovala error message

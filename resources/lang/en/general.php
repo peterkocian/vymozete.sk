@@ -19,6 +19,7 @@ return [
     'Reset Password' => 'Reset Password',
     'Set new password' => 'Set new password',
     'Search placeholder' => 'Search',
+    'Choose' => 'choose',
 
     'Company name' => 'Company',
     'ICO' => 'ID',

@@ -13,6 +13,7 @@ use App\Repositories\Eloquent\ClaimRepository;
 use App\Repositories\Eloquent\CurrencyRepository;
 use App\Repositories\Eloquent\FileRepository;
 use App\Services\FileService;
+use App\Services\SimpleTableService;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -35,7 +36,8 @@ class DebtStep extends Step
         $claim = new Claim();
         $claimRepository = new ClaimRepository($claim);
         $fileRepository = new FileRepository($file,$claimRepository);
-        $this->fileService = new FileService($fileRepository, $claimRepository);
+        $simpleTableService = new SimpleTableService();
+        $this->fileService = new FileService($fileRepository, $claimRepository, $simpleTableService);
     }
 
     /**
@@ -81,6 +83,7 @@ class DebtStep extends Step
      */
     public function saveData(Request $request, $data = null, $model = null)
     {
+        //todo refactornut celu tuto funkciu
         $wizardData = [];
         $wizardData = $this->getRepo()->original()->map(function ($step) {
             return [$step->slug() => $step->data()];
@@ -127,7 +130,7 @@ class DebtStep extends Step
             if (isset($flattenWizardData['debt']['uploads'])) {
                 $files = $flattenWizardData['debt']['uploads'];
                 unset($flattenWizardData['debt']['uploads']);
-                //save file from form wizard
+//                save file from form wizard
                 $this->fileService->save($files, $model->id);
             }
 

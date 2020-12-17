@@ -28,7 +28,7 @@ class FileController extends Controller
     {
         $result = $this->fileService->filesByClaimId($claim_id);
         $fileTypes = $this->fileTypeRepository->getDataForSelectbox();
-
+        
         if (request()->ajax()) {
             return response()->json([
                 'data' => $result
@@ -60,7 +60,7 @@ class FileController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => $e->getMessage()
-                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+                ],Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         }
 
