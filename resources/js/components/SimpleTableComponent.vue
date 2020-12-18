@@ -133,7 +133,15 @@
                             :key="column.key"
                         >
                             <input
-                                v-if="column.type !== 'select'"
+                                v-if="column.type !== 'select' && column.map"
+                                class="form-control form-control-sm"
+                                :type="column.type"
+                                v-model="search[column.map]"
+                                :placeholder="column.settings.placeholder"
+                                @input="debounceSearch(column.key)"
+                            >
+                            <input
+                                v-else-if="column.type !== 'select' && column.key"
                                 class="form-control form-control-sm"
                                 :type="column.type"
                                 v-model="search[column.key]"
@@ -275,8 +283,9 @@
                         flash({text: res.data.message, type:'success', timer:3000 });
                     }).catch(e => {
                         // console.log(e.response.data.errors);
-                        this.errors = e.response.data.errors;
-                        flash({text: `${e.response.data.message}`, type:'error', timer:null });
+                        this.sendErrorFlashMessage(e);
+                        // this.errors = e.response.data.errors;
+                        // flash({text: `${e.response.data.message}`, type:'error', timer:null });
                     });
             },
             submitFiles(url) {
@@ -309,8 +318,9 @@
                         this.reloadData();
                         flash({text: res.data.message, type:'success', timer:3000 });
                     }).catch(e => {
-                        this.errors = e.response.data.errors;
-                        flash({text: `${e.response.data.message}`, type:'error', timer:null });
+                        this.sendErrorFlashMessage(e);
+                        // this.errors = e.response.data.errors;
+                        // flash({text: `${e.response.data.message}`, type:'error', timer:null });
                     });
 
 
@@ -338,16 +348,16 @@
                         return decodeURIComponent($.param(params))
                     }
                 }).then(res => {
-                    console.log(res.data); //todo doplnit nacitanie dat res.data.debtors a res.data.creditors
+                    // console.log(res.data); //todo doplnit nacitanie dat res.data.debtors a res.data.creditors
                     this.loadSourceData(res.data.data);
                     this.hideOverlay();
                 }).catch(e => {
-                    //todo napisat funkciu, ktora by formatovala error message
                     this.hideOverlay();
-                    let message = e.response.data.errors ??
-                                  e.response.data.message ??
-                                  e;
-                    flash({text: `reloadData: ${message}`, type:'error', timer:null });
+                    this.sendErrorFlashMessage(e);
+                    // let message = e.response.data.errors ??
+                    //               e.response.data.message ??
+                    //               e;
+                    // flash({text: `reloadData: ${message}`, type:'error', timer:null });
                 });
             },
             setDefaultValue() {
@@ -366,8 +376,11 @@
                     flash({text: res.data.message, type:'success', timer:3000 });
                     this.reloadData();
                 }).catch(e => {
-                    let message = e.response.data.errors ?? e.response.data.message ?? e; //todo preverit ci toto funguje lepsie ako je to v reloadData()
-                    flash({text: message, type:'error', timer:null });
+                    this.sendErrorFlashMessage(e);
+                    // let message = e.response.data.errors ??
+                    //               e.response.data.message ??
+                    //               e;
+                    // flash({text: message, type:'error', timer:null });
                 });
             },
             handleFilesUpload(e) {
@@ -393,6 +406,12 @@
                     this.reloadData();
                 }, 600);
             },
+            sendErrorFlashMessage(e) {
+                let message = e.response.data.errors ??
+                              e.response.data.message ??
+                              e;
+                flash({text: message, type:'error', timer:null });
+            }
         },
     };
 </script>

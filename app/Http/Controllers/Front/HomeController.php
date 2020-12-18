@@ -45,9 +45,6 @@ class HomeController extends Controller
                 $result = $this->userService->get($id);
                 $languages = $this->languageService->all();
             } catch (\Exception $e) {
-                report($e);
-
-                //todo dopisat error message - vymysliet standard
                 return back()
                     ->withFail($e->getMessage());
             }
@@ -60,15 +57,13 @@ class HomeController extends Controller
     public function updateProfile(UserProfileFrontRequest $request, int $id)
     {
         if(Auth::id() === $id) {
-            $data = $request->except('_token', '_method');
+            $data = $request->validated();
 
             try {
-                $result = $this->userService->updateUserProfile($data, $id);
+                $this->userService->updateUserProfile($data, $id);
             } catch (\Exception $e) {
-                report($e);
-
                 return back()
-                    ->withFail(__('general.Create failed') . ' ' . $e->getMessage())
+                    ->withFail(__('general.Update failed') . ' ' . $e->getMessage())
                     ->withInput();
             }
 

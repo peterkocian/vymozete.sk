@@ -34,8 +34,8 @@
         [
             'label' => __('claim.Amount'),
             'key' => 'amountWithCurrency',
-            'type' => 'text',
             'map' => 'amount',
+            'type' => 'text',
             'settings' => [
                 'searchable' => true,
                 'placeholder' => __('general.Search placeholder')

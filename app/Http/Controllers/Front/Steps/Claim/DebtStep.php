@@ -25,7 +25,7 @@ use Ycs77\LaravelWizard\Wizard;
 
 class DebtStep extends Step
 {
-    protected $fileService;
+    public $fileService;
 
     public function __construct(Wizard $wizard, int $index)
     {
@@ -84,7 +84,6 @@ class DebtStep extends Step
     public function saveData(Request $request, $data = null, $model = null)
     {
         //todo refactornut celu tuto funkciu
-        $wizardData = [];
         $wizardData = $this->getRepo()->original()->map(function ($step) {
             return [$step->slug() => $step->data()];
         });
@@ -98,14 +97,14 @@ class DebtStep extends Step
                 $creditor = $flattenWizardData['creditor'];
                 $creditorModel = $creditor['person_type'] == 1 ? new Organization($creditor) : new Person($creditor);
             } else {
-                throw new Exception('Vyskytol sa problem pri ziskavani udajov veritela.');
+                throw new Exception('Vyskytol sa problém pri spracovaní údajov veritela.');
             }
 
             if (isset($flattenWizardData['debtor'])){
                 $debtor = $flattenWizardData['debtor'];
                 $debtorModel = $debtor['person_type'] == 1 ? new Organization($debtor) : new Person($debtor);
             } else {
-                throw new Exception('Vyskytol sa problem pri ziskavani udajov dlznika.');
+                throw new Exception('Vyskytol sa problém pri spracovaní údajov dlžníka.');
             }
 
             $debtorModel->save();
@@ -120,28 +119,30 @@ class DebtStep extends Step
             $debtorModel->participants()->save($participantDebtor);
             $creditorModel->participants()->save($participantCreditor);
 
-            $model->currency()->associate($flattenWizardData['debt']['currency_id']);
+            $model->currency()->associate($flattenWizardData[$this->slug]['currency_id']);
             $model->claimStatus()->associate(Claim::DEFAULT_STATE_ID);
             $model->claimType()->associate($flattenWizardData['type']['claim_type_id']);
             $model->user()->associate(Auth::id());
             $model->creditor()->associate($participantCreditor);
             $model->debtor()->associate($participantDebtor);
 
-            if (isset($flattenWizardData['debt']['uploads'])) {
-                $files = $flattenWizardData['debt']['uploads'];
-                unset($flattenWizardData['debt']['uploads']);
-//                save file from form wizard
-                $this->fileService->save($files, $model->id);
+            $files = [];
+            if (isset($flattenWizardData[$this->slug]['uploads'])) {
+                $files = $flattenWizardData[$this->slug]['uploads'];
+                unset($flattenWizardData[$this->slug]['uploads']);
             }
 
-            $model->fill($flattenWizardData['debt'])->save();
+            $model->fill($flattenWizardData[$this->slug])->save();
+
+            // upload and save file to DB from form wizard
+            if (!empty($files)) {
+                $this->fileService->save($files, $model->id);
+            }
 
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
 
-//            return back()
-//                ->withFails($e->getMessage());
             throw new Exception(__('general.Create failed') .' '. $e->getMessage());
         }
     }
@@ -167,8 +168,8 @@ class DebtStep extends Step
     public function flattenArray($stepData) {
         $flatten = [];
         foreach ($stepData as $value) {
-            foreach ($value as $i => $v) {
-                $flatten[$i] = $v;
+            foreach ($value as $k => $v) {
+                $flatten[$k] = $v;
             }
         }
         return $flatten;

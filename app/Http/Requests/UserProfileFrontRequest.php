@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UserProfileFrontRequest extends FormRequest
 {
@@ -23,8 +24,8 @@ class UserProfileFrontRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route('user');
-        //todo nebolo by lepsie pouzit Auth::id()
+//        $id = $this->route('user'); //todo vymazat
+        $id = Auth::id();
 
         return [
             'name'      => 'required|max:191',

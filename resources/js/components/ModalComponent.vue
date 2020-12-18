@@ -10,8 +10,8 @@
                         <p class="text-center">{{ this.config.text }} {{this.config.email}}</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="reset">Close</button>
-                        <button type="submit" class="btn btn-success" data-dismiss="modal" @click="submit">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="reset">Nie</button>
+                        <button type="submit" class="btn btn-success" data-dismiss="modal" @click="submit">Áno</button>
                     </div>
                 </div>
             </form>

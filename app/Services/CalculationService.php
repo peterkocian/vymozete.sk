@@ -8,7 +8,7 @@ use Exception;
 class CalculationService
 {
     private $calculationRepository;
-    private $simpleTableService; //todo
+    private $simpleTableService;
 
     public function __construct(
         CalculationRepositoryInterface $calculationRepository,

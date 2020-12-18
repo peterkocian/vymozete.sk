@@ -83,7 +83,7 @@ class BaseRepository implements EloquentRepositoryInterface
         try {
             $data = $this->model->findOrFail($id);
         } catch (Exception $e) {
-            throw new Exception('Udaje sa nepodarilo najst.'. $e->getMessage()); //todo prelozit exception
+            throw new Exception(__('exception.Not found') . ' ' . $e->getMessage());
         }
 
         $data->update($attributes);

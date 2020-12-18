@@ -18,18 +18,6 @@
             class="form-control form-control-sm"
             name="uploads[]"
         >
-<!--        <input-->
-<!--            id="files"-->
-<!--            ref="files"-->
-<!--            type="file"-->
-<!--            class="form-control form-control-sm"-->
-<!--            name="uploads[]"-->
-<!--            :style="config.multi ? {display:'none'} : null"-->
-<!--            :placeholder="config.placeholder"-->
-<!--            :multiple="config.multi ? 'multiple' : null"-->
-<!--            @change="handleChange($event, 'file')"-->
-<!--        >-->
-
         <button v-if="config.multi" type="button" title="Pridať súbor" v-on:click="addFiles()"><i class="material-icons">playlist_add</i></button>
     </div>
 </template>
@@ -48,15 +36,6 @@
             addFiles(){
                 this.counter++;
             },
-            // handleChange(e, type) {
-            //     if (type === 'file') {
-            //         let uploadedFiles = this.$refs.files.files;
-            //
-            //         for(let i = 0; i < uploadedFiles.length; i++){
-            //             this.files.push( uploadedFiles[i] );
-            //         }
-            //     }
-            // },
             removeFile(id,key){
                 // this.files.splice(key, 1);
                 axios.delete(`/file/${id}/delete`)

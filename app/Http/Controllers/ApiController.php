@@ -27,9 +27,9 @@ class ApiController extends Controller
 
         try {
             $res = $client->request('GET', self::GET_COMPANY_URL . $param . '&private_access_token=' . env('SLOVENSKO_DIGITAL_API_KEY'));
-        } catch (GuzzleException $e) {
+        } catch (\Exception $e) {
             //todo catch exception ked nejde internet
-            report($e);
+            throw $e;
         }
 
         if (isset($res)) {

@@ -52,7 +52,6 @@ class ClaimController extends Controller
 //            }
         }
 
-        //todo classu na formatovanie response podla typu requestu
         if (request()->ajax()) {
             return response()->json([
                 'data' => $result ?? [],
@@ -81,7 +80,7 @@ class ClaimController extends Controller
             'claim'     => $claim,
             'debtor'    => $debtor,
             'creditor'  => $creditor,
-            'files'     => $files['data'], //todo fileservice vracia zle data
+            'files'     => $files['data'],
             'tab'       => self::TAB_OVERVIEW
         ]);
     }

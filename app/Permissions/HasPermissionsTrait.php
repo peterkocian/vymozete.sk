@@ -5,7 +5,6 @@ namespace App\Permissions;
 use App\Models\Permission;
 use App\Models\Role;
 
-//todo prepisat do Repository patternu
 trait HasPermissionsTrait {
 
     /**

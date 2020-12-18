@@ -44,7 +44,7 @@ class UploadAdminClaimFileRequest extends FormRequest
      * @return void
      *
      */
-    protected function failedValidation(Validator $validator) //todo
+    protected function failedValidation(Validator $validator)
     {
         FormRequestHelper::failedValidation($validator->errors());
     }
