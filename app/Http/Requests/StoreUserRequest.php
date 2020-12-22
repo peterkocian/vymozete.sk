@@ -30,7 +30,7 @@ class StoreUserRequest extends FormRequest
         return [
             'name'      => 'required|max:255',
             'surname'   => 'required|max:255',
-            'password'  => ['nullable','confirmed',new StrongPassword()],
+            'password'  => ['confirmed',new StrongPassword()],
             'email'     => ['required','email:dns','unique:users,email,'.$id],
             'roles'     => 'required_without:permissions',
             'permissions' => 'required_without:roles',

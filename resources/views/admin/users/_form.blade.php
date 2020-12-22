@@ -46,15 +46,13 @@
         <select multiple class="form-control {{ $errors->has('roles') ? 'is-invalid' : '' }}" name="roles[]" id="roles">
             @foreach($data['roleList'] as $role)
                 <option value="{{ $role['id'] }}"
-                    @if(isset($data['roles']))
-                        @foreach(old('roles', $data['roles'] ?? null) as $selected)
-                            @if(old('roles'))
-                                @if($selected == $role['id'])selected="selected"@endif
-                            @else
-                                @if($selected['id'] == $role['id'])selected="selected"@endif
-                            @endif
-                        @endforeach
-                    @endif
+                    @foreach(old('roles', $data['roles'] ?? []) as $selected)
+                        @if(old('roles'))
+                            @if($selected == $role['id'])selected="selected"@endif
+                        @else
+                            @if($selected['id'] == $role['id'])selected="selected"@endif
+                        @endif
+                    @endforeach
                 >
                     {{ $role['name'] }}
                 </option>
@@ -71,15 +69,13 @@
         <select multiple class="form-control {{ $errors->has('permissions') ? 'is-invalid' : '' }}" name="permissions[]" id="permissions">
             @foreach($data['permissionList'] as $permission)
                 <option value="{{ $permission['id'] }}"
-                    @if(isset($data['permissions']))
-                        @foreach(old('permissions', $data['permissions'] ?? null) as $selected)
-                            @if(old('permissions'))
-                                @if($selected == $permission['id'])selected="selected"@endif
-                            @else
-                                @if($selected['id'] == $permission['id'])selected="selected"@endif
-                            @endif
-                        @endforeach
-                    @endif
+                    @foreach(old('permissions', $data['permissions'] ?? []) as $selected)
+                        @if(old('permissions'))
+                            @if($selected == $permission['id'])selected="selected"@endif
+                        @else
+                            @if($selected['id'] == $permission['id'])selected="selected"@endif
+                        @endif
+                    @endforeach
                 >
                     {{ $permission['name'] }}
                 </option>

@@ -22,15 +22,13 @@
         <select multiple class="form-control {{ $errors->has('permissions') ? 'is-invalid' : '' }}" name="permissions[]" id="permissions">
             @foreach($data['permissionList'] as $permission)
                 <option value="{{ $permission['id'] }}"
-                    @if(isset($data['permissions']))
-                        @foreach(old('permissions', $data['permissions'] ?? null) as $selected)
-                            @if(old('permissions'))
-                                @if($selected == $permission['id'])selected="selected"@endif
-                            @else
-                                @if($selected['id'] == $permission['id'])selected="selected"@endif
-                            @endif
-                        @endforeach
-                    @endif
+                    @foreach(old('permissions', $data['permissions'] ?? []) as $selected)
+                        @if(old('permissions'))
+                            @if($selected == $permission['id'])selected="selected"@endif
+                        @else
+                            @if($selected['id'] == $permission['id'])selected="selected"@endif
+                        @endif
+                    @endforeach
                 >
                     {{ $permission['name'] }}
                 </option>
@@ -41,4 +39,3 @@
         @endforeach
     </div>
 </div>
-

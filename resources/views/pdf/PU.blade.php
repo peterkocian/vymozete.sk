@@ -83,7 +83,7 @@
             rodné číslo: {{$claim->creditor->entity->id_number}},
             trvalý pobyt: {{$claim->creditor->entity->fullAddress}},
             št. občianstvo: {{$claim->creditor->entity->citizenship}},
-            (ďalej len "veriteľ"), proti dlžníkovi: {{$claim->debtor->entity->fullName}} (ďalej len "dlžník"), o zaplatenie pohľadávky vo výške {{$claim->amount}} {{$claim->currency->code}}  s príslušenstvom, z titulu {{$claim->typeName}}, Vám týmto oznamujeme, že sme prevzali právne zastúpenie veriteľa a uvádzame nasledovné:</p>
+            (ďalej len "veriteľ"), proti dlžníkovi: {{$claim->debtor->entity->fullName}} (ďalej len "dlžník"), o zaplatenie pohľadávky vo výške {{$claim->amount}} {{$claim->currency->code}}  s príslušenstvom, z titulu {{$claim->claimTypeName}}, Vám týmto oznamujeme, že sme prevzali právne zastúpenie veriteľa a uvádzame nasledovné:</p>
         <p>Veriteľ voči Vám k dnešnému eviduje peňažnú pohľadávku v nasledovnej výške:</p>
         <ul>
             <li>Istina vo výške {{$claim->amount}} {{ $claim->currency->code }},</li>

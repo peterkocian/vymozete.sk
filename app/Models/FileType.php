@@ -26,4 +26,18 @@ class FileType extends Model
     {
         return $this->hasMany(File::class);
     }
+
+    public function translations()
+    {
+        return $this->hasMany(FileTypeTranslation::class, 'file_type_id', 'id');
+    }
+
+    public function available_translation($language_id = null)
+    {
+//        if ($language == null) { //todo zvazit ci treba
+//            $language = App::getLocale();
+//        }
+
+        return $this->translations()->where('language_id',$language_id);
+    }
 }

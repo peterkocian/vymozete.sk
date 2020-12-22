@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserProfileAdminRequest;
 use App\Repositories\PermissionRepositoryInterface;
 use App\Repositories\RoleRepositoryInterface;
@@ -159,7 +160,7 @@ class UserController extends Controller
         return abort(Response::HTTP_FORBIDDEN, __('general.Unauthorized'));
     }
 
-    public function update(StoreUserRequest $request, int $id)
+    public function update(UpdateUserRequest $request, int $id)
     {
         $data = $request->validated();
 
@@ -181,13 +182,11 @@ class UserController extends Controller
     public function updateProfile(UserProfileAdminRequest $request, int $id)
     {
         if(Auth::id() === $id) {
-            $data = $request->except('_token', '_method');
+            $data = $request->validated();
 
             try {
                 $result = $this->userService->updateUserProfile($data, $id);
             } catch (\Exception $e) {
-                report($e);
-
                 return back()
                     ->withFail(__('general.Create failed') . ' ' . $e->getMessage())
                     ->withInput();

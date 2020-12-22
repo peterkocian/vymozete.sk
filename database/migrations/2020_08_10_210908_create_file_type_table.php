@@ -16,8 +16,6 @@ class CreateFileTypeTable extends Migration
         Schema::create('file_type', function (Blueprint $table) {
             $table->id();
             $table->string('key');
-            $table->string('name');
-            $table->text('description')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });

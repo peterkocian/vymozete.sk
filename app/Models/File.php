@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Facades\Auth;
 
 class File extends Model
 {
@@ -45,9 +46,18 @@ class File extends Model
         return $this->getShowToCustomerLabel();
     }
 
+    public function getClaimTypeNameAttribute()
+    {
+        return $this->claimType->available_translation(Auth::user()->language_id)->exists()
+            ? $this->claimType->available_translation(Auth::user()->language_id)->firstOrFail()->name
+            : $this->claimType->key;
+    }
+
     public function getFileTypeNameAttribute()
     {
-        return $this->fileType->name;
+        return $this->fileType->available_translation(Auth::user()->language_id)->exists()
+            ? $this->fileType->available_translation(Auth::user()->language_id)->firstOrFail()->name
+            : $this->fileType->key;
     }
 
     /**

@@ -92,7 +92,7 @@ class ClaimRepository extends BaseRepository implements ClaimRepositoryInterface
             'amountWithCurrency',
             'debtorFullName',
             'creditorFullName',
-            'typeName',
+            'claimTypeName',
             'statusName'
         ]);
     }

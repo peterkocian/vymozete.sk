@@ -2631,18 +2631,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['config'],
   data: function data() {
@@ -2656,15 +2644,6 @@ __webpack_require__.r(__webpack_exports__);
     addFiles: function addFiles() {
       this.counter++;
     },
-    // handleChange(e, type) {
-    //     if (type === 'file') {
-    //         let uploadedFiles = this.$refs.files.files;
-    //
-    //         for(let i = 0; i < uploadedFiles.length; i++){
-    //             this.files.push( uploadedFiles[i] );
-    //         }
-    //     }
-    // },
     removeFile: function removeFile(id, key) {
       var _this = this;
 

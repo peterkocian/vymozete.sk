@@ -63,8 +63,8 @@ class UserService
      */
     public function updateUser($data, $id = null)
     {
-        $data['roles'] = $this->setRoles($data['roles'] ?? null, $id);
-        $data['permissions'] = $this->setPermissions($data['permissions'] ?? null, $id);
+        $data['roles'] = $data['roles'] ?? [];
+        $data['permissions'] = $data['permissions'] ?? [];
 
         DB::beginTransaction();
         try {
@@ -99,7 +99,6 @@ class UserService
     public function updateUserProfile(array $data, $id = null)
     {
         DB::beginTransaction();
-
         try {
             $result = $this->userRepository->update($data, $id);
             DB::commit();
@@ -141,26 +140,5 @@ class UserService
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
-    }
-
-
-    private function setRoles(?array $roles, $id): array
-    {
-        if (request()->is('admin/users/*/updateProfile')) {
-            return $roles ?? $this->get($id)->roles;
-        } else if (request()->is('admin/users/*')) {
-            return $roles ?? [];
-        }
-        return [];
-    }
-
-    private function setPermissions(?array $permissions, $id): array
-    {
-        if (request()->is('admin/users/*/updateProfile')) {
-            return $permissions ?? $this->get($id)->permissions;
-        } else if (request()->is('admin/users/*')) {
-            return $permissions ?? [];
-        }
-        return [];
     }
 }

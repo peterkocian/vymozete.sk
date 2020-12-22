@@ -54,7 +54,7 @@
         ],
         [
             'label' => __('claim.Type'),
-            'key' => 'typeName',
+            'key' => 'claimTypeName',
             'map' => 'claim_type_id',
             'type' => 'select',
             'options' => $claimTypes,

@@ -336,7 +336,7 @@
                 }
             },
             reloadData(url = this.config.config.reloadUrl) {
-                this.showOverlay();
+                this.toggleOverlay();
                 axios.get(url, {
                     params: {
                         sortKey: this.sortKey,
@@ -350,9 +350,9 @@
                 }).then(res => {
                     // console.log(res.data); //todo doplnit nacitanie dat res.data.debtors a res.data.creditors
                     this.loadSourceData(res.data.data);
-                    this.hideOverlay();
+                    this.toggleOverlay();
                 }).catch(e => {
-                    this.hideOverlay();
+                    this.toggleOverlay();
                     this.sendErrorFlashMessage(e);
                     // let message = e.response.data.errors ??
                     //               e.response.data.message ??
@@ -392,13 +392,8 @@
                 this.sortDirection === 'asc' ? this.sortDirection = 'desc' : this.sortDirection = 'asc';
                 this.reloadData();
             },
-            showOverlay: function() {
-                // zobrazit loading
-                this.overlay = true;
-            },
-            hideOverlay: function() {
-                // skryt loading
-                this.overlay = false;
+            toggleOverlay() {
+                this.overlay = !this.overlay;
             },
             debounceSearch(key) {
                 clearTimeout(this.debounce);

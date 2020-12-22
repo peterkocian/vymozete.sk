@@ -52,8 +52,12 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $attributes['password'] = isset($attributes['password']) ? bcrypt($attributes['password']) : $user->password;
 
         $user->update($attributes);
-        $user->roles()->sync($attributes['roles']);
-        $user->permissions()->sync($attributes['permissions']);
+        if (isset($attributes['roles'])) {
+            $user->roles()->sync($attributes['roles']);
+        }
+        if (isset($attributes['permissions'])) {
+            $user->permissions()->sync($attributes['permissions']);
+        }
 
         return $user;
     }

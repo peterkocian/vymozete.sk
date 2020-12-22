@@ -54,13 +54,13 @@
                 <div class="form-group row">
                     <label for="claim_type" class="col-12 col-sm-3 col-form-label">{{__('claim.Type')}}</label>
                     <div class="col-12 col-sm-9">
-                        <input class="form-control" type="text" name="claim_type" value="{{ $claim->type_name }}" disabled/>
+                        <input class="form-control" type="text" name="claim_type" value="{{ $claim->claimTypeName }}" disabled/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="claim_status" class="col-12 col-sm-3 col-form-label">{{__('claim.Status')}}</label>
                     <div class="col-12 col-sm-9">
-                        <input class="form-control" type="text" name="claim_status" value="{{ $claim->status_name }}" disabled/>
+                        <input class="form-control" type="text" name="claim_status" value="{{ $claim->statusName }}" disabled/>
                     </div>
                 </div>
 

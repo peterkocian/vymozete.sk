@@ -49,7 +49,7 @@ class Claim extends Model
         return $this->creditor->entity->fullname;
     }
 
-    public function getTypeNameAttribute()
+    public function getClaimTypeNameAttribute()
     {
         return $this->claimType->available_translation(Auth::user()->language_id)->exists()
             ? $this->claimType->available_translation(Auth::user()->language_id)->firstOrFail()->name
