@@ -57828,14 +57828,7 @@ var render = function() {
                   _c("div", { staticClass: "name" }, [
                     _c(
                       "a",
-                      {
-                        attrs: {
-                          href:
-                            "http://vymozete.local/file/" +
-                            file.id +
-                            "/download"
-                        }
-                      },
+                      { attrs: { href: "/file/" + file.id + "/download" } },
                       [_vm._v(_vm._s(file.name))]
                     )
                   ]),

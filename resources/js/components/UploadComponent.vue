@@ -4,7 +4,7 @@
             <p>Zoznam uložených súborov</p>
             <div class="file-list">
                 <div v-for="(file, key) in files" class="item">
-                    <div class="name"><a :href="`http://vymozete.local/file/${file.id}/download`">{{ file.name }}</a></div>
+                    <div class="name"><a :href="`/file/${file.id}/download`">{{ file.name }}</a></div>
                     <i class="material-icons" v-on:click="removeFile(file.id, key)">clear</i>
                 </div>
             </div>
