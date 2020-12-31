@@ -33,4 +33,9 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
 
         return $this->model->fresh();
     }
+
+    public function getDataForSelectbox()
+    {
+        return $this->model->get(['id', 'name as value'])->toArray();
+    }
 }

@@ -22,6 +22,11 @@ class PermissionService
         return $this->simpleTableService->processSimpleTableData($this->permissionRepository, null, false);
     }
 
+    public function getDataForSelectbox()
+    {
+        return $this->permissionRepository->getDataForSelectbox();
+    }
+
     public function get($id)
     {
         return $this->permissionRepository->get($id);

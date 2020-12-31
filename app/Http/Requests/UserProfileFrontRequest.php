@@ -24,14 +24,12 @@ class UserProfileFrontRequest extends FormRequest
      */
     public function rules()
     {
-//        $id = $this->route('user'); //todo vymazat
-        $id = Auth::id();
-
         return [
             'name'      => 'required|max:191',
             'surname'   => 'required|max:191',
-            'email'     => 'required|email|unique:users,email,'.$id,
-            'phone'     => 'nullable|regex:\+[0-9]{12}',
+            'email'     => 'required|email|unique:users,email,'.Auth::id(),
+//            'phone'     => 'nullable|regex:\+[0-9]{12}',
+            'phone'     => 'nullable',
             'language_id'  => 'required',
         ];
     }

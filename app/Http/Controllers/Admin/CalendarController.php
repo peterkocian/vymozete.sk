@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Utils;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SplatkySaveRequest;
 use App\Services\CalendarService;
@@ -38,7 +39,7 @@ class CalendarController extends Controller
             'amount'   => $claim['amount'],
             'currency' => $claim['currency']['symbol'],
             'events'   => $data['events'],
-            'sum'      => round($data['sum'],2),
+            'sum'      => Utils::twoDecimal($data['sum']),
             'tab'      => 'calendar',
         ]);
     }
@@ -57,7 +58,7 @@ class CalendarController extends Controller
                 ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
             } else {
                 return redirect()
-                    ->route('admin.claims.notes.allByClaimId', $claim_id)
+                    ->route('admin.claims.calendar.allByClaimId', $claim_id)
                     ->withFail(__('general.Create failed') . ' ' . $e->getMessage());
             }
         }

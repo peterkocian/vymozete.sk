@@ -15,7 +15,7 @@ class CurrencyService
         $this->currencyRepository = $currencyRepository;
     }
 
-    public function all()
+    public function getDataForSelectbox()
     {
         return $this->currencyRepository->getDataForSelectbox();
     }

@@ -3,14 +3,14 @@
         <div class="row">
             <div class="col">
                 <div class="form-group row">
-                    <label for="totalAmount" class="col-sm-3 col-form-label">Celková suma</label>
-                    <div class="col-sm-9">
+                    <label for="totalAmount" class="col-sm-4 col-md-3 col-form-label">Celková suma ({{config.currency}})</label>
+                    <div class="col-sm-4">
                         <input type="number" class="form-control" name="totalAmount" id="totalAmount" :value="config.amount" disabled>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="amount" class="col-sm-3 col-form-label">Generovanie</label>
-                    <div class="col-sm-9">
+                    <label for="amount" class="col-sm-4 col-md-3 col-form-label">Generovanie</label>
+                    <div class="col-sm-4">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="type" id="automatic" value="automatic" v-model="type">
                             <label class="form-check-label" for="automatic">automatické</label>
@@ -23,8 +23,8 @@
                 </div>
                 <div v-if="type === 'automatic'">
                     <div class="form-group row">
-                        <label for="date" class="col-sm-3 col-form-label">Prvá splátka</label>
-                        <div class="col-sm-9">
+                        <label for="date" class="col-sm-4 col-md-3 col-form-label">Prvá splátka</label>
+                        <div class="col-sm-4">
                             <date-picker
                                 v-model="startDate"
                                 :lang="lang"
@@ -40,14 +40,14 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="amount" class="col-sm-3 col-form-label">Výška splátky</label>
-                        <div class="col-sm-9">
+                        <label for="amount" class="col-sm-4 col-md-3 col-form-label">Výška splátky ({{config.currency}})</label>
+                        <div class="col-sm-4">
                             <input @focusin="blockSave(true)" @focusout="blockSave(false)" class="form-control" type="number" step="0.01" v-model.number="vyskaSplatky" name="amount" id="amount" min="1" :max="config.amount" @input="vypocitajPocetSplatok()">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="pocetSplatok" class="col-sm-3 col-form-label">Počet splátok</label>
-                        <div class="col-sm-9">
+                        <label for="pocetSplatok" class="col-sm-4 col-md-3 col-form-label">Počet splátok</label>
+                        <div class="col-sm-4">
                             <input @focusin="blockSave(true)" @focusout="blockSave(false)" class="form-control" type="number" v-model.number="pocetSplatok" name="pocetSplatok" id="pocetSplatok" min="1" @input="vypocitajVyskuSplatky()">
                         </div>
                     </div>
@@ -62,8 +62,8 @@
                 </div>
 
                 <div v-else-if="type === 'manual'" class="form-group row">
-                    <label for="amountCheckSum" class="col-sm-3 col-form-label">Zostatok</label>
-                    <div class="col-sm-9">
+                    <label for="amountCheckSum" class="col-sm-4 col-md-3 col-form-label">Zostatok</label>
+                    <div class="col-sm-4">
                         <input type="number" class="form-control" name="amountCheckSum" id="amountCheckSum" :value="amountCheckSum" disabled>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                             <tr>
                                 <th>Pč.</th>
                                 <th>Dátum</th>
-                                <th>Splátka</th>
+                                <th>Splátka ({{config.currency}})</th>
                                 <th></th>
                             </tr>
                         </thead>

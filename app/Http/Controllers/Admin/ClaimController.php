@@ -119,7 +119,12 @@ class ClaimController extends Controller
 
     public function creditor(int $claim_id)
     {
-        $creditor = $this->claimService->getCreditor($claim_id);
+        try {
+            $creditor = $this->claimService->getCreditor($claim_id);
+        } catch (\Exception $e) {
+            return back()
+                ->withFail($e->getMessage());
+        }
 
         return view('admin.claims.main', [
             'claim_id'  => $claim_id,
@@ -130,7 +135,12 @@ class ClaimController extends Controller
 
     public function debtor(int $claim_id)
     {
-        $debtor = $this->claimService->getDebtor($claim_id);
+        try {
+            $debtor = $this->claimService->getDebtor($claim_id);
+        } catch (\Exception $e) {
+            return back()
+                ->withFail($e->getMessage());
+        }
 
         return view('admin.claims.main', [
             'claim_id'  => $claim_id,

@@ -58,6 +58,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(LanguageRepositoryInterface::class, LanguageRepository::class);
         $this->app->bind(CalculationRepositoryInterface::class, CalculationRepository::class);
         $this->app->bind(CalendarRepositoryInterface::class, CalendarRepository::class);
+        $this->app->bind(FileTypeRepositoryInterface::class, FileTypeRepository::class);
     }
 
     /**

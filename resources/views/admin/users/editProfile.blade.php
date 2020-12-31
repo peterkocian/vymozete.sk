@@ -34,6 +34,15 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="phone" class="col-sm-3 col-form-label">{{__('user.Phone')}}</label>
+                    <div class="col-sm-9">
+                        <input class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" type="text" name="phone" id="phone" value="{{ $user->phone }}" />
+                        @error('phone')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="password" class="col-sm-3 col-form-label">{{__('user.Password')}}</label>
                     <div class="col-sm-9">
                         <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="password" name="password" id="password"/>

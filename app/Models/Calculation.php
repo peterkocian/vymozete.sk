@@ -39,13 +39,12 @@ class Calculation extends Model
     }
 
     /**
-     * Vzdy ked pristupime ku atributu date, tak sa automaticky naformatuje podla tohto formatu
+     * Vracia naformatovany datum 'date'
      *
-     * @param $value
      * @return false|string
      */
-    public function getDateAttribute($value) {
-        return date('d.m.Y', strtotime($value));
+    public function getFormatedDateAttribute() {
+        return date('d.m.Y', strtotime($this->date));
     }
 
     /**

@@ -5,20 +5,24 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoleRequest;
 use App\Repositories\PermissionRepositoryInterface;
+use App\Services\PermissionService;
 use App\Services\RoleService;
 use Illuminate\Http\Response;
 
 class RoleController extends Controller
 {
     private $roleService;
+    private $permissionService;
     private $permissionRepository;
 
     public function __construct(
         RoleService $roleService,
+        PermissionService $permissionService,
         PermissionRepositoryInterface $permissionRepository
     )
     {
         $this->roleService = $roleService;
+        $this->permissionService = $permissionService;
         $this->permissionRepository = $permissionRepository;
     }
 
@@ -28,7 +32,6 @@ class RoleController extends Controller
         try {
             $result = $this->roleService->all();
         } catch (\Exception $e) {
-            report($e);
             request()->session()->now('fail', $e->getMessage());
         }
 
@@ -42,15 +45,14 @@ class RoleController extends Controller
     public function create()
     {
         try {
-            $permissions = $this->permissionRepository->all();
+            $permissionList = $this->permissionService->getDataForSelectbox();
         } catch (\Exception $e) {
-            report($e);
             return back()
                 ->withFail($e->getMessage());
         }
 
         $data = [
-            'permissionList' => $permissions,
+            'permissionList' => $permissionList,
         ];
 
         return view('admin.roles.create', ['data' => $data]);
@@ -69,8 +71,6 @@ class RoleController extends Controller
         try {
             $result = $this->roleService->saveRole($data);
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail(__('general.Create failed').' '.$e->getMessage())
                 ->withInput();
@@ -86,8 +86,6 @@ class RoleController extends Controller
         try {
             $result = $this->roleService->get($id);
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail($e->getMessage());
         }
@@ -99,14 +97,12 @@ class RoleController extends Controller
     {
         try {
             $data = $this->roleService->get($id);
-            $permissions = $this->permissionRepository->all();
+            $permissionList = $this->permissionService->getDataForSelectbox();
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail($e->getMessage());
         }
-        $data['permissionList'] = $permissions;
+        $data['permissionList'] = $permissionList;
 
         return view('admin.roles.edit', ['data' => $data]);
     }
@@ -118,8 +114,6 @@ class RoleController extends Controller
         try {
             $result = $this->roleService->updateRole($data, $id);
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail(__('general.Update failed'). ' ' .$e->getMessage())
                 ->withInput();
@@ -147,8 +141,6 @@ class RoleController extends Controller
                     ->withSuccess(__('general.Deleted successfully'));
             }
         } catch (\Exception $e) {
-            report($e);
-
             if (request()->ajax()) {
                 return response()->json([
                     'success' => false,

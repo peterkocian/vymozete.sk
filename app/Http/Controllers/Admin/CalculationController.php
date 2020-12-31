@@ -2,40 +2,55 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Utils;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CalculationSaveRequest;
-use App\Repositories\Eloquent\CurrencyRepository;
 use App\Services\CalculationService;
 use App\Services\ClaimService;
+use App\Services\CurrencyService;
 use Illuminate\Http\Response;
 
 class CalculationController extends Controller
 {
     protected $calculationService;
-    protected $currencyRepository;
+    protected $currencyService;
     protected $claimService;
 
     public function __construct(
         CalculationService $calculationService,
-        CurrencyRepository $currencyRepository,
+        CurrencyService $currencyService,
         ClaimService $claimService
     )
     {
         $this->calculationService = $calculationService;
-        $this->currencyRepository = $currencyRepository;
+        $this->currencyService = $currencyService;
         $this->claimService = $claimService;
     }
 
     public function getAllByClaimId(int $claim_id)
     {
-        $currencies = $this->currencyRepository->getDataForSelectbox();
-        $result = $this->calculationService->calculationsByClaimId($claim_id);
+        try {
+            $currencyList = $this->currencyService->getDataForSelectbox();
+            $result = $this->calculationService->calculationsByClaimId($claim_id);
 
-        $claim = $this->claimService->get($claim_id);
-        $trovy = $this->calculationService->getTrovy($claim);
-        $urok = $claim->getUrok();
-        $summary = $this->calculationService->summary($claim, $trovy * 1.2, $urok);
-        $vymozene = $this->calculationService->getVymozete($claim['id']);
+            $claim = $this->claimService->get($claim_id);
+            $trovy = $this->calculationService->getTrovy($claim);
+            $urok = $claim->getUrok();
+            $summary = $this->calculationService->summary($claim, $trovy * 1.2, $urok);
+            $vymozene = $this->calculationService->getVymozete($claim['id']);
+        } catch (\Exception $e) {
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage(),
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            } else {
+                return redirect()
+                    ->route('admin.claims.calculations.allByClaimId', $claim['id'])
+                    ->withFail(__('general.Delete failed') . ' ' . $e->getMessage());
+            }
+        }
+
 
         if (request()->ajax()) {
             return response()->json([
@@ -46,19 +61,19 @@ class CalculationController extends Controller
         return view('admin.claims.main', [
             'claim_id' => $claim_id,
             'data' => $result,
-            'currencies' => $currencies,
+            'currencies' => $currencyList,
             'tab' => 'calculations',
 
             'payment_due_date' => $claim->payment_due_date,
             'amount_with_currency' => $claim->amountWithCurrency,
-            'trovy' => $trovy,
-            'trovyDPH' => $trovy * 1.2,
-            'urok' => $urok,
-            'summary' => $summary,
-            'vymozene' => $vymozene,
-            'provizia' => $vymozene * 0.2,
-            'clientCashBack' => $vymozene * 0.8,
-            'vymoct' => $summary - $vymozene,
+            'trovy' => Utils::twoDecimal($trovy),
+            'trovyDPH' => Utils::twoDecimal($trovy * 1.2),
+            'urok' => Utils::twoDecimal($urok),
+            'summary' => Utils::twoDecimal($summary),
+            'vymozene' => Utils::twoDecimal($vymozene),
+            'provizia' => Utils::twoDecimal($vymozene * 0.2),
+            'clientCashBack' => Utils::twoDecimal($vymozene * 0.8),
+            'vymoct' => Utils::twoDecimal($summary - $vymozene),
         ]);
     }
 
@@ -69,13 +84,11 @@ class CalculationController extends Controller
         try {
             $result = $this->calculationService->saveCalculation($data, $claim_id);
         } catch (\Exception $e) {
-            report($e);
-
             if ($request->ajax()) {
                 return response()->json([
                     'success' => false,
                     'message' => __('general.Create failed') . ' ' . $e->getMessage(),
-                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
             } else {
                 return redirect()
                     ->route('admin.claims.calculations.allByClaimId', $claim_id)
@@ -98,11 +111,9 @@ class CalculationController extends Controller
     public function edit(int $claim_id, int $calculation_id)
     {
         try {
-            $currencies = $this->currencyRepository->getDataForSelectbox();
+            $currencyList = $this->currencyService->getDataForSelectbox();
             $result = $this->calculationService->get($calculation_id);
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail($e->getMessage());
         }
@@ -110,7 +121,7 @@ class CalculationController extends Controller
         return view('admin.calculations.edit', [
             'data' => $result,
             'claim_id' => $claim_id,
-            'currencies' => $currencies,
+            'currencies' => $currencyList,
         ]);
     }
 
@@ -125,8 +136,6 @@ class CalculationController extends Controller
                 ->route('admin.claims.calculations.allByClaimId', $claim_id)
                 ->withSuccess(__('general.Updated successfully'));
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail(__('general.Update failed') . ' ' . $e->getMessage())
                 ->withInput();
@@ -146,7 +155,7 @@ class CalculationController extends Controller
                 ], Response::HTTP_OK);
             } else {
                 return redirect()
-                    ->route('admin.claims.notes.allByClaimId', $claim_id)
+                    ->route('admin.claims.calculations.allByClaimId', $claim_id)
                     ->withSuccess(__('general.Deleted successfully'));
             }
         } catch (\Exception $e) {
@@ -155,11 +164,42 @@ class CalculationController extends Controller
                     'success' => false,
                     'id' => $calculation_id,
                     'message' => $e->getMessage(),
-                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
             } else {
                 return redirect()
-                    ->route('admin.claims.notes.allByClaimId', $claim_id)
+                    ->route('admin.claims.calculations.allByClaimId', $claim_id)
                     ->withFail(__('general.Delete failed') . ' ' . $e->getMessage());
+            }
+        }
+    }
+
+    public function togglePayed(int $claim_id, int $calculation_id)
+    {
+        try {
+            $this->calculationService->togglePayed($calculation_id);
+
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'id' => $calculation_id,
+                    'message' => __('general.Updated successfully'),
+                ], Response::HTTP_OK);
+            } else {
+                return redirect()
+                    ->route('admin.claims.calculations.allByClaimId', $claim_id)
+                    ->withSuccess(__('general.Updated successfully'));
+            }
+        } catch (\Exception $e) {
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'id' => $calculation_id,
+                    'message' => $e->getMessage(),
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            } else {
+                return redirect()
+                    ->route('admin.claims.calculations.allByClaimId', $claim_id)
+                    ->withFail(__('general.Update failed') . ' ' . $e->getMessage());
             }
         }
     }

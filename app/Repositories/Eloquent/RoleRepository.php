@@ -50,4 +50,9 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface
 
         return $role;
     }
+
+    public function getDataForSelectbox()
+    {
+        return $this->model->get(['id', 'name as value'])->toArray();
+    }
 }

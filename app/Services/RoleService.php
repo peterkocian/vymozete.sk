@@ -22,6 +22,11 @@ class RoleService
         return $this->simpleTableService->processSimpleTableData($this->roleRepository, null, false);
     }
 
+    public function getDataForSelectbox()
+    {
+        return $this->roleRepository->getDataForSelectbox();
+    }
+
     public function get($id)
     {
         return $this->roleRepository->get($id);

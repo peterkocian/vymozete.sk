@@ -38,11 +38,7 @@
             <div class="form-group row">
                 <label for="permissions" class="col-sm-3 col-form-label">{{__('role.Permissions')}}</label>
                 <div class="col-sm-9">
-                    <select multiple class="form-control" name="permissions[]" id="permissions" disabled>
-                        @foreach($role->permissionList() as $permission)
-                            <option value="{{ $permission->id }}" @foreach($role->permissions as $selectedPermission) @if($selectedPermission->id == $permission->id)selected="selected"@endif @endforeach>{{ $permission->name }}</option>
-                        @endforeach
-                    </select>
+                    <input class="form-control" type="text" name="permissions" value="{{ $role->permissionsToString() }}" disabled/>
                 </div>
             </div>
             <div class="form-group row">

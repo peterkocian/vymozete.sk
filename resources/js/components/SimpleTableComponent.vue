@@ -275,20 +275,24 @@
                 };
             },
             createItem(url) {
+                this.toggleOverlay();
                 axios.post(url, this.newEntry)
                     .then(res => {
+                        this.toggleOverlay();
                         this.errors = {};
                         this.setDefaultValue();
                         this.reloadData();
                         flash({text: res.data.message, type:'success', timer:3000 });
                     }).catch(e => {
                         // console.log(e.response.data.errors);
+                        this.toggleOverlay();
                         this.sendErrorFlashMessage(e);
                         // this.errors = e.response.data.errors;
                         // flash({text: `${e.response.data.message}`, type:'error', timer:null });
                     });
             },
             submitFiles(url) {
+                this.toggleOverlay();
                 let formData = new FormData();
                 this.newEntry.file = this.files;
                 // formData.append('test', JSON.stringify(this.newEntry));
@@ -315,9 +319,11 @@
                         // console.log(res.data)
                         this.errors = {};
                         this.setDefaultValue();
+                        this.toggleOverlay();
                         this.reloadData();
                         flash({text: res.data.message, type:'success', timer:3000 });
                     }).catch(e => {
+                        this.toggleOverlay();
                         this.sendErrorFlashMessage(e);
                         // this.errors = e.response.data.errors;
                         // flash({text: `${e.response.data.message}`, type:'error', timer:null });
@@ -349,8 +355,8 @@
                     }
                 }).then(res => {
                     // console.log(res.data); //todo doplnit nacitanie dat res.data.debtors a res.data.creditors
-                    this.loadSourceData(res.data.data);
                     this.toggleOverlay();
+                    this.loadSourceData(res.data.data);
                 }).catch(e => {
                     this.toggleOverlay();
                     this.sendErrorFlashMessage(e);
@@ -402,8 +408,8 @@
                 }, 600);
             },
             sendErrorFlashMessage(e) {
-                let message = e.response.data.errors ??
-                              e.response.data.message ??
+                this.errors = e.response.data.errors;
+                let message = e.response.data.message ??
                               e;
                 flash({text: message, type:'error', timer:null });
             }

@@ -53,6 +53,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')
             ]);
 
             Route::get('/claims/{claim}/calculations', 'CalculationController@getAllByClaimId')->name('claims.calculations.allByClaimId');
+            Route::post('/claims/{claim}/calculations/{calculation}/togglePayed', 'CalculationController@togglePayed')->name('claims.calculations.togglePayed');
             Route::resource('/claims/{claim}/calculations', 'CalculationController')->only(['store', 'update', 'destroy', 'edit'])->names([
                 'store' => 'claims.calculations.store',
                 'update' => 'claims.calculations.update',

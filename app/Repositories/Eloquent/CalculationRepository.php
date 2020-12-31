@@ -54,7 +54,8 @@ class CalculationRepository extends BaseRepository implements CalculationReposit
     {
         return $data->append([
             'amountWithCurrency',
-            'paidLabel'
+            'paidLabel',
+            'formatedDate'
         ]);
     }
 

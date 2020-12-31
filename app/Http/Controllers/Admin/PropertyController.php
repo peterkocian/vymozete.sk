@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PropertySaveRequest;
-use App\Repositories\Eloquent\CurrencyRepository;
+use App\Services\CurrencyService;
 use App\Services\PropertyService;
 use Illuminate\Http\Response;
 
@@ -12,14 +12,15 @@ class PropertyController extends Controller
 {
     protected $propertyService;
     protected $currencyRepository;
+    protected $currencyService;
 
     public function __construct(
         PropertyService $propertyService,
-        CurrencyRepository $currencyRepository
+        CurrencyService $currencyService
     )
     {
         $this->propertyService = $propertyService;
-        $this->currencyRepository = $currencyRepository;
+        $this->currencyService = $currencyService;
     }
 
     public function index()
@@ -29,7 +30,7 @@ class PropertyController extends Controller
 
     public function getAllByClaimId(int $claim_id)
     {
-        $currencies = $this->currencyRepository->getDataForSelectbox();
+        $currencies = $this->currencyService->getDataForSelectbox();
         $result = $this->propertyService->propertyByClaimId($claim_id);
 
         if (request()->ajax()) {
@@ -47,37 +48,32 @@ class PropertyController extends Controller
 
     public function store(PropertySaveRequest $request, int $claim_id)
     {
-        if ($request->ajax())
-        {
-            $data = $request->validated();
+        $data = $request->validated();
 
-            try {
-                $result = $this->propertyService->saveProperty($data, $claim_id);
-            } catch (\Exception $e) {
-                report($e);
-
-                if ($request->ajax()) {
-                    return response()->json([
-                        'success' => false,
-                        'message' => __('general.Create failed') . ' ' . $e->getMessage(),
-                    ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
-                } else {
-                    return redirect()
-                        ->route('admin.claims.properties.allByClaimId', $claim_id)
-                        ->withFail(__('general.Create failed') . ' ' . $e->getMessage());
-                }
-            }
-
+        try {
+            $result = $this->propertyService->saveProperty($data, $claim_id);
+        } catch (\Exception $e) {
             if ($request->ajax()) {
                 return response()->json([
-                    'success' => true,
-                    'id' => $result->id,
-                    'message' => __('general.Created successfully'),
-                ], Response::HTTP_CREATED);
+                    'success' => false,
+                    'message' => __('general.Create failed') . ' ' . $e->getMessage(),
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
             } else {
-                return back()
-                    ->withSuccess(__('general.Created successfully'));
+                return redirect()
+                    ->route('admin.claims.properties.allByClaimId', $claim_id)
+                    ->withFail(__('general.Create failed') . ' ' . $e->getMessage());
             }
+        }
+
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'id' => $result->id,
+                'message' => __('general.Created successfully'),
+            ], Response::HTTP_CREATED);
+        } else {
+            return back()
+                ->withSuccess(__('general.Created successfully'));
         }
     }
 
@@ -103,7 +99,7 @@ class PropertyController extends Controller
                     'success' => false,
                     'id' => $property_id,
                     'message' => $e->getMessage(),
-                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+                ],Response::HTTP_INTERNAL_SERVER_ERROR);
             } else {
                 return redirect()
                     ->route('admin.claims.properties.allByClaimId', $claim_id)

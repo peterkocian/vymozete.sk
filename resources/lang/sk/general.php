@@ -20,6 +20,8 @@ return [
     'Set new password' => 'Nastaviť nové heslo',
     'Search placeholder' => 'Hľadať',
     'Choose' => 'vyberte',
+    'Toggle payed' => 'Zmeniť zaplatená',
+    'Confirmation toggle payed' => 'Naozaj chcete zmeniť stav položky?',
 
     'Company name' => 'Názov',
     'ICO' => 'IČO',

@@ -80,6 +80,18 @@ class User extends Authenticatable
     }
 
     /**
+     * Format the user's phone.
+     * Pred ulozenim do DB sa kazde phone naformatuje => vymazu sa medzery
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setPhoneAttribute($value)
+    {
+        $this->attributes['phone'] = strtr($value,[' '=>'']);
+    }
+
+    /**
      * Function returns user's full name
      *
      * @return string

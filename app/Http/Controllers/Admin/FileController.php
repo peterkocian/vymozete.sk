@@ -5,30 +5,30 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadAdminClaimFileRequest;
 use App\Services\FileService;
+use App\Services\FileTypeService;
 use Illuminate\Http\Response;
-use App\Repositories\Eloquent\FileTypeRepository;
 
 class FileController extends Controller
 {
     const TAB_DOCUMENTS = 'documents';
 
-    protected $fileTypeRepository;
+    protected $fileTypeService;
     protected $fileService;
 
     public function __construct(
-        FileTypeRepository $fileTypeRepository,
+        FileTypeService $fileTypeService,
         FileService $fileService
     )
     {
-        $this->fileTypeRepository = $fileTypeRepository;
+        $this->fileTypeService = $fileTypeService;
         $this->fileService = $fileService;
     }
 
     public function getAllByClaimId(int $claim_id)
     {
         $result = $this->fileService->filesByClaimId($claim_id);
-        $fileTypes = $this->fileTypeRepository->getDataForSelectbox();
-        
+        $fileTypes = $this->fileTypeService->getDataForSelectbox();
+
         if (request()->ajax()) {
             return response()->json([
                 'data' => $result

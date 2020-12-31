@@ -106,6 +106,16 @@ trait HasPermissionsTrait {
     }
 
     /**
+     * Get all User's roles as string separate with comma
+     *
+     * @return string
+     */
+    public function rolesToString()
+    {
+        return $this->formatData($this->roles);
+    }
+
+    /**
      * Get all User's permissions
      * Nutne aplikovat na user model
      *
@@ -114,6 +124,16 @@ trait HasPermissionsTrait {
     public function permissions()
     {
         return $this->belongsToMany(Permission::class,'user_has_permission');
+    }
+
+    /**
+     * Get all User's permissions as string separate with comma
+     *
+     * @return string
+     */
+    public function permissionsToString()
+    {
+        return $this->formatData($this->permissions);
     }
 
     /**
@@ -153,5 +173,18 @@ trait HasPermissionsTrait {
     protected function getAllPermissions(array $permissions)
     {
         return Permission::whereIn('slug',$permissions)->get();
+    }
+
+    protected function formatData($data, $separator = ', ')
+    {
+        $result = '';
+        foreach ($data as $key => $value) {
+            if ($key < count($data) - 1) {
+                $result .= $value['name'] . $separator;
+            } else {
+                $result .= $value['name'];
+            }
+        }
+        return $result;
     }
 }

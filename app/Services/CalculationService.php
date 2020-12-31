@@ -58,6 +58,17 @@ class CalculationService
         }
     }
 
+    public function togglePayed($id)
+    {
+        try {
+            $data = $this->get($id)->toArray();
+            $data['paid'] = ($data['paid'] === 1) ? 0 : 1;
+            return $this->calculationRepository->update($data, $id);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
     public function getTrovy($claim): float
     {
         $fee = 0;

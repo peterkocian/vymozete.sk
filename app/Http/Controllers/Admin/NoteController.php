@@ -41,8 +41,6 @@ class NoteController extends Controller
         try {
             $result = $this->noteService->saveNote($data, $claim_id);
         } catch (\Exception $e) {
-            report($e);
-
             if ($request->ajax()) {
                 return response()->json([
                     'success' => false,
@@ -72,8 +70,6 @@ class NoteController extends Controller
         try {
             $result = $this->noteService->get($note_id);
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail($e->getMessage());
         }
@@ -92,8 +88,6 @@ class NoteController extends Controller
                 ->route('admin.claims.notes.allByClaimId', $claim_id)
                 ->withSuccess(__('general.Updated successfully'));
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail(__('general.Update failed') . ' ' . $e->getMessage())
                 ->withInput();

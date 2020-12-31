@@ -20,6 +20,8 @@ return [
     'Set new password' => 'Set new password',
     'Search placeholder' => 'Search',
     'Choose' => 'choose',
+    'Toggle payed' => 'Toggle payed',
+    'Confirmation toggle payed' => 'Are you sure?',
 
     'Company name' => 'Company',
     'ICO' => 'ID',

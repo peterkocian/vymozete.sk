@@ -22,8 +22,6 @@ class PermissionController extends Controller
         try {
             $result = $this->permissionService->all();
         } catch (\Exception $e) {
-            report($e);
-
             request()->session()->now('fail', $e->getMessage());
         }
 
@@ -52,8 +50,6 @@ class PermissionController extends Controller
         try {
             $result = $this->permissionService->savePermission($data);
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail(__('general.Create failed') . ' ' . $e->getMessage())
                 ->withInput();
@@ -69,8 +65,6 @@ class PermissionController extends Controller
         try {
             $result = $this->permissionService->get($id);
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail($e->getMessage());
         }
@@ -83,8 +77,6 @@ class PermissionController extends Controller
         try {
             $data = $this->permissionService->get($id);
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail($e->getMessage());
         }
@@ -99,8 +91,6 @@ class PermissionController extends Controller
         try {
             $result = $this->permissionService->updatePermission($data, $id);
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail(__('general.Update failed') . ' ' . $e->getMessage())
                 ->withInput();
@@ -128,14 +118,12 @@ class PermissionController extends Controller
                     ->withSuccess(__('general.Deleted successfully'));
             }
         } catch (\Exception $e) {
-            report($e);
-
             if (request()->ajax()) {
                 return response()->json([
                     'success' => false,
                     'id' => $id,
                     'message' => $e->getMessage(),
-                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED); // todo opravit v celom kode, nie je to bezpecne
+                ],Response::HTTP_INTERNAL_SERVER_ERROR); // todo opravit v celom kode
             } else {
                 return redirect()
                     ->route('admin.permissions.index')

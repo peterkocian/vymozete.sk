@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserProfileAdminRequest;
-use App\Repositories\PermissionRepositoryInterface;
-use App\Repositories\RoleRepositoryInterface;
+use App\Services\PermissionService;
+use App\Services\RoleService;
 use App\Services\UserService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -19,18 +19,18 @@ use Illuminate\View\View;
 class UserController extends Controller
 {
     private $userService;
-    private $roleRepository;
-    private $permissionRepository;
+    private $roleService;
+    private $permissionService;
 
     public function __construct(
         UserService $userService,
-        RoleRepositoryInterface $roleRepository,
-        PermissionRepositoryInterface $permissionRepository
+        RoleService $roleService,
+        PermissionService $permissionService,
     )
     {
         $this->userService = $userService;
-        $this->roleRepository = $roleRepository;
-        $this->permissionRepository = $permissionRepository;
+        $this->roleService = $roleService;
+        $this->permissionService = $permissionService;
     }
 
     /**
@@ -44,8 +44,6 @@ class UserController extends Controller
         try {
             $result = $this->userService->all();
         } catch (\Exception $e) {
-            report($e);
-
             request()->session()->now('fail', $e->getMessage());
         }
 
@@ -64,18 +62,16 @@ class UserController extends Controller
     public function create()
     {
         try {
-            $roles = $this->roleRepository->all();
-            $permissions = $this->permissionRepository->all();
+            $roleList = $this->roleService->getDataForSelectbox();
+            $permissionList = $this->permissionService->getDataForSelectbox();
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail($e->getMessage());
         }
 
         $data = [
-            'roleList' => $roles,
-            'permissionList' => $permissions,
+            'roleList' => $roleList,
+            'permissionList' => $permissionList,
         ];
 
         return view('admin.users.create', ['data' => $data]);
@@ -94,8 +90,6 @@ class UserController extends Controller
         try {
             $result = $this->userService->saveUser($data);
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail(__('general.Create failed').' '.$e->getMessage())
                 ->withInput();
@@ -115,8 +109,6 @@ class UserController extends Controller
         try {
             $result = $this->userService->get($id);
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail($e->getMessage());
         }
@@ -128,17 +120,15 @@ class UserController extends Controller
     {
         try {
             $data = $this->userService->get($id);
-            $roles = $this->roleRepository->all();
-            $permissions = $this->permissionRepository->all();
+            $roleList = $this->roleService->getDataForSelectbox();
+            $permissionList = $this->permissionService->getDataForSelectbox();
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail($e->getMessage());
         }
 
-        $data['roleList'] = $roles;
-        $data['permissionList'] = $permissions;
+        $data['roleList'] = $roleList;
+        $data['permissionList'] = $permissionList;
 
         return view('admin.users.edit', ['data' => $data]);
     }
@@ -167,8 +157,6 @@ class UserController extends Controller
         try {
             $result = $this->userService->updateUser($data, $id);
         } catch (\Exception $e) {
-            report($e);
-
             return back()
                 ->withFail(__('general.Create failed').' '.$e->getMessage())
                 ->withInput();
@@ -220,8 +208,6 @@ class UserController extends Controller
                     ->withSuccess(__('general.Deleted successfully'));
             }
         } catch (\Exception $e) {
-            report($e);
-
             if (request()->ajax()) {
                 return response()->json([
                     'success' => false,
@@ -253,8 +239,6 @@ class UserController extends Controller
                     ->withSuccess(__('general.Banned successfully'));
             }
         } catch (\Exception $e) {
-            report($e);
-
             if (request()->ajax()) {
                 return response()->json([
                     'success' => false,
@@ -286,8 +270,6 @@ class UserController extends Controller
                     ->withSuccess(__('general.Unbanned successfully'));
             }
         } catch (\Exception $e) {
-            report($e);
-
             if (request()->ajax()) {
                 return response()->json([
                     'success' => false,

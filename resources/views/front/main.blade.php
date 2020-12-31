@@ -110,8 +110,8 @@
         <div class="box_grey">
             <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
-                <div class="box_mini_title">Nevrátená pôžička</div>
-                <a class="small_btn" href="/claim/type?claim_type_id=3">+ pridať</a>
+                <div class="box_mini_title">Nesplatená pôžička</div>
+                <a class="small_btn" href="/claim/type?claim_type_id=2">+ pridať</a>
             </div>
         </div>
 
@@ -119,7 +119,7 @@
             <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
                 <div class="box_mini_title">Nevyplatená zmenka</div>
-                <a class="small_btn" href="/claim/type?claim_type_id=4">+ pridať</a>
+                <a class="small_btn" href="/claim/type?claim_type_id=3">+ pridať</a>
             </div>
         </div>
 
@@ -127,7 +127,7 @@
             <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
                 <div class="box_mini_title">Nevyplatené nájomné</div>
-                <a class="small_btn" href="/claim/type?claim_type_id=5">+ pridať</a>
+                <a class="small_btn" href="/claim/type?claim_type_id=4">+ pridať</a>
             </div>
         </div>
 
@@ -135,7 +135,7 @@
             <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
                 <div class="box_mini_title">Nevyplatená mzda</div>
-                <a class="small_btn" href="/claim/type?claim_type_id=6">+ pridať</a>
+                <a class="small_btn" href="/claim/type?claim_type_id=5">+ pridať</a>
             </div>
         </div>
 
@@ -143,7 +143,7 @@
             <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
                 <div class="box_mini_title">Nevyplatené poistné plnenie</div>
-                <a class="small_btn" href="/claim/type?claim_type_id=7">+ pridať</a>
+                <a class="small_btn" href="/claim/type?claim_type_id=6">+ pridať</a>
             </div>
         </div>
 
@@ -151,7 +151,7 @@
             <img class="box_icon" src="{{ asset('front/images/icon.svg') }}">
             <div class="box_mini">
                 <div class="box_mini_title">Náhrada škody</div>
-                <a class="small_btn" href="/claim/type?claim_type_id=8">+ pridať</a>
+                <a class="small_btn" href="/claim/type?claim_type_id=7">+ pridať</a>
             </div>
         </div>
     </div>

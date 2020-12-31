@@ -54,7 +54,7 @@
                         @endif
                     @endforeach
                 >
-                    {{ $role['name'] }}
+                    {{ $role['value'] }}
                 </option>
             @endforeach
         </select>
@@ -77,7 +77,7 @@
                         @endif
                     @endforeach
                 >
-                    {{ $permission['name'] }}
+                    {{ $permission['value'] }}
                 </option>
             @endforeach
         </select>

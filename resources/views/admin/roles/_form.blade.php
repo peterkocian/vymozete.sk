@@ -30,7 +30,7 @@
                         @endif
                     @endforeach
                 >
-                    {{ $permission['name'] }}
+                    {{ $permission['value'] }}
                 </option>
             @endforeach
         </select>

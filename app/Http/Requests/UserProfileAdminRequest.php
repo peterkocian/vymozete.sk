@@ -28,6 +28,8 @@ class UserProfileAdminRequest extends FormRequest
         return [
             'name'      => 'required|max:191',
             'surname'   => 'required|max:191',
+//            'phone'     => 'nullable|regex:/\+[0-9]{12}/',
+            'phone'     => 'nullable',
             'password'  => ['nullable','confirmed',new StrongPassword()],
             'email'     => 'nullable|email|unique:users,email,'.Auth::id(),
         ];

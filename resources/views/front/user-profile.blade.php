@@ -20,8 +20,8 @@
                 </div>
 
                 <div class="group">
-                    <label for="name">Priezvisko</label>
-                    <input id="name" name="surname" type="text" value="{{ $user->surname }}">
+                    <label for="surname">Priezvisko</label>
+                    <input id="surname" name="surname" type="text" value="{{ $user->surname }}">
                     <span class="bar"></span>
                 </div>
 

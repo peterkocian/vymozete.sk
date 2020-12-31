@@ -95,7 +95,7 @@ return [
     'numeric' => 'The :attribute must be a number.',
     'password' => 'The password is incorrect.',
     'present' => 'The :attribute field must be present.',
-    'regex' => 'Pole :attribute nemá požadovaný formát 421911222333.',
+    'regex' => 'Pole :attribute nemá požadovaný formát.',
     'required' => 'Pole :attribute je povinné.',
     'required_if' => 'Pole :attribute je povinné, ak :other je :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',

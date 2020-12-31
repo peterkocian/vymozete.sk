@@ -2,14 +2,15 @@
     $columns = [
         [
             'label' => __('calculation.Date'),
-            'key' => 'date',
+            'key' => 'formatedDate',
+            'map' => 'date',
             'type' => 'date'
         ],
         [
             'label' => __('calculation.Amount'),
             'key' => 'amountWithCurrency',
+            'map' => 'amount',
             'type' => 'text',
-            'map' => 'amount'
         ],
         [
             'label' => __('calculation.Description'),
@@ -19,8 +20,8 @@
         [
             'label' => __('calculation.Paid'),
             'key' => 'paidLabel',
-            'type' => 'checkbox',
             'map' => 'paid',
+            'type' => 'checkbox',
         ],
         [
             'label' => __('general.Created at'),
@@ -107,18 +108,30 @@
             'title' => __('general.Edit'),
             'key' => 'edit',
             'class' => 'btn btn-sm btn-outline-primary mr-1',
-            'url' => url(config('simple-table.route-prefix')."/".\App\Models\Calculation::ENTITY_ROUTE_PREFIX."/{$claim_id}/calculations/{id}/edit") //todo string claims replacnut konstantou z modelu
+            'url' => url(config('simple-table.route-prefix')."/".\App\Models\Calculation::ENTITY_ROUTE_PREFIX."/{$claim_id}/calculations/{id}/edit")
         ],
         [
             'label' => 'delete',
             'title' => __('general.Delete'),
             'key' => 'delete',
-            'class' => 'btn btn-sm btn-outline-danger',
-            'url' => url(config('simple-table.route-prefix')."/".\App\Models\Calculation::ENTITY_ROUTE_PREFIX."/{$claim_id}/calculations/{id}"),// todo @lang
+            'class' => 'btn btn-sm btn-outline-danger mr-1',
+            'url' => url(config('simple-table.route-prefix')."/".\App\Models\Calculation::ENTITY_ROUTE_PREFIX."/{$claim_id}/calculations/{id}"),
             'dataToggle' => 'modal',
             'dataTarget' => '#modalConfirm',
             'modalText' => __('general.Confirmation delete'),
             'requestMethod' => 'DELETE',
+            'ajax' => true
+        ],
+        [
+            'label' => 'autorenew',
+            'title' => __('general.Toggle payed'),
+            'key' => 'togglePayed',
+            'class' => 'btn btn-sm btn-outline-primary',
+            'url' => url(config('simple-table.route-prefix')."/".\App\Models\Calculation::ENTITY_ROUTE_PREFIX."/{$claim_id}/calculations/{id}/togglePayed"),
+            'dataToggle' => 'modal',
+            'dataTarget' => '#modalConfirm',
+            'modalText' => __('general.Confirmation toggle payed'),
+            'requestMethod' => 'POST',
             'ajax' => true
         ]
     ];

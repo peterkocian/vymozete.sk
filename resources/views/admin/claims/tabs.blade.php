@@ -24,6 +24,6 @@
         <a class="nav-link @if($tab === 'notes') active @endif" href="{{route('admin.claims.notes.allByClaimId', $claim_id ?? "")}}">Poznámky</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @if($tab === 'calendar') active @endif" href="{{route('admin.claims.calendar.allByClaimId', $claim_id) ?? ""}}">Kalendár</a>
+        <a class="nav-link @if($tab === 'calendar') active @endif" href="{{route('admin.claims.calendar.allByClaimId', $claim_id) ?? ""}}">Splátkový kalendár</a>
     </li>
 </ul>

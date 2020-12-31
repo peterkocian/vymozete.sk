@@ -25,6 +25,42 @@ class Person extends Model
     ];
 
     /**
+     * Set the user's name.
+     * Pred ulozenim do DB sa kazde meno naformatuje na prve velke a ostatne male pismena
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ucfirst($value);
+    }
+
+    /**
+     * Set the user's surname.
+     * Pred ulozenim do DB sa kazde priezvisko naformatuje na prve velke a ostatne male pismena
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setSurnameAttribute($value)
+    {
+        $this->attributes['surname'] = ucfirst($value);
+    }
+
+    /**
+     * Format the user's phone.
+     * Pred ulozenim do DB sa kazde phone naformatuje => vymazu sa medzery
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setPhoneAttribute($value)
+    {
+        $this->attributes['phone'] = strtr($value,[' '=>'']);
+    }
+
+    /**
      * Function returns person's full name
      *
      * @return string
