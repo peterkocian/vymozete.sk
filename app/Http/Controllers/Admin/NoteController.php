@@ -45,7 +45,7 @@ class NoteController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => __('general.Create failed') . ' ' . $e->getMessage(),
-                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
             } else {
                 return redirect()
                     ->route('admin.claims.notes.allByClaimId', $claim_id)
@@ -116,7 +116,7 @@ class NoteController extends Controller
                     'success' => false,
                     'id' => $note_id,
                     'message' => $e->getMessage(),
-                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
             } else {
                 return redirect()
                     ->route('admin.claims.notes.allByClaimId', $claim_id)

@@ -21,6 +21,11 @@ class Language extends Model
      * @var array
      */
     protected $fillable = [
-        'key', 'name'
+        'key', 'name', 'default'
     ];
+
+    public static function getDefaultLanguage()
+    {
+        return self::query()->where('default',1)->get();
+    }
 }

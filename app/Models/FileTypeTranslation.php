@@ -25,11 +25,11 @@ class FileTypeTranslation extends Model
         'name', 'description', 'language_id', 'claim_type_id'
     ];
 
-    /**
-     * Get the file_type record associated with the file_type_translation.
-     * @param $language_id
-     * @return BelongsTo
-     */
+//    /**
+//     * Get the file_type record associated with the file_type_translation.
+//     * @param $language_id
+//     * @return BelongsTo
+//     */
 //    public function fileType($language_id)
 //    {
 //        return $this->belongsTo(ClaimType::class)->where('language_id', '=', $language_id);

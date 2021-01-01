@@ -24,11 +24,11 @@ class InterestRate extends Model
 
     public static function getPersonInterestRates()
     {
-        return self::where('person_type', 0)->get();
+        return self::query()->where('person_type', 0)->get();
     }
 
     public static function getOrganizationInterestRates()
     {
-        return self::where('person_type', 1)->get();
+        return self::query()->where('person_type', 1)->get();
     }
 }

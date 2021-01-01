@@ -48,7 +48,7 @@ class ClaimController extends Controller
 //                return response()->json([
 //                    'success' => false,
 //                    'message' => $e->getMessage(),
-//                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+//                ], Response::HTTP_INTERNAL_SERVER_ERROR);
 //            }
         }
 

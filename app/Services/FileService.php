@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\File;
+use App\Models\FileType;
 use App\Repositories\ClaimRepositoryInterface;
 use App\Repositories\FileRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -70,10 +72,10 @@ class FileService
             'ext'       => $file->getClientOriginalExtension(),
             'size'      => $size,
             'path'      => $filePath,
-            'show_to_customer'  => isset($data['show_to_customer']) ? $data['show_to_customer'] : 1, // todo zistit defaultne show_to_customer, lebo na frontende sa neda nastavovat
+            'show_to_customer'  => isset($data['show_to_customer']) ? $data['show_to_customer'] : File::SHOW_TO_CUSTOMER_TRUE,
             'fileable_id'       => $model->id,
             'fileable_type'     => get_class($model),
-            'file_type_id'      => isset($data['file_type_id']) ? $data['file_type_id'] : 1, // todo zistit defaultne file_type_id, lebo na frontende sa neda nastavovat
+            'file_type_id'      => isset($data['file_type_id']) ? $data['file_type_id'] : FileType::DEFAULT_TYPE_ID_UPLOAD,
             'user_id'   => Auth::id(),
         ]);
     }
@@ -82,7 +84,7 @@ class FileService
     {
         return $this->simpleTableService->processSimpleTableData($this->fileRepository, $claim_id, true);
     }
-    
+
     public function download(int $id)
     {
         $file = $this->fileRepository->get($id);

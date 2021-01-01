@@ -166,7 +166,7 @@ class ClaimController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => __('file.File delete failed') .' '. $e->getMessage()
-                ], Response::HTTP_VERSION_NOT_SUPPORTED);
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         }
 

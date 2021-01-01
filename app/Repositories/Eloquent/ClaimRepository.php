@@ -46,7 +46,6 @@ class ClaimRepository extends BaseRepository implements ClaimRepositoryInterface
             try {
                 $result = $this->model->findOrFail($id);
             } catch (\Exception $e) {
-                report($e);
                 throw new \Exception('Pohladavku sa nepodarilo najst z neznamych dovod.'. $e->getMessage());
             }
         }

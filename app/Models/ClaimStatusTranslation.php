@@ -25,15 +25,15 @@ class ClaimStatusTranslation extends Model
         'name', 'task', 'language_id', 'claim_status_id'
     ];
 
-    /**
-     * Get the claim_status record associated with the claim_status_translation.
-     * @param $language_id
-     * @return BelongsTo
-     */
-    public function claimStatus($language_id)
-    {
-        return $this->belongsTo(ClaimStatus::class)->where('language_id', '=', $language_id);
-    }
+//    /**
+//     * Get the claim_status record associated with the claim_status_translation.
+//     * @param $language_id
+//     * @return BelongsTo
+//     */
+//    public function claimStatus($language_id)
+//    {
+//        return $this->belongsTo(ClaimStatus::class)->where('language_id', '=', $language_id);
+//    }
 
     public function language()
     {

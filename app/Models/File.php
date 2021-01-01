@@ -41,19 +41,35 @@ class File extends Model
         'name', 'filename', 'mime', 'ext', 'path', 'size', 'show_to_customer', 'fileable_id', 'fileable_type', 'file_type_id', 'user_id'
     ];
 
-    public function getShowToCustomerLabelAttribute()
+
+    /**
+     * Accessor => returns file show_to_customer_label attribute as string, default its boolean
+     *
+     * @return string
+     */
+    public function getShowToCustomerLabelAttribute(): string
     {
         return $this->getShowToCustomerLabel();
     }
 
-    public function getClaimTypeNameAttribute()
+    /**
+     * Accessor => returns claimTypeName attribute as translated string, default its foreign key
+     *
+     * @return string
+     */
+    public function getClaimTypeNameAttribute(): string
     {
         return $this->claimType->available_translation(Auth::user()->language_id)->exists()
             ? $this->claimType->available_translation(Auth::user()->language_id)->firstOrFail()->name
             : $this->claimType->key;
     }
 
-    public function getFileTypeNameAttribute()
+    /**
+     * Accessor => returns fileTypeName attribute as translated string, default its foreign key
+     *
+     * @return string
+     */
+    public function getFileTypeNameAttribute(): string
     {
         return $this->fileType->available_translation(Auth::user()->language_id)->exists()
             ? $this->fileType->available_translation(Auth::user()->language_id)->firstOrFail()->name
@@ -61,7 +77,7 @@ class File extends Model
     }
 
     /**
-     *
+     * A file can morph to many objects / class
      *
      * @return MorphTo
      */
@@ -90,7 +106,13 @@ class File extends Model
         return $this->belongsTo(FileType::class);
     }
 
-    public function getShowToCustomerLabel()
+
+    /**
+     * Private function that transform boolean value to string
+     *
+     * @return string
+     */
+    private function getShowToCustomerLabel(): string
     {
         switch ($this->show_to_customer) {
             case self::SHOW_TO_CUSTOMER_TRUE:

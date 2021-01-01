@@ -4,6 +4,14 @@ namespace App\Helpers;
 
 trait TranslationTrait
 {
+
+    /**
+     * Funkcia vracia pole prelozenych hodnot pre selectbox
+     *
+     * @param $data
+     * @param int $language_id
+     * @return array
+     */
     public function translation($data, int $language_id)
     {
         $translations = [];

@@ -39,9 +39,9 @@ class ClaimStatus extends Model
 
     public function available_translation($language_id = null)
     {
-//        if ($language == null) { //todo zvazit ci treba
-//            $language = App::getLocale();
-//        }
+        if ($language_id === null) {
+            $language_id = Language::getDefaultLanguage();
+        }
 
         return $this->translations()->where('language_id', $language_id);
     }

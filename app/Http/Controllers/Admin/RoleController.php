@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoleRequest;
-use App\Repositories\PermissionRepositoryInterface;
 use App\Services\PermissionService;
 use App\Services\RoleService;
 use Illuminate\Http\Response;
@@ -13,17 +12,14 @@ class RoleController extends Controller
 {
     private $roleService;
     private $permissionService;
-    private $permissionRepository;
 
     public function __construct(
         RoleService $roleService,
-        PermissionService $permissionService,
-        PermissionRepositoryInterface $permissionRepository
+        PermissionService $permissionService
     )
     {
         $this->roleService = $roleService;
         $this->permissionService = $permissionService;
-        $this->permissionRepository = $permissionRepository;
     }
 
     public function index()
@@ -146,7 +142,7 @@ class RoleController extends Controller
                     'success' => false,
                     'id' => $id,
                     'message' => $e->getMessage(),
-                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
             } else {
                 return redirect()
                     ->route('admin.roles.index')

@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class FileType extends Model
 {
     use DateFormatTrait;
+
+    const DEFAULT_TYPE_ID_UPLOAD = 1;
+
     /**
      * Nazov tabulky v DB
      *
@@ -34,10 +37,10 @@ class FileType extends Model
 
     public function available_translation($language_id = null)
     {
-//        if ($language == null) { //todo zvazit ci treba
-//            $language = App::getLocale();
-//        }
+        if ($language_id === null) {
+            $language_id = Language::getDefaultLanguage();
+        }
 
-        return $this->translations()->where('language_id',$language_id);
+        return $this->translations()->where('language_id', $language_id);
     }
 }

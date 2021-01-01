@@ -25,15 +25,15 @@ class ClaimTypeTranslation extends Model
         'name', 'description', 'language_id', 'claim_type_id'
     ];
 
-    /**
-     * Get the claim_type record associated with the claim_type_translation.
-     * @param $language_id
-     * @return BelongsTo
-     */
-    public function claimType($language_id)
-    {
-        return $this->belongsTo(ClaimType::class)->where('language_id', '=', $language_id);
-    }
+//    /**
+//     * Get the claim_type record associated with the claim_type_translation.
+//     * @param $language_id
+//     * @return BelongsTo
+//     */
+//    public function claimType($language_id)
+//    {
+//        return $this->belongsTo(ClaimType::class)->where('language_id', '=', $language_id);
+//    }
 
     public function language()
     {

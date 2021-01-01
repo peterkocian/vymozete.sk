@@ -10,7 +10,7 @@
                         <p class="text-center">{{ this.config.text }} {{this.config.email}}</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="reset">Nie</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Nie</button>
                         <button type="submit" class="btn btn-success" data-dismiss="modal" @click="submit">Áno</button>
                     </div>
                 </div>
@@ -29,9 +29,6 @@
             };
         },
         methods: {
-            reset() {
-                console.log('close modal...todo'); //todo
-            },
             submit() {
                 if (this.config.ajax) {
                     this.$emit('ajaxModalSubmit', this.config.url, this.config.requestMethod, {email: this.config.email});

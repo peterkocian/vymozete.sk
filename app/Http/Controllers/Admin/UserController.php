@@ -213,7 +213,7 @@ class UserController extends Controller
                     'success' => false,
                     'id' => $id,
                     'message' => $e->getMessage(),
-                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
             } else {
                 return redirect()
                     ->route('admin.users.index')
@@ -244,7 +244,7 @@ class UserController extends Controller
                     'success' => false,
                     'id' => $id,
                     'message' => __('general.Ban failed').' '.$e->getMessage(),
-                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
             } else {
                 return redirect()
                     ->route('admin.users.index')
@@ -275,7 +275,7 @@ class UserController extends Controller
                     'success' => false,
                     'id' => $id,
                     'message' => __('general.Unban failed').' '.$e->getMessage(),
-                ], $e->getCode() ? $e->getCode() : Response::HTTP_VERSION_NOT_SUPPORTED);
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
             } else {
                 return redirect()
                     ->route('admin.users.index')

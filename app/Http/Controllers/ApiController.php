@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 
 class ApiController extends Controller
@@ -22,14 +21,13 @@ class ApiController extends Controller
 
     private function getData($param)
     {
-        $res = [];
         $client = new Client();
 
         try {
             $res = $client->request('GET', self::GET_COMPANY_URL . $param . '&private_access_token=' . env('SLOVENSKO_DIGITAL_API_KEY'));
         } catch (\Exception $e) {
             //todo catch exception ked nejde internet
-            throw $e;
+            throw new \Exception($e);
         }
 
         if (isset($res)) {

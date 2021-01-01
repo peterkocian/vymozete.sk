@@ -123,7 +123,7 @@ class PermissionController extends Controller
                     'success' => false,
                     'id' => $id,
                     'message' => $e->getMessage(),
-                ],Response::HTTP_INTERNAL_SERVER_ERROR); // todo opravit v celom kode
+                ],Response::HTTP_INTERNAL_SERVER_ERROR);
             } else {
                 return redirect()
                     ->route('admin.permissions.index')
