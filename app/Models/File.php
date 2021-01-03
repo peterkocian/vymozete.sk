@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use App\Helpers\DateFormatTrait;
-use App\User;
+use App\Traits\HasDateFormatTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -11,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class File extends Model
 {
-    use DateFormatTrait;
+    use HasDateFormatTrait;
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable
      */
@@ -105,7 +104,6 @@ class File extends Model
     {
         return $this->belongsTo(FileType::class);
     }
-
 
     /**
      * Private function that transform boolean value to string

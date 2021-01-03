@@ -34,10 +34,10 @@ class CalculationController extends Controller
             $result = $this->calculationService->calculationsByClaimId($claim_id);
 
             $claim = $this->claimService->get($claim_id);
-            $trovy = $this->calculationService->getTrovy($claim);
+            $trovy = $claim->getTrovy();
             $urok = $claim->getUrok();
-            $summary = $this->calculationService->summary($claim, $trovy * 1.2, $urok);
-            $vymozene = $this->calculationService->getVymozete($claim['id']);
+            $summary = $claim->summary();
+            $vymozene = $claim->getVymozene();
         } catch (\Exception $e) {
             if (request()->ajax()) {
                 return response()->json([
@@ -50,7 +50,6 @@ class CalculationController extends Controller
                     ->withFail(__('general.Delete failed') . ' ' . $e->getMessage());
             }
         }
-
 
         if (request()->ajax()) {
             return response()->json([

@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class InterestRate extends Model
 {
+    const PERSON_TYPE_FO = 0;
+    const PERSON_TYPE_PO = 1;
     /**
      * Nazov tabulky v DB
      *
@@ -22,13 +25,23 @@ class InterestRate extends Model
         'person_type', 'date', 'coefficient'
     ];
 
-    public static function getPersonInterestRates()
+    /**
+     * Returns array of interest rates for FO
+     *
+     * @return Collection
+     */
+    public static function getPersonInterestRates(): Collection
     {
-        return self::query()->where('person_type', 0)->get();
+        return self::query()->where('person_type', self::PERSON_TYPE_FO)->get();
     }
 
-    public static function getOrganizationInterestRates()
+    /**
+     * Returns array of interest rates for PO
+     *
+     * @return Collection
+     */
+    public static function getOrganizationInterestRates(): Collection
     {
-        return self::query()->where('person_type', 1)->get();
+        return self::query()->where('person_type', self::PERSON_TYPE_PO)->get();
     }
 }

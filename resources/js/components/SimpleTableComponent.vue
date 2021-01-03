@@ -328,8 +328,6 @@
                         // this.errors = e.response.data.errors;
                         // flash({text: `${e.response.data.message}`, type:'error', timer:null });
                     });
-
-
             },
             loadSourceData(data){
                 //funkcia nacitava zdrojove data pre tabulku, struktura moze byt rozna, podla toho ci sa jedna o tabulku so strankovanim

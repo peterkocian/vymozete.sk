@@ -4,8 +4,8 @@ namespace App\Helpers;
 
 class Utils
 {
-    public static function twoDecimal($value)
+    public static function twoDecimal($value): float
     {
-        return number_format((float)$value, 2, ',', '');
+        return number_format((float)$value, 2, '.', '');
     }
 }

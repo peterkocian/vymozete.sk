@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Helpers\DateFormatTrait;
-use App\User;
+use App\Traits\HasDateFormatTrait;
+use App\Traits\HasUserTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Participant extends Model
 {
-    use DateFormatTrait;
+    use HasDateFormatTrait, HasUserTrait;
 
     const PERSON_TYPE = [
         [
@@ -31,13 +31,5 @@ class Participant extends Model
     public function entity()
     {
         return $this->morphTo();
-    }
-
-    /**
-     * Get the user record associated with the claim.
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 }

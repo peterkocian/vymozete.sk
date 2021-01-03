@@ -32,7 +32,9 @@ class RoleController extends Controller
         }
 
         if (request()->ajax()) {
-            return response()->json($result);
+            return response()->json([
+                'data' => $result
+            ]);
         }
 
         return view('admin.roles.index', ['data' => $result]);

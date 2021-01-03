@@ -7,6 +7,7 @@ use App\Services\ClaimStatusService;
 use App\Services\ClaimTypeService;
 use App\Services\ClaimService;
 use App\Services\FileService;
+use Illuminate\Http\Response;
 use PDF;
 
 class ClaimController extends Controller
@@ -37,19 +38,20 @@ class ClaimController extends Controller
     {
         try {
             $result = $this->claimService->all();
-            $debtors = $this->claimService->getAllDebtors($result);
-            $creditors = $this->claimService->getAllCreditors($result);
+            $debtors = $this->claimService->getAllDebtors($result['data']);
+            $creditors = $this->claimService->getAllCreditors($result['data']);
             $claimTypes = $this->claimTypeService->getDataForSelectbox();
             $claimStatus = $this->claimStatusService->getDataForSelectbox();
         } catch (\Exception $e) {
-            request()->session()->now('fail', $e->getMessage());
-
-//            if (request()->ajax()) {
-//                return response()->json([
-//                    'success' => false,
-//                    'message' => $e->getMessage(),
-//                ], Response::HTTP_INTERNAL_SERVER_ERROR);
-//            }
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage(),
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            } else {
+                return back()
+                ->withFail($e->getMessage());
+            }
         }
 
         if (request()->ajax()) {

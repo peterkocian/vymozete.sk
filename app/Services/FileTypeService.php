@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Helpers\TranslationTrait;
+use App\Traits\HasTranslationTrait;
 use App\Repositories\FileTypeRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
 class FileTypeService
 {
-    use TranslationTrait;
+    use HasTranslationTrait;
 
     private $claimTypeRepository;
 

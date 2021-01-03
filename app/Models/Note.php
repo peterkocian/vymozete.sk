@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use App\Helpers\DateFormatTrait;
-use App\User;
+use App\Traits\HasDateFormatTrait;
+use App\Traits\HasClaimTrait;
+use App\Traits\HasUserTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
-    use DateFormatTrait;
+    use HasDateFormatTrait, HasClaimTrait, HasUserTrait;
 
     const ENTITY_ROUTE_PREFIX = 'notes';
     const INDEX_VIEW_PAGINATION = true;
@@ -27,20 +28,4 @@ class Note extends Model
      * @var array
      */
     protected $fillable = ['title', 'description', 'claim_id', 'user_id'];
-
-    /**
-     * Get the claim that owns the note.
-     */
-    public function claim()
-    {
-        return $this->belongsTo(Claim::class);
-    }
-
-    /**
-     * Get the user that owns the note.
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 }

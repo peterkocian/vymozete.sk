@@ -40,8 +40,8 @@
 
     $config = [
         'reloadUrl'     => "/admin/users",
-        'showPagination' => \App\User::INDEX_VIEW_PAGINATION,
-        'showPerPageSelect' => \App\User::INDEX_VIEW_PER_PAGE_SELECT,
+        'showPagination' => \App\Models\User::INDEX_VIEW_PAGINATION,
+        'showPerPageSelect' => \App\Models\User::INDEX_VIEW_PER_PAGE_SELECT,
         'itemsPerPage'  => \App\Helpers\SimpleTable::ITEMS_PER_PAGE,
         'numberOfRows'  => \App\Helpers\SimpleTable::NUMBER_OF_ROWS,
         'sortKey'       => \App\Helpers\SimpleTable::SORT_KEY,
@@ -55,7 +55,7 @@
             'title' => __('general.Ban'),
             'key' => 'ban',
             'class' => 'btn btn-sm btn-outline-danger mr-1 ml-1',
-            'url' => url(config('simple-table.route-prefix').'/'.\App\User::ENTITY_ROUTE_PREFIX.'/{id}/ban'),
+            'url' => url(config('simple-table.route-prefix').'/'.\App\Models\User::ENTITY_ROUTE_PREFIX.'/{id}/ban'),
             'dataToggle' => 'modal',
             'dataTarget' => '#modalConfirm',
             'modalText' => __('general.Ban user'),
@@ -67,7 +67,7 @@
             'title' => __('general.Unban'),
             'key' => 'unban',
             'class' => 'btn btn-sm btn-outline-success mr-1',
-            'url' => url(config('simple-table.route-prefix').'/'.\App\User::ENTITY_ROUTE_PREFIX.'/{id}/unban'),
+            'url' => url(config('simple-table.route-prefix').'/'.\App\Models\User::ENTITY_ROUTE_PREFIX.'/{id}/unban'),
             'dataToggle' => 'modal',
             'modalText' => __('general.Unban user'),
             'dataTarget' => '#modalConfirm',
@@ -88,7 +88,7 @@
         ]
     ];
 
-    $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\User::ENTITY_ROUTE_PREFIX, $config, $actions, true);
+    $gridview = new \App\Helpers\SimpleTable($columns, $data, \App\Models\User::ENTITY_ROUTE_PREFIX, $config, $actions, true);
 @endphp
 @extends ('admin.layouts.app')
 @section ('content')

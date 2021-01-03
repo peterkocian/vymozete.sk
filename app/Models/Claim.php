@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
-use App\Helpers\DateFormatTrait;
-use App\User;
+use App\Traits\HasDateFormatTrait;
+use App\Traits\HasCurrencyTrait;
+use App\Traits\HasUserTrait;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 class Claim extends Model
 {
-    use DateFormatTrait;
+    use HasDateFormatTrait, HasUserTrait, HasCurrencyTrait;
     const DEFAULT_STATE_ID = 1; //todo iba docasne
-    const INDEX_VIEW_PAGINATION = false;
+    const INDEX_VIEW_PAGINATION = true;
     const INDEX_VIEW_PER_PAGE_SELECT = false;
 
     /**
@@ -87,22 +88,6 @@ class Claim extends Model
     public function claimStatus()
     {
         return $this->belongsTo(ClaimStatus::class);
-    }
-
-    /**
-     * Get the currency record associated with the claim.
-     */
-    public function currency()
-    {
-        return $this->belongsTo(Currency::class);
-    }
-
-    /**
-     * Get the user record associated with the claim.
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 
     /**
@@ -187,5 +172,36 @@ class Claim extends Model
         return $this['amount']
             * ($rate / 100) / 365
             * date_diff(new DateTime($this['payment_due_date']), new DateTime($date), true)->days;
+    }
+
+    public function getTrovy(): float
+    {
+        $fee = 0;
+        if ($this->amount >= 0 && $this->amount <= 165.97) {
+            $fee = 16.60;
+        } elseif ($this->amount > 165.97 && $this->amount <= 663.88) {
+            $fee = 16.60;
+            $fee += ceil(($this->amount - 165.97) / 33.19) * 1.66;
+        } elseif ($this->amount > 663.88 && $this->amount <= 6638.78) {
+            $fee = 41.49;
+            $fee += ceil(($this->amount - 663.88) / 331.94) * 9.96;
+        } elseif ($this->amount > 6638.78 && $this->amount <= 33193.92) {
+            $fee = 220.74;
+            $fee += ceil(($this->amount - 6638.78) / 1659.70) * 16.60;
+        } elseif ($this->amount > 33193.92) {
+            $fee = 486.29;
+            $fee += ceil(($this->amount - 33193.92) / 3319.39) * 6.64;
+        }
+        return $fee;
+    }
+
+    public function summary()
+    {
+        return $this->amount + $this->getTrovy() * 1.2 + $this->getUrok();
+    }
+
+    public function getVymozene(): float
+    {
+        return $this->calculations->where('paid',1)->sum('amount');
     }
 }

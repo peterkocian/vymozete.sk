@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Helpers\DateFormatTrait;
+use App\Traits\HasDateFormatTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
 {
-    use DateFormatTrait;
+    use HasDateFormatTrait;
     /**
      * Nazov tabulky v DB
      *

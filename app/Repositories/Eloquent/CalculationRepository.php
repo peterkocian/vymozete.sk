@@ -58,9 +58,4 @@ class CalculationRepository extends BaseRepository implements CalculationReposit
             'formatedDate'
         ]);
     }
-
-    public function getVymozene($claim_id): float
-    {
-        return $this->claimRepository->get($claim_id)->calculations->where('paid',1)->sum('amount');
-    }
 }

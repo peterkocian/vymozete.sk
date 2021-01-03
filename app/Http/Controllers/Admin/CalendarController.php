@@ -36,7 +36,7 @@ class CalendarController extends Controller
 
         return view('admin.claims.main', [
             'claim_id' => $claim_id,
-            'amount'   => $claim['amount'],
+            'amount'   => Utils::twoDecimal($claim->summary()),
             'currency' => $claim['currency']['symbol'],
             'events'   => $data['events'],
             'sum'      => Utils::twoDecimal($data['sum']),

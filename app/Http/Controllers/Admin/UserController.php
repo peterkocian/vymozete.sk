@@ -48,7 +48,9 @@ class UserController extends Controller
         }
 
         if (request()->ajax()) {
-            return response()->json($result);
+            return response()->json([
+                'data' => $result
+            ]);
         }
 
         return view('admin.users.index', ['data' => $result]);

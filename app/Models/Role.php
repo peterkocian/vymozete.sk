@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use App\Helpers\DateFormatTrait;
+use App\Traits\HasDateFormatTrait;
 use App\Permissions\HasPermissionsTrait;
-use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Role extends Model
 {
-    use HasPermissionsTrait, DateFormatTrait;
+    use HasPermissionsTrait, HasDateFormatTrait;
 
     const INDEX_VIEW_PAGINATION = false;
     const INDEX_VIEW_PER_PAGE_SELECT = false;

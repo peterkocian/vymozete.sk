@@ -26,7 +26,9 @@ class PermissionController extends Controller
         }
 
         if (request()->ajax()) {
-            return response()->json($result);
+            return response()->json([
+                'data' => $result
+            ]);
         }
 
         return view('admin.permissions.index', ['data' => $result]);

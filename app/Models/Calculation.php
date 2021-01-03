@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use App\Helpers\DateFormatTrait;
-use App\User;
+use App\Traits\HasDateFormatTrait;
+use App\Traits\HasClaimTrait;
+use App\Traits\HasCurrencyTrait;
+use App\Traits\HasUserTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Calculation extends Model
 {
-    use DateFormatTrait;
+    use HasDateFormatTrait, HasCurrencyTrait, HasUserTrait, HasClaimTrait;
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable
      */
@@ -48,35 +50,21 @@ class Calculation extends Model
     }
 
     /**
-     * Get the currency record associated with the calculation.
+     * Accessor => returns paid attribute as string, default its boolean
+     *
+     * @return string
      */
-    public function currency()
-    {
-        return $this->belongsTo(Currency::class);
-    }
-
-    /**
-     * Get the claim that owns the calculation.
-     */
-    public function claim()
-    {
-        return $this->belongsTo(Claim::class);
-    }
-
-    /**
-     * Get the user that owns the calculation.
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function getPaidLabelAttribute()
+    public function getPaidLabelAttribute(): string
     {
         return $this->getPaidLabel();
     }
 
-    public function getPaidLabel()
+    /**
+     * Private function that transform boolean value to string
+     *
+     * @return string
+     */
+    private function getPaidLabel(): string
     {
         switch ($this->paid) {
             case self::PAID_TRUE:

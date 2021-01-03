@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Helpers\DateFormatTrait;
+use App\Traits\HasDateFormatTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ClaimStatusTranslation extends Model
 {
-    use DateFormatTrait;
+    use HasDateFormatTrait;
     /**
      * Nazov tabulky v DB
      *

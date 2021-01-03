@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use App\Helpers\DateFormatTrait;
+use App\Traits\HasDateFormatTrait;
+use App\Traits\HasAvailableTranslationTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class ClaimStatus extends Model
 {
-    use DateFormatTrait;
+    use HasDateFormatTrait, HasAvailableTranslationTrait;
     /**
      * Nazov tabulky v DB
      *
@@ -24,25 +25,8 @@ class ClaimStatus extends Model
         'name', 'next_step', 'schedule_ntf', 'timeout'
     ];
 
-    /**
-     * Get the claims by claim_status
-     */
-    public function claims()
-    {
-        return $this->hasMany(Claim::class);
-    }
-
     public function translations()
     {
         return $this->hasMany(ClaimStatusTranslation::class, 'claim_status_id', 'id');
-    }
-
-    public function available_translation($language_id = null)
-    {
-        if ($language_id === null) {
-            $language_id = Language::getDefaultLanguage();
-        }
-
-        return $this->translations()->where('language_id', $language_id);
     }
 }

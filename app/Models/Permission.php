@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use App\Helpers\DateFormatTrait;
-use App\User;
+use App\Traits\HasDateFormatTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Permission extends Model
 {
-    use DateFormatTrait;
+    use HasDateFormatTrait;
 
     const INDEX_VIEW_PAGINATION = false;
     const INDEX_VIEW_PER_PAGE_SELECT = false;

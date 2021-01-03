@@ -18,6 +18,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Ycs77\LaravelWizard\Step;
@@ -25,18 +26,26 @@ use Ycs77\LaravelWizard\Wizard;
 
 class DebtStep extends Step
 {
-    public $fileService;
+    protected $fileService;
+    protected $currencyRepository;
 
     public function __construct(Wizard $wizard, int $index)
     {
         parent::__construct($wizard, $index);
 
         //todo hack
-        $file = new File();
-        $claim = new Claim();
-        $claimRepository = new ClaimRepository($claim);
-        $fileRepository = new FileRepository($file,$claimRepository);
-        $simpleTableService = new SimpleTableService();
+        $currency = App::make(Currency::class);
+        $this->currencyRepository = new CurrencyRepository($currency);
+
+//        $file = new File();
+        $file = App::make(File::class);
+//        $claim = new Claim();
+        $claim = App::make(Claim::class);
+//        $simpleTableService = new SimpleTableService();
+        $simpleTableService = App::make(SimpleTableService::class);
+
+        $claimRepository   = new ClaimRepository($claim);
+        $fileRepository    = new FileRepository($file, $claimRepository);
         $this->fileService = new FileService($fileRepository, $claimRepository, $simpleTableService);
     }
 
@@ -142,7 +151,6 @@ class DebtStep extends Step
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
-
             throw new Exception(__('general.Create failed') .' '. $e->getMessage());
         }
     }
@@ -175,9 +183,12 @@ class DebtStep extends Step
         return $flatten;
     }
 
+    /**
+     * return array of [id, value] currency list
+     *
+     * @return array
+     */
     public function getCurrencies() {
-        $currency = new Currency();
-        $currencyRepository = new CurrencyRepository($currency);
-        return $currencyRepository->getDataForSelectbox();
+        return $this->currencyRepository->getDataForSelectbox();
     }
 }

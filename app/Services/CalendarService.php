@@ -43,7 +43,7 @@ class CalendarService
 
     public function saveEvents(array $data, int $claim_id)
     {
-        $events = [];
+        $splatky = [];
 
         $dates   = $data['dates'];
         $amounts = $data['amounts'];
@@ -54,7 +54,7 @@ class CalendarService
                 $amount = $amounts[$index];
             }
 
-            array_push($events,[
+            array_push($splatky,[
                 'date' => Carbon::parse($date)->toDate(),
                 'amount' => $amount,
                 'claim_id' => $claim_id,
@@ -63,13 +63,19 @@ class CalendarService
             ]);
         }
 
+        $claim = $this->claimRepository->get($claim_id);
+
+        if (!$this->validChecksum($this->sumSplatky($splatky), $claim->summary())) {
+            throw new \Exception('Invalid checksum');
+        }
+
         DB::beginTransaction();
 
         try {
             //vymaze vsetky existujuce zaznamy
             $this->calendarRepository->deleteAllById($claim_id);
             //ulozi nove, prave poslane requestom
-            $result = $this->calendarRepository->save($events, $claim_id);
+            $result = $this->calendarRepository->save($splatky, $claim_id);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -77,5 +83,22 @@ class CalendarService
         }
 
         return $result;
+    }
+
+    private function validChecksum(float $sumaSplatok, float $suma)
+    {
+        if (abs(($sumaSplatok-$suma)/$suma) < 0.1){
+            return true;
+        }
+        return false;
+    }
+
+    private function sumSplatky($splatky)
+    {
+        $sum = 0;
+        foreach ($splatky as $splatka) {
+            $sum += $splatka['amount'];
+        }
+        return $sum;
     }
 }

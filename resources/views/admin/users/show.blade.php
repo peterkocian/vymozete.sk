@@ -2,7 +2,7 @@
 @section ('content')
     @php
         $actionDelete =[
-            'url' => url(config('simple-table.route-prefix').'/'.\App\User::ENTITY_ROUTE_PREFIX.'/'.$user->id),
+            'url' => url(config('simple-table.route-prefix').'/'.\App\Models\User::ENTITY_ROUTE_PREFIX.'/'.$user->id),
             'text' => __('general.Confirmation delete'),
             'requestMethod' => 'DELETE',
         ];

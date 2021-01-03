@@ -253,8 +253,8 @@
                     for (let i = 0; i < this.pocetSplatok-1; i++) {
                         this.pridajSplatku(i,this.vyskaSplatky)
                     }
-                    //posledna splatka custom
-                    if (remainder < 1) {
+                    //posledna splatka custom. inak sa pocita posledna pre n-tu splatku a inak pre 2-hu splatku
+                    if (remainder < 1 && this.splatky.length > 1) {
                         remainder = this.vyskaSplatky+remainder;
                     }
                     this.pridajSplatku(this.pocetSplatok-1,remainder)

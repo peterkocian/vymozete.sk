@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
-use App\Helpers\DateFormatTrait;
-use App\User;
+use App\Traits\HasDateFormatTrait;
+use App\Traits\HasClaimTrait;
+use App\Traits\HasCurrencyTrait;
+use App\Traits\HasUserTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Calendar extends Model
 {
 //    use DateFormatTrait;
+    use HasCurrencyTrait, HasUserTrait, HasClaimTrait;
     /**
      * parameter pre prefixovanie linkov buttonov v tabulke SimpleTable
      */
@@ -31,29 +34,5 @@ class Calendar extends Model
     public function getAmountWithCurrencyAttribute()
     {
         return $this->amount . ' ' . $this->currency->symbol;
-    }
-
-    /**
-     * Get the currency record associated with the calendar.
-     */
-    public function currency()
-    {
-        return $this->belongsTo(Currency::class);
-    }
-
-    /**
-     * Get the claim_status record associated with the calendar.
-     */
-    public function claim()
-    {
-        return $this->belongsTo(Claim::class);
-    }
-
-    /**
-     * Get the user that owns the calendar.
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 }

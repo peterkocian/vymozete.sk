@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use App\Helpers\DateFormatTrait;
+use App\Traits\HasDateFormatTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ClaimTypeTranslation extends Model
 {
-    use DateFormatTrait;
+    use HasDateFormatTrait;
     /**
      * Nazov tabulky v DB
      *
@@ -24,16 +23,6 @@ class ClaimTypeTranslation extends Model
     protected $fillable = [
         'name', 'description', 'language_id', 'claim_type_id'
     ];
-
-//    /**
-//     * Get the claim_type record associated with the claim_type_translation.
-//     * @param $language_id
-//     * @return BelongsTo
-//     */
-//    public function claimType($language_id)
-//    {
-//        return $this->belongsTo(ClaimType::class)->where('language_id', '=', $language_id);
-//    }
 
     public function language()
     {

@@ -59,9 +59,13 @@ class ClaimService
     public function getAllDebtors($data): array
     {
         $debtors = [];
-        foreach ($data as $c) {
-            $c['debtor']['fullName'] = $c['debtorFullName'];
-            array_push($debtors,$c['debtor']);
+        foreach ($data as $d) {
+            if (isset($d['debtorFullName'])) {
+                $d['debtor']['fullName'] = $d['debtorFullName'];
+            } else {
+                throw new \Exception('debtorFullName neexistuje');
+            }
+            array_push($debtors,$d['debtor']);
         }
         return $this->formatForSelectbox($debtors);;
     }
@@ -69,9 +73,13 @@ class ClaimService
     public function getAllCreditors($data): array
     {
         $creditors = [];
-        foreach ($data as $c) {
-            $c['creditor']['fullName'] = $c['creditorFullName'];
-            array_push($creditors,$c['creditor']);
+        foreach ($data as $d) {
+            if (isset($d['creditorFullName'])) {
+                $d['creditor']['fullName'] = $d['creditorFullName'];
+            } else {
+                throw new \Exception('creditorFullName neexistuje');
+            }
+            array_push($creditors,$d['creditor']);
         }
         return $this->formatForSelectbox($creditors);
     }

@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Helpers\TranslationTrait;
+use App\Traits\HasTranslationTrait;
 use App\Repositories\ClaimStatusRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
 class ClaimStatusService
 {
-    use TranslationTrait;
+    use HasTranslationTrait;
 
     private $claimStatusRepository;
 

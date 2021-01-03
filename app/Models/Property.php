@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use App\Helpers\DateFormatTrait;
-use App\User;
+use App\Traits\HasDateFormatTrait;
+use App\Traits\HasClaimTrait;
+use App\Traits\HasCurrencyTrait;
+use App\Traits\HasUserTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Property extends Model
 {
-    use DateFormatTrait;
+    use HasDateFormatTrait, HasUserTrait, HasCurrencyTrait, HasClaimTrait;
 
     const ENTITY_ROUTE_PREFIX = 'properties';
     const INDEX_VIEW_PAGINATION = true;
@@ -20,14 +22,6 @@ class Property extends Model
      * @var string
      */
     protected $table = 'property';
-
-
-    /**
-     * Vsetky tieto atributy su automaticky priradene ku modelu, ked sa tahaju data z DB cez tento model.
-     *
-     * @var string[]
-     */
-//    protected $appends = ['amountWithCurrency'];
 
     /**
      * The attributes that are mass assignable.
@@ -44,29 +38,5 @@ class Property extends Model
     public function getAmountWithCurrencyAttribute()
     {
         return $this->amount . ' ' . $this->currency->symbol;
-    }
-
-    /**
-     * Get the currency record associated with the property.
-     */
-    public function currency()
-    {
-        return $this->belongsTo(Currency::class);
-    }
-
-    /**
-     * Get the claim that owns the property.
-     */
-    public function claim()
-    {
-        return $this->belongsTo(Claim::class);
-    }
-
-    /**
-     * Get the user that owns the property.
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 }
